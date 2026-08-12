@@ -18,10 +18,10 @@ links:
 | 3 | [dk-xe-detail](dang-ky-va-duyet-xe.md#screen-dk-xe-detail--chi-tiết-phiếu-đăng-ký) | dang-ky-va-duyet-xe (chung với cap-xe-dieudong, xac-nhan-di-ve) | draft | — | — | — | — | 2026-08-06 |
 | 4 | [lanhdao-xacnhan](dang-ky-va-duyet-xe.md#screen-lanhdao-xacnhan--lãnh-đạo-ban-xác-nhận) | dang-ky-va-duyet-xe | draft | — | — | — | — | 2026-08-06 |
 | 5 | [cvp-duyet](dang-ky-va-duyet-xe.md#screen-cvp-duyet--cvppcvp-duyệt--ký-số) | dang-ky-va-duyet-xe | draft | — | — | — | — | 2026-08-06 |
-| 6 | cap-xe | cap-xe-dieudong | pending | — | — | — | — | — |
-| 7 | ghep-xe | cap-xe-dieudong | pending | — | — | — | — | — |
-| 8 | doi-laixe | cap-xe-dieudong | pending | — | — | — | — | — |
-| 9 | laixe-xacnhan-chuyen | cap-xe-dieudong | pending | — | — | — | — | — |
+| 6 | [cap-xe](cap-xe-dieudong.md#screen-cap-xe--cấp-xe--điều-động) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
+| 7 | [ghep-xe](cap-xe-dieudong.md#screen-ghep-xe--ghép-xe) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
+| 8 | [doi-laixe](cap-xe-dieudong.md#screen-doi-laixe--đổi-lái-xe) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
+| 9 | [laixe-xacnhan-chuyen](cap-xe-dieudong.md#screen-laixe-xacnhan-chuyen--lái-xe-xác-nhận-chuyến) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
 | 10 | xacnhan-diove-nhap | xac-nhan-di-ve | pending | — | — | — | — | — |
 | 11 | xacnhan-diove-banxacnhan | xac-nhan-di-ve | pending | — | — | — | — | — |
 | 12 | phieu-xacnhan-diove | xac-nhan-di-ve | pending | — | — | — | — | — |
@@ -49,6 +49,18 @@ Lãnh đạo Ban xác nhận phiếu (bước duyệt mới, cấu hình bật/t
 
 ### cvp-duyet
 CVP/PCVP duyệt + ký số biểu mẫu đăng ký qua SignServer.
+
+### cap-xe
+Đội trưởng/phó cấp xe: gợi ý kế hoạch điều vận (xe trống + lái xe biên chế).
+
+### ghep-xe
+Gộp nhiều phiếu đăng ký cùng lộ trình vào 1 xe.
+
+### doi-laixe
+Đổi lái xe khi phát sinh, trigger được từ nhiều điểm trong flow cấp xe/điều động.
+
+### laixe-xacnhan-chuyen
+Lái xe xác nhận nhận chuyến sau khi được phân công.
 
 ## Links upstream
 
