@@ -2,7 +2,7 @@
 type: screen-index
 feature: dang-ky-xe-tkv
 status: draft
-updated: 2026-08-06
+updated: 2026-08-12
 links:
   - docs/dang-ky-xe-tkv/srs/dang-ky-xe-tkv-userflow.md
 ---
@@ -22,9 +22,9 @@ links:
 | 7 | [ghep-xe](cap-xe-dieudong.md#screen-ghep-xe--ghép-xe) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
 | 8 | [doi-laixe](cap-xe-dieudong.md#screen-doi-laixe--đổi-lái-xe) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
 | 9 | [laixe-xacnhan-chuyen](cap-xe-dieudong.md#screen-laixe-xacnhan-chuyen--lái-xe-xác-nhận-chuyến) | cap-xe-dieudong | draft | — | — | — | — | 2026-08-06 |
-| 10 | xacnhan-diove-nhap | xac-nhan-di-ve | pending | — | — | — | — | — |
-| 11 | xacnhan-diove-banxacnhan | xac-nhan-di-ve | pending | — | — | — | — | — |
-| 12 | phieu-xacnhan-diove | xac-nhan-di-ve | pending | — | — | — | — | — |
+| 10 | [xacnhan-diove-nhap](xac-nhan-di-ve.md#screen-xacnhan-diove-nhap--nhập-xác-nhận-đi-về) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
+| 11 | [xacnhan-diove-banxacnhan](xac-nhan-di-ve.md#screen-xacnhan-diove-banxacnhan--đại-diện-ban-xác-nhận--đánh-giá) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
+| 12 | [phieu-xacnhan-diove](xac-nhan-di-ve.md#screen-phieu-xacnhan-diove--phiếu-xác-nhận-đi-về) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -61,6 +61,15 @@ Gộp nhiều phiếu đăng ký cùng lộ trình vào 1 xe.
 
 ### laixe-xacnhan-chuyen
 Lái xe xác nhận nhận chuyến sau khi được phân công.
+
+### xacnhan-diove-nhap
+Lái xe nhập km thực tế, chia km cho các đơn vị tham gia, hạch toán cá nhân đặc thù.
+
+### xacnhan-diove-banxacnhan
+Đại diện từng đơn vị tham gia xác nhận + đánh giá chuyến đi, ký điện tử qua SignServer.
+
+### phieu-xacnhan-diove
+Xem/tải phiếu xác nhận đi về đã hoàn tất theo biểu mẫu chuẩn.
 
 ## Links upstream
 
