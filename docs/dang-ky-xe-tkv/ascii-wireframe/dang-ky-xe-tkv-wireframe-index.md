@@ -30,10 +30,16 @@ links:
 | 15 | [danh-muc-laixe-list](danh-muc-xe-laixe.md#screen-danh-muc-laixe-list--danh-mục-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
 | 16 | [danh-muc-laixe-form](danh-muc-xe-laixe.md#screen-danh-muc-laixe-form--thêmsửa-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
 | 17 | [danh-muc-laixe-detail](danh-muc-xe-laixe.md#screen-danh-muc-laixe-detail--chi-tiết-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
-| 18 | phan-quyen-thamso | tham-so-dinh-muc | pending | — | — | — | — | — |
-| 19 | dinh-bien-km-list | tham-so-dinh-muc | pending | — | — | — | — | — |
-| 20 | dinh-bien-km-form | tham-so-dinh-muc | pending | — | — | — | — | — |
-| 21 | dinh-muc-xe-danhmuc | tham-so-dinh-muc | pending | — | — | — | — | — |
+| 18 | [phan-quyen-thamso](tham-so-dinh-muc.md#screen-phan-quyen-thamso--phân-quyền--tham-số) | tham-so-dinh-muc | draft | — | — | — | — | 2026-08-13 |
+| 19 | [dinh-bien-km-list](tham-so-dinh-muc.md#screen-dinh-bien-km-list--danh-mục-định-biên-km-theo-đơn-vị) | tham-so-dinh-muc | draft | — | — | — | — | 2026-08-13 |
+| 20 | [dinh-bien-km-form](tham-so-dinh-muc.md#screen-dinh-bien-km-form--thêmsửa-định-biên-km) | tham-so-dinh-muc | draft | — | — | — | — | 2026-08-13 |
+| 21 | [dinh-muc-xe-danhmuc](tham-so-dinh-muc.md#screen-dinh-muc-xe-danhmuc--danh-mục-định-mức-xe) | tham-so-dinh-muc | draft | — | — | — | — | 2026-08-13 |
+| 22 | [xe-dieudong-list](xe-dieudong.md#screen-xe-dieudong-list--ds-xe-đangchưa-điều-động) | xe-dieudong | draft | — | — | — | — | 2026-08-13 |
+| 23 | [xe-hanhtrinh-detail](xe-dieudong.md#screen-xe-hanhtrinh-detail--chi-tiết-hành-trình-xe) | xe-dieudong | draft | — | — | — | — | 2026-08-13 |
+| 24 | [so-nhap-lenh](xe-dieudong.md#screen-so-nhap-lenh--sổ-nhập-lệnh) | xe-dieudong | draft | — | — | — | — | 2026-08-13 |
+| 25 | [so-baoduong](so-theo-doi-dinh-ky.md#screen-so-baoduong--sổ-bảo-dưỡng) | so-theo-doi-dinh-ky | draft | — | — | — | — | 2026-08-13 |
+| 26 | [so-dangkiem](so-theo-doi-dinh-ky.md#screen-so-dangkiem--sổ-đăng-kiểm) | so-theo-doi-dinh-ky | draft | — | — | — | — | 2026-08-13 |
+| 27 | [so-baohiem](so-theo-doi-dinh-ky.md#screen-so-baohiem--sổ-bảo-hiểm) | so-theo-doi-dinh-ky | draft | — | — | — | — | 2026-08-13 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -94,6 +100,36 @@ Thêm/sửa lái xe: thông tin cá nhân + GPLX, trạng thái.
 
 ### danh-muc-laixe-detail
 Hồ sơ lái xe + tab lịch sử phục vụ/đánh giá (read-only).
+
+### phan-quyen-thamso
+Ma trận quyền theo vai trò, phạm vi đơn vị, cấu hình mượn xe chéo đơn vị, bật/tắt Lãnh đạo Ban xác nhận, link audit log.
+
+### dinh-bien-km-list
+Danh mục định biên km theo đơn vị/cá nhân đặc thù, đa bản ghi theo thời gian.
+
+### dinh-bien-km-form
+Thêm/sửa định biên km, validate không chồng lấn hiệu lực.
+
+### dinh-muc-xe-danhmuc
+Danh mục định mức xe — khung tối thiểu, chờ TKV cung cấp quy định (OQ-4).
+
+### xe-dieudong-list
+DS xe đang/chưa điều động (kế thừa QLDKX004/005), tách nhóm trạng thái điều động.
+
+### xe-hanhtrinh-detail
+Chi tiết chuyến hành trình gắn với xe đang điều động, link sang phiếu gốc.
+
+### so-nhap-lenh
+View tự động: lệnh giao xe sinh tại thời điểm cấp xe, tra cứu/in.
+
+### so-baoduong
+Sổ bảo dưỡng theo xe + cảnh báo đến hạn.
+
+### so-dangkiem
+Sổ đăng kiểm theo xe + cảnh báo đến hạn.
+
+### so-baohiem
+Sổ bảo hiểm theo xe + cảnh báo đến hạn.
 
 ## Links upstream
 
