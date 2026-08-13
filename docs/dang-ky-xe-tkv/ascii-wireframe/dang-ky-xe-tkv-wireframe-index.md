@@ -2,7 +2,7 @@
 type: screen-index
 feature: dang-ky-xe-tkv
 status: draft
-updated: 2026-08-12
+updated: 2026-08-13
 links:
   - docs/dang-ky-xe-tkv/srs/dang-ky-xe-tkv-userflow.md
 ---
@@ -25,6 +25,15 @@ links:
 | 10 | [xacnhan-diove-nhap](xac-nhan-di-ve.md#screen-xacnhan-diove-nhap--nhập-xác-nhận-đi-về) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
 | 11 | [xacnhan-diove-banxacnhan](xac-nhan-di-ve.md#screen-xacnhan-diove-banxacnhan--đại-diện-ban-xác-nhận--đánh-giá) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
 | 12 | [phieu-xacnhan-diove](xac-nhan-di-ve.md#screen-phieu-xacnhan-diove--phiếu-xác-nhận-đi-về) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
+| 13 | [danh-muc-xe-list](danh-muc-xe-laixe.md#screen-danh-muc-xe-list--danh-mục-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
+| 14 | [danh-muc-xe-form](danh-muc-xe-laixe.md#screen-danh-muc-xe-form--thêmsửa-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
+| 15 | [danh-muc-laixe-list](danh-muc-xe-laixe.md#screen-danh-muc-laixe-list--danh-mục-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
+| 16 | [danh-muc-laixe-form](danh-muc-xe-laixe.md#screen-danh-muc-laixe-form--thêmsửa-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
+| 17 | [danh-muc-laixe-detail](danh-muc-xe-laixe.md#screen-danh-muc-laixe-detail--chi-tiết-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
+| 18 | phan-quyen-thamso | tham-so-dinh-muc | pending | — | — | — | — | — |
+| 19 | dinh-bien-km-list | tham-so-dinh-muc | pending | — | — | — | — | — |
+| 20 | dinh-bien-km-form | tham-so-dinh-muc | pending | — | — | — | — | — |
+| 21 | dinh-muc-xe-danhmuc | tham-so-dinh-muc | pending | — | — | — | — | — |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -70,6 +79,21 @@ Lái xe nhập km thực tế, chia km cho các đơn vị tham gia, hạch toá
 
 ### phieu-xacnhan-diove
 Xem/tải phiếu xác nhận đi về đã hoàn tất theo biểu mẫu chuẩn.
+
+### danh-muc-xe-list
+Danh mục xe: danh sách, tìm kiếm, thêm mới.
+
+### danh-muc-xe-form
+Thêm/sửa xe: biển số, đơn vị quản lý, lái xe biên chế, chu kỳ đăng kiểm/bảo hiểm/bảo dưỡng, tổng km/km công tơ, trạng thái.
+
+### danh-muc-laixe-list
+Danh mục lái xe: danh sách, tìm kiếm.
+
+### danh-muc-laixe-form
+Thêm/sửa lái xe: thông tin cá nhân + GPLX, trạng thái.
+
+### danh-muc-laixe-detail
+Hồ sơ lái xe + tab lịch sử phục vụ/đánh giá (read-only).
 
 ## Links upstream
 
