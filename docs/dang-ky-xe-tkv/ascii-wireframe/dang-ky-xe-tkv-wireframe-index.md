@@ -40,6 +40,13 @@ links:
 | 25 | [so-baoduong](so-theo-doi-dinh-ky.md#screen-so-baoduong--sổ-bảo-dưỡng) | so-theo-doi-dinh-ky | draft | — | — | — | — | 2026-08-13 |
 | 26 | [so-dangkiem](so-theo-doi-dinh-ky.md#screen-so-dangkiem--sổ-đăng-kiểm) | so-theo-doi-dinh-ky | draft | — | — | — | — | 2026-08-13 |
 | 27 | [so-baohiem](so-theo-doi-dinh-ky.md#screen-so-baohiem--sổ-bảo-hiểm) | so-theo-doi-dinh-ky | draft | — | — | — | — | 2026-08-13 |
+| 28 | [thong-bao-list](thong-bao.md#screen-thong-bao-list--trung-tâm-thông-báo) | thong-bao | draft | — | — | — | — | 2026-08-13 |
+| 29 | [thong-bao-cauhinh](thong-bao.md#screen-thong-bao-cauhinh--cấu-hình-kênh-thông-báo) | thong-bao | draft | — | — | — | — | 2026-08-13 |
+| 30 | [bieumau-list](bieu-mau-dong.md#screen-bieumau-list--danh-mục-biểu-mẫu-động) | bieu-mau-dong | draft | — | — | — | — | 2026-08-13 |
+| 31 | [bieumau-form](bieu-mau-dong.md#screen-bieumau-form--uploadcấu-hình-biểu-mẫu) | bieu-mau-dong | draft | — | — | — | — | 2026-08-13 |
+| 32 | [nhatky-xe-list](nghiep-vu-doc-lap.md#screen-nhatky-xe-list--nhật-ký-xe-ngoài-chuyến-đăng-ký) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
+| 33 | [nhien-lieu-list](nghiep-vu-doc-lap.md#screen-nhien-lieu-list--quản-lý-nhiên-liệu) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
+| 34 | [baocao-km](nghiep-vu-doc-lap.md#screen-baocao-km--báo-cáo-thống-kê-km) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -130,6 +137,27 @@ Sổ đăng kiểm theo xe + cảnh báo đến hạn.
 
 ### so-baohiem
 Sổ bảo hiểm theo xe + cảnh báo đến hạn.
+
+### thong-bao-list
+Trung tâm thông báo, click điều hướng theo loại sự kiện.
+
+### thong-bao-cauhinh
+Cấu hình kênh thông báo (app/chuông/SMS/email) theo sự kiện.
+
+### bieumau-list
+Danh mục biểu mẫu động theo đơn vị/khối.
+
+### bieumau-form
+Upload/cấu hình biểu mẫu, bắt buộc xem trước trước khi lưu active.
+
+### nhatky-xe-list
+Nhật ký xe ngoài chuyến đăng ký — thêm/sửa/xóa bản ghi của mình.
+
+### nhien-lieu-list
+Quản lý nhiên liệu — khung tối thiểu, chờ TKV (OQ-11).
+
+### baocao-km
+Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
 
 ## Links upstream
 

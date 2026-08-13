@@ -5,14 +5,14 @@ updated: 2026-08-13
 primary_device: desktop
 stage: flow-approved
 flow_approved_at: 2026-08-13
-flow_hash: "ca30ac38"
+flow_hash: "1ac147b7"
 ---
 
 # Đăng ký xe TKV — User Flow
 
 > Nguồn chia flow DUY NHẤT cho feature này. `/wireframe-ascii` và `/wireframe-html` đọc file này để biết flow nào gồm những màn nào — KHÔNG tự chia flow riêng.
 
-> Phạm vi: luồng lõi theo GAP Analysis mục A3 (Form đăng ký), A4 (Luồng duyệt 5 bước), A5 (Cấp xe/Điều động), A6 (Xác nhận đi về), B3 (Ghép xe) — duyệt 2026-08-04; bổ sung 2026-08-13 (đợt 1) nhóm danh mục/tham số nền A1 (Danh mục xe), A2 (Danh mục lái xe), A10 (Phân quyền & tham số), B1 (Định biên km theo đơn vị), B9 (Định mức xe); bổ sung 2026-08-13 (đợt 2) nhóm sổ theo dõi xe A7 (Sửa chữa/kiểm định/bảo hiểm), A9 (DS xe điều động), B5 (Sổ nhập lệnh + 3 sổ theo dõi). Nguồn: `GAP_Analysis_QLDKXe_TKV.md`. Các mục khác (A8, B2, B4, B6-B8, B10) chưa nằm trong đợt này.
+> Phạm vi: luồng lõi theo GAP Analysis mục A3 (Form đăng ký), A4 (Luồng duyệt 5 bước), A5 (Cấp xe/Điều động), A6 (Xác nhận đi về), B3 (Ghép xe) — duyệt 2026-08-04; bổ sung 2026-08-13 (đợt 1) nhóm danh mục/tham số nền A1 (Danh mục xe), A2 (Danh mục lái xe), A10 (Phân quyền & tham số), B1 (Định biên km theo đơn vị), B9 (Định mức xe); bổ sung 2026-08-13 (đợt 2) nhóm sổ theo dõi xe A7 (Sửa chữa/kiểm định/bảo hiểm), A9 (DS xe điều động), B5 (Sổ nhập lệnh + 3 sổ theo dõi); bổ sung 2026-08-13 (đợt 3, nhóm cuối phạm vi Desktop) A8 (Thông báo đa kênh), B2 (Biểu mẫu động), B4 (Nhật ký xe ngoài chuyến), B6 (Nhiên liệu), B7 (Báo cáo km). Nguồn: `GAP_Analysis_QLDKXe_TKV.md`. Toàn bộ phạm vi Desktop đã phủ hết — chỉ còn B8+B10 (App Mobile) để lại đợt sau, khác thiết bị.
 
 ## 1. User Flow (tổng)
 
@@ -190,6 +190,61 @@ flowchart TD
     class n25,n26,n27 happy
 ```
 
+> Bổ sung 2026-08-13 (đợt 3, nhóm cuối phạm vi Desktop): A8 (Thông báo đa kênh), B2 (Biểu mẫu động), B4 (Nhật ký xe ngoài chuyến), B6 (Nhiên liệu — chờ TKV, OQ-11), B7 (Báo cáo km — chờ TKV, OQ-12). `bieumau-form` là màn quản trị template mà `dk-xe-form`/`xacnhan-diove-nhap` (đã duyệt) đang dùng để "Gen biểu mẫu" — bắt buộc qua bước xem trước trước khi lưu bản active vì template ảnh hưởng văn bản có ký số SignServer; phiếu đang xử lý dùng snapshot template tại thời điểm gen, không đổi giữa chừng khi template được cập nhật. `thong-bao-list` KHÔNG có sự kiện "sắp hết định biên km" (chưa có cơ chế tính đã dùng/còn lại); mỗi thông báo click điều hướng tới đúng màn nghiệp vụ liên quan (flow khác).
+
+### Flow: Thông báo
+
+```mermaid
+flowchart TD
+    n28["[28] Trung tâm thông báo<br/>(thong-bao-list)"]
+    n29["[29] Cấu hình kênh thông báo<br/>(thong-bao-cauhinh)"]
+    n35["(link) Màn nghiệp vụ tương ứng<br/>(tùy loại sự kiện, flow khác)"]
+
+    n28 -->|"click thông báo"| n35
+    n28 -->|"vào cấu hình kênh"| n29
+    n29 -.->|"quay lại"| n28
+
+    classDef happy fill:#d4edda,stroke:#28a745
+
+    class n28,n29,n35 happy
+```
+
+### Flow: Biểu mẫu động
+
+```mermaid
+flowchart TD
+    n30["[30] Danh mục biểu mẫu động<br/>(bieumau-list)"]
+    n31["[31] Upload/cấu hình biểu mẫu<br/>(bieumau-form)"]
+    n36["Xem trước biểu mẫu<br/>(preview với dữ liệu mẫu)"]
+
+    n30 -->|"chọn / + Thêm biểu mẫu"| n31
+    n31 -->|"xem trước"| n36
+    n36 -.->|"đạt yêu cầu, lưu bản active"| n30
+    n36 -.->|"cần chỉnh sửa"| n31
+    n31 -.->|"thiếu vị trí người ký"| n31
+
+    classDef happy fill:#d4edda,stroke:#28a745
+
+    class n30,n31,n36 happy
+```
+
+### Flow: Nghiệp vụ độc lập
+
+```mermaid
+flowchart TD
+    n32["[32] Nhật ký xe ngoài chuyến<br/>(nhatky-xe-list)"]
+    n33["[33] Quản lý nhiên liệu<br/>(nhien-lieu-list)"]
+    n34["[34] Báo cáo thống kê km<br/>(baocao-km)"]
+
+    n32 -.->|"thêm/sửa/xóa bản ghi"| n32
+    n33 -.->|"+ thêm bản ghi (khung tối thiểu)"| n33
+    n34 -.->|"chọn loại báo cáo, xuất"| n34
+
+    classDef happy fill:#d4edda,stroke:#28a745
+
+    class n32,n33,n34 happy
+```
+
 ## 2. Danh sách màn hình
 
 | [#] | Slug | Màn hình | Mục đích | Thuộc flow |
@@ -221,6 +276,13 @@ flowchart TD
 | 25 | so-baoduong | Sổ bảo dưỡng | Lịch sử bảo dưỡng theo xe (thời gian, cấp bảo dưỡng, file đính kèm), filter Chọn xe, cảnh báo đến hạn theo chu kỳ ở `danh-muc-xe-form` | so-theo-doi-dinh-ky |
 | 26 | so-dangkiem | Sổ đăng kiểm | Lịch sử đăng kiểm theo xe (ngày, kỳ, ngày tiếp theo tính từ chu kỳ, file đính kèm), filter Chọn xe, cảnh báo đến hạn | so-theo-doi-dinh-ky |
 | 27 | so-baohiem | Sổ bảo hiểm | Lịch sử mua bảo hiểm theo xe (ngày mua, hết hạn, ngày mua tiếp theo), filter Chọn xe, cảnh báo đến hạn | so-theo-doi-dinh-ky |
+| 28 | thong-bao-list | Trung tâm thông báo | Danh sách thông báo (đọc/chưa đọc); click điều hướng tới màn nghiệp vụ liên quan tùy sự kiện (đăng ký mới, cấp xe, sắp đến hạn 3 sổ định kỳ) | thong-bao |
+| 29 | thong-bao-cauhinh | Cấu hình kênh thông báo | Bật/tắt kênh (app/chuông/SMS/email) theo loại sự kiện; ngưỡng "sắp đến hạn" phụ thuộc OQ-8 | thong-bao |
+| 30 | bieumau-list | Danh mục biểu mẫu động | Danh sách biểu mẫu theo đơn vị/khối (đăng ký xe, phiếu xác nhận đi về) | bieu-mau-dong |
+| 31 | bieumau-form | Upload/cấu hình biểu mẫu | Upload file, cấu hình vị trí/tên người duyệt-ký, mapping trường dữ liệu; bắt buộc qua bước xem trước trước khi lưu bản active — nguồn template cho `dk-xe-form`/`xacnhan-diove-nhap` (đã duyệt) | bieu-mau-dong |
+| 32 | nhatky-xe-list | Nhật ký xe ngoài chuyến đăng ký | Danh sách + thêm/sửa/xóa bản ghi (km, thời gian từ-đến, mục đích, xe, người lái); người nhập thấy bản ghi của mình, quyền xem tất cả chưa chốt (OQ-10) | nghiep-vu-doc-lap |
+| 33 | nhien-lieu-list | Quản lý nhiên liệu | Tổng hợp nhiên liệu theo tháng/xe so định mức — khung generic tối thiểu, chờ TKV cung cấp biểu mẫu (OQ-11) | nghiep-vu-doc-lap |
+| 34 | baocao-km | Báo cáo thống kê km | 6 loại báo cáo theo tháng/quý/năm, khung generic tối thiểu, chờ TKV cung cấp biểu mẫu (OQ-12) | nghiep-vu-doc-lap |
 
 ## 3. Danh sách flow
 
@@ -233,6 +295,9 @@ flowchart TD
 | tham-so-dinh-muc | Tham số & định mức | phan-quyen-thamso → dinh-bien-km-list → dinh-bien-km-form, phan-quyen-thamso → dinh-muc-xe-danhmuc | happy (thêm/sửa định biên thành công); error (trùng khoảng hiệu lực cùng đơn vị) |
 | xe-dieudong | Xe điều động & sổ lệnh | xe-dieudong-list → xe-hanhtrinh-detail (→ link dk-xe-detail), xe-dieudong-list → so-nhap-lenh | happy (xem hành trình, tra cứu lệnh); edge (xe chưa điều động không click được, tách nhóm xe ngừng sử dụng) |
 | so-theo-doi-dinh-ky | Sổ theo dõi định kỳ | so-baoduong, so-dangkiem, so-baohiem (3 màn độc lập, filter theo xe) | happy (thêm bản ghi mới); edge (cảnh báo sắp đến hạn — ngưỡng ngày chưa chốt, OQ-8); empty state khi xe mới chưa có lịch sử |
+| thong-bao | Thông báo | thong-bao-list → thong-bao-cauhinh | happy (xem/đánh dấu đã đọc, cấu hình kênh, điều hướng theo sự kiện); edge (chưa cấu hình kênh nào → mặc định app; danh sách rỗng) |
+| bieu-mau-dong | Biểu mẫu động | bieumau-list → bieumau-form → xem trước → lưu bản active | happy (upload/cấu hình/xem trước thành công); error (thiếu vị trí người ký) |
+| nghiep-vu-doc-lap | Nghiệp vụ độc lập | nhatky-xe-list, nhien-lieu-list, baocao-km (3 màn độc lập, không có luồng chuyển tiếp cho nhau) | happy (thêm/sửa/xóa nhật ký, xem báo cáo); edge (khung generic B6/B7 chờ TKV cung cấp biểu mẫu) |
 
 ## 3.5. Chuyển màn (transitions)
 
@@ -285,11 +350,25 @@ flowchart TD
 | Sổ bảo dưỡng [25] | (giữ nguyên) [25] | + Thêm bản ghi bảo dưỡng | - |
 | Sổ đăng kiểm [26] | (giữ nguyên) [26] | + Thêm bản ghi đăng kiểm | - |
 | Sổ bảo hiểm [27] | (giữ nguyên) [27] | + Thêm bản ghi bảo hiểm | - |
+| Trung tâm thông báo [28] | (link) Màn nghiệp vụ tương ứng | Click thông báo | Điều hướng tùy loại sự kiện (đăng ký mới, cấp xe, sắp đến hạn) |
+| Trung tâm thông báo [28] | Cấu hình kênh thông báo [29] | Vào cấu hình kênh | - |
+| Cấu hình kênh thông báo [29] | Trung tâm thông báo [28] | Quay lại | - |
+| Danh mục biểu mẫu động [30] | Upload/cấu hình biểu mẫu [31] | Chọn / + Thêm biểu mẫu | - |
+| Upload/cấu hình biểu mẫu [31] | Xem trước biểu mẫu | Xem trước | - |
+| Xem trước biểu mẫu | Danh mục biểu mẫu động [30] | Đạt yêu cầu | Lưu bản active |
+| Xem trước biểu mẫu | Upload/cấu hình biểu mẫu [31] | Cần chỉnh sửa | - |
+| Upload/cấu hình biểu mẫu [31] | (giữ nguyên) [31] | Lưu | Thiếu vị trí người ký |
+| Nhật ký xe ngoài chuyến [32] | (giữ nguyên) [32] | Thêm/sửa/xóa bản ghi | - |
+| Quản lý nhiên liệu [33] | (giữ nguyên) [33] | + Thêm bản ghi | Khung tối thiểu, chờ TKV |
+| Báo cáo thống kê km [34] | (giữ nguyên) [34] | Chọn loại báo cáo, xuất | Khung tối thiểu, chờ TKV |
 
 ## 4. Open Questions
 
 - [ ] OQ-4: B9 Danh mục định mức xe — cần TKV cung cấp quy định nội bộ cụ thể (văn bản chị Len gửi) để hoàn thiện trường dữ liệu; hiện vẽ khung tối thiểu.
 - [ ] OQ-8: Ngưỡng "sắp đến hạn" để cảnh báo ở 3 sổ theo dõi định kỳ — bao nhiêu ngày trước hạn đăng kiểm/bảo hiểm/bảo dưỡng thì bắt đầu cảnh báo?
 - [ ] OQ-9: "Danh mục cấp bảo dưỡng" (nguồn dropdown "cấp bảo dưỡng" ở Sổ bảo dưỡng) — có cần tách thành màn quản trị riêng (thêm/sửa/xóa cấp bảo dưỡng) hay dropdown nhập tay là đủ?
+- [ ] OQ-10: Nhật ký xe ngoài chuyến — "quyền xem tất cả" là quyền riêng trong ma trận `phan-quyen-thamso`, hay mặc định cấp cho Đội trưởng/phó + QTHT?
+- [ ] OQ-11: B6 Quản lý nhiên liệu — cần TKV cung cấp biểu mẫu nhập cụ thể để hoàn thiện trường dữ liệu; hiện vẽ khung tối thiểu.
+- [ ] OQ-12: B7 Báo cáo thống kê km — cần TKV cung cấp biểu mẫu báo cáo cụ thể (sheet "KM năm 2026", "TH HN - HL theo xe") để hoàn thiện; hiện vẽ khung tối thiểu.
 
 (OQ-1, OQ-2, OQ-3 đã chốt ở đợt trước — bắt buộc tất cả ban xác nhận, ký qua SignServer, tính lại km khi hủy phiếu trong nhóm ghép. OQ-5 đã chốt thành business rule "cấu hình mượn xe chéo đơn vị" tại màn `phan-quyen-thamso` — Mục 2 dòng 18. OQ-6, OQ-7 đã được khách hàng quyết định bỏ qua ở đợt này.)
