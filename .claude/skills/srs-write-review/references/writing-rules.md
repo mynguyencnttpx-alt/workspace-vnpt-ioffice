@@ -37,7 +37,7 @@ Năng lực bắt buộc:
 
 `<module-slug>` dùng xuyên suốt trong đường dẫn folder (`docs/base/<module-slug>/`), trong `cr_id` (`CR-YYYYMMDD-<module-slug>-NN`), và tên file review (`docs/reviews/<module-slug>-review.md`) — suy ra từ **tên hệ thống/phân hệ** đã xác nhận ở trên, theo quy tắc:
 
-- Toàn bộ chữ thường (lowercase), nối các từ bằng dấu gạch ngang (kebab-case)
+- Toàn bộ chữ thường (lowercase), nối các từ bằng dấu gạch ngang (kebab-case).
 - Chỉ dùng ký tự ASCII — bỏ dấu tiếng Việt (viết không dấu), không dùng khoảng trắng hoặc gạch dưới
 - Không ký tự đặc biệt ngoài chữ/số/gạch ngang
 - Bỏ gạch ngang ở đầu/cuối
