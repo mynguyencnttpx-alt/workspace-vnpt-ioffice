@@ -33,6 +33,28 @@ Năng lực bắt buộc:
 
 > **Phát hiện tích hợp API:** Nếu mô tả có nhắc đến "tích hợp hệ thống khác", "gọi API", "cung cấp API", "đồng bộ dữ liệu với...", "webhook"... → đọc ngay `references/integration-rules.md` trước khi viết phần liên quan. File này hướng dẫn cả 2 chiều: hệ thống cung cấp API (provide) và hệ thống gọi API bên ngoài (consume), bao gồm cách viết bảng mapping dữ liệu.
 
+### Quy tắc đặt `module-slug`
+
+`<module-slug>` dùng xuyên suốt trong đường dẫn folder (`docs/base/<module-slug>/`), trong `cr_id` (`CR-YYYYMMDD-<module-slug>-NN`), và tên file review (`docs/reviews/<module-slug>-review.md`) — suy ra từ **tên hệ thống/phân hệ** đã xác nhận ở trên, theo quy tắc:
+
+- Toàn bộ chữ thường (lowercase), nối các từ bằng dấu gạch ngang (kebab-case)
+- Chỉ dùng ký tự ASCII — bỏ dấu tiếng Việt (viết không dấu), không dùng khoảng trắng hoặc gạch dưới
+- Không ký tự đặc biệt ngoài chữ/số/gạch ngang
+- Bỏ gạch ngang ở đầu/cuối
+- Tối đa 50 ký tự — tên module dài thì rút gọn còn cụm danh từ chính, giữ nghĩa nhận diện được, không viết tắt tùy tiện
+
+| Tên module | `module-slug` |
+|---|---|
+| "Quản lý công văn đến" | `quan-ly-cong-van-den` |
+| "Phân công xử lý (mobile)" | `phan-cong-xu-ly-mobile` |
+| "Báo cáo thống kê nhiệm vụ" | `bao-cao-thong-ke-nhiem-vu` |
+
+- Slug tự suy ra → hiển thị kèm trong Outline xác nhận (Bước 2), KHÔNG hỏi riêng 1 câu chỉ để chốt slug.
+- User tự đặt tên slug khác → dùng theo chỉ định của user, chuẩn hóa lại theo rule trên nếu chưa đúng format (vd còn khoảng trắng hoặc dấu tiếng Việt).
+- Slug đã chốt cho 1 module thì **không đổi** xuyên suốt các CR sau này của module đó, kể cả khi tên hiển thị của module thay đổi — vì mọi `cr_id` và link ảnh ngược (`../../base/<module-slug>/images/`) đều phụ thuộc vào slug gốc.
+
+---
+
 ### Xác định loại tài liệu: New Function vs CR
 
 | Dấu hiệu | `doc_type` |
@@ -111,6 +133,29 @@ Chức năng sẽ đặc tả: [Danh sách]
 
 ---
 
+## BƯỚC 2.5 — XÁC NHẬN VỊ TRÍ LƯU TRỮ (trước khi tạo folder / lưu file)
+
+**Bắt buộc thực hiện trước khi tạo bất kỳ folder nào hoặc lưu ảnh đại diện / file nghiệp vụ gốc / mockup xuống đĩa.**
+
+Sau khi Outline (Bước 2) đã được xác nhận — module-slug hoặc `cr_id` đã chốt — hỏi và **CHỜ user xác nhận** đường dẫn thư mục gốc trên thiết bị để tạo cấu trúc `docs/`:
+
+```
+Mình sẽ tạo cấu trúc lưu trữ tại: docs/base/<module-slug>/ (hoặc docs/cr/<cr_id>/ nếu là CR)
+
+→ Bạn cho mình đường dẫn thư mục gốc trên máy để mình tạo cấu trúc này (ví dụ: D:\Projects\iOffice\, hoặc xác nhận dùng thư mục làm việc hiện tại)?
+```
+
+**Quy tắc:**
+- KHÔNG tự suy đoán hoặc tự chọn đường dẫn khi chưa có xác nhận — kể cả khi có vẻ "rõ ràng" nên dùng thư mục hiện tại.
+- Nếu thư mục làm việc hiện tại **đã có sẵn** cấu trúc `docs/base/` hoặc `docs/cr/` (project đã dùng skill này trước đó) → có thể đề xuất dùng lại đường dẫn đó, nhưng vẫn phải hỏi và chờ xác nhận, không tự ý ghi thẳng.
+- Nếu user gửi kèm ảnh đại diện / file nghiệp vụ gốc / mockup **trước khi** có xác nhận đường dẫn → giữ tạm trong phiên làm việc (chưa ghi ra đĩa) cho đến khi có đường dẫn được xác nhận.
+- Sau khi có xác nhận → tạo folder theo đúng cấu trúc ở Bước 4 (nếu chưa tồn tại), rồi mới lưu ảnh đại diện + file nghiệp vụ gốc vào đó làm input tham chiếu trong lúc soạn SRS.
+- Đường dẫn đã xác nhận trong phiên làm việc → dùng lại cho toàn bộ module/CR đang xử lý, không hỏi lại (trừ khi user đổi ý hoặc bắt đầu module/CR khác).
+
+**Không sang Bước 3 nếu chưa có xác nhận đường dẫn lưu trữ.**
+
+---
+
 ## BƯỚC 3 — VIẾT SRS THEO CẤU TRÚC BM_SRS_AI
 
 Đọc `references/srs-template-vnpt.md` để lấy cấu trúc heading và bảng chuẩn.
@@ -186,7 +231,7 @@ Bỏ trống hoặc ghi "Không có" nếu là tính năng mới hoàn toàn.
 
 ### 3. Yêu cầu giao diện
 Gồm 2 mục:
-- **Hình ảnh / mockup**: lưu file ảnh thật vào thư mục `images/` cùng cấp với SRS.md, đặt tên theo convention `<FC-ID>-<mô-tả-ngắn>.png`, sau đó chèn bằng link tương đối đúng ngay trong section của FC đó — KHÔNG paste ảnh trôi nổi ở đầu tài liệu:
+- **Hình ảnh / mockup**: lưu file ảnh thật vào thư mục `images/` cùng cấp với SRS.md (đường dẫn gốc đã được xác nhận ở Bước 2.5), đặt tên theo convention `<FC-ID>-<mô-tả-ngắn>.png`, sau đó chèn bằng link tương đối đúng ngay trong section của FC đó — KHÔNG paste ảnh trôi nổi ở đầu tài liệu:
   `![Mockup FC-002 — Phân công xử lý](images/FC-002-phan-cong-mockup.png)`
   Nếu FC không đổi trong CR hiện tại nhưng ảnh vẫn cần tham chiếu → trỏ ngược link về `../../base/<module-slug>/images/` thay vì copy lại ảnh.
   Nếu có hành vi UI/UX đặc biệt → mô tả bổ sung ngay bên dưới hình (ví dụ: kéo thả để sắp xếp, vuốt để xóa, infinite scroll, drag & drop giữa các cột, tooltip khi hover, v.v.)

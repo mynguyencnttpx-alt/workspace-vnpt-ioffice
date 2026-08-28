@@ -135,3 +135,4 @@ Chức năng sẽ đặc tả: [FC-001] Tiếp nhận văn bản, [FC-002] Phân
 - KHÔNG viết SRS cho CR khi chưa có bảng tham chiếu ảnh hưởng (FC / version gốc / section bị sửa / lý do)
 - KHÔNG bỏ front-matter YAML ở đầu file, và KHÔNG paste ảnh trôi nổi thay vì lưu file thật theo convention `<FC-ID>-<mô-tả>.png`
 - KHÔNG sửa tay `docs/index.json` khi phát hiện lệch — chạy `references/rebuild_index.py` để sinh lại
+- KHÔNG tự tạo folder hoặc lưu ảnh đại diện / file nghiệp vụ gốc xuống đĩa khi chưa có xác nhận đường dẫn lưu trữ từ user (Bước 2.5 trong `writing-rules.md`)
