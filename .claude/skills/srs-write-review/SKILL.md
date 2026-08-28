@@ -80,7 +80,8 @@ Nếu user xác nhận đã kiểm tra hoặc bỏ qua → tiến hành bình th
 |------|----------|-------------|
 | `references/writing-rules.md` | Toàn bộ quy tắc viết SRS | Khi WRITE mode |
 | `references/integration-rules.md` | Quy tắc đặc tả tích hợp API (cung cấp API & gọi API bên ngoài, mapping dữ liệu) | Khi chức năng/module có tích hợp hệ thống khác qua API |
-| `references/review-rules.md` | Toàn bộ quy tắc review SRS | Khi REVIEW mode |
+| `references/review-rules.md` | Toàn bộ quy tắc review SRS | Khi REVIEW mode; **và bắt buộc trong WRITE mode ở Bước 3.5 (AI tự review)** trước khi cho phép xuất file |
+| `references/rebuild_index.py` | Sinh lại `docs/index.json` từ front-matter mọi SRS.md | Khi index bị lệch với thực tế file, hoặc merge nhiều CR cùng lúc — chạy để đồng bộ lại, không sửa tay |
 | `references/srs-template-vnpt.md` | Cấu trúc template VNPT đầy đủ | Trong WRITE mode, trước khi viết |
 | `references/workflow-diagram-skill.md` | Quy tắc vẽ Sequence Diagram (Mermaid + Python renderer) | **BẮT BUỘC** trong WRITE mode, ngay sau writing-rules.md |
 | `references/workflow_renderer.py` | Script Python vẽ Sequence Diagram → PNG | Copy và điền SEQ data khi cần vẽ flow |
@@ -129,3 +130,8 @@ Chức năng sẽ đặc tả: [FC-001] Tiếp nhận văn bản, [FC-002] Phân
 - KHÔNG xuất file `.docx` trừ khi user yêu cầu rõ "file Word", "file .doc", hoặc "file docx"
 - KHÔNG viết toàn bộ tài liệu khi user chỉ yêu cầu 1 section cụ thể
 - KHÔNG bỏ mục "Phạm vi chỉnh sửa" và "Điều kiện nghiệm thu" trong output
+- KHÔNG bỏ qua Bước 3.5 (AI tự review) hoặc Bước 3.6 (Gate phê duyệt cuối cùng) — kể cả khi user không nhắc đến review, đây là gate bắt buộc trong WRITE mode
+- KHÔNG xuất file (Bước 4) khi Bước 3.5 cho kết quả ❌ Needs Revision, hoặc khi user chưa phê duyệt ở Bước 3.6
+- KHÔNG viết SRS cho CR khi chưa có bảng tham chiếu ảnh hưởng (FC / version gốc / section bị sửa / lý do)
+- KHÔNG bỏ front-matter YAML ở đầu file, và KHÔNG paste ảnh trôi nổi thay vì lưu file thật theo convention `<FC-ID>-<mô-tả>.png`
+- KHÔNG sửa tay `docs/index.json` khi phát hiện lệch — chạy `references/rebuild_index.py` để sinh lại

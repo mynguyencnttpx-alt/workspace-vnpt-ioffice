@@ -33,13 +33,32 @@ Năng lực bắt buộc:
 
 > **Phát hiện tích hợp API:** Nếu mô tả có nhắc đến "tích hợp hệ thống khác", "gọi API", "cung cấp API", "đồng bộ dữ liệu với...", "webhook"... → đọc ngay `references/integration-rules.md` trước khi viết phần liên quan. File này hướng dẫn cả 2 chiều: hệ thống cung cấp API (provide) và hệ thống gọi API bên ngoài (consume), bao gồm cách viết bảng mapping dữ liệu.
 
+### Xác định loại tài liệu: New Function vs CR
+
+| Dấu hiệu | `doc_type` |
+|---|---|
+| Tính năng hoàn toàn mới, chưa tồn tại trong hệ thống | `new` |
+| Sửa / bổ sung một chức năng đã có (Change Request) | `cr` |
+| Không rõ | HỎI: "Đây là chức năng mới hay là yêu cầu thay đổi (CR) trên chức năng đã có?" |
+
+**Nếu `doc_type = cr` — bắt buộc thu thập trước khi sang Bước 2:**
+- `cr_id`: mã theo format `CR-YYYYMMDD-<module-slug>-NN` (nếu user chưa đặt, tự đề xuất và xác nhận lại với user)
+- **Bảng tham chiếu ảnh hưởng** — liệt kê rõ từng FC bị sửa:
+
+| FC bị ảnh hưởng | Version gốc | Section bị sửa | Nội dung thay đổi | Lý do |
+|---|---|---|---|---|
+| FC-002 | v1.0 | B.2 Quy tắc nghiệp vụ | Thêm điều kiện duyệt song song | Yêu cầu khách hàng X |
+
 ### Decision tree xử lý input
 
 ```
 Input nhận được
 │
-├─ Thiếu Actor hoặc Tên hệ thống?
-│   └─ HỎI NGAY — không viết gì trước khi có đủ thông tin này
+├─ Thiếu 1 trong 3 thông tin bắt buộc (Tên hệ thống / Actor / Mô tả nghiệp vụ)?
+│   └─ HỎI NGAY theo template Gate 1 bên dưới — không viết gì trước khi có đủ thông tin này
+│
+├─ doc_type = cr nhưng chưa có bảng tham chiếu ảnh hưởng?
+│   └─ HỎI NGAY — yêu cầu bảng tham chiếu trước khi sang Bước 2
 │
 ├─ User yêu cầu chỉnh sửa SRS có sẵn?
 │   └─ HỎI: "Cần chỉnh section nào? Giữ nguyên format hay refactor?"
@@ -47,8 +66,23 @@ Input nhận được
 ├─ User chỉ cần 1 section?
 │   └─ Viết đúng section đó, KHÔNG viết cả tài liệu
 │
-└─ Thông tin đủ → Tiếp tục Bước 2
+└─ Thông tin đủ (đủ 3 mục bắt buộc, và đủ bảng tham chiếu nếu là CR) → Tiếp tục Bước 2
 ```
+
+### Template Gate 1 — hỏi bổ sung khi thiếu thông tin bắt buộc
+
+Khi phát hiện thiếu, liệt kê rõ đã có gì / còn thiếu gì theo đúng 3 mục bắt buộc — không hỏi chung chung "bạn cung cấp thêm thông tin nhé":
+
+```
+Để viết SRS, mình cần đủ 3 thông tin bắt buộc. Hiện tại:
+✅ Tên hệ thống / phân hệ: [đã có / để trống]
+✅ Actor: [đã có / để trống]
+❌ Mô tả nghiệp vụ / chức năng cần đặc tả: [đã có / còn thiếu — nêu rõ đang thiếu phần nào]
+
+→ Bạn bổ sung giúp mình [phần còn thiếu] để tiến hành viết SRS?
+```
+
+**Không tiếp tục Bước 2 nếu còn bất kỳ mục nào trong 3 mục trên chưa đủ.**
 
 ### Các dạng input được chấp nhận
 - Mô tả tự nhiên (văn xuôi)
@@ -66,6 +100,7 @@ Input nhận được
 Hệ thống: [Tên]
 Actor: [Danh sách]
 Phân hệ / Module: [Tên]
+Loại tài liệu: [New / CR — nếu CR ghi kèm mã cr_id]
 Phạm vi chỉnh sửa: [Menu/chức năng bị ảnh hưởng — nếu có]
 Chức năng sẽ đặc tả: [Danh sách]
 
@@ -81,6 +116,31 @@ Chức năng sẽ đặc tả: [Danh sách]
 Đọc `references/srs-template-vnpt.md` để lấy cấu trúc heading và bảng chuẩn.
 `srs-template-vnpt.md` là nguồn sự thật duy nhất về cấu trúc section và format bảng.
 Các Rule dưới đây chỉ bổ sung hướng dẫn nội dung — không tạo thêm section ngoài template.
+
+### Front-matter bắt buộc (đầu file .md)
+
+Mọi SRS xuất ra đều bắt đầu bằng khối YAML front-matter — phục vụ versioning và để AI ở bước Dev/Tester đọc trạng thái bằng script, không cần đọc hiểu tiếng Việt:
+
+```yaml
+---
+module: <Tên module>
+function_ids: [FC-001, FC-002]
+doc_type: new            # new | cr
+cr_id: null                # điền nếu doc_type = cr
+based_on: null              # path bản gốc/CR trước đó — điền nếu doc_type = cr
+affected_functions: []      # điền nếu doc_type = cr
+version: 0.1
+status: draft              # draft | needs-revision | approved | superseded
+gate_passed: []
+review_score: null
+approved_by: null
+approved_date: null
+---
+```
+
+- Khi mới viết xong (trước Bước 3.5): `status: draft`, `version: 0.1`
+- Sau Bước 3.5: cập nhật `gate_passed` và `review_score` theo kết quả tự review
+- Sau Bước 3.6 (user phê duyệt): cập nhật `status: approved`, tăng `version` (1.0, 1.1...), điền `approved_by`, `approved_date`
 
 ### Cấu trúc tài liệu
 
@@ -126,7 +186,10 @@ Bỏ trống hoặc ghi "Không có" nếu là tính năng mới hoàn toàn.
 
 ### 3. Yêu cầu giao diện
 Gồm 2 mục:
-- **Hình ảnh / mockup**: chèn hình hoặc mô tả layout. Nếu có hành vi UI/UX đặc biệt → mô tả bổ sung ngay bên dưới hình (ví dụ: kéo thả để sắp xếp, vuốt để xóa, infinite scroll, drag & drop giữa các cột, tooltip khi hover, v.v.)
+- **Hình ảnh / mockup**: lưu file ảnh thật vào thư mục `images/` cùng cấp với SRS.md, đặt tên theo convention `<FC-ID>-<mô-tả-ngắn>.png`, sau đó chèn bằng link tương đối đúng ngay trong section của FC đó — KHÔNG paste ảnh trôi nổi ở đầu tài liệu:
+  `![Mockup FC-002 — Phân công xử lý](images/FC-002-phan-cong-mockup.png)`
+  Nếu FC không đổi trong CR hiện tại nhưng ảnh vẫn cần tham chiếu → trỏ ngược link về `../../base/<module-slug>/images/` thay vì copy lại ảnh.
+  Nếu có hành vi UI/UX đặc biệt → mô tả bổ sung ngay bên dưới hình (ví dụ: kéo thả để sắp xếp, vuốt để xóa, infinite scroll, drag & drop giữa các cột, tooltip khi hover, v.v.)
 - **Bảng trường thông tin** — đúng **5 cột**: Tên trường | Kiểu điều khiển | Độ dài | Ràng buộc / Điều kiện | Kiểu dữ liệu
 
 #### Quy tắc viết bảng trường thông tin
@@ -563,7 +626,77 @@ Một chức năng có thể thuộc nhiều nhóm — kiểm tra tất cả nh�
 
 ---
 
+## BƯỚC 3.5 — AI TỰ REVIEW (Gate 3, bắt buộc)
+
+Ngay sau khi viết xong toàn bộ SRS ở Bước 3 — **KHÔNG xuất file ngay** — tự áp dụng bộ tiêu chí review trong `references/review-rules.md` để tự chấm chính tài liệu vừa viết.
+
+> Bước này **bắt buộc** với mọi lần viết SRS, kể cả khi user không yêu cầu review — đây là gate nội bộ của quy trình WRITE, không phải tính năng tùy chọn.
+
+### Khác biệt so với khi chạy REVIEW mode độc lập
+- KHÔNG hỏi lại context BRD/hệ thống liên quan (Bước 0 — Context Loading của `review-rules.md`) — vì đang cùng phiên viết, context đã có sẵn từ Bước 1–3.
+- KHÔNG cần áp dụng "Quy tắc xử lý input" của `review-rules.md` (tài liệu trống, dưới 200 từ, thiếu section...) — SRS vừa viết chắc chắn hợp lệ về mặt cấu trúc.
+- Áp dụng đầy đủ phần còn lại: 3 góc nhìn BA/Dev/QA, định nghĩa mức độ nghiêm trọng, Quality Gate có trọng số, Trạng thái phê duyệt — theo đúng `references/review-rules.md`.
+
+### Output bắt buộc hiển thị trên chat trước khi sang Bước 3.6
+1. Bảng tổng hợp vấn đề (tối đa 10, ưu tiên 🔴 Critical / 🟠 Major — để trống nếu không phát hiện vấn đề gì)
+2. Quality Gate — thang điểm có trọng số (Completeness 50% / Clarity 20% / Consistency 20% / Formatting 10%)
+3. Trạng thái phê duyệt: ✅ Approved | ⚠️ Conditional Approval | ❌ Needs Revision
+
+### Xử lý theo trạng thái
+
+| Trạng thái | Hành động |
+|---|---|
+| ✅ Approved | Sang thẳng Bước 3.6 |
+| ⚠️ Conditional Approval | Liệt kê rõ điều kiện còn tồn → hỏi user: tự sửa ngay hay để BA quyết định ở Bước 3.6 |
+| ❌ Needs Revision | KHÔNG sang Bước 3.6 — tự sửa các vấn đề Critical trước, sau đó chạy lại Bước 3.5 vòng 2 |
+
+### Lưu file review snapshot
+
+Song song với việc hiển thị trên chat, ghi lại kết quả Bước 3.5 thành file `docs/reviews/<module-slug-hoặc-cr_id>-review.md` (bảng vấn đề + Quality Gate + trạng thái phê duyệt) — làm bằng chứng audit (traceability, sign-off) và giúp Tester AI biết trước vùng rủi ro mà không cần review lại từ đầu.
+
+---
+
+## BƯỚC 3.6 — GATE PHÊ DUYỆT CUỐI CÙNG (Gate 4, bắt buộc)
+
+Sau khi Bước 3.5 cho kết quả Approved (hoặc Conditional Approval mà user chấp nhận), output block sau và **CHỜ user xác nhận** — cùng cơ chế với Gate 2 (Outline):
+
+```
+Tài liệu SRS đã hoàn tất và tự review xong.
+Kết quả tự review: [Approved / Conditional Approval] — [X.X]/10
+[Nếu Conditional: liệt kê điều kiện còn tồn để user tự quyết định approve hay yêu cầu sửa trước]
+
+→ Bạn phê duyệt tài liệu này để tôi xuất file / bàn giao bước tiếp theo?
+```
+
+**Không thực hiện Bước 4 (xuất file) nếu user chưa phê duyệt ở bước này.**
+Nếu user yêu cầu sửa thêm → quay lại phần liên quan ở Bước 3, sau đó lặp lại Bước 3.5 trước khi vào lại Bước 3.6.
+
+**Sau khi user phê duyệt:** cập nhật entry tương ứng trong `docs/index.json` — lấy đúng giá trị từ front-matter vừa chốt trong SRS.md, không tự nhập số liệu khác: `current_approved` trỏ đúng path file vừa duyệt, `status: dev-ready`, `lineage` nối thêm `cr_id` nếu `doc_type = cr`. Nếu `docs/index.json` chưa tồn tại → tạo mới. Nếu nghi ngờ index bị lệch với thực tế các file → chạy `references/rebuild_index.py` để sinh lại toàn bộ thay vì sửa tay.
+
+---
+
 ## BƯỚC 4 — XUẤT FILE
+
+> Chỉ bắt đầu Bước 4 sau khi đã qua Gate 4 (Bước 3.6) và user đã phê duyệt.
+
+### Vị trí lưu file & cấu trúc thư mục
+
+```
+docs/
+  base/<module-slug>/
+    SRS.md              ← doc_type: new, phiên bản gốc của module
+    images/
+  cr/<cr_id>/
+    SRS.md              ← doc_type: cr — FULL snapshot module SAU KHI gộp CR (không phải file delta)
+    images/               ← chỉ chứa ảnh của FC bị CR này đổi
+  reviews/
+    <module-slug-hoặc-cr_id>-review.md
+  index.json
+```
+
+- `doc_type = new` → lưu vào `docs/base/<module-slug>/SRS.md`
+- `doc_type = cr` → lưu vào `docs/cr/<cr_id>/SRS.md` — nội dung là **toàn bộ module** sau khi đã gộp thay đổi, không chỉ phần đổi
+- Không tạo file `.md` output rời rạc ngoài cấu trúc trên, trừ khi user chỉ định path khác rõ ràng
 
 ### Output mặc định: `.md`
 Hiển thị nội dung SRS đầy đủ theo cấu trúc template trên chat / tạo file `.md`.
