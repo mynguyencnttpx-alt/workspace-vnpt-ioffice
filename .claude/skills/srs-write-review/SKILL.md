@@ -16,6 +16,7 @@ description: >
 
 Hỗ trợ toàn bộ vòng đời SRS: từ viết mới → review → cải tiến, theo chuẩn VNPT iOffice biểu mẫu **BM_SRS_AI**.
 Output mặc định là file `.md`. Chỉ xuất `.docx` (Times New Roman, 12pt) khi user yêu cầu rõ.
+Sau khi SRS được phê duyệt và xuất file (WRITE mode), có thể hỗ trợ soạn sẵn nội dung phiếu Jira (Title/Description/Labels) để user tự copy-paste vào `cntt.vnpt.vn` — xem Bước 5 trong `references/writing-rules.md`. Đã thử 2 hướng tự động (điều khiển trình duyệt, gọi REST API bằng Personal Access Token) nhưng đều không khả thi — Jira VNPT yêu cầu xác thực OTP bổ sung trên các API tạo/xem dữ liệu, kể cả với PAT hợp lệ — nên bước này chỉ dừng ở mức soạn nội dung, không tự tạo phiếu thật.
 
 ---
 
@@ -27,6 +28,7 @@ Output mặc định là file `.md`. Chỉ xuất `.docx` (Times New Roman, 12pt
 |--------------------|------|------------------|--------|
 | "viết SRS", "đặc tả", "viết chức năng", cung cấp mô tả nghiệp vụ | **WRITE** | `references/writing-rules.md` | File `.md` (mặc định) — chỉ xuất `.docx` khi user nói "xuất file Word", "file .doc", "file docx" |
 | "review SRS", "kiểm tra tài liệu", đính kèm SRS có sẵn để đánh giá | **REVIEW** | `references/review-rules.md` | Bảng tổng hợp + phân tích chi tiết + điểm chất lượng X/10, hiển thị trực tiếp trên chat |
+| "soạn nội dung Jira", "tạo phiếu Jira cho SRS/module X", user từng từ chối ở Bước 5 và giờ quay lại yêu cầu riêng | **JIRA-CONTENT** (gọi thẳng Bước 5, không cần lặp lại Bước 1–4) | `references/writing-rules.md` mục "Gọi độc lập" trong Bước 5 | `docs/base/<module-slug>/jira-ready.md` (hoặc `docs/cr/<cr_id>/jira-ready.md`) |
 | Không rõ | Hỏi: "Bạn muốn viết SRS mới hay review SRS đã có?" | — | — |
 
 **Sau khi xác định mode → đọc ngay file rule tương ứng trước khi làm bất cứ điều gì.**
@@ -136,3 +138,5 @@ Chức năng sẽ đặc tả: [FC-001] Tiếp nhận văn bản, [FC-002] Phân
 - KHÔNG bỏ front-matter YAML ở đầu file, và KHÔNG paste ảnh trôi nổi thay vì lưu file thật theo convention `<FC-ID>-<mô-tả>.png`
 - KHÔNG sửa tay `docs/index.json` khi phát hiện lệch — chạy `references/rebuild_index.py` để sinh lại
 - KHÔNG tự tạo folder hoặc lưu ảnh đại diện / file nghiệp vụ gốc xuống đĩa khi chưa có xác nhận đường dẫn lưu trữ từ user (Bước 2.5 trong `writing-rules.md`)
+- KHÔNG tự động tạo phiếu thật trên Jira (qua trình duyệt hay API) — Jira VNPT (`cntt.vnpt.vn`) yêu cầu OTP bổ sung trên các thao tác này, đã kiểm chứng cả 2 hướng đều bị chặn; Bước 5 chỉ soạn nội dung để user tự tạo phiếu thủ công (`writing-rules.md`)
+- KHÔNG bao giờ yêu cầu hoặc chấp nhận user paste Jira token/mật khẩu vào chat

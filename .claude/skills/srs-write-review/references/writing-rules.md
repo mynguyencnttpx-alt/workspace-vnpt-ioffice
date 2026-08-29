@@ -180,12 +180,15 @@ gate_passed: []
 review_score: null
 approved_by: null
 approved_date: null
+jira_ticket: null           # điền mã phiếu (vd IOFFICE-123) sau khi user báo đã tạo phiếu ở Bước 5
+jira_url: null               # điền link phiếu tương ứng
 ---
 ```
 
 - Khi mới viết xong (trước Bước 3.5): `status: draft`, `version: 0.1`
 - Sau Bước 3.5: cập nhật `gate_passed` và `review_score` theo kết quả tự review
 - Sau Bước 3.6 (user phê duyệt): cập nhật `status: approved`, tăng `version` (1.0, 1.1...), điền `approved_by`, `approved_date`
+- Sau Bước 5 (user báo mã phiếu Jira đã tạo): cập nhật `jira_ticket`, `jira_url` — xem chi tiết ở Bước 5.4
 
 ### Cấu trúc tài liệu
 
@@ -775,6 +778,87 @@ Hiển thị nội dung SRS đầy đủ theo cấu trúc template trên chat / 
 - Font: Times New Roman
 - Size: 12pt (24 DXA trong docx-js)
 - Page: A4
+
+---
+
+## BƯỚC 5 — SOẠN NỘI DUNG JIRA (tùy chọn, để user tự copy-paste thủ công)
+
+> Chỉ thực hiện sau khi Bước 4 (xuất file) đã hoàn tất — nội dung phiếu cần link tới file SRS đã lưu thật.
+> **Đã thử và loại bỏ 2 hướng tự động:** (1) điều khiển trình duyệt điền form — vướng vì Create Issue dùng widget select2 không lộ rõ tên field/issue-type thật; (2) gọi thẳng REST API bằng Personal Access Token — bị chặn vì Jira VNPT (`cntt.vnpt.vn`) yêu cầu xác thực OTP bổ sung trên các API tạo/xem dữ liệu (`{"error":"OTP_REQUIRED"}`), kể cả khi PAT hợp lệ. Đây là chốt bảo mật phía VNPT — KHÔNG tìm cách vượt qua.
+> Vì vậy skill chỉ dừng ở mức **soạn sẵn nội dung đúng định dạng Jira**, việc tạo phiếu thật do user tự thao tác trên `https://cntt.vnpt.vn`.
+
+### Gọi độc lập (không cần lặp lại Bước 1–4)
+
+Bước 5 không bắt buộc phải chạy ngay sau Bước 4 trong cùng phiên. Trường hợp thường gặp: user từ chối ở 5.1 vì cần chỉnh sửa SRS thêm, rồi quay lại yêu cầu riêng sau đó (cùng phiên hoặc phiên khác) — vd "soạn nội dung Jira cho module quan-ly-cong-van-den", "tạo phiếu Jira cho CR-20260810-...". Khi nhận diện đúng yêu cầu này (xem Bước 0 SKILL.md, mode JIRA-CONTENT):
+
+1. Nếu user chưa nói rõ module-slug/cr_id → hỏi, hoặc đọc `docs/index.json` để liệt kê các SRS có sẵn cho user chọn.
+2. Đọc đúng file `docs/base/<module-slug>/SRS.md` hoặc `docs/cr/<cr_id>/SRS.md` — dùng làm nguồn nội dung thay cho "SRS vừa viết trong phiên" ở 5.2.
+3. Kiểm tra front-matter `status`:
+   - `status: approved` → tiếp tục bình thường sang 5.2.
+   - `status` khác (`draft`, `needs-revision`...) → báo cho user: "SRS này đang ở trạng thái `<status>`, chưa phải bản duyệt cuối. Bạn muốn soạn tạm theo bản hiện tại hay đi sửa/duyệt lại SRS trước?" — KHÔNG tự ý coi bản chưa duyệt là bản chính thức nếu user không xác nhận.
+4. Từ bước này trở đi làm đúng 5.2 → 5.3 → 5.4 như luồng thường.
+
+### 5.1 — Hỏi xác nhận có soạn nội dung không
+
+Sau khi báo đã xuất file xong, hỏi:
+
+```
+SRS đã lưu tại: <path file vừa xuất ở Bước 4>
+Bạn có muốn mình soạn sẵn nội dung phiếu Jira (Title/Description/Labels) để copy-paste vào cntt.vnpt.vn không?
+```
+
+User từ chối / bỏ qua / không trả lời → dừng tại đây, coi như hoàn tất quy trình WRITE ở Bước 4.
+
+### 5.2 — Soạn nội dung phiếu từ SRS
+
+Trích từ front-matter + nội dung SRS vừa duyệt, soạn sẵn:
+
+| Trường Jira | Nguồn lấy dữ liệu |
+|---|---|
+| Project (gợi ý) | Hỏi user nếu chưa biết project Jira của module này; các CR/lần sau của cùng module → tái sử dụng câu trả lời trước, không hỏi lại |
+| Issue Type (gợi ý) | Hỏi user tên loại issue muốn dùng (vd "Task", "Story") nếu chưa từng chọn cho module này |
+| Summary | `<module>` — `<function_ids>` (vd "Quản lý công văn đến — FC-001, FC-002") |
+| Description | Mô tả tóm tắt module + danh sách chức năng chính + đường dẫn file SRS vừa xuất + link `docs/reviews/<module-slug-hoặc-cr_id>-review.md` nếu có |
+| Labels | `doc_type` (new/cr), `<module-slug>` |
+
+Không tự bịa Project/Issue Type khi user chưa xác nhận.
+
+### 5.3 — Lưu file + hiển thị
+
+Ghi nội dung đã soạn thành file `docs/base/<module-slug>/jira-ready.md` (hoặc `docs/cr/<cr_id>/jira-ready.md` nếu là CR) theo format:
+
+```markdown
+## Phiếu Jira đề xuất — <module>
+
+- **Project:** <tên/khoá project đã hỏi user>
+- **Issue Type:** <loại đã hỏi user>
+- **Summary:** <summary>
+- **Labels:** <labels>
+
+### Description
+
+<description đầy đủ>
+```
+
+In toàn bộ nội dung này ra chat luôn (không chỉ báo path file) để user copy ngay được, kèm nhắc và **chủ động hỏi mã phiếu để cập nhật ngược lại sau này**:
+
+```
+Nội dung phiếu đã lưu tại: docs/base/<module-slug>/jira-ready.md
+Bạn tự vào https://cntt.vnpt.vn > Create để paste nội dung trên và tạo phiếu.
+
+Sau khi tạo xong, cho mình biết mã phiếu (vd IOFFICE-123) để mình cập nhật lại vào tài liệu — tiện tra cứu sau này biết SRS này ứng với task Jira nào. Không cần trả lời ngay, khi nào tạo xong báo mình cũng được.
+```
+
+### 5.4 — Ghi nhận mã phiếu (khi user báo lại — không nhất thiết ngay lượt này)
+
+Khi user cung cấp mã phiếu + (nếu có) link — bất kỳ lúc nào, cùng phiên hay phiên khác, kể cả qua lối gọi độc lập ở trên — cập nhật đồng thời **2 nơi**:
+
+1. **Front-matter của đúng file SRS.md** (`docs/base/<module-slug>/SRS.md` hoặc `docs/cr/<cr_id>/SRS.md`): điền `jira_ticket: <mã phiếu>` và `jira_url: <link>` (suy ra link theo format `<JIRA_BASE_URL>/browse/<mã phiếu>` nếu user chỉ cho mã, không cho link).
+2. **`docs/index.json`**: cập nhật đúng entry của module/cr đó, thêm/ghi đè field `jira_ticket` và `jira_url` — cùng giá trị với front-matter, không để lệch nhau.
+
+Đây là **update trực tiếp 2 file đã tồn tại** (không phải nội dung nghiệp vụ mới) — vẫn áp L2 diff ngắn gọn (approval-gate.md) trước khi ghi nếu user chưa xác nhận rõ trong câu báo mã phiếu; nếu user báo mã phiếu và nói luôn kiểu "cập nhật vào tài liệu giúp mình" thì coi như đã đồng ý, ghi thẳng và báo lại đã cập nhật ở 2 chỗ nào.
+
+Nếu 1 module có nhiều file SRS.md (nhiều CR) → hỏi rõ mã phiếu này ứng với đúng CR/bản nào trước khi ghi, không tự đoán ghi vào bản mới nhất.
 
 ---
 

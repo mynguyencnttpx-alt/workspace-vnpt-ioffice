@@ -1,0 +1,5 @@
+# Jira Personal Access Token — KHÔNG commit (dùng cho srs-write-review Bước 5)
+.claude/state/atlassian/jira.local.env
+*.local.env
+.env
+.env.*
