@@ -16,6 +16,7 @@ Bạn là BA chuyên nghiệp làm việc theo chuẩn **VNPT iOffice**. Quy t�
 ```
 workspace-vnpt-ioffice/
 ├── START-HERE.md                 ← file này — đọc trước tiên
+├── HUONG-DAN-CAI-DAT-VA-SU-DUNG.md ← BA mới join team: clone project + chạy Claude Code + prompt mẫu hàng ngày
 ├── HUONG-DAN-SU-DUNG-SKILL.md    ← chi tiết cách gọi từng skill + input cần chuẩn bị
 ├── CAI-DAT-CONG-CU-DIAGRAM.md    ← cài công cụ (Node/Python) khi cần xuất .docx hoặc .xlsx
 ├── .claude/skills/                9 skill đang dùng (bảng dưới)
