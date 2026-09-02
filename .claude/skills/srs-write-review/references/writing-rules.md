@@ -204,6 +204,7 @@ NỘI DUNG
     └─ PHÂN HỆ N / MODULE N
         └─ Module N: <Tên module>
             ├─ Mô tả tóm tắt
+            ├─ Bảng thuật ngữ & Actor tham gia (tùy chọn — chỉ khi module dài/phức tạp)
             ├─ Phạm vi chỉnh sửa
             ├─ Yêu cầu giao diện
             │   ├─ Hình ảnh / mockup
@@ -228,17 +229,35 @@ PHỤ LỤC
 
 ## RULE A — MODULE: CẤU TRÚC BẮT BUỘC
 
-Mỗi module có đúng **4 thành phần** theo thứ tự:
+Mỗi module có **4 thành phần bắt buộc** + **1 thành phần tùy chọn** (Bảng thuật ngữ & Actor — vị trí thứ 2, ngay sau Mô tả tóm tắt), theo đúng thứ tự:
 
 ### 1. Mô tả tóm tắt
 Câu mô tả ngắn gọn: **ai dùng** + **dùng để làm gì** + **trong bối cảnh nghiệp vụ nào**.
 Không mô tả luồng ở đây — luồng thuộc về phần Chức năng nghiệp vụ.
 
-### 2. Phạm vi chỉnh sửa
+### 2. Bảng thuật ngữ & Actor tham gia (tùy chọn)
+
+> Mục đích: mọi người đọc tài liệu (BA/Dev/QA/khách hàng) có chung một cách hiểu về actor và thuật ngữ trước khi đi vào chi tiết — đặc biệt quan trọng khi module dài hoặc actor/thuật ngữ dễ gây nhầm lẫn. Đây **không phải thành phần bắt buộc** — tự cân nhắc theo tiêu chí dưới, không hỏi lại user trừ khi thực sự phân vân.
+
+**Khi nào NÊN thêm:**
+- Module có từ 3 actor trở lên tham gia, hoặc actor có vai trò dễ nhầm lẫn (vd 2 actor cùng thao tác trên 1 màn hình nhưng khác quyền)
+- Module dùng nhiều từ viết tắt / thuật ngữ nghiệp vụ đặc thù của hệ thống hoặc khách hàng (không phải từ thông dụng ai cũng hiểu ngay)
+- Module dài — nhiều chức năng (≥ 4 FC) hoặc nhiều màn hình, người đọc dễ mất ngữ cảnh chung nếu không có bảng tra cứu nhanh ở đầu
+
+**Khi nào BỎ QUA (mặc định nếu không rơi vào các tiêu chí trên):**
+- Module ngắn, chỉ 1–2 chức năng đơn giản
+- Actor đã là vai trò phổ biến, không cần giải thích thêm (Văn thư, Chuyên viên, Lãnh đạo... đã đủ rõ nghĩa qua Mô tả tóm tắt)
+- Không có từ viết tắt/thuật ngữ đặc thù nào cần giải thích
+
+**Nếu thêm:** dùng đúng cấu trúc 2 bảng trong `srs-template-vnpt.md` — bảng "Từ viết tắt & thuật ngữ" (Từ viết tắt/Thuật ngữ | Giải thích) và bảng "Actor tham gia" (Actor | Vai trò/Mô tả trong phạm vi module này). Chỉ liệt kê actor/thuật ngữ **thực sự xuất hiện trong module đang viết** — không copy nguyên bảng thuật ngữ toàn hệ thống vào từng module. Actor mô tả phần đặc thù trong module (không lặp lại câu đã nói ở Mô tả tóm tắt). Có 1 trong 2 bảng mà bảng kia không có nội dung → bỏ hẳn bảng rỗng, không để trống hàng `<...>`.
+
+**Nếu bỏ qua:** không cần ghi chú gì trong tài liệu (không phải mục bắt buộc nên không để lại dấu vết "N/A").
+
+### 3. Phạm vi chỉnh sửa
 Liệt kê các chức năng và menu liên quan bị ảnh hưởng bởi module này.
 Bỏ trống hoặc ghi "Không có" nếu là tính năng mới hoàn toàn.
 
-### 3. Yêu cầu giao diện
+### 4. Yêu cầu giao diện
 Gồm 2 mục:
 - **Hình ảnh / mockup**: lưu file ảnh thật vào thư mục `images/` cùng cấp với SRS.md (đường dẫn gốc đã được xác nhận ở Bước 2.5), đặt tên theo convention `<FC-ID>-<mô-tả-ngắn>.png`, sau đó chèn bằng link tương đối đúng ngay trong section của FC đó — KHÔNG paste ảnh trôi nổi ở đầu tài liệu:
   `![Mockup FC-002 — Phân công xử lý](images/FC-002-phan-cong-mockup.png)`
@@ -288,7 +307,7 @@ sau **ngay khi vào Bước 3 — trước khi viết section Yêu cầu giao di
 | **Box kết quả danh sách** | | | | |
 | Tên công việc | Label | - | Hiển thị tên công việc. Click vào → mở chi tiết | String |
 
-### 4. Danh sách chức năng
+### 5. Danh sách chức năng
 Mỗi chức năng theo Rule B bên dưới.
 
 ---
@@ -917,7 +936,7 @@ Khi user cung cấp mã phiếu + (nếu có) link — bất kỳ lúc nào, cù
 1. **Front-matter của đúng file SRS.md** (`<module-slug>/SRS.md` hoặc `<cr_id>/SRS.md`, ngay dưới thư mục gốc): điền `jira_ticket: <mã phiếu>` và `jira_url: <link>` (suy ra link theo format `<JIRA_BASE_URL>/browse/<mã phiếu>` nếu user chỉ cho mã, không cho link).
 2. **`index.json`** (ngay dưới thư mục gốc): cập nhật đúng entry của module/cr đó, thêm/ghi đè field `jira_ticket` và `jira_url` — cùng giá trị với front-matter, không để lệch nhau.
 
-Đây là **update trực tiếp 2 file đã tồn tại** (không phải nội dung nghiệp vụ mới) — vẫn áp L2 diff ngắn gọn (approval-gate.md) trước khi ghi nếu user chưa xác nhận rõ trong câu báo mã phiếu; nếu user báo mã phiếu và nói luôn kiểu "cập nhật vào tài liệu giúp mình" thì coi như đã đồng ý, ghi thẳng và báo lại đã cập nhật ở 2 chỗ nào.
+Đây là **update trực tiếp 2 file đã tồn tại** (không phải nội dung nghiệp vụ mới) — vẫn cho user xem diff ngắn gọn trước khi ghi nếu user chưa xác nhận rõ trong câu báo mã phiếu; nếu user báo mã phiếu và nói luôn kiểu "cập nhật vào tài liệu giúp mình" thì coi như đã đồng ý, ghi thẳng và báo lại đã cập nhật ở 2 chỗ nào.
 
 Nếu 1 module có nhiều file SRS.md (nhiều CR) → hỏi rõ mã phiếu này ứng với đúng CR/bản nào trước khi ghi, không tự đoán ghi vào bản mới nhất.
 
@@ -927,7 +946,8 @@ Nếu 1 module có nhiều file SRS.md (nhiều CR) → hỏi rõ mã phiếu n�
 
 **Cấu trúc**
 - [ ] Outline đã được user xác nhận
-- [ ] Mỗi module có đủ 4 thành phần: Mô tả tóm tắt / Phạm vi chỉnh sửa / Yêu cầu giao diện / Chức năng
+- [ ] Mỗi module có đủ 4 thành phần bắt buộc: Mô tả tóm tắt / Phạm vi chỉnh sửa / Yêu cầu giao diện / Chức năng
+- [ ] Module dài/phức tạp (nhiều actor dễ nhầm, nhiều thuật ngữ đặc thù) đã cân nhắc thêm Bảng thuật ngữ & Actor (Rule A.2) — không bắt buộc, chỉ kiểm tra đã cân nhắc chứ không phải lúc nào cũng phải có
 - [ ] Mỗi chức năng có đủ 4 section: Quy trình / Chức năng nghiệp vụ / Thông báo & Log / Edge cases
 - [ ] Có mục "Điều kiện nghiệm thu hệ thống" ở cuối
 

@@ -8,8 +8,9 @@ description: >
 license: Proprietary
 ---
 
-<!-- skill version: 2.1 (cập nhật: đơn vị mặc định DAS cho mọi dòng, tách
-     sub-group theo nền tảng, row height 16.5pt theo file mẫu) -->
+<!-- skill version: 2.2 (cập nhật: bắt buộc hỏi lại khi input thiếu mô tả/
+     estimate manday; thêm tỷ lệ căn chỉnh BA/Test theo Dev khi thiếu số
+     liệu riêng — 1 BA = 4 Dev, 1 Tester = 3 Dev) -->
 
 # Skill: Tạo Báo Giá Phần Mềm (Mẫu eGOV)
 
@@ -91,6 +92,38 @@ nghiệp vụ và estimate manday do user cung cấp (hoặc nhập thủ công)
 4. **Kiểm thử - Test** – test chức năng, UAT
 5. **Deploy và Upcode** – build, upcode, triển khai
 
+### Tỷ lệ căn chỉnh effort BA / Test theo Dev (khi thiếu số liệu riêng)
+
+Tỷ lệ nhân sự chuẩn của tổ chức: **1 BA : 4 Dev** và **1 Tester : 3 Dev**.
+Quy đổi sang effort (manday) khi user KHÔNG cung cấp sẵn số ngày riêng cho
+nhóm 1+2 (BA) hoặc nhóm 4 (Test):
+
+```
+Effort BA   (gộp Nhóm 1 "Tiếp nhận và phân tích yêu cầu" + Nhóm 2 "Phân tích thiết kế")
+            = Tổng effort Nhóm 3 "Lập trình" ÷ 4
+
+Effort Test (Nhóm 4 "Kiểm thử - Test")
+            = Tổng effort Nhóm 3 "Lập trình" ÷ 3
+```
+
+**Cách áp dụng:**
+1. Cộng tổng Manday của toàn bộ task trong Nhóm 3 (Lập trình) trước — đây
+   luôn là số liệu gốc do user cung cấp hoặc đã estimate riêng (skill
+   `effort-estimate-pmbok`), KHÔNG được suy ngược lại từ BA/Test.
+2. Suy ra effort BA = Dev ÷ 4, effort Test = Dev ÷ 3.
+3. Khi cần tách effort BA thành 2 dòng task cụ thể cho Nhóm 1 và Nhóm 2 mà
+   user không nói rõ tỷ trọng → chia đều 50/50 (hoặc nghiêng nhẹ về Nhóm 2
+   nếu việc chủ yếu là thiết kế UI/CSDL) — không cần chính xác tuyệt đối
+   từng dòng, chỉ cần tổng Nhóm 1 + Nhóm 2 khớp đúng công thức ở trên.
+4. Nhóm 5 (Deploy và Upcode) **không** nằm trong tỷ lệ này — ước lượng
+   riêng theo quy mô công việc build/upcode/triển khai thực tế, đánh dấu
+   `[GIẢ ĐỊNH]` nếu chưa có input cụ thể.
+
+**Ưu tiên số liệu user cung cấp:** nếu user đã tự đưa effort BA hoặc Test
+riêng (khác với suy theo tỷ lệ) → dùng đúng số user cung cấp, KHÔNG ép ghi
+đè theo công thức trên. Tỷ lệ này chỉ là **mặc định khi thiếu dữ liệu**,
+không phải quy tắc bắt buộc áp cho mọi trường hợp.
+
 ### Tách đủ đầu mục lớn (sub-group theo nền tảng/phân hệ)
 
 **Bắt buộc tách sub-group** bất cứ khi nào một nhóm chính (đặc biệt là nhóm
@@ -130,6 +163,36 @@ Hỏi (hoặc đọc từ input) các thông tin sau:
 
 > Nếu user chỉ cung cấp danh sách task thô (không có nhóm), tự động phân nhóm
 > theo 5 nhóm chuẩn. Số nhân sự mặc định = 1 nếu không có.
+
+#### Gate bắt buộc — dừng lại hỏi khi input chưa đủ để build file
+
+**KHÔNG tự bịa mô tả công việc hoặc tự bịa số ngày/manday** khi input chưa
+đủ. Kiểm tra đúng 2 điều kiện sau trước khi sang Bước 2:
+
+| Thiếu gì | Dấu hiệu | Hành động |
+|---|---|---|
+| **Mô tả/phạm vi công việc** | User chỉ nói tên dự án hoặc yêu cầu chung chung ("làm báo giá cho module X"), không đủ để tách ra được ít nhất 1 task cụ thể của Nhóm 3 (Lập trình) | Dừng lại, hỏi user mô tả chức năng/danh sách công việc cụ thể — không tự suy đoán phạm vi |
+| **Estimate manday (số ngày) cho Nhóm 3 - Lập trình** | User đưa mô tả/danh sách task nhưng không kèm số ngày cho phần lớn hoặc toàn bộ task Lập trình, và cũng chưa có sẵn kết quả estimate nào khác (vd từ skill `effort-estimate-pmbok`) | Dừng lại, hỏi user cung cấp số ngày/manday, hoặc đề xuất chạy skill `effort-estimate-pmbok` trước để ra effort rồi quay lại `/baogia` |
+
+Câu hỏi mẫu khi thiếu:
+
+```
+Để lập báo giá, mình cần thêm:
+1. [Nếu thiếu mô tả] Phạm vi công việc cụ thể — chức năng/màn hình nào cần làm?
+2. [Nếu thiếu estimate] Số ngày công (manday) cho từng task Lập trình — hoặc
+   bạn muốn mình chạy ước lượng effort (skill effort-estimate-pmbok) trước
+   rồi mới lập báo giá?
+```
+
+Chỉ áp dụng gate này cho **Nhóm 3 (Lập trình)** — effort của Nhóm 1+2 (BA)
+và Nhóm 4 (Test) có thể tự suy ra theo tỷ lệ chuẩn khi thiếu (xem mục "Tỷ
+lệ căn chỉnh effort BA / Test theo Dev" bên dưới), không cần hỏi lại riêng
+cho 2 nhóm này. Nhóm 5 (Deploy) thiếu số liệu → ước lượng nhỏ hợp lý và
+đánh dấu `[GIẢ ĐỊNH]`, cũng không cần dừng lại hỏi.
+
+**Chỉ sang Bước 2 sau khi đã đủ mô tả + đủ estimate Nhóm 3**, hoặc user xác
+nhận dùng số liệu tạm/giả định (khi đó đánh dấu rõ `[GIẢ ĐỊNH]` trong cột
+Ghi chú của các dòng liên quan, không im lặng bịa số).
 
 ### Bước 2 – Xây dựng danh sách rows
 
@@ -453,3 +516,5 @@ wb.save(output_path)
    ở dòng nhóm/sub-group.
 5. Sub-group chỉ có tên, bold, không có formula cột F (vì không có số ngày riêng).
 6. Khi user upload file mẫu (.xlsx), dùng `load_workbook` để đọc rồi cập nhật — **không tạo lại từ đầu** để giữ format gốc.
+7. **Không tự bịa mô tả công việc hoặc số ngày/manday** khi input thiếu — dừng lại hỏi user theo gate ở Bước 1, trừ khi user xác nhận dùng số liệu tạm (đánh dấu `[GIẢ ĐỊNH]`).
+8. Effort Nhóm 1+2 (BA) và Nhóm 4 (Test) khi thiếu số liệu riêng → suy ra theo tỷ lệ chuẩn **BA = Dev ÷ 4, Test = Dev ÷ 3** (dựa trên tổng effort Nhóm 3 - Lập trình), không tự đặt số tùy ý. Nếu user đã cho sẵn số riêng thì ưu tiên dùng số đó.

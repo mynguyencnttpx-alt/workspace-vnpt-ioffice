@@ -89,6 +89,7 @@ khác), bạn có thể cung cấp thêm không:
 | **Granularity chức năng** | Chức năng có bị tách quá vụn không (nhiều "chức năng" thực chất chỉ là các thao tác con trong cùng 1 màn hình/popup phục vụ chung 1 mục tiêu, ví dụ mở popup / xóa dòng / đổi hạn xử lý bị tách thành 3 chức năng riêng)? Hoặc ngược lại, có bị gộp quá to không (1 chức năng ôm nhiều mục tiêu nghiệp vụ không liên quan, khác actor/quyền/output)? Xem tiêu chí chi tiết ở `writing-rules.md` — Nguyên tắc xác định và tách chức năng |
 | **Traceability** | Mỗi yêu cầu có ID duy nhất, có thể trace về business objective? |
 | **Stakeholder alignment** | Yêu cầu thể hiện đúng nhu cầu user cuối hay chỉ phản ánh giải pháp kỹ thuật? |
+| **Thuật ngữ & actor (chỉ với module dài/phức tạp)** | Module có nhiều actor dễ nhầm vai trò hoặc dùng nhiều từ viết tắt/thuật ngữ đặc thù mà KHÔNG có bảng thuật ngữ/actor ở đầu module (`writing-rules.md` Rule A.2)? Nếu có → gợi ý bổ sung (mức 💡 Suggestion — mục này vốn tùy chọn, không phải lỗi cấu trúc bắt buộc) |
 
 ### 🟢 Dev — Developer (kiểm tra tính khả thi kỹ thuật)
 

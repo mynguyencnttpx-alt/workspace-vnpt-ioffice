@@ -27,6 +27,24 @@
 
 ---
 
+##### Bảng thuật ngữ & Actor tham gia (tùy chọn)
+
+[Chỉ thêm mục này khi module dài/phức tạp — xem tiêu chí cân nhắc ở `writing-rules.md` Rule A.2. Module ngắn/đơn giản thì bỏ qua, không để bảng rỗng.]
+
+**Từ viết tắt & thuật ngữ**
+
+| Từ viết tắt / Thuật ngữ | Giải thích |
+|---|---|
+| <Từ viết tắt hoặc thuật ngữ nghiệp vụ đặc thù của module> | <Giải thích đầy đủ, thống nhất cách hiểu> |
+
+**Actor tham gia**
+
+| Actor | Vai trò / Mô tả trong phạm vi module này |
+|---|---|
+| <Tên actor> | <Vai trò, trách nhiệm, quyền hạn liên quan tới module — không lặp lại định nghĩa actor toàn hệ thống nếu đã nêu ở Mô tả tóm tắt, chỉ bổ sung phần đặc thù của module> |
+
+---
+
 ##### Phạm vi chỉnh sửa
 
 - Các chức năng và menu liên quan bị ảnh hưởng:

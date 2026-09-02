@@ -37,7 +37,7 @@ workspace-vnpt-ioffice/
 |---|---|---|
 | `urd-writer-vnpt` | Viết URD theo mẫu BM_URD (bản chuẩn, phục vụ audit CMMI nội bộ) | "viết URD", "yêu cầu chức năng", "BM_URD" |
 | `urd-writer-customer` | Viết URD bản dễ hiểu cho khách hàng non-tech (chốt nghiệp vụ + UI trước khi làm SRS) | "viết URD cho khách hàng", "URD dễ hiểu", "chốt giao diện với khách" |
-| `srs-write-review` | Viết/review SRS theo chuẩn BM_SRS_AI — luồng WRITE đi qua 4 gate bắt buộc (Outline → vị trí lưu → AI tự review → user phê duyệt cuối) | "viết SRS", "viết đặc tả", "review SRS", "business rule" |
+| `srs-write-review` | Viết/review SRS theo chuẩn BM_SRS_AI — luồng WRITE đi qua 4 gate bắt buộc (Outline → vị trí lưu → AI tự review → user phê duyệt cuối); sau khi SRS được duyệt còn soạn sẵn nội dung phiếu Jira để copy-paste thủ công (không tự tạo phiếu — Jira VNPT chặn bằng OTP) | "viết SRS", "viết đặc tả", "review SRS", "business rule", "soạn nội dung Jira" |
 | `um-writer-vnpt` | Viết Hướng dẫn sử dụng (UM) theo mẫu BM_UM_BM_AI | "viết HDSD", "user manual", "BM_UM" |
 
 ### Nhóm ước lượng & báo giá
@@ -61,7 +61,7 @@ Mặc định chung: **`docs/`** (ngay dưới thư mục làm việc hiện t�
 
 | Skill | Nơi ghi file mặc định |
 |---|---|
-| `srs-write-review` | Hỏi user chốt thư mục gốc (Bước 2.5) — có chỉ định thì dùng đúng đường dẫn đó, không chỉ định gì thì mặc định `docs/`. Ghi `<thư mục gốc>/<module-slug>/SRS.md` (hoặc `<cr_id>/SRS.md` nếu là CR) |
+| `srs-write-review` | Hỏi user chốt thư mục gốc (Bước 2.5) — có chỉ định thì dùng đúng đường dẫn đó, không chỉ định gì thì mặc định `docs/`. Ghi `<thư mục gốc>/<module-slug>/SRS.md` (hoặc `<cr_id>/SRS.md` nếu là CR). Mode soạn Jira ghi thêm `<module-slug>/jira-ready.md` (hoặc `<cr_id>/jira-ready.md`) cạnh SRS.md |
 | `urd-writer-vnpt`, `urd-writer-customer`, `um-writer-vnpt` | `docs/<Loại>_<TenHeThong>_v<x.x>.md` (hoặc `.docx`) |
 | `ba-uc`, `baogia` | File Excel `.xlsx` xuất ra `docs/` |
 | `customer-requirement-clarifier`, `effort-estimate-pmbok` | Không ghi file — trả kết quả trực tiếp trên chat |

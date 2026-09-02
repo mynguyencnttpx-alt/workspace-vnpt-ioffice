@@ -1,7 +1,7 @@
 # Hướng dẫn sử dụng skill — Workspace VNPT iOffice
 
 > Bổ sung cho `START-HERE.md`. File này tập trung vào **cách gọi từng skill** và **input cần chuẩn bị**.
-> Cập nhật 2026-09-01 theo đúng 9 skill đang có trong `.claude/skills/` — bản trước có thêm "Nhóm 1 — Vẽ sơ đồ" (11 skill `/sequence /activity /bpmn ...`) đã bị gỡ khỏi workspace, phần đó đã bỏ.
+> Cập nhật 2026-09-02 theo đúng 9 skill đang có trong `.claude/skills/` — bản trước có thêm "Nhóm 1 — Vẽ sơ đồ" (11 skill `/sequence /activity /bpmn ...`) đã bị gỡ khỏi workspace, phần đó đã bỏ. Bổ sung mode JIRA-CONTENT của `srs-write-review` (soạn nội dung phiếu Jira sau khi SRS duyệt).
 
 ## Nguyên tắc chung
 
@@ -45,11 +45,12 @@
 ### `srs-write-review` — Viết / review SRS chuẩn VNPT iOffice (BM_SRS_AI)
 
 - **Gọi bằng:** "viết SRS", "viết đặc tả", "review SRS", "business rule", "thiết kế luồng", "phân quyền theo role", "trạng thái đối tượng", "tích hợp API"... hoặc chỉ cần đưa mô tả chức năng thô
-- **2 mode:**
+- **3 mode:**
   - **WRITE** — cung cấp mô tả nghiệp vụ → skill viết SRS mới, đi qua 4 gate bắt buộc trước khi xuất file (xem `START-HERE.md`)
   - **REVIEW** — đính kèm SRS có sẵn → skill chấm điểm chất lượng X/10 + phân tích chi tiết, hiển thị trên chat, không ghi file
-  - Không nói rõ → skill hỏi bạn muốn viết mới hay review
-- **Output:** `.md` mặc định, `.docx` (Times New Roman 12pt) khi yêu cầu rõ — skill hỏi bạn chốt thư mục gốc trước (Bước 2.5); không chỉ định gì thì mặc định `docs/`, rồi ghi `<thư mục gốc>/<module-slug>/SRS.md`
+  - **JIRA-CONTENT** (gọi bằng "soạn nội dung Jira cho module XYZ", "tạo phiếu Jira cho SRS/CR XYZ") — chỉ chạy sau khi SRS đã ở trạng thái `approved`; soạn sẵn Title/Description/Labels đúng định dạng Jira để bạn tự copy-paste vào `https://cntt.vnpt.vn`. Skill **không tự tạo phiếu thật** (đã thử điều khiển trình duyệt lẫn gọi REST API bằng Personal Access Token, cả 2 đều bị Jira VNPT chặn bằng xác thực OTP bổ sung) — tuyệt đối không paste Jira token/mật khẩu vào chat. Có thể gọi độc lập, không cần lặp lại từ WRITE mode nếu SRS đã có sẵn.
+  - Không nói rõ → skill hỏi bạn muốn viết mới, review, hay soạn nội dung Jira
+- **Output:** `.md` mặc định, `.docx` (Times New Roman 12pt) khi yêu cầu rõ — skill hỏi bạn chốt thư mục gốc trước (Bước 2.5); không chỉ định gì thì mặc định `docs/`, rồi ghi `<thư mục gốc>/<module-slug>/SRS.md`. Mode JIRA-CONTENT ghi thêm `<module-slug>/jira-ready.md` cạnh SRS.md; khi bạn báo lại mã phiếu đã tạo, skill cập nhật mã đó vào tài liệu để tiện tra cứu sau này
 
 ### `um-writer-vnpt` — Viết Hướng dẫn sử dụng / User Manual (BM_UM_BM_AI)
 
@@ -89,6 +90,7 @@
 | Tài liệu chốt nghiệp vụ/UI để họp với khách hàng | "viết URD cho khách hàng, hệ thống XYZ" |
 | Viết đặc tả chức năng chi tiết | "viết SRS cho chức năng XYZ" |
 | Kiểm tra chất lượng SRS đã có | đính kèm file + "review SRS này" |
+| Soạn sẵn nội dung phiếu Jira từ SRS đã duyệt | "soạn nội dung Jira cho module XYZ" |
 | Ước lượng effort (manday) trước khi báo giá | "estimate effort cho danh sách UC sau: ..." |
 | Báo giá phần mềm | "tạo báo giá từ danh sách manday sau" |
 | Hướng dẫn sử dụng cho người dùng cuối | "viết HDSD cho chức năng XYZ" |
