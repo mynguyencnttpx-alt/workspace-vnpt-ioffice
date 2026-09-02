@@ -35,7 +35,7 @@ Năng lực bắt buộc:
 
 ### Quy tắc đặt `module-slug`
 
-`<module-slug>` dùng xuyên suốt trong đường dẫn folder (`docs/base/<module-slug>/`), trong `cr_id` (`CR-YYYYMMDD-<module-slug>-NN`), và tên file review (`docs/reviews/<module-slug>-review.md`) — suy ra từ **tên hệ thống/phân hệ** đã xác nhận ở trên, theo quy tắc:
+`<module-slug>` dùng xuyên suốt trong đường dẫn folder (`<module-slug>/`, ngay dưới thư mục gốc), trong `cr_id` (`CR-YYYYMMDD-<module-slug>-NN`), và tên file review (`reviews/<module-slug>-review.md`) — suy ra từ **tên hệ thống/phân hệ** đã xác nhận ở trên, theo quy tắc:
 
 - Toàn bộ chữ thường (lowercase), nối các từ bằng dấu gạch ngang (kebab-case).
 - Chỉ dùng ký tự ASCII — bỏ dấu tiếng Việt (viết không dấu), không dùng khoảng trắng hoặc gạch dưới
@@ -137,22 +137,28 @@ Chức năng sẽ đặc tả: [Danh sách]
 
 **Bắt buộc thực hiện trước khi tạo bất kỳ folder nào hoặc lưu ảnh đại diện / file nghiệp vụ gốc / mockup xuống đĩa.**
 
-Sau khi Outline (Bước 2) đã được xác nhận — module-slug hoặc `cr_id` đã chốt — hỏi và **CHỜ user xác nhận** đường dẫn thư mục gốc trên thiết bị để tạo cấu trúc `docs/`:
+Sau khi Outline (Bước 2) đã được xác nhận — module-slug hoặc `cr_id` đã chốt — hỏi đường dẫn thư mục gốc, gợi ý sẵn `docs/` (ngay dưới thư mục làm việc hiện tại) làm mặc định:
 
 ```
-Mình sẽ tạo cấu trúc lưu trữ tại: docs/base/<module-slug>/ (hoặc docs/cr/<cr_id>/ nếu là CR)
+Mình sẽ tạo thư mục tài liệu tại: <module-slug>/ (hoặc <cr_id>/ nếu là CR) — ngay dưới 1 thư mục gốc.
 
-→ Bạn cho mình đường dẫn thư mục gốc trên máy để mình tạo cấu trúc này (ví dụ: D:\Projects\iOffice\, hoặc xác nhận dùng thư mục làm việc hiện tại)?
+→ Bạn muốn lưu ở đâu? Mặc định là docs/ (ngay dưới thư mục làm việc hiện tại) — nếu không chỉ định gì khác mình dùng thư mục này. Muốn lưu chỗ khác thì cho mình đường dẫn cụ thể (ví dụ: D:\Projects\iOffice\).
 ```
 
 **Quy tắc:**
-- KHÔNG tự suy đoán hoặc tự chọn đường dẫn khi chưa có xác nhận — kể cả khi có vẻ "rõ ràng" nên dùng thư mục hiện tại.
-- Nếu thư mục làm việc hiện tại **đã có sẵn** cấu trúc `docs/base/` hoặc `docs/cr/` (project đã dùng skill này trước đó) → có thể đề xuất dùng lại đường dẫn đó, nhưng vẫn phải hỏi và chờ xác nhận, không tự ý ghi thẳng.
-- Nếu user gửi kèm ảnh đại diện / file nghiệp vụ gốc / mockup **trước khi** có xác nhận đường dẫn → giữ tạm trong phiên làm việc (chưa ghi ra đĩa) cho đến khi có đường dẫn được xác nhận.
-- Sau khi có xác nhận → tạo folder theo đúng cấu trúc ở Bước 4 (nếu chưa tồn tại), rồi mới lưu ảnh đại diện + file nghiệp vụ gốc vào đó làm input tham chiếu trong lúc soạn SRS.
-- Đường dẫn đã xác nhận trong phiên làm việc → dùng lại cho toàn bộ module/CR đang xử lý, không hỏi lại (trừ khi user đổi ý hoặc bắt đầu module/CR khác).
+- **User chỉ định 1 đường dẫn cụ thể** → dùng đúng đường dẫn đó làm thư mục gốc.
+- **User không chỉ định gì khác** (bỏ qua, xác nhận dùng mặc định, gõ `Y`/"ok"...) → dùng `docs/` (ngay dưới thư mục làm việc hiện tại) làm thư mục gốc, tự tạo nếu chưa có.
+- KHÔNG tự ý dùng đường dẫn nào khác ngoài 2 trường hợp trên (không suy đoán 1 thư mục "có vẻ hợp lý" khác `docs/`).
+- Cấu trúc thư mục **không có lớp bao thêm** ngoài thư mục gốc đã chốt — thư mục tài liệu tạo trực tiếp
+  ngay dưới thư mục gốc, tên đúng bằng `<module-slug>` (doc_type = new) hoặc `<cr_id>`
+  (doc_type = cr). Xem cấu trúc đầy đủ ở Bước 4. (Khi gốc là `docs/`, kết quả là `docs/<module-slug>/SRS.md`.)
+- Nếu thư mục gốc đã có sẵn `index.json` hoặc các thư mục con dạng
+  `<slug>/SRS.md` (project đã dùng skill này trước đó) → đề xuất dùng lại đường dẫn đó thay vì `docs/` mặc định, nhưng vẫn theo đúng 2 trường hợp trên (user xác nhận là dùng, không tự ý ghi thẳng).
+- Nếu user gửi kèm ảnh đại diện / file nghiệp vụ gốc / mockup **trước khi** chốt xong đường dẫn → giữ tạm trong phiên làm việc (chưa ghi ra đĩa) cho đến khi đường dẫn đã chốt (kể cả khi chốt bằng mặc định `docs/`).
+- Sau khi đã chốt → tạo folder theo đúng cấu trúc ở Bước 4 (nếu chưa tồn tại), rồi mới lưu ảnh đại diện + file nghiệp vụ gốc vào đó làm input tham chiếu trong lúc soạn SRS.
+- Đường dẫn đã chốt trong phiên làm việc → dùng lại cho toàn bộ module/CR đang xử lý, không hỏi lại (trừ khi user đổi ý hoặc bắt đầu module/CR khác).
 
-**Không sang Bước 3 nếu chưa có xác nhận đường dẫn lưu trữ.**
+**Không sang Bước 3 nếu đường dẫn lưu trữ chưa được chốt** (chốt bằng 1 đường dẫn cụ thể, hoặc bằng mặc định `docs/`).
 
 ---
 
@@ -172,7 +178,7 @@ module: <Tên module>
 function_ids: [FC-001, FC-002]
 doc_type: new            # new | cr
 cr_id: null                # điền nếu doc_type = cr
-based_on: null              # path bản gốc/CR trước đó — điền nếu doc_type = cr
+based_on: null              # ĐƯỜNG DẪN TUYỆT ĐỐI đầy đủ (gồm cả thư mục chứa file) tới file gốc/CR trước đó — điền nếu doc_type = cr. Ví dụ: "D:\VNPT Project\IOFFICE V5\...\10.Core\01.WEB\IOFFICE_SRS_V5_QL_DANG_KY_XE_Web_v1.0.docx" — có thể nối thêm " (mục <FC-ID> - <tên mục>)" phía sau để trỏ đúng phần tham chiếu, nhưng đường dẫn thư mục + tên file PHẢI đầy đủ, không rút gọn/bỏ thư mục cha
 affected_functions: []      # điền nếu doc_type = cr
 version: 0.1
 status: draft              # draft | needs-revision | approved | superseded
@@ -236,9 +242,30 @@ Bỏ trống hoặc ghi "Không có" nếu là tính năng mới hoàn toàn.
 Gồm 2 mục:
 - **Hình ảnh / mockup**: lưu file ảnh thật vào thư mục `images/` cùng cấp với SRS.md (đường dẫn gốc đã được xác nhận ở Bước 2.5), đặt tên theo convention `<FC-ID>-<mô-tả-ngắn>.png`, sau đó chèn bằng link tương đối đúng ngay trong section của FC đó — KHÔNG paste ảnh trôi nổi ở đầu tài liệu:
   `![Mockup FC-002 — Phân công xử lý](images/FC-002-phan-cong-mockup.png)`
-  Nếu FC không đổi trong CR hiện tại nhưng ảnh vẫn cần tham chiếu → trỏ ngược link về `../../base/<module-slug>/images/` thay vì copy lại ảnh.
+  Nếu FC không đổi trong CR hiện tại nhưng ảnh vẫn cần tham chiếu → trỏ ngược link về `../<module-slug>/images/` (thư mục module gốc, cùng cấp với thư mục CR — xem cấu trúc phẳng ở Bước 4) thay vì copy lại ảnh.
   Nếu có hành vi UI/UX đặc biệt → mô tả bổ sung ngay bên dưới hình (ví dụ: kéo thả để sắp xếp, vuốt để xóa, infinite scroll, drag & drop giữa các cột, tooltip khi hover, v.v.)
 - **Bảng trường thông tin** — đúng **5 cột**: Tên trường | Kiểu điều khiển | Độ dài | Ràng buộc / Điều kiện | Kiểu dữ liệu
+
+#### Ảnh mockup người dùng đính kèm trực tiếp trong khung chat (không phải file path)
+
+Khi user paste/kéo-thả ảnh mockup thẳng vào khung chat (không gõ đường dẫn), thực hiện theo thứ tự
+sau **ngay khi vào Bước 3 — trước khi viết section Yêu cầu giao diện của FC liên quan**:
+
+1. Thử xác định file thật của ảnh vừa đính kèm bằng cách tìm trong các vị trí cache thường gặp của
+   Claude Code trên máy user (Windows): `%APPDATA%\Claude\pending-uploads\`, thư mục scratchpad của
+   phiên hiện tại, thư mục temp hệ điều hành — lọc theo file ảnh có thời điểm sửa đổi khớp với lúc
+   tin nhắn đính kèm được gửi (không lấy nhầm ảnh cũ của phiên khác).
+2. Tìm thấy đúng file → **copy** (không move, giữ nguyên bản gốc của user) vào
+   `images/<FC-ID>-<mô-tả-ngắn>.png` theo convention đặt tên, verify file tồn tại đúng kích thước
+   tại đích, rồi mới chèn link `![Mockup ...](images/...)` vào đúng section.
+3. KHÔNG tìm thấy file thật (giới hạn kỹ thuật — một số client chỉ truyền nội dung ảnh vào ngữ cảnh
+   model để "nhìn" mà không lưu path cục bộ nào truy xuất được) → **PHẢI báo rõ ngay cho user, không
+   âm thầm bỏ qua hay giả vờ đã lưu**: nêu cụ thể đã tìm ở những đâu, đề xuất sẵn tên file đích
+   (`images/<FC-ID>-<mô-tả-ngắn>.png`), và đề nghị 1 trong 2 cách — (a) user gửi kèm đường dẫn file
+   ảnh gốc trên máy để tool tự copy, hoặc (b) user tự lưu ảnh vào đúng đường dẫn đã đề xuất, sau đó
+   xác nhận lại để mình chèn link vào tài liệu.
+4. **KHÔNG BAO GIỜ** viết "đã lưu ảnh" / chèn sẵn link ảnh khi chưa thực sự verify file tồn tại tại
+   đích — nếu chưa lưu được, ghi rõ ràng buộc `[CẦN BỔ SUNG ẢNH]` ngay tại vị trí đó trong tài liệu.
 
 #### Quy tắc viết bảng trường thông tin
 
@@ -700,7 +727,11 @@ Ngay sau khi viết xong toàn bộ SRS ở Bước 3 — **KHÔNG xuất file n
 
 ### Lưu file review snapshot
 
-Song song với việc hiển thị trên chat, ghi lại kết quả Bước 3.5 thành file `docs/reviews/<module-slug-hoặc-cr_id>-review.md` (bảng vấn đề + Quality Gate + trạng thái phê duyệt) — làm bằng chứng audit (traceability, sign-off) và giúp Tester AI biết trước vùng rủi ro mà không cần review lại từ đầu.
+Song song với việc hiển thị trên chat, ghi lại kết quả Bước 3.5 thành file
+`reviews/<module-slug-hoặc-cr_id>-review.md` (ngay dưới thư mục gốc đã xác nhận ở Bước 2.5, KHÔNG
+có lớp "docs/" bao ngoài) — nội dung gồm bảng vấn đề + Quality Gate + trạng thái phê duyệt — làm
+bằng chứng audit (traceability, sign-off) và giúp Tester AI biết trước vùng rủi ro mà không cần
+review lại từ đầu. Sau khi ghi, báo lại đường dẫn dưới dạng markdown link (xem quy tắc ở Bước 4).
 
 ---
 
@@ -719,7 +750,12 @@ Kết quả tự review: [Approved / Conditional Approval] — [X.X]/10
 **Không thực hiện Bước 4 (xuất file) nếu user chưa phê duyệt ở bước này.**
 Nếu user yêu cầu sửa thêm → quay lại phần liên quan ở Bước 3, sau đó lặp lại Bước 3.5 trước khi vào lại Bước 3.6.
 
-**Sau khi user phê duyệt:** cập nhật entry tương ứng trong `docs/index.json` — lấy đúng giá trị từ front-matter vừa chốt trong SRS.md, không tự nhập số liệu khác: `current_approved` trỏ đúng path file vừa duyệt, `status: dev-ready`, `lineage` nối thêm `cr_id` nếu `doc_type = cr`. Nếu `docs/index.json` chưa tồn tại → tạo mới. Nếu nghi ngờ index bị lệch với thực tế các file → chạy `references/rebuild_index.py` để sinh lại toàn bộ thay vì sửa tay.
+**Sau khi user phê duyệt:** cập nhật entry tương ứng trong `index.json` (ngay dưới thư mục gốc đã
+xác nhận, KHÔNG có lớp "docs/" bao ngoài) — lấy đúng giá trị từ front-matter vừa chốt trong SRS.md,
+không tự nhập số liệu khác: `current_approved` trỏ đúng path file vừa duyệt, `status: dev-ready`,
+`lineage` nối thêm `cr_id` nếu `doc_type = cr`. Nếu `index.json` chưa tồn tại → tạo mới. Nếu nghi
+ngờ index bị lệch với thực tế các file → chạy `references/rebuild_index.py <đường dẫn thư mục gốc>`
+để sinh lại toàn bộ thay vì sửa tay.
 
 ---
 
@@ -729,12 +765,15 @@ Nếu user yêu cầu sửa thêm → quay lại phần liên quan ở Bước 3
 
 ### Vị trí lưu file & cấu trúc thư mục
 
+> Thư mục tài liệu tạo **trực tiếp ngay dưới thư mục gốc** đã xác nhận ở Bước 2.5 — KHÔNG có lớp
+> bao "docs/base" hay "docs/cr". Tên thư mục tài liệu đúng bằng `<module-slug>` hoặc `<cr_id>`.
+
 ```
-docs/
-  base/<module-slug>/
+<thư mục gốc đã xác nhận>/
+  <module-slug>/
     SRS.md              ← doc_type: new, phiên bản gốc của module
     images/
-  cr/<cr_id>/
+  <cr_id>/
     SRS.md              ← doc_type: cr — FULL snapshot module SAU KHI gộp CR (không phải file delta)
     images/               ← chỉ chứa ảnh của FC bị CR này đổi
   reviews/
@@ -742,9 +781,29 @@ docs/
   index.json
 ```
 
-- `doc_type = new` → lưu vào `docs/base/<module-slug>/SRS.md`
-- `doc_type = cr` → lưu vào `docs/cr/<cr_id>/SRS.md` — nội dung là **toàn bộ module** sau khi đã gộp thay đổi, không chỉ phần đổi
+- `doc_type = new` → lưu vào `<module-slug>/SRS.md` (ngay dưới thư mục gốc)
+- `doc_type = cr` → lưu vào `<cr_id>/SRS.md` (ngay dưới thư mục gốc) — nội dung là **toàn bộ module** sau khi đã gộp thay đổi, không chỉ phần đổi
 - Không tạo file `.md` output rời rạc ngoài cấu trúc trên, trừ khi user chỉ định path khác rõ ràng
+
+### Mở file sau khi ghi — báo lại bằng markdown link + path thuần dự phòng
+
+Sau khi ghi/cập nhật bất kỳ file nào trong Bước 4/5 (SRS.md, review snapshot, jira-ready.md,
+index.json...), **LUÔN báo lại đường dẫn theo cả 2 dạng** — không chỉ 1 trong 2:
+
+1. **Markdown link** trỏ đúng đường dẫn tuyệt đối của file, để bấm mở trực tiếp nếu client hỗ trợ:
+   `[SRS.md](D:\VNPT Project\...\CR-20260829-quan-ly-dang-ky-xe-01\SRS.md)`
+   — **KHÔNG URL-encode path** (không thay dấu cách bằng `%20` hay encode ký tự khác). Đường dẫn
+   Windows dùng dấu cách/dấu gạch chéo ngược trực tiếp; encode sai làm link không mở được, đặc biệt
+   khi path nằm **ngoài** thư mục làm việc hiện tại của Claude Code (client thường chỉ hỗ trợ click-mở
+   ổn định cho file trong workspace — path tuyệt đối ngoài workspace có thể không bấm mở được).
+2. **Path thuần trong code block** ngay sau đó, để user copy-paste thủ công vào File Explorer / trình
+   soạn thảo khi cách 1 không bấm mở được (luôn xảy ra khi thư mục gốc nằm ngoài workspace hiện tại):
+   ```
+   D:\VNPT Project\...\CR-20260829-quan-ly-dang-ky-xe-01\SRS.md
+   ```
+
+Áp dụng cho mọi file output của skill này — dùng đúng đường dẫn tuyệt đối đã ghi, không rút gọn,
+không encode.
 
 ### Output mặc định: `.md`
 Hiển thị nội dung SRS đầy đủ theo cấu trúc template trên chat / tạo file `.md`.
@@ -791,8 +850,8 @@ Hiển thị nội dung SRS đầy đủ theo cấu trúc template trên chat / 
 
 Bước 5 không bắt buộc phải chạy ngay sau Bước 4 trong cùng phiên. Trường hợp thường gặp: user từ chối ở 5.1 vì cần chỉnh sửa SRS thêm, rồi quay lại yêu cầu riêng sau đó (cùng phiên hoặc phiên khác) — vd "soạn nội dung Jira cho module quan-ly-cong-van-den", "tạo phiếu Jira cho CR-20260810-...". Khi nhận diện đúng yêu cầu này (xem Bước 0 SKILL.md, mode JIRA-CONTENT):
 
-1. Nếu user chưa nói rõ module-slug/cr_id → hỏi, hoặc đọc `docs/index.json` để liệt kê các SRS có sẵn cho user chọn.
-2. Đọc đúng file `docs/base/<module-slug>/SRS.md` hoặc `docs/cr/<cr_id>/SRS.md` — dùng làm nguồn nội dung thay cho "SRS vừa viết trong phiên" ở 5.2.
+1. Nếu user chưa nói rõ module-slug/cr_id → hỏi, hoặc đọc `index.json` (ngay dưới thư mục gốc) để liệt kê các SRS có sẵn cho user chọn.
+2. Đọc đúng file `<module-slug>/SRS.md` hoặc `<cr_id>/SRS.md` (ngay dưới thư mục gốc) — dùng làm nguồn nội dung thay cho "SRS vừa viết trong phiên" ở 5.2.
 3. Kiểm tra front-matter `status`:
    - `status: approved` → tiếp tục bình thường sang 5.2.
    - `status` khác (`draft`, `needs-revision`...) → báo cho user: "SRS này đang ở trạng thái `<status>`, chưa phải bản duyệt cuối. Bạn muốn soạn tạm theo bản hiện tại hay đi sửa/duyệt lại SRS trước?" — KHÔNG tự ý coi bản chưa duyệt là bản chính thức nếu user không xác nhận.
@@ -818,14 +877,14 @@ Trích từ front-matter + nội dung SRS vừa duyệt, soạn sẵn:
 | Project (gợi ý) | Hỏi user nếu chưa biết project Jira của module này; các CR/lần sau của cùng module → tái sử dụng câu trả lời trước, không hỏi lại |
 | Issue Type (gợi ý) | Hỏi user tên loại issue muốn dùng (vd "Task", "Story") nếu chưa từng chọn cho module này |
 | Summary | `<module>` — `<function_ids>` (vd "Quản lý công văn đến — FC-001, FC-002") |
-| Description | Mô tả tóm tắt module + danh sách chức năng chính + đường dẫn file SRS vừa xuất + link `docs/reviews/<module-slug-hoặc-cr_id>-review.md` nếu có |
+| Description | Mô tả tóm tắt module + danh sách chức năng chính + đường dẫn file SRS vừa xuất + link `reviews/<module-slug-hoặc-cr_id>-review.md` nếu có |
 | Labels | `doc_type` (new/cr), `<module-slug>` |
 
 Không tự bịa Project/Issue Type khi user chưa xác nhận.
 
 ### 5.3 — Lưu file + hiển thị
 
-Ghi nội dung đã soạn thành file `docs/base/<module-slug>/jira-ready.md` (hoặc `docs/cr/<cr_id>/jira-ready.md` nếu là CR) theo format:
+Ghi nội dung đã soạn thành file `<module-slug>/jira-ready.md` (hoặc `<cr_id>/jira-ready.md` nếu là CR — ngay dưới thư mục gốc, không có lớp "docs/base"/"docs/cr" bao ngoài) theo format:
 
 ```markdown
 ## Phiếu Jira đề xuất — <module>
@@ -840,10 +899,12 @@ Ghi nội dung đã soạn thành file `docs/base/<module-slug>/jira-ready.md` (
 <description đầy đủ>
 ```
 
-In toàn bộ nội dung này ra chat luôn (không chỉ báo path file) để user copy ngay được, kèm nhắc và **chủ động hỏi mã phiếu để cập nhật ngược lại sau này**:
+In toàn bộ nội dung này ra chat luôn (không chỉ báo path file) để user copy ngay được, kèm markdown
+link trỏ đúng đường dẫn tuyệt đối của file (xem quy tắc "Mở file sau khi ghi" ở Bước 4) và **chủ
+động hỏi mã phiếu để cập nhật ngược lại sau này**:
 
 ```
-Nội dung phiếu đã lưu tại: docs/base/<module-slug>/jira-ready.md
+Nội dung phiếu đã lưu tại: [jira-ready.md](<đường dẫn tuyệt đối>)
 Bạn tự vào https://cntt.vnpt.vn > Create để paste nội dung trên và tạo phiếu.
 
 Sau khi tạo xong, cho mình biết mã phiếu (vd IOFFICE-123) để mình cập nhật lại vào tài liệu — tiện tra cứu sau này biết SRS này ứng với task Jira nào. Không cần trả lời ngay, khi nào tạo xong báo mình cũng được.
@@ -853,8 +914,8 @@ Sau khi tạo xong, cho mình biết mã phiếu (vd IOFFICE-123) để mình c�
 
 Khi user cung cấp mã phiếu + (nếu có) link — bất kỳ lúc nào, cùng phiên hay phiên khác, kể cả qua lối gọi độc lập ở trên — cập nhật đồng thời **2 nơi**:
 
-1. **Front-matter của đúng file SRS.md** (`docs/base/<module-slug>/SRS.md` hoặc `docs/cr/<cr_id>/SRS.md`): điền `jira_ticket: <mã phiếu>` và `jira_url: <link>` (suy ra link theo format `<JIRA_BASE_URL>/browse/<mã phiếu>` nếu user chỉ cho mã, không cho link).
-2. **`docs/index.json`**: cập nhật đúng entry của module/cr đó, thêm/ghi đè field `jira_ticket` và `jira_url` — cùng giá trị với front-matter, không để lệch nhau.
+1. **Front-matter của đúng file SRS.md** (`<module-slug>/SRS.md` hoặc `<cr_id>/SRS.md`, ngay dưới thư mục gốc): điền `jira_ticket: <mã phiếu>` và `jira_url: <link>` (suy ra link theo format `<JIRA_BASE_URL>/browse/<mã phiếu>` nếu user chỉ cho mã, không cho link).
+2. **`index.json`** (ngay dưới thư mục gốc): cập nhật đúng entry của module/cr đó, thêm/ghi đè field `jira_ticket` và `jira_url` — cùng giá trị với front-matter, không để lệch nhau.
 
 Đây là **update trực tiếp 2 file đã tồn tại** (không phải nội dung nghiệp vụ mới) — vẫn áp L2 diff ngắn gọn (approval-gate.md) trước khi ghi nếu user chưa xác nhận rõ trong câu báo mã phiếu; nếu user báo mã phiếu và nói luôn kiểu "cập nhật vào tài liệu giúp mình" thì coi như đã đồng ý, ghi thẳng và báo lại đã cập nhật ở 2 chỗ nào.
 

@@ -189,7 +189,7 @@ for nhom in UC_DATA:
             ws.row_dimensions[row].height = 46.5 if len(gd_text) > 80 else 31.5
             row += 1
 
-OUTPUT = "/mnt/user-data/outputs/DanhSach_UC.xlsx"
+OUTPUT = "docs/DanhSach_UC.xlsx"  # tạo thư mục docs/ ở thư mục làm việc hiện tại nếu chưa có
 wb.save(OUTPUT)
 print(f"✅ Đã xuất: {OUTPUT}")
 ```

@@ -65,8 +65,8 @@ Xác nhận để mình viết full?
 
 | Rule | Chi tiết |
 |---|---|
-| **Định dạng mặc định** | File `.md` — lưu tại `/mnt/user-data/outputs/HDSD_[TenHT]_v[x.x].md` |
-| **File Word** | Chỉ tạo khi user nói rõ: "xuất Word", "file docx", "ra word" — khi đó: (1) đọc `/mnt/skills/public/docx/SKILL.md`, (2) copy `references/um-docx-generator.js` vào `/home/claude/`, (3) điền DATA từ nội dung UM đã viết, (4) chạy `npm install docx && node um-docx-generator.js`, (5) validate và xuất file |
+| **Định dạng mặc định** | File `.md` — lưu tại `docs/HDSD_[TenHT]_v[x.x].md` (tạo thư mục `docs/` ở thư mục làm việc hiện tại nếu chưa có) |
+| **File Word** | Chỉ tạo khi user nói rõ: "xuất Word", "file docx", "ra word" — khi đó: (1) đọc `/mnt/skills/public/docx/SKILL.md`, (2) copy `references/um-docx-generator.js` vào `/home/claude/`, (3) điền DATA từ nội dung UM đã viết, (4) chạy `npm install docx && node um-docx-generator.js`, (5) validate và xuất file — lưu cùng `docs/` với bản `.md` |
 | **Ngôn ngữ** | Tiếng Việt toàn bộ |
 | **Giọng văn** | Hướng dẫn, ngôi thứ hai ("Người dùng nhấn…", "Hệ thống hiển thị…") |
 | **Placeholder ảnh** | Khi không có ảnh thực, chèn `![Hình X.Y: Mô tả màn hình](placeholder)` |

@@ -28,7 +28,7 @@ Sau khi SRS được phê duyệt và xuất file (WRITE mode), có thể hỗ t
 |--------------------|------|------------------|--------|
 | "viết SRS", "đặc tả", "viết chức năng", cung cấp mô tả nghiệp vụ | **WRITE** | `references/writing-rules.md` | File `.md` (mặc định) — chỉ xuất `.docx` khi user nói "xuất file Word", "file .doc", "file docx" |
 | "review SRS", "kiểm tra tài liệu", đính kèm SRS có sẵn để đánh giá | **REVIEW** | `references/review-rules.md` | Bảng tổng hợp + phân tích chi tiết + điểm chất lượng X/10, hiển thị trực tiếp trên chat |
-| "soạn nội dung Jira", "tạo phiếu Jira cho SRS/module X", user từng từ chối ở Bước 5 và giờ quay lại yêu cầu riêng | **JIRA-CONTENT** (gọi thẳng Bước 5, không cần lặp lại Bước 1–4) | `references/writing-rules.md` mục "Gọi độc lập" trong Bước 5 | `docs/base/<module-slug>/jira-ready.md` (hoặc `docs/cr/<cr_id>/jira-ready.md`) |
+| "soạn nội dung Jira", "tạo phiếu Jira cho SRS/module X", user từng từ chối ở Bước 5 và giờ quay lại yêu cầu riêng | **JIRA-CONTENT** (gọi thẳng Bước 5, không cần lặp lại Bước 1–4) | `references/writing-rules.md` mục "Gọi độc lập" trong Bước 5 | `<module-slug>/jira-ready.md` (hoặc `<cr_id>/jira-ready.md`) |
 | Không rõ | Hỏi: "Bạn muốn viết SRS mới hay review SRS đã có?" | — | — |
 
 **Sau khi xác định mode → đọc ngay file rule tương ứng trước khi làm bất cứ điều gì.**
@@ -53,7 +53,7 @@ Nếu user upload file kèm yêu cầu:
 | Loại file | Hành động |
 |-----------|-----------|
 | `.docx` / `.pdf` (SRS cũ) | Đọc `file-reading` skill trước, sau đó xác định: refactor, review, hay chỉ lấy làm input? |
-| Hình ảnh / mockup | Dùng làm input mô tả giao diện cho section 2.1 (Mockup/Layout) |
+| Hình ảnh / mockup đính kèm trực tiếp trong chat | Dùng làm input mô tả giao diện cho section Yêu cầu giao diện — **đồng thời thử copy file ảnh thật vào `images/` theo quy trình ở `writing-rules.md` mục "Ảnh mockup người dùng đính kèm trực tiếp trong khung chat"**, không chỉ mô tả bằng lời |
 | Không rõ mục đích | Hỏi trước: "Bạn muốn mình làm gì với file này?" |
 
 ---
@@ -83,7 +83,7 @@ Nếu user xác nhận đã kiểm tra hoặc bỏ qua → tiến hành bình th
 | `references/writing-rules.md` | Toàn bộ quy tắc viết SRS | Khi WRITE mode |
 | `references/integration-rules.md` | Quy tắc đặc tả tích hợp API (cung cấp API & gọi API bên ngoài, mapping dữ liệu) | Khi chức năng/module có tích hợp hệ thống khác qua API |
 | `references/review-rules.md` | Toàn bộ quy tắc review SRS | Khi REVIEW mode; **và bắt buộc trong WRITE mode ở Bước 3.5 (AI tự review)** trước khi cho phép xuất file |
-| `references/rebuild_index.py` | Sinh lại `docs/index.json` từ front-matter mọi SRS.md | Khi index bị lệch với thực tế file, hoặc merge nhiều CR cùng lúc — chạy để đồng bộ lại, không sửa tay |
+| `references/rebuild_index.py` | Sinh lại `index.json` (ngay dưới thư mục gốc lưu trữ) từ front-matter mọi SRS.md | Khi index bị lệch với thực tế file, hoặc merge nhiều CR cùng lúc — chạy để đồng bộ lại, không sửa tay |
 | `references/srs-template-vnpt.md` | Cấu trúc template VNPT đầy đủ | Trong WRITE mode, trước khi viết |
 | `references/workflow-diagram-skill.md` | Quy tắc vẽ Sequence Diagram (Mermaid + Python renderer) | **BẮT BUỘC** trong WRITE mode, ngay sau writing-rules.md |
 | `references/workflow_renderer.py` | Script Python vẽ Sequence Diagram → PNG | Copy và điền SEQ data khi cần vẽ flow |
@@ -136,7 +136,9 @@ Chức năng sẽ đặc tả: [FC-001] Tiếp nhận văn bản, [FC-002] Phân
 - KHÔNG xuất file (Bước 4) khi Bước 3.5 cho kết quả ❌ Needs Revision, hoặc khi user chưa phê duyệt ở Bước 3.6
 - KHÔNG viết SRS cho CR khi chưa có bảng tham chiếu ảnh hưởng (FC / version gốc / section bị sửa / lý do)
 - KHÔNG bỏ front-matter YAML ở đầu file, và KHÔNG paste ảnh trôi nổi thay vì lưu file thật theo convention `<FC-ID>-<mô-tả>.png`
-- KHÔNG sửa tay `docs/index.json` khi phát hiện lệch — chạy `references/rebuild_index.py` để sinh lại
-- KHÔNG tự tạo folder hoặc lưu ảnh đại diện / file nghiệp vụ gốc xuống đĩa khi chưa có xác nhận đường dẫn lưu trữ từ user (Bước 2.5 trong `writing-rules.md`)
+- KHÔNG sửa tay `index.json` khi phát hiện lệch — chạy `references/rebuild_index.py` để sinh lại
+- KHÔNG chỉ báo đường dẫn file dạng text thuần sau khi ghi file — LUÔN in kèm markdown link trỏ đúng đường dẫn tuyệt đối để user bấm mở trực tiếp trong cửa sổ Claude Code
+- KHÔNG ghi `based_on` chỉ bằng tên file — PHẢI ghi đường dẫn tuyệt đối đầy đủ (gồm cả thư mục chứa) tới file gốc/CR trước đó
+- KHÔNG tự tạo folder hoặc lưu ảnh đại diện / file nghiệp vụ gốc xuống đĩa khi đường dẫn lưu trữ chưa được chốt — chốt bằng 1 đường dẫn cụ thể do user chỉ định, hoặc bằng mặc định `docs/` khi user không chỉ định gì khác (Bước 2.5 trong `writing-rules.md`)
 - KHÔNG tự động tạo phiếu thật trên Jira (qua trình duyệt hay API) — Jira VNPT (`cntt.vnpt.vn`) yêu cầu OTP bổ sung trên các thao tác này, đã kiểm chứng cả 2 hướng đều bị chặn; Bước 5 chỉ soạn nội dung để user tự tạo phiếu thủ công (`writing-rules.md`)
 - KHÔNG bao giờ yêu cầu hoặc chấp nhận user paste Jira token/mật khẩu vào chat

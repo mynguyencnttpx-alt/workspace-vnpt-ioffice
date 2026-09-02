@@ -367,11 +367,13 @@ def recalc_xlsx(path, timeout=30):
 
 ## Tên file output
 
+Lưu tại `docs/` ở thư mục làm việc hiện tại (tạo thư mục nếu chưa có):
+
 ```
-BaoGia_{TenDuAn/TenTP}_{YYYYMMDD}.xlsx
+docs/BaoGia_{TenDuAn/TenTP}_{YYYYMMDD}.xlsx
 ```
 
-Ví dụ: `BaoGia_iStorage_TP5_20250520.xlsx`
+Ví dụ: `docs/BaoGia_iStorage_TP5_20250520.xlsx`
 
 ---
 

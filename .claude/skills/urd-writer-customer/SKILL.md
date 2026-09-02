@@ -84,8 +84,8 @@ Xác nhận để mình viết full?
 
 | Rule | Chi tiết |
 |---|---|
-| **Định dạng mặc định** | File `.md` — lưu tại `/mnt/user-data/outputs/URD_KH_[TenHT]_v[x.x].md` (thêm `_Phien[N]` nếu có tách phiên) |
-| **File Word** | Chỉ tạo khi user nói rõ "xuất Word/docx" — khi đó đọc thêm `/mnt/skills/public/docx/SKILL.md` |
+| **Định dạng mặc định** | File `.md` — lưu tại `docs/URD_KH_[TenHT]_v[x.x].md` (thêm `_Phien[N]` nếu có tách phiên; tạo thư mục `docs/` ở thư mục làm việc hiện tại nếu chưa có) |
+| **File Word** | Chỉ tạo khi user nói rõ "xuất Word/docx" — khi đó đọc thêm `/mnt/skills/public/docx/SKILL.md`; file `.docx` tạo xong lưu cùng `docs/` với bản `.md` |
 | **Ngôn ngữ** | Tiếng Việt, văn phong đời thường — tránh thuật ngữ BA (Actor, Pre-condition, Business Rule...) |
 | **Mã yêu cầu** | `UR[STT_2digit]` — ví dụ `UR01`, giữ nguyên số nếu có UR gốc từ bản VNPT để dễ đối chiếu |
 | **Sơ đồ** | Dùng Mermaid khi soạn thảo, nhưng LUÔN nhắc user render thành ảnh trước khi gửi bản chính thức cho khách (xem ghi chú trong template) |

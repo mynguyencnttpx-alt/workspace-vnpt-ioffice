@@ -58,8 +58,8 @@ Xác nhận để mình viết full?
 
 | Rule | Chi tiết |
 |---|---|
-| **Định dạng mặc định** | File `.md` — lưu tại `/mnt/user-data/outputs/URD_[TenHT]_v[x.x].md` |
-| **File Word** | Chỉ tạo khi user nói rõ: "xuất Word", "file docx", "file .doc" — khi đó đọc thêm `references/urd-docx-generator.js` và `/mnt/skills/public/docx/SKILL.md` |
+| **Định dạng mặc định** | File `.md` — lưu tại `docs/URD_[TenHT]_v[x.x].md` (tạo thư mục `docs/` ở thư mục làm việc hiện tại nếu chưa có) |
+| **File Word** | Chỉ tạo khi user nói rõ: "xuất Word", "file docx", "file .doc" — khi đó đọc thêm `references/urd-docx-generator.js` và `/mnt/skills/public/docx/SKILL.md`; file `.docx` tạo xong lưu cùng `docs/` với bản `.md` |
 | **Ngôn ngữ** | Tiếng Việt toàn bộ |
 | **Mã yêu cầu** | `UR[STT_2digit]` — ví dụ: `UR01`, `UR02` (theo đúng mẫu gốc) |
 | **Mức độ** | Cao / Trung bình / Thấp |

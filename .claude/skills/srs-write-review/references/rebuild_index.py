@@ -1,13 +1,17 @@
 """
-rebuild_index.py — Sinh lại toàn bộ docs/index.json từ front-matter của các SRS.md
+rebuild_index.py — Sinh lại toàn bộ index.json từ front-matter của các SRS.md
 
 index.json KHÔNG phải nguồn sự thật — nó chỉ là bản tổng hợp lại từ front-matter
 trong từng SRS.md. Nếu index bị lệch (ai đó sửa file mà quên cập nhật index),
 cách sửa đúng là chạy lại script này, KHÔNG sửa tay từng dòng trong index.json.
 
+Cấu trúc thư mục (từ 2026-08-29): mỗi SRS.md nằm trực tiếp dưới
+<thư mục gốc>/<module-slug-hoặc-cr_id>/SRS.md — KHÔNG có lớp "base/"/"cr/" bao ngoài.
+index.json cũng nằm ngay dưới thư mục gốc đó (KHÔNG có lớp "docs/" bao ngoài).
+
 Cách dùng:
     pip install pyyaml --break-system-packages
-    python3 rebuild_index.py [đường dẫn docs/, mặc định "docs"]
+    python3 rebuild_index.py [đường dẫn thư mục gốc, mặc định "."]
 """
 
 import sys
@@ -25,7 +29,7 @@ def load_front_matter(path):
 
 
 def main():
-    docs_root = sys.argv[1] if len(sys.argv) > 1 else "docs"
+    docs_root = sys.argv[1] if len(sys.argv) > 1 else "."
     modules = {}
 
     for path in glob.glob(f"{docs_root}/**/SRS.md", recursive=True):
@@ -52,7 +56,9 @@ def main():
 
         lineage = existing.get("lineage", []) if existing else []
         if meta.get("doc_type") == "cr" and meta.get("cr_id"):
-            base_entry = meta.get("based_on") or f"base/{module}"
+            # based_on nay bắt buộc là đường dẫn tuyệt đối đầy đủ (xem writing-rules.md) —
+            # fallback dưới đây chỉ dùng khi based_on bị bỏ trống, không đáng tin bằng based_on thật
+            base_entry = meta.get("based_on") or module
             lineage = [base_entry, meta["cr_id"]]
         elif meta.get("doc_type") == "new":
             lineage = [path]

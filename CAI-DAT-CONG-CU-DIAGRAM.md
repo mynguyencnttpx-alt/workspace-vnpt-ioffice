@@ -1,80 +1,57 @@
-# Cài đặt công cụ để vẽ đủ 11 diagram (Windows)
+# Cài đặt công cụ — Workspace VNPT iOffice
 
-> Chỉ cần cài đúng phần ứng với skill bạn sẽ dùng — không bắt buộc cài hết một lúc. Xem bảng skill ↔ engine trong `START-HERE.md`.
+> Cập nhật 2026-09-01: file này trước đây hướng dẫn cài Mermaid/PlantUML/D2/BPMN/DBML cho gói **11 skill vẽ sơ đồ** (`/sequence /activity /bpmn /erd ...`) — gói đó đã bị gỡ khỏi `.claude/skills/`, nội dung cũ không còn áp dụng. Nội dung dưới đây thay bằng đúng nhu cầu cài đặt của **9 skill đang có** (xem danh sách trong `START-HERE.md` / `HUONG-DAN-SU-DUNG-SKILL.md`).
 
-## 1. Node.js ≥18 — nền cho Mermaid, BPMN, DBML
+## Có cần cài gì không?
+
+**Phần lớn việc dùng skill KHÔNG cần cài thêm gì.** Output mặc định của nhóm viết tài liệu (`urd-writer-vnpt`, `urd-writer-customer`, `um-writer-vnpt`, `srs-write-review`) là file `.md` thuần — kể cả khi `srs-write-review` nhúng sequence diagram, nó viết thẳng code block Mermaid trong file `.md` (render sẵn trên GitHub/VS Code/Obsidian), không cần cài Mermaid CLI để tạo file này.
+
+Chỉ cần cài thêm công cụ trong 2 trường hợp cụ thể dưới đây — và chỉ khi bạn thật sự yêu cầu xuất theo định dạng đó.
+
+## 1. Xuất `.docx` (Word) — `srs-write-review`, `urd-writer-vnpt`, `um-writer-vnpt`
+
+Chỉ chạy khi bạn nói rõ "xuất file Word" / "file docx". Cần:
 
 ```powershell
 winget install OpenJS.NodeJS.LTS
 node --version
+npm install -g docx
 ```
 
-## 2. Mermaid CLI — cho `/sequence /activity /state /erd`
+Mỗi skill có sẵn script generator riêng trong `references/` của nó (`docx-generator.js`, `urd-docx-generator.js`, `um-docx-generator.js`) — không cần tự viết, chỉ cần Node + package `docx` có sẵn để chạy script đó.
 
-```powershell
-npm install -g @mermaid-js/mermaid-cli
-npx puppeteer browsers install chrome
-mmdc --version
-```
+### Riêng `srs-write-review` — khi SRS có sequence diagram VÀ xuất `.docx`
 
-Nếu `mmdc` báo thiếu Chrome, set biến môi trường trỏ tới Chrome for Testing vừa cài:
-
-```powershell
-setx PUPPETEER_EXECUTABLE_PATH "<đường dẫn tới Chrome for Testing>"
-```
-
-## 3. PlantUML — cho `/activity-swimlane` và `/usecase-diagram`
-
-Không cần cài gì, chỉ cần internet (render qua plantuml.com). Có Python trên máy thì tốt hơn (script encode dùng Python):
+Sequence diagram trong bản `.md` là Mermaid thuần (không cần cài gì). Nhưng khi xuất `.docx`, diagram phải render thành ảnh PNG trước khi nhúng vào Word — bước này cần Python:
 
 ```powershell
 winget install Python.Python.3
+pip install pillow --break-system-packages
 ```
 
-⚠️ **Lưu ý riêng tư:** nội dung sơ đồ (tên actor, tên bước) được gửi qua internet tới plantuml.com mỗi lần render. Nếu nghiệp vụ nhạy cảm → dùng engine khác (Mermaid/D2, render offline) hoặc cài PlantUML + Java local.
+Script tương ứng: `.claude/skills/srs-write-review/references/workflow_renderer.py`.
 
-## 4. D2 — cho `/d2-activity /d2-erd /d2-architect`
+## 2. Xuất `.xlsx` (Excel) — `ba-uc`, `baogia`
+
+`ba-uc` (xuất Phụ lục I/III/V) và `baogia` (xuất báo giá mẫu eGOV) đều dùng Python + thư viện `openpyxl` để dựng file Excel đúng định dạng (font, cột, công thức). Cần:
 
 ```powershell
-winget install d2lang.d2
+winget install Python.Python.3
+pip install openpyxl
+python --version
 ```
 
-Nếu winget không có gói này, dùng Scoop:
+## 3. Các skill còn lại — không cần cài gì
 
-```powershell
-scoop install d2
-```
-
-Hoặc tải binary trực tiếp từ `github.com/terrastruct/d2/releases` rồi thêm vào PATH.
-
-## 5. BPMN — cho `/bpmn` (cần Node đã cài ở bước 1)
-
-```powershell
-cd "<workspace>\.claude\skills\bpmn\engine"
-npm install
-```
-
-Xem/sửa sơ đồ: mở file `.bpmn` bằng Camunda Modeler, hoặc mở editor HTML đi kèm bằng trình duyệt.
-
-## 6. DBML — cho `/dbdiagram`
-
-```powershell
-npm install -g @dbml/cli
-dbml2sql --version
-```
+- `customer-requirement-clarifier`, `effort-estimate-pmbok` — chỉ trả kết quả trên chat, không sinh file.
+- `ui-ux-pro-max` — sinh code UI (React/HTML/Tailwind...) trực tiếp trong phiên.
 
 ## Kiểm tra nhanh sau khi cài
 
 ```powershell
 node --version
-mmdc --version
-d2 --version
+npm --version
 python --version
-dbml2sql --version
 ```
 
-Chỉ cần dòng tương ứng với skill bạn định dùng chạy OK là đủ.
-
-## Bắt đầu nhanh nhất, chưa cần cài gì
-
-Dùng `/activity-swimlane` hoặc `/usecase-diagram` trước — chỉ cần mạng.
+Chỉ cần dòng tương ứng với nhu cầu bạn định dùng (Word hay Excel) chạy OK là đủ — không bắt buộc cài cả hai nếu bạn chỉ dùng output `.md` mặc định.
