@@ -2,6 +2,7 @@
 
 > Bổ sung cho `START-HERE.md`. File này tập trung vào **cách gọi từng skill** và **input cần chuẩn bị**.
 > Cập nhật 2026-09-02 theo đúng 9 skill đang có trong `.claude/skills/` — bản trước có thêm "Nhóm 1 — Vẽ sơ đồ" (11 skill `/sequence /activity /bpmn ...`) đã bị gỡ khỏi workspace, phần đó đã bỏ. Bổ sung mode JIRA-CONTENT của `srs-write-review` (soạn nội dung phiếu Jira sau khi SRS duyệt).
+> Cập nhật 2026-09-03: thêm `usecase-diagram` (copy từ `ai4ba-skills` kèm đúng 7 rule + 1 template nó cần — xem mục riêng bên dưới và `CLAUDE.md`).
 
 ## Nguyên tắc chung
 
@@ -13,7 +14,7 @@
 
 ---
 
-## 9 skill hiện có (gọi bằng mô tả tự nhiên hoặc `/tên-skill`)
+## 10 skill hiện có (gọi bằng mô tả tự nhiên hoặc `/tên-skill`)
 
 ### `customer-requirement-clarifier` — Làm rõ yêu cầu nâng cấp thô của khách hàng
 
@@ -78,6 +79,15 @@
 - **Không cần input cố định** — mô tả loại màn hình/sản phẩm và phong cách mong muốn (nếu có)
 - **Output:** code UI (React/HTML/Tailwind...) hoặc khuyến nghị thiết kế ngay trong phiên; chỉ ghi ra đĩa khi gọi kèm `--persist` (lưu design system để dùng lại các phiên sau)
 
+### `usecase-diagram` — Vẽ use case diagram (PlantUML native)
+
+- **Gọi bằng:** "vẽ use case diagram cho XYZ", "sơ đồ use case", `/usecase-diagram --feature <slug>`
+- **Nguồn gốc:** copy ngày 2026-09-03 từ `ai4ba-skills` (thư mục nguồn ngoài workspace), kèm đúng các file skill này khai trong `SKILL.md` (mục References) để chạy được: 7 rule — `.claude/rules/ba-conventions.md`, `approval-gate.md`, `naming-conventions.md`, `feature-bootstrap.md`, `changelog.md`, `diagram-selection.md`, `diagram-correctness.md` — + template `_templates/usecase-index.md`. Không kèm skill khác (`/usecase`, `/sequence`, `/activity`, `/state`) vì đó không phải dependency bắt buộc của `usecase-diagram`, chỉ là gợi ý route khi thiếu nguồn.
+- **Giới hạn cần biết trước khi dùng:**
+  - Skill auto-detect actor/use case từ `docs/{feature}/usecases/{feature}-usecase-index.md` hoặc `docs/{feature}/srs/{feature}-spec.md` — 2 định dạng khác với output hiện tại của `srs-write-review` (`docs/<module>/SRS.md`) và `ba-uc`. Không có sẵn 1 trong 2 file nguồn đúng cấu trúc → skill sẽ **refuse theo đúng thiết kế** (rule `feature-bootstrap.md` nhóm B: "thiếu nguồn thì route upstream, không tự bịa"), không phải lỗi.
+  - **Cách dùng thực tế:** khi refuse, mô tả trực tiếp actor + use case cần vẽ ngay trong yêu cầu (thay vì để skill tự dò file) — AI vẫn viết được `.puml`/`.svg` từ mô tả đó. Hoặc tự tạo tay `{feature}-usecase-index.md` theo đúng cấu trúc bảng `## Use cases` (xem `_templates/usecase-index.md`) để auto-detect chạy được.
+- **Output:** `docs/{feature}/usecases/{feature}-usecase-diagram.puml` (source) + `.svg` (render qua server công khai `plantuml.com` — nội dung diagram gửi qua internet mỗi lần render, cân nhắc nếu nội dung nhạy cảm) + nhúng ảnh/bảng Actors/Relationships vào `{feature}-usecase-index.md`
+
 ---
 
 ## Bảng tra nhanh theo tình huống
@@ -95,8 +105,9 @@
 | Báo giá phần mềm | "tạo báo giá từ danh sách manday sau" |
 | Hướng dẫn sử dụng cho người dùng cuối | "viết HDSD cho chức năng XYZ" |
 | Thiết kế/review giao diện | "thiết kế dashboard cho module XYZ" |
+| Sơ đồ tổng quan actor + use case | "vẽ use case diagram cho XYZ" |
 
-> **Vẽ sơ đồ nghiệp vụ (sequence/activity/BPMN/ERD...) hiện KHÔNG có skill nào phục vụ** — nhóm 11 skill vẽ sơ đồ đã bị gỡ khỏi workspace (xem ghi chú trong `START-HERE.md`). `CAI-DAT-CONG-CU-DIAGRAM.md` cũng đã cập nhật lại theo đúng thực tế này.
+> **Vẽ sơ đồ nghiệp vụ khác (sequence/activity/BPMN/ERD...) vẫn KHÔNG có skill nào phục vụ** — nhóm 11 skill vẽ sơ đồ gốc đã bị gỡ khỏi workspace (xem ghi chú trong `START-HERE.md`). Chỉ riêng `usecase-diagram` được copy lại kèm đúng dependency của nó (xem mục riêng ở trên) — không kéo theo `sequence`/`activity`/`state`/`bpmn`... `CAI-DAT-CONG-CU-DIAGRAM.md` vẫn cần rà lại nếu muốn dùng `usecase-diagram` thường xuyên (cần render qua `plantuml.com`, không cần cài thêm gì local trừ khi muốn render offline).
 
 ---
 
