@@ -3,6 +3,7 @@
 > Bổ sung cho `START-HERE.md`. File này tập trung vào **cách gọi từng skill** và **input cần chuẩn bị**.
 > Cập nhật 2026-09-02 theo đúng 9 skill đang có trong `.claude/skills/` — bản trước có thêm "Nhóm 1 — Vẽ sơ đồ" (11 skill `/sequence /activity /bpmn ...`) đã bị gỡ khỏi workspace, phần đó đã bỏ. Bổ sung mode JIRA-CONTENT của `srs-write-review` (soạn nội dung phiếu Jira sau khi SRS duyệt).
 > Cập nhật 2026-09-03: thêm `usecase-diagram` (copy từ `ai4ba-skills` kèm đúng 7 rule + 1 template nó cần — xem mục riêng bên dưới và `CLAUDE.md`).
+> Cập nhật 2026-09-18: thêm `user-flow`/`wireframe-ascii`/`figma` (copy từ `ai4ba-skills`, kèm 3 rule + 1 subagent + 1 script + 2 template — xem mục riêng bên dưới và `CLAUDE.md`).
 
 ## Nguyên tắc chung
 
@@ -14,7 +15,7 @@
 
 ---
 
-## 10 skill hiện có (gọi bằng mô tả tự nhiên hoặc `/tên-skill`)
+## 13 skill hiện có (gọi bằng mô tả tự nhiên hoặc `/tên-skill`)
 
 ### `customer-requirement-clarifier` — Làm rõ yêu cầu nâng cấp thô của khách hàng
 
@@ -88,6 +89,29 @@
   - **Cách dùng thực tế:** khi refuse, mô tả trực tiếp actor + use case cần vẽ ngay trong yêu cầu (thay vì để skill tự dò file) — AI vẫn viết được `.puml`/`.svg` từ mô tả đó. Hoặc tự tạo tay `{feature}-usecase-index.md` theo đúng cấu trúc bảng `## Use cases` (xem `_templates/usecase-index.md`) để auto-detect chạy được.
 - **Output:** `docs/{feature}/usecases/{feature}-usecase-diagram.puml` (source) + `.svg` (render qua server công khai `plantuml.com` — nội dung diagram gửi qua internet mỗi lần render, cân nhắc nếu nội dung nhạy cảm) + nhúng ảnh/bảng Actors/Relationships vào `{feature}-usecase-index.md`
 
+### `user-flow` — Phân tích nghiệp vụ → User Flow tổng (Mermaid)
+
+- **Gọi bằng:** "vẽ user flow", "phân tích luồng người dùng", "chia flow cho tính năng XYZ", `/user-flow <feature-slug | mô tả tự do>`
+- **Input cần:** tên feature (slug có sẵn hoặc mô tả tự do — skill tự derive slug) + trả lời các câu hỏi làm rõ nghiệp vụ (luồng chính/nhánh lỗi/edge case) nếu chưa có brainstorm/URD/PRD làm nguồn
+- **Quy trình:** đọc upstream (brainstorm > URD > PRD/SRS nếu có) → phân tích, hỏi làm rõ điểm mơ hồ → sinh danh sách màn hình + chia flow + user flow Mermaid (happy/error/edge) → duyệt nội dung bằng preview text (tối đa 3 vòng) → **bắt buộc** spawn subagent `flow-reviewer` review flow trước khi chốt → user xác nhận cuối (HARD STOP) → ghi file → **bắt buộc** verify cú pháp Mermaid bằng `mermaid-verify.mjs` (tự sửa tối đa 2 lần nếu lỗi)
+- **Lưu ý cài đặt:** bước verify Mermaid cần `mmdc` (Mermaid CLI) đã cài sẵn — xem `CAI-DAT-CONG-CU-DIAGRAM.md`. Thiếu `mmdc` → bước verify lỗi, skill sẽ báo rõ thay vì âm thầm bỏ qua.
+- **Output:** `docs/{feature}/srs/{feature}-userflow.md` — nguồn chia flow DUY NHẤT cho `wireframe-ascii` chạy sau
+
+### `wireframe-ascii` — Vẽ ASCII wireframe theo flow
+
+- **Gọi bằng:** "vẽ wireframe", "vẽ ASCII wireframe cho XYZ", `/wireframe-ascii <feature> [--flow <flow-slug>]`
+- **Input cần:** `<feature>` bắt buộc; cần `srs/{feature}-userflow.md` đã duyệt trước — chưa có thì skill **tự gọi `/user-flow`** trước, không cần bạn gọi tay 2 lần. Skill sẽ hỏi xác nhận device size (Mobile/Tablet/Desktop/Responsive) trước khi vẽ.
+- **Quy trình:** đọc `userflow.md` xác định flow + màn hình mỗi flow → với mỗi màn: rút element/validation/error từ `srs/{feature}-spec.md` + `uc-*.md` (thiếu nguồn thì hỏi bạn bổ sung, không bịa) → vẽ ASCII + bảng mô tả 5 cột → duyệt trong chat theo từng flow (L3 iterate, tối đa 3 vòng) → ghi file
+- **Output:** `docs/{feature}/ascii-wireframe/{feature}-wireframe-index.md` (master metadata) + `{flow-slug}.md` (1 file/flow, nhiều màn) — đây là **contract layout bắt buộc** cho `figma` (không có ASCII thì `figma` refuse)
+
+### `figma` — Vẽ màn hình thật lên Figma
+
+- **Gọi bằng:** "vẽ lên Figma", "dựng Figma cho màn hình XYZ", `/figma <feature> [<screen-slug> | --screens a,b]`
+- **Input cần:** `<feature>` đã có `ascii-wireframe/` (chưa có → skill refuse + hướng dẫn chạy `user-flow` rồi `wireframe-ascii` trước). Skill hỏi xác nhận device size + chế độ vẽ (Nhanh: vài màn base state / Đầy đủ: cả feature kèm state-variant + lỗi).
+- **⚠️ Cần cài đặt riêng trước khi dùng được:** skill gọi qua MCP server `reqwise-figma` (`figma_status`/`figma_read`/`figma_write`/`figma_rules`) — server này **không có sẵn trong workspace**, phải tự cài + chạy plugin Figma Desktop riêng (repo `reqwise-figma-mcp`, ngoài phạm vi workspace này). Chưa cài → skill dừng ngay ở bước kiểm tra kết nối và in hướng dẫn cài đặt cụ thể.
+- **Quy trình (sau khi đã kết nối MCP):** đọc ASCII wireframe + `docs/design.md` (design tokens, thiếu thì dùng fallback dark-theme + cảnh báo) → tính layout theo device đã chốt → duyệt plan (L1) → vẽ từng frame (auto-layout, token-first, không hardcode màu) → verify bằng `layout_audit` (dữ liệu, không phải nhìn mắt) → cập nhật cột Figma trong `{feature}-wireframe-index.md`
+- **Output:** không sinh file local — vẽ thẳng lên Figma; URL frame ghi vào cột `Figma` của `{feature}-wireframe-index.md`
+
 ---
 
 ## Bảng tra nhanh theo tình huống
@@ -106,8 +130,11 @@
 | Hướng dẫn sử dụng cho người dùng cuối | "viết HDSD cho chức năng XYZ" |
 | Thiết kế/review giao diện | "thiết kế dashboard cho module XYZ" |
 | Sơ đồ tổng quan actor + use case | "vẽ use case diagram cho XYZ" |
+| Chia luồng nghiệp vụ thành flow trước khi vẽ màn hình | "vẽ user flow cho XYZ" |
+| Vẽ ASCII wireframe theo flow đã chia | "vẽ wireframe cho XYZ" |
+| Vẽ màn hình thật lên Figma (cần MCP riêng đã cài) | "vẽ lên Figma cho XYZ" |
 
-> **Vẽ sơ đồ nghiệp vụ khác (sequence/activity/BPMN/ERD...) vẫn KHÔNG có skill nào phục vụ** — nhóm 11 skill vẽ sơ đồ gốc đã bị gỡ khỏi workspace (xem ghi chú trong `START-HERE.md`). Chỉ riêng `usecase-diagram` được copy lại kèm đúng dependency của nó (xem mục riêng ở trên) — không kéo theo `sequence`/`activity`/`state`/`bpmn`... `CAI-DAT-CONG-CU-DIAGRAM.md` vẫn cần rà lại nếu muốn dùng `usecase-diagram` thường xuyên (cần render qua `plantuml.com`, không cần cài thêm gì local trừ khi muốn render offline).
+> **Vẽ sơ đồ nghiệp vụ khác (sequence/activity/BPMN/ERD...) vẫn KHÔNG có skill nào phục vụ** — nhóm 11 skill vẽ sơ đồ gốc đã bị gỡ khỏi workspace (xem ghi chú trong `START-HERE.md`). Chỉ `usecase-diagram` (2026-09-03) và `user-flow`/`wireframe-ascii`/`figma` (2026-09-18) được copy lại kèm đúng dependency của từng skill (xem mục riêng ở trên) — không kéo theo `sequence`/`activity`/`state`/`bpmn`/`wireframe-html`/`prototype-html`... `CAI-DAT-CONG-CU-DIAGRAM.md` có ghi chi tiết công cụ cần cài cho từng skill (plantuml.com cho `usecase-diagram`, `mmdc` cho `user-flow`, MCP `reqwise-figma` cho `figma`).
 
 ---
 

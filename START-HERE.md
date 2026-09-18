@@ -19,11 +19,11 @@ workspace-vnpt-ioffice/
 ├── HUONG-DAN-CAI-DAT-VA-SU-DUNG.md ← BA mới join team: clone project + chạy Claude Code + prompt mẫu hàng ngày
 ├── HUONG-DAN-SU-DUNG-SKILL.md    ← chi tiết cách gọi từng skill + input cần chuẩn bị
 ├── CAI-DAT-CONG-CU-DIAGRAM.md    ← cài công cụ (Node/Python) khi cần xuất .docx hoặc .xlsx
-├── .claude/skills/                10 skill đang dùng (bảng dưới)
+├── .claude/skills/                13 skill đang dùng (bảng dưới)
 └── docs/                          đầu ra mặc định của các skill (xem bảng "Output ở đâu" bên dưới)
 ```
 
-## Danh sách skill hiện có (10 skill)
+## Danh sách skill hiện có (13 skill)
 
 ### Nhóm phân tích & làm rõ yêu cầu
 
@@ -62,6 +62,18 @@ workspace-vnpt-ioffice/
 
 > **Lưu ý `usecase-diagram`:** copy về ngày 2026-09-03 từ `ai4ba-skills`, kèm đúng 7 rule (`.claude/rules/ba-conventions.md`, `approval-gate.md`, `naming-conventions.md`, `feature-bootstrap.md`, `changelog.md`, `diagram-selection.md`, `diagram-correctness.md`) + template (`_templates/usecase-index.md`) mà nó khai trong `SKILL.md` — skill chạy đúng thiết kế, không lỗi vì thiếu file. Không copy thêm skill khác (`/usecase`, `/sequence`...) vì không phải dependency bắt buộc. Giới hạn còn lại: skill auto-detect actor/use case từ `docs/{feature}/usecases/{feature}-usecase-index.md` hoặc `docs/{feature}/srs/{feature}-spec.md` — 2 định dạng khác output hiện tại của `srs-write-review`/`ba-uc`, nên hay refuse "thiếu nguồn" (đúng thiết kế, không phải bug). Khi đó mô tả trực tiếp actor/use case trong yêu cầu để AI vẽ luôn, không cần qua auto-detect.
 
+### Nhóm luồng & wireframe (chuỗi 3 bước)
+
+| Skill | Việc gì | Kích hoạt bằng cụm từ |
+|---|---|---|
+| `user-flow` | Phân tích nghiệp vụ → user flow tổng dạng Mermaid (happy/error/edge case), chia feature thành các flow — **chạy trước tiên**, nguồn chia flow chung cho 2 skill dưới | "vẽ user flow", "phân tích luồng người dùng", `/user-flow <feature>` |
+| `wireframe-ascii` | Vẽ ASCII wireframe cho từng flow (gộp nhiều màn/file), cần `user-flow` đã chạy trước (tự gọi nếu chưa có) | "vẽ wireframe", "vẽ ASCII wireframe", `/wireframe-ascii <feature>` |
+| `figma` | Vẽ màn hình thật lên Figma từ ASCII wireframe, qua MCP server `reqwise-figma` — **cần cài đặt MCP riêng trước khi dùng được** (xem lưu ý bên dưới) | "vẽ lên Figma", "dựng Figma từ wireframe", `/figma <feature>` |
+
+> **Lưu ý `user-flow`/`wireframe-ascii`/`figma`:** copy về ngày 2026-09-18 từ `ai4ba-skills`, cùng nguồn với `usecase-diagram` nhưng dependency nặng hơn — phải khôi phục lại 1 phần hạ tầng đã dọn ngày 2026-09-02: thêm 3 rule (`.claude/rules/kg-usage.md`, `resolve-oqs.md`, `review-format.md`), 1 subagent (`.claude/agents/flow-reviewer.md` — `user-flow` bắt buộc gọi để review flow), 1 script (`.claude/scripts/mermaid-verify.mjs` — `user-flow` bắt buộc chạy verify Mermaid sau khi ghi file, cần cài `mmdc` xem `CAI-DAT-CONG-CU-DIAGRAM.md`), 2 template (`_templates/srs-screen.md`, `srs-screen-index.md` — `wireframe-ascii` dùng). Chi tiết đầy đủ + lý do từng file: xem `CLAUDE.md` mục "13 skill đang dùng".
+>
+> **Riêng `figma` chưa dùng được ngay** — nó cần MCP server `reqwise-figma` cài + chạy riêng trên máy (không nằm trong workspace, không copy file được). Thiếu MCP đó, skill sẽ dừng ngay ở bước kiểm tra kết nối (Phase 0) và in hướng dẫn cài đặt. `user-flow` + `wireframe-ascii` không bị ảnh hưởng, dùng được ngay sau khi copy.
+
 Mỗi skill tự nhận diện qua từ khóa trong yêu cầu tự nhiên — không cần gõ đúng lệnh. Muốn chắc chắn gọi đúng skill thì gõ thẳng `/tên-skill`.
 
 ### Output ở đâu
@@ -76,6 +88,9 @@ Mặc định chung: **`docs/`** (ngay dưới thư mục làm việc hiện t�
 | `customer-requirement-clarifier`, `effort-estimate-pmbok` | Không ghi file — trả kết quả trực tiếp trên chat |
 | `ui-ux-pro-max` | Sinh code/thiết kế trực tiếp trong phiên; chỉ ghi ra đĩa (persist design system) khi gọi kèm `--persist` |
 | `usecase-diagram` | `docs/{feature}/usecases/{feature}-usecase-diagram.puml` + `.svg` — nhúng ảnh/bảng vào `{feature}-usecase-index.md` (xem lưu ý auto-detect ở bảng skill) |
+| `user-flow` | `docs/{feature}/srs/{feature}-userflow.md` |
+| `wireframe-ascii` | `docs/{feature}/ascii-wireframe/{feature}-wireframe-index.md` (master metadata) + `{flow-slug}.md` (1 file/flow) |
+| `figma` | Không sinh file local — vẽ thẳng lên Figma qua MCP, ghi URL frame vào cột `Figma` của `{feature}-wireframe-index.md` |
 
 > Muốn 1 file nằm đúng chỗ khác — nói rõ đường dẫn mong muốn khi giao việc.
 
@@ -89,5 +104,6 @@ Mặc định chung: **`docs/`** (ngay dưới thư mục làm việc hiện t�
 6. Sau khi feature hoàn thiện: `um-writer-vnpt` viết hướng dẫn sử dụng.
 7. `ui-ux-pro-max` dùng xen kẽ bất kỳ lúc nào cần mockup/screen/component cụ thể.
 8. Cần sơ đồ tổng quan actor + use case cho 1 feature → `usecase-diagram` (xem lưu ý auto-detect ở bảng skill).
+9. Cần duyệt màn hình/luồng UI trước khi làm SRS chi tiết → `user-flow` (chia luồng) → `wireframe-ascii` (vẽ ASCII từng màn) → `figma` (vẽ thật lên Figma, cần MCP riêng — xem lưu ý ở bảng skill).
 
 Không bắt buộc đi đủ các bước — chọn đúng bước cần cho việc đang làm, mỗi skill tự hỏi lại nếu thiếu input.
