@@ -32,7 +32,10 @@ def main():
     docs_root = sys.argv[1] if len(sys.argv) > 1 else "."
     modules = {}
 
-    for path in glob.glob(f"{docs_root}/**/SRS.md", recursive=True):
+    for raw_path in glob.glob(f"{docs_root}/**/SRS.md", recursive=True):
+        path = raw_path.replace("\\", "/")
+        if path.startswith("./"):
+            path = path[2:]
         meta = load_front_matter(path)
         if not meta:
             print(f"[BỎ QUA] Không đọc được front-matter: {path}")
@@ -78,9 +81,9 @@ def main():
 
     out_path = f"{docs_root}/index.json"
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(modules, f, ensure_ascii=False, indent=2)
+        json.dump(modules, f, ensure_ascii=False, indent=2, default=str)
 
-    print(f"Đã sinh lại {out_path} — {len(modules)} module.")
+    print(f"Da sinh lai {out_path} - {len(modules)} module.")
 
 
 if __name__ == "__main__":

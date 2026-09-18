@@ -1,18 +1,18 @@
 ---
 module: Lấy ý kiến
 function_ids: [FC-001, FC-002, FC-003, FC-004, FC-005, FC-006]
-doc_type: new
-cr_id: null
-based_on: null
-affected_functions: []
-version: 0.1
-status: draft
+doc_type: cr
+cr_id: CR-20260904-lay-y-kien-mobile-01
+based_on: https://scm.devops.vnpt.vn/scm.egov.it/egov.pm2.qlvb_doc/-/blob/master/01.CORE/WORKING/20.Development/20.Requirement/20.SRS/20.CR/3.PYN/SRS_YCTD_PYN_12062024.docx (mục II.3. IT360-1158127 - chức năng Lấy ý kiến VNPT iOffice V5 UBND Tỉnh Phú Yên)
+affected_functions: [APP_QLVB_II.7.1 - Chi tiết văn bản (IOFFICE_SRS_APP_1.0.docx)]
+version: 1.0
+status: approved
 gate_passed: [self-review]
 review_score: 8.8
-approved_by: null
-approved_date: null
-jira_ticket: null
-jira_url: null
+approved_by: "@mynguyen.cntt.px"
+approved_date: 2026-09-04
+jira_ticket: IOFFICE-107467
+jira_url: https://cntt.vnpt.vn/browse/IOFFICE-107467
 ---
 
 # NỘI DUNG
@@ -43,7 +43,7 @@ Module cho phép Lãnh đạo/Chuyên viên phụ trách văn bản (Người xi
 |---|---|
 | Người xin ý kiến | Xem danh sách văn bản đi cần lấy ý kiến, gửi yêu cầu xin ý kiến, gia hạn hạn xử lý, xem tổng hợp ý kiến, kết thúc lấy ý kiến, xuất báo cáo tổng hợp ý kiến |
 | Người được xin ý kiến | Xem danh sách văn bản cần cho ý kiến, nhập và gửi ý kiến (kèm ký số file đính kèm nếu cần), kết thúc cho ý kiến |
-| Văn thư | Cá nhân được cấp quyền `QUYEN_LAY_Y_KIEN`, có thể được chọn làm Người xin ý kiến/Người được xin ý kiến như mọi cá nhân khác trong đơn vị — không có nghiệp vụ riêng biệt trong module này |
+| Văn thư/Người xin ý kiến | Cá nhân được cấp quyền `QUYEN_LAY_Y_KIEN`, có thể được chọn làm Người xin ý kiến/Người được xin ý kiến như mọi cá nhân khác trong đơn vị — không có nghiệp vụ riêng biệt trong module này |
 
 ##### Phạm vi chỉnh sửa
 
@@ -53,6 +53,14 @@ Module cho phép Lãnh đạo/Chuyên viên phụ trách văn bản (Người xi
   - Cả 2 menu cấu hình hiển thị qua tham số `QLVB_APP_CONFIG_VIEW_MENU` hiện có của app (bổ sung 2 key mới vào danh sách giá trị hợp lệ)
 - Chỉnh sửa màn hình "Chi tiết văn bản" (dùng chung cho văn bản đi, đã có sẵn trên app) — bổ sung hiển thị trường "VB có lấy ý kiến" (chi tiết tại Chức năng 6)
 - Không chỉnh sửa màn hình soạn thảo/tạo mới văn bản đi — ngoài phạm vi vì app hiện không có màn hình này (checkbox "VB có lấy ý kiến" chỉ được thiết lập trên web)
+
+**Bảng tham chiếu ảnh hưởng (`CR-20260904-lay-y-kien-mobile-01`)**
+
+| FC/Chức năng bị ảnh hưởng | Version gốc | Section bị sửa | Nội dung thay đổi | Lý do |
+|---|---|---|---|---|
+| Chi tiết văn bản đi — APP_QLVB_II.7.1 (`IOFFICE_SRS_APP_1.0.docx`) | v1.0 | Nhóm thông tin văn bản | Bổ sung trường read-only "VB có lấy ý kiến" (xem Chức năng 6) | Đồng bộ hiển thị trạng thái lấy ý kiến của văn bản, theo yêu cầu tham chiếu từ CR web IT360-1158127 |
+
+> Các Chức năng 1–5 (2 menu mới, màn hình Xin ý kiến/Chọn người xin ý kiến/Chi tiết cho ý kiến/Cho ý kiến, Xuất báo cáo) là **màn hình/luồng hoàn toàn mới trên app** — không sửa lại bất kỳ chức năng nào đã có, chỉ tham chiếu nghiệp vụ đã triển khai trên web (xem `based_on`) để thiết kế tương đương cho mobile.
 
 ##### Yêu cầu giao diện
 
@@ -65,7 +73,6 @@ Module cho phép Lãnh đạo/Chuyên viên phụ trách văn bản (Người xi
   - Chức năng 2 — Popup Gia hạn hạn xử lý: ![Gia hạn hạn xử lý](images/FC-002-gia-han-han-xu-ly.jpg)
   - Chức năng 2 — Màn hình Chi tiết cho ý kiến (xem lại các ý kiến đã nhận): ![Chi tiết cho ý kiến](images/FC-002-chi-tiet-cho-y-kien.jpg)
   - Chức năng 4 — Danh sách "Văn bản cần cho ý kiến": ![Danh sách Văn bản cần cho ý kiến](images/FC-004-danh-sach-vb-can-cho-y-kien.jpg)
-    > Lưu ý: ảnh mockup được cung cấp cho màn này trùng nội dung với ảnh danh sách "Văn bản đi cần lấy ý kiến" ở trên (khả năng trùng khi xuất ảnh demo) — bố cục/loại control áp dụng tương tự, riêng tiêu đề màn hình và tab trạng thái đổi đúng theo nghiệp vụ "cho ý kiến" như mô tả trong bảng field bên dưới.
   - Chức năng 5 — Màn hình xem nhanh văn bản (kèm nút Cho ý kiến/Kết thúc cho ý kiến): ![Xem nhanh văn bản — Cho ý kiến](images/FC-005-xem-nhanh-vb-can-cho-y-kien.jpg)
   - Chức năng 5 — Màn hình Cho ý kiến: ![Màn hình Cho ý kiến](images/FC-005-man-hinh-cho-y-kien.jpg)
 
@@ -79,12 +86,15 @@ Module cho phép Lãnh đạo/Chuyên viên phụ trách văn bản (Người xi
 | Tab trạng thái | Tab | - | 3 tab: "Chờ xin ý kiến" (mặc định) / "Kết thúc lấy ý kiến" / "Tất cả" | - |
 | Badge số đếm trên menu | Label | - | Đếm số bản ghi trạng thái "Chờ xin ý kiến" theo tham số `CONFIG_COUNT_LAYYKIEN_MOBILE` (1: đếm tất cả, 0: đếm chưa xem) | Number |
 | Checkbox chọn dòng + "Chọn tất cả" | Checkbox | - | Dùng chung cơ chế chọn nhiều bản ghi để xử lý hàng loạt đã có của app (vd Kết thúc hàng loạt, APP_QLVB_II.7.11) — không định nghĩa lại nghiệp vụ ở đây | - |
+| Ô tìm kiếm nhanh | Textbox | - | Không có tìm kiếm nâng cao (không có icon lọc nâng cao). Nhập từ khóa, tìm văn bản có Số ký hiệu HOẶC Trích yếu chứa từ khóa (không phân biệt hoa/thường). Mặc định trống — xem BR-04 | String |
 | **Danh sách "Văn bản cần cho ý kiến" — phần bổ sung** | | | | |
 | Tab trạng thái | Tab | - | 3 tab: "Cần cho ý kiến" (mặc định) / "Kết thúc cho ý kiến" / "Tất cả" | - |
 | Badge số đếm trên menu | Label | - | Đếm số bản ghi trạng thái "Cần cho ý kiến" theo tham số `CONFIG_COUNT_CHOYKIEN_MOBILE` (1: đếm tất cả, 0: đếm chưa xem) | Number |
-| **Màn hình xem nhanh văn bản (quick-view) — phần bổ sung** | | | | |
+| Ô tìm kiếm nhanh | Textbox | - | Không có tìm kiếm nâng cao (không có icon lọc nâng cao). Nhập từ khóa, tìm văn bản có Số ký hiệu HOẶC Trích yếu chứa từ khóa (không phân biệt hoa/thường). Mặc định trống — xem BR-04 Chức năng 4 | String |
+| **Màn hình chi tiết văn bản đi cần lấy ý kiến — phần bổ sung** | | | | |
 | Nút [Lấy ý kiến] | Button | - | Chỉ hiển thị khi mở từ danh sách "Văn bản đi cần lấy ý kiến" và văn bản ở trạng thái "Chờ xin ý kiến". Chi tiết Chức năng 2 | - |
 | Nút [Kết thúc lấy ý kiến] | Button | - | Chỉ hiển thị khi mở từ danh sách "Văn bản đi cần lấy ý kiến" và văn bản chưa kết thúc lấy ý kiến. Chi tiết Chức năng 2 | - |
+| **Màn hình chi tiết văn bản đi cần cho ý kiến — phần bổ sung** |  |  |  |  |
 | Nút [Cho ý kiến] | Button | - | Chỉ hiển thị khi mở từ danh sách "Văn bản cần cho ý kiến" và trạng thái người dùng = "Cần cho ý kiến". Chi tiết Chức năng 5 | - |
 | Nút [Kết thúc cho ý kiến] | Button | - | Chỉ hiển thị khi mở từ danh sách "Văn bản cần cho ý kiến" và trạng thái người dùng = "Cần cho ý kiến". Chi tiết Chức năng 5 | - |
 | **Màn hình Xin ý kiến** (tiêu đề trên app: "XIN Ý KIẾN") | | | | |
@@ -125,10 +135,10 @@ Module cho phép Lãnh đạo/Chuyên viên phụ trách văn bản (Người xi
 | Mỗi dòng tệp — icon [Ký số] | Button | - | Mở giao diện ký số theo hình thức đã cấu hình ở Thông tin cá nhân (Token/SmartCA/PKI/VGCA) — dùng chung cơ chế Ký số văn bản hiện có của app | - |
 | Nút [Đóng] | Button | - | Đóng màn hình, không gửi | - |
 | Nút [Cho ý kiến] | Button | - | Gửi ý kiến, chi tiết Chức năng 5 | - |
-| **Chi tiết văn bản đi (bổ sung — Chức năng 6)** | | | | |
-| VB có lấy ý kiến | Label | - | Read-only. Giá trị "Có" nếu văn bản được đánh dấu từ web, "Không" nếu chưa đánh dấu hoặc tạo trước khi có tính năng này | String |
+| **Chi tiết văn bản đi cần lấy ý kiến/Cần cho ý kiến (bổ sung — Chức năng 6)** | | | | |
+| VB có lấy ý kiến | Label | - | Read-only. Giá trị "Có" nếu văn bản được đánh dấu từ web, Nếu không được tích chọn ở trên web thì ẩn trường thông tin này, ẩn luôn cả label.<br> | String |
 
-##### Chức năng 1: Xem danh sách và tìm kiếm "Văn bản đi cần lấy ý kiến"
+##### **Chức năng 1: Xem danh sách và tìm kiếm "Văn bản đi cần lấy ý kiến"**
 
 ###### Chức năng nghiệp vụ
 
@@ -143,8 +153,9 @@ Người xin ý kiến mở menu "Văn bản đi cần lấy ý kiến", hệ th
 Bước 2: Người xin ý kiến chuyển tab trạng thái ("Chờ xin ý kiến" / "Kết thúc lấy ý kiến" / "Tất cả"), hệ thống thực hiện:
 - Lọc lại danh sách theo đúng trạng thái của tab đang chọn (→ BR-03)
 
-Bước 3: Người xin ý kiến tìm kiếm bằng ô tìm kiếm/bộ lọc, hệ thống thực hiện:
-- Áp dụng đúng cơ chế tìm kiếm/lọc chung của danh sách văn bản đi hiện có của app — không định nghĩa lại ở tài liệu này
+Bước 3: Người xin ý kiến nhập từ khóa vào ô tìm kiếm nhanh, hệ thống thực hiện:
+- Lọc trong phạm vi tab trạng thái đang chọn, tìm văn bản có Số ký hiệu HOẶC Trích yếu chứa từ khóa (→ BR-04)
+- Không hỗ trợ tìm kiếm nâng cao (theo nhiều tiêu chí kết hợp) trên màn hình này
 
 Bước 4: Người xin ý kiến nhấn vào 1 văn bản trong danh sách, hệ thống thực hiện:
 - Hiển thị màn hình xem nhanh thông tin văn bản đi (dùng chung màn hình xem nhanh hiện có của app), bổ sung hiển thị các nút chức năng [Lấy ý kiến], [Kết thúc lấy ý kiến] (xem bảng field mục Yêu cầu giao diện)
@@ -154,12 +165,14 @@ Bước 4: Người xin ý kiến nhấn vào 1 văn bản trong danh sách, h�
 | Mã | Tình huống | Xử lý |
 |----|-----------|-------|
 | EX-01 | Mất kết nối/API timeout khi tải danh sách | Hiển thị thông báo lỗi kết nối, cho phép kéo để tải lại (pull-to-refresh) |
+| EX-02 | Tìm kiếm không có văn bản nào khớp từ khóa | Hiển thị "Không có dữ liệu" |
 
 **③ Quy tắc nghiệp vụ**
 
 - BR-01: Trigger: Mở màn hình danh sách → Logic: điều kiện lọc = Văn bản đi đã ban hành AND (Người tạo = người đăng nhập OR Người soạn thảo = người đăng nhập) AND VB có lấy ý kiến = Có → Output: hiển thị đúng tập văn bản của người đăng nhập
 - BR-02: Trigger: Tính số đếm badge menu → Logic: đếm bản ghi trạng thái "Chờ xin ý kiến" theo cấu hình `CONFIG_COUNT_LAYYKIEN_MOBILE` (1: đếm tất cả, 0: đếm chưa xem) → Output: số hiển thị trên badge menu
 - BR-03: Trigger: Chọn tab trạng thái → Logic: "Chờ xin ý kiến" = văn bản chưa kết thúc lấy ý kiến; "Kết thúc lấy ý kiến" = văn bản đã kết thúc; "Tất cả" = bỏ qua điều kiện lọc trạng thái → Output: danh sách đúng theo tab đang chọn
+- BR-04: Trigger: Nhập từ khóa vào ô tìm kiếm nhanh → Logic: Số ký hiệu chứa từ khóa (LIKE gần đúng) HOẶC Trích yếu chứa từ khóa (LIKE gần đúng), không phân biệt hoa/thường; không có tiêu chí tìm kiếm nâng cao nào khác → Output: danh sách lọc đúng theo từ khóa, kết hợp với tab trạng thái đang chọn (BR-03)
 
 ###### Thông báo và thông tin lưu vết log
 
@@ -168,7 +181,6 @@ Không phát sinh thông báo/log riêng ở chức năng xem danh sách.
 ###### Edge cases
 
 - Danh sách rỗng (chưa có văn bản nào được đánh dấu lấy ý kiến) → hiển thị "Không có dữ liệu"
-- Tìm kiếm không có kết quả khớp bộ lọc
 
 ##### Chức năng 2: Lấy ý kiến
 
@@ -348,8 +360,9 @@ Người được xin ý kiến mở menu "Văn bản cần cho ý kiến", hệ
 Bước 2: Người được xin ý kiến chuyển tab trạng thái ("Cần cho ý kiến" / "Kết thúc cho ý kiến" / "Tất cả"), hệ thống thực hiện:
 - Lọc lại danh sách theo đúng trạng thái của tab đang chọn (→ BR-03)
 
-Bước 3: Người được xin ý kiến tìm kiếm bằng ô tìm kiếm/bộ lọc, hệ thống thực hiện:
-- Áp dụng đúng cơ chế tìm kiếm/lọc chung của danh sách văn bản đi hiện có của app — không định nghĩa lại ở tài liệu này
+Bước 3: Người được xin ý kiến nhập từ khóa vào ô tìm kiếm nhanh, hệ thống thực hiện:
+- Lọc trong phạm vi tab trạng thái đang chọn, tìm văn bản có Số ký hiệu HOẶC Trích yếu chứa từ khóa (→ BR-04)
+- Không hỗ trợ tìm kiếm nâng cao (theo nhiều tiêu chí kết hợp) trên màn hình này
 
 Bước 4: Người được xin ý kiến nhấn vào 1 văn bản trong danh sách, hệ thống thực hiện:
 - Hiển thị màn hình xem nhanh thông tin văn bản đi (dùng chung màn hình xem nhanh hiện có của app), bổ sung hiển thị các nút chức năng [Cho ý kiến], [Kết thúc cho ý kiến] (xem bảng field mục Yêu cầu giao diện)
@@ -359,12 +372,14 @@ Bước 4: Người được xin ý kiến nhấn vào 1 văn bản trong danh s
 | Mã | Tình huống | Xử lý |
 |----|-----------|-------|
 | EX-01 | Mất kết nối/API timeout khi tải danh sách | Hiển thị thông báo lỗi kết nối, cho phép kéo để tải lại |
+| EX-02 | Tìm kiếm không có văn bản nào khớp từ khóa | Hiển thị "Không có dữ liệu" |
 
 **③ Quy tắc nghiệp vụ**
 
 - BR-01: Trigger: Mở màn hình danh sách → Logic: điều kiện lọc = văn bản mà người đăng nhập được người khác xin ý kiến (là 1 Người được xin ý kiến của văn bản đó) → Output: hiển thị đúng tập văn bản của người đăng nhập
 - BR-02: Trigger: Tính số đếm badge menu → Logic: đếm bản ghi trạng thái "Cần cho ý kiến" theo cấu hình `CONFIG_COUNT_CHOYKIEN_MOBILE` (1: đếm tất cả, 0: đếm chưa xem) → Output: số hiển thị trên badge menu
 - BR-03: Trigger: Chọn tab trạng thái → Logic: "Cần cho ý kiến" = trạng thái của người đăng nhập với văn bản đó chưa kết thúc; "Kết thúc cho ý kiến" = đã kết thúc; "Tất cả" = bỏ qua điều kiện lọc trạng thái → Output: danh sách đúng theo tab đang chọn
+- BR-04: Trigger: Nhập từ khóa vào ô tìm kiếm nhanh → Logic: Số ký hiệu chứa từ khóa (LIKE gần đúng) HOẶC Trích yếu chứa từ khóa (LIKE gần đúng), không phân biệt hoa/thường; không có tiêu chí tìm kiếm nâng cao nào khác → Output: danh sách lọc đúng theo từ khóa, kết hợp với tab trạng thái đang chọn (BR-03)
 
 ###### Thông báo và thông tin lưu vết log
 
@@ -373,7 +388,6 @@ Không phát sinh thông báo/log riêng ở chức năng xem danh sách.
 ###### Edge cases
 
 - Danh sách rỗng (chưa được ai xin ý kiến) → hiển thị "Không có dữ liệu"
-- Tìm kiếm không có kết quả khớp bộ lọc
 
 ##### Chức năng 5: Cho ý kiến
 

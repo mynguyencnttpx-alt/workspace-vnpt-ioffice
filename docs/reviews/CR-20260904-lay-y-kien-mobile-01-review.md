@@ -44,3 +44,13 @@ Sau lần review đầu, user cung cấp bộ 9 ảnh mockup mobile thực tế 
 - Đã chèn 9 ảnh mockup thật vào `images/` và nhúng link đúng vị trí từng chức năng.
 
 Các thay đổi trên là làm khớp đặc tả với UI thực tế đã build, không phát sinh vấn đề mới ở mức Critical/Major — điểm và trạng thái phê duyệt giữ nguyên như Mục 3.
+
+## 5. Addendum 2 — bổ sung chức năng Tìm kiếm nhanh (Chức năng 1 & 4)
+
+Theo yêu cầu user: 2 màn hình danh sách chỉ dùng bộ lọc nhanh (không có tìm kiếm nâng cao — icon lọc nâng cao sẽ được bỏ khỏi UI), tìm theo Số ký hiệu HOẶC Trích yếu chứa từ khóa. Đã bổ sung:
+- Field "Ô tìm kiếm nhanh" vào bảng field của cả 2 danh sách.
+- Bước 3 trong Luồng thành công của Chức năng 1 & 4, mô tả rõ cơ chế so khớp.
+- BR-04 (mỗi chức năng) định nghĩa Trigger → Logic → Output cho tìm kiếm.
+- EX-02 (mỗi chức năng): tìm kiếm không có kết quả → "Không có dữ liệu" (đồng thời bỏ bullet trùng lặp cũ ở Edge cases).
+
+Không phát sinh vấn đề Critical/Major mới.

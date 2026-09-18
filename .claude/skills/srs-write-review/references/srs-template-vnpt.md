@@ -194,5 +194,14 @@ Ví dụ — Hệ thống được nghiệm thu khi thỏa các điều kiện s
 # PHỤ LỤC (NẾU CÓ)
 
 - Danh mục dùng chung (dropdown values, loại văn bản,...)
+- Danh mục trường thông tin cần lưu trữ (tùy chọn có điều kiện — xem tiêu chí ở `writing-rules.md` Rule C.1)
 - Mapping dữ liệu tổng thể (nếu migrate dữ liệu cũ, hoặc tổng hợp lại toàn bộ mapping API đã đặc tả rải rác ở từng chức năng — xem `references/integration-rules.md`)
 - BPMN / Sơ đồ luồng tổng thể
+
+**Danh mục trường thông tin cần lưu trữ** (nếu có)
+
+[Chỉ thêm bảng này khi đủ điều kiện — xem tiêu chí ở `writing-rules.md` Rule C.1. Cột "Trạng thái" chỉ điền khi `doc_type = cr`, bỏ hẳn cột này khi `doc_type = new`.]
+
+| Tên trường thông tin | Thuộc chức năng | Trạng thái | Kiểu dữ liệu | Ý nghĩa / Ghi chú |
+|---|---|---|---|---|
+| <Tên field> | <Tên chức năng chứa field này> | Mới / Thay đổi / Không đổi | String / Number / Date / Data list | <Ý nghĩa nghiệp vụ ngắn gọn> |

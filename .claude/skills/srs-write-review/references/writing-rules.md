@@ -520,6 +520,58 @@ Cả hai đều truyền đạt cùng 1 nội dung — bản súc tích không t
 - **Không viết** điều kiện lỗi đã có trong Luồng ngoại lệ
 - **Không viết** ràng buộc field đã có trong bảng Yêu cầu giao diện
 
+**Bắt buộc group theo nhóm chức năng/thao tác liên quan — KHÔNG liệt kê BR dàn trải thành 1 danh sách phẳng lẫn lộn nhiều chủ đề:**
+
+- **Trong 1 Chức năng đã gộp nhiều thao tác con** (theo Rule B — ví dụ "Phân công người xử lý" gộp Thêm người / Xóa người / Đổi hạn xử lý): tách Quy tắc nghiệp vụ thành từng cụm theo thao tác con. Mỗi cụm có tiêu đề in đậm là tên thao tác, liệt kê **hết** BR liên quan đến thao tác đó ngay bên dưới tiêu đề, xong cụm này mới sang cụm tiếp theo — không xen kẽ BR của các thao tác khác nhau.
+- **Giữa nhiều Chức năng riêng biệt trong cùng 1 Module** (ví dụ Xem danh sách văn bản, Xem chi tiết văn bản, Tiếp nhận văn bản): mỗi Chức năng giữ nguyên Quy tắc nghiệp vụ của mình dưới đúng heading "Chức năng N: <Tên>" của nó — **không gom BR của nhiều Chức năng vào chung 1 danh sách**, dù các Chức năng đó liên quan chặt chẽ với nhau hoặc cùng 1 chủ đề dữ liệu.
+- Đánh số BR liên tục trong phạm vi 1 Chức năng (BR-01, BR-02...); không reset số theo từng cụm thao tác con, và không đánh số xuyên suốt cả Module.
+
+**Cấu trúc khi 1 Chức năng có nhiều cụm thao tác con:**
+
+```
+**Quy tắc nghiệp vụ**
+
+**<Tên thao tác con 1>**
+- BR-01: ...
+- BR-02: ...
+
+**<Tên thao tác con 2>**
+- BR-03: ...
+```
+
+**Ví dụ áp dụng 1 — Chức năng "Phân công người xử lý" (gộp 3 thao tác con, group theo từng thao tác):**
+
+```
+**Quy tắc nghiệp vụ**
+
+**Thêm người xử lý**
+- BR-01: Người được chọn đã có trong danh sách → không cho thêm lại (→ EX-01)
+- BR-02: Số lượng người xử lý tối đa cho 1 bản ghi là 10 người → vượt quá → không cho thêm tiếp
+
+**Xóa người xử lý**
+- BR-03: Người đang xử lý dở (đã cập nhật tiến độ > 0%) → không cho xóa khỏi danh sách
+
+**Đổi hạn xử lý**
+- BR-04: Hạn xử lý mới phải ≥ ngày hiện tại → nếu không → không cho lưu
+```
+
+**Ví dụ áp dụng 2 — Module có nhiều Chức năng riêng biệt cùng chủ đề văn bản đến (mỗi Chức năng giữ BR riêng dưới đúng heading, không gom lẫn):**
+
+```
+### Chức năng 1: Xem danh sách văn bản
+...
+**Quy tắc nghiệp vụ**
+- BR-01: Mặc định chỉ hiển thị văn bản thuộc đơn vị của user đăng nhập
+- BR-02: Sắp xếp mặc định theo Ngày đến, giảm dần
+
+### Chức năng 2: Xem chi tiết văn bản
+...
+**Quy tắc nghiệp vụ**
+- BR-01: Chỉ actor thuộc đơn vị xử lý hoặc đơn vị ban hành mới được xem chi tiết
+```
+
+> BR-01 ở Chức năng 2 không phải "trùng số" với BR-01 ở Chức năng 1 — số BR chỉ có phạm vi trong 1 Chức năng, không đánh số toàn Module.
+
 **Tham chiếu nhanh — loại BR thường gặp theo nhóm chức năng:**
 
 | Nhóm chức năng | BR bắt buộc xem xét |
@@ -597,6 +649,31 @@ Nội dung: liệt kê các tiêu chí để hệ thống được nghiệm thu 
 - Bàn giao đầy đủ tài liệu và source code
 
 Nếu user không cung cấp → dùng nội dung mẫu trong template, đánh dấu `[CẦN XÁC NHẬN]`.
+
+---
+
+## RULE C.1 — PHỤ LỤC: DANH MỤC TRƯỜNG THÔNG TIN CẦN LƯU TRỮ (tùy chọn có điều kiện)
+
+> Mục đích: tổng hợp toàn bộ field cần lưu trữ của module vào 1 bảng duy nhất trong Phụ lục — giúp dev/DBA nắm nhanh phạm vi dữ liệu mà không phải đọc lướt hết bảng field rải rác ở từng chức năng. Đặc biệt quan trọng với CR: đánh dấu rõ field nào Mới / Thay đổi / Không đổi để không sót migrate DB.
+
+**Khi nào BẮT BUỘC thêm:**
+- `doc_type = cr` VÀ CR có thêm/sửa/xóa field lưu trữ (hầu hết CR dạng "thay đổi thông tin" rơi vào đây).
+
+**Khi nào TÙY CHỌN (tự cân nhắc, không hỏi lại user trừ khi thực sự phân vân):**
+- `doc_type = new` VÀ module có từ 3 chức năng có bảng field trở lên — nhiều field rải rác, cần bảng tổng hợp để tra cứu nhanh.
+
+**Khi nào BỎ QUA:**
+- `doc_type = cr` nhưng CR chỉ sửa luồng/UI, không đụng tới dữ liệu lưu trữ.
+- `doc_type = new` và module ngắn (1–2 chức năng, ít field) — bảng field trong Yêu cầu giao diện đã đủ rõ, thêm mục này chỉ trùng lặp không cần thiết.
+
+**Cấu trúc bảng — 5 cột** (đúng khung ở `srs-template-vnpt.md`):
+
+| Tên trường thông tin | Thuộc chức năng | Trạng thái | Kiểu dữ liệu | Ý nghĩa / Ghi chú |
+|---|---|---|---|---|
+
+- **Trạng thái** (Mới / Thay đổi / Không đổi): chỉ điền cột này khi `doc_type = cr`. Bỏ hẳn cột này khi `doc_type = new` (mọi field đều mới, ghi thừa).
+- **Nguồn dữ liệu:** tổng hợp từ các bảng field đã viết ở từng "Yêu cầu giao diện" của module — chỉ trích Tên trường + Kiểu dữ liệu + thuộc chức năng nào. **KHÔNG** chép lại nguyên văn cột "Ràng buộc / Điều kiện" hay "Kiểu điều khiển" đã có ở bảng field gốc (vi phạm RULE D — không lặp 1 thông tin ở 2 section); cần biết chi tiết ràng buộc thì đọc bảng field của đúng chức năng đó.
+- **CR:** field đánh dấu "Mới"/"Thay đổi" phải khớp với FC đã liệt kê trong Bảng tham chiếu ảnh hưởng (Bước 1) — không thêm field thuộc FC nằm ngoài phạm vi CR đang viết.
 
 ---
 
@@ -950,6 +1027,7 @@ Nếu 1 module có nhiều file SRS.md (nhiều CR) → hỏi rõ mã phiếu n�
 - [ ] Module dài/phức tạp (nhiều actor dễ nhầm, nhiều thuật ngữ đặc thù) đã cân nhắc thêm Bảng thuật ngữ & Actor (Rule A.2) — không bắt buộc, chỉ kiểm tra đã cân nhắc chứ không phải lúc nào cũng phải có
 - [ ] Mỗi chức năng có đủ 4 section: Quy trình / Chức năng nghiệp vụ / Thông báo & Log / Edge cases
 - [ ] Có mục "Điều kiện nghiệm thu hệ thống" ở cuối
+- [ ] CR có thêm/sửa/xóa field lưu trữ → đã có Phụ lục "Danh mục trường thông tin cần lưu trữ" (RULE C.1), đánh dấu đúng Mới/Thay đổi/Không đổi
 
 **Chức năng nghiệp vụ**
 - [ ] Luồng thành công hoàn chỉnh từ đầu đến cuối, viết theo khối đoạn văn + gạch đầu dòng (không dùng bảng dài)
@@ -958,6 +1036,8 @@ Nếu 1 module có nhiều file SRS.md (nhiều CR) → hỏi rõ mã phiếu n�
 - [ ] Ít nhất 2–3 luồng ngoại lệ mỗi chức năng (EX-01, EX-02...)
 - [ ] Quy tắc nghiệp vụ có thể test độc lập (Trigger → Logic → Output)
 - [ ] Không lẫn BR vào bảng field hoặc luồng thành công
+- [ ] Nếu Chức năng gộp nhiều thao tác con: Quy tắc nghiệp vụ đã group theo từng thao tác (tiêu đề + BR bên dưới), không liệt kê BR dàn trải lẫn lộn nhiều thao tác
+- [ ] Nếu Module có nhiều Chức năng riêng biệt: BR của mỗi Chức năng nằm đúng dưới heading Chức năng đó, không bị gom chung với Chức năng khác
 
 **Workflow Diagram (nếu có)**
 - [ ] Output `.md`: Mermaid sequenceDiagram hợp lệ, render được (không có syntax error)

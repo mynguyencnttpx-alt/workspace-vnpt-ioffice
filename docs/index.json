@@ -1,0 +1,21 @@
+{
+  "Lấy ý kiến": {
+    "current_approved": "CR-20260904-lay-y-kien-mobile-01/SRS.md",
+    "status": "dev-ready",
+    "function_ids": [
+      "FC-001",
+      "FC-002",
+      "FC-003",
+      "FC-004",
+      "FC-005",
+      "FC-006"
+    ],
+    "lineage": [
+      "https://scm.devops.vnpt.vn/scm.egov.it/egov.pm2.qlvb_doc/-/blob/master/01.CORE/WORKING/20.Development/20.Requirement/20.SRS/20.CR/3.PYN/SRS_YCTD_PYN_12062024.docx (mục II.3. IT360-1158127 - chức năng Lấy ý kiến VNPT iOffice V5 UBND Tỉnh Phú Yên)",
+      "CR-20260904-lay-y-kien-mobile-01"
+    ],
+    "last_updated": "2026-09-04",
+    "jira_ticket": "IOFFICE-107467",
+    "jira_url": "https://cntt.vnpt.vn/browse/IOFFICE-107467"
+  }
+}

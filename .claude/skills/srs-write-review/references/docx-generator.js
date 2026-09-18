@@ -483,6 +483,7 @@ const doc = new Document({
 
       h1('PHỤ LỤC (NẾU CÓ)'),
       bullet('Danh mục dùng chung (dropdown values, loại văn bản,...)'),
+      bullet('Danh mục trường thông tin cần lưu trữ (nếu có — xem RULE C.1)'),
       bullet('Mapping dữ liệu (nếu migrate hoặc tích hợp)'),
       bullet('BPMN / Sơ đồ luồng tổng thể'),
     ],
