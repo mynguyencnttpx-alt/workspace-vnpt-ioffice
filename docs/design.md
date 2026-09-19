@@ -1,6 +1,6 @@
-# Design System — VNPT iOffice
+# Design System — VPS Support Portal
 
-> Nguồn: màu thương hiệu `#005baa` + trắng (do BA cung cấp). Các giá trị đánh dấu **[GIẢ ĐỊNH]** là đề xuất, chờ xác nhận từ VNPT. Tỷ lệ tương phản là số tự tính theo công thức WCAG, cần kiểm lại bằng công cụ đo trước khi giao dev.
+> Hệ thống hỗ trợ khách hàng trong quá trình sử dụng các dịch vụ do đơn vị quản lý. Nguồn: màu thương hiệu VNPT `#005baa` + trắng (do BA cung cấp). Các giá trị đánh dấu **[GIẢ ĐỊNH]** là đề xuất, chờ xác nhận. Tỷ lệ tương phản là số tự tính theo công thức WCAG, cần kiểm lại bằng công cụ đo trước khi giao dev.
 
 ## 1. Màu sắc
 
@@ -62,7 +62,7 @@ Cả hai là font Google Fonts, hỗ trợ đầy đủ dấu tiếng Việt.
 | 14 | Nội dung mặc định, nhãn, nút |
 | 12 | Chú thích (không dùng cho chữ quan trọng) |
 
-Chiều cao dòng nội dung: 1.5.
+Chiều cao dòng nội dung: 1.5. Trên mobile, ô nhập dùng chữ 16 để trình duyệt điện thoại không tự phóng to khi bấm vào.
 
 ## 3. Hình khối **[GIẢ ĐỊNH]**
 - Bo góc: 4 (huy hiệu, ô nhỏ) / 6 (nút, ô nhập) / 8 (thẻ) / 12 (hộp thoại).
@@ -70,25 +70,33 @@ Chiều cao dòng nội dung: 1.5.
 - Bóng đổ: nhẹ cho thẻ; rõ hơn cho hộp thoại và menu nổi.
 
 ## 4. Thiết bị và bố cục
-- Thiết bị chính: **Desktop**, khung 1024. Nội dung tối đa 1280 **[GIẢ ĐỊNH]**.
-- Responsive: tablet 768, mobile 375.
-- Form, đăng nhập, hộp thoại nằm trong khung hẹp căn giữa (khoảng 380–460px), input và nút full-width trong khung đó, không kéo hết bề ngang.
-- Màn danh sách, bảng, dashboard trải theo độ rộng nội dung.
+- Nền tảng: **web có responsive**, không làm app riêng. Khách hàng dùng trực tiếp trên trình duyệt điện thoại.
+- Phía **khách hàng**: ưu tiên **mobile 375** (thiết kế trước), sau đó tablet 768 và desktop.
+- Phía **nhân viên hỗ trợ và quản trị viên**: ưu tiên **desktop 1024** trở lên, nội dung tối đa 1280 **[GIẢ ĐỊNH]**; vẫn xem được trên tablet 768.
+- Vùng bấm tối thiểu 44px (nút, ô nhập, dòng danh sách) trên mọi màn khách hàng.
+- Form, đăng nhập, hộp thoại nằm trong khung hẹp căn giữa (khoảng 380–460px), input và nút full-width trong khung đó. Trên mobile khung chiếm toàn bề ngang trừ lề 16px.
+- Màn danh sách, bảng, dashboard trải theo độ rộng nội dung. Trên mobile bảng chuyển thành danh sách thẻ.
 
-## 5. Component cốt lõi
-Tên và trạng thái để bước dựng Figma bám theo. Bộ component đặc thù iOffice (thanh điều hướng, thẻ văn bản, bộ lọc) chưa có thông tin, sẽ bổ sung sau.
+## 5. Người dùng
+| Vai trò | Việc chính | Thiết bị ưu tiên |
+|---|---|---|
+| Khách hàng | Gửi yêu cầu hỗ trợ, theo dõi trạng thái, trao đổi với nhân viên | Mobile, có desktop |
+| Nhân viên hỗ trợ | Nhận, xử lý, phản hồi yêu cầu | Desktop |
+| Quản trị viên | Xem báo cáo, cấu hình hệ thống | Desktop |
 
+## 6. Component
+Bộ dựng trên Figma gồm nhóm **Form** (mọi ô nhập, chọn, tải tệp và phản hồi đi kèm) và nhóm **Dashboard** (điều hướng, bảng, bộ lọc, thẻ số liệu, trạng thái, phân trang).
+
+### 6.1 Component đặc thù của cổng hỗ trợ (vẽ riêng sau khi có token)
 | Component | Trạng thái |
 |---|---|
-| Nút | chính, phụ, vô hiệu (mỗi loại: thường, hover, focus) |
-| Ô nhập | thường, focus, lỗi, vô hiệu |
-| Huy hiệu trạng thái | thành công, cảnh báo, lỗi, thông tin, nháp |
-| Dòng bảng | thường, hover, đang chọn |
-| Thẻ | thường |
-| Hộp thoại | thường |
-| Banner thông báo | thành công, cảnh báo, lỗi, thông tin |
+| Huy hiệu trạng thái yêu cầu | mới, đang xử lý, chờ khách phản hồi, đã giải quyết, đã đóng **[GIẢ ĐỊNH]** |
+| Huy hiệu mức ưu tiên | thấp, trung bình, cao, khẩn cấp **[GIẢ ĐỊNH]** |
+| Thẻ yêu cầu (dùng trên mobile) | thường, đang chọn |
+| Dòng thời gian trao đổi | tin nhắn khách hàng, tin nhắn nhân viên, ghi chú nội bộ (chỉ nhân viên thấy) |
+| Form gửi yêu cầu | thường, lỗi, đang gửi, gửi thành công |
 
-## 6. Việc còn mở
-- [ ] Xác nhận với VNPT: màu dẫn xuất, thang cỡ chữ, bo góc, độ rộng khung.
+## 7. Việc còn mở
+- [ ] Xác nhận: danh sách trạng thái yêu cầu, mức ưu tiên, các loại dịch vụ hỗ trợ.
+- [ ] Xác nhận: màu dẫn xuất, thang cỡ chữ, bo góc, độ rộng khung.
 - [ ] Kiểm lại tỷ lệ tương phản bằng công cụ đo.
-- [ ] Bổ sung component đặc thù iOffice.
