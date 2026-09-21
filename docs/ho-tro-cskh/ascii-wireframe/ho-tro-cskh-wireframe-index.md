@@ -57,14 +57,14 @@ links:
 | 42 | [cauhinh-tich-hop-ai](cau-hinh-ai-danh-muc.md#cauhinh-tich-hop-ai) | cau-hinh-ai-danh-muc | draft | UC13 | — | — | — | 2026-09-19 |
 | 43 | [cauhinh-tham-so-ai](cau-hinh-ai-danh-muc.md#cauhinh-tham-so-ai) | cau-hinh-ai-danh-muc | draft | UC13 | — | — | — | 2026-09-19 |
 | 44 | [cauhinh-thu-nghiem-ai](cau-hinh-ai-danh-muc.md#cauhinh-thu-nghiem-ai) | cau-hinh-ai-danh-muc | draft | UC14 | — | — | — | 2026-09-19 |
-| 45 | [cauhinh-nhat-ky-ai](cau-hinh-ai-danh-muc.md#cauhinh-nhat-ky-ai) | cau-hinh-ai-danh-muc | draft | — | — | — | — | 2026-09-19 |
+| 45 | [cauhinh-nhat-ky-ai](cau-hinh-ai-danh-muc.md#cauhinh-nhat-ky-ai) | cau-hinh-ai-danh-muc | draft | UC46 | — | — | — | 2026-09-19 |
 | 46 | [danhmuc-dich-vu-loai-van-de](cau-hinh-ai-danh-muc.md#danhmuc-dich-vu-loai-van-de) | cau-hinh-ai-danh-muc | draft | UC32, UC33, UC34, UC35, UC36 | — | — | — | 2026-09-19 |
 | 47 | [cauhinh-kenh-thongbao](cau-hinh-ai-danh-muc.md#cauhinh-kenh-thongbao) | cau-hinh-ai-danh-muc | draft | UC16 | — | — | — | 2026-09-19 |
 | 48 | [baocao-tong-quan](bao-cao-thong-ke.md#baocao-tong-quan) | bao-cao-thong-ke | draft | UC37 | — | — | — | 2026-09-19 |
 | 49 | [baocao-hieusuat-sla](bao-cao-thong-ke.md#baocao-hieusuat-sla) | bao-cao-thong-ke | draft | UC38 | — | — | — | 2026-09-19 |
 | 50 | [baocao-chatluong](bao-cao-thong-ke.md#baocao-chatluong) | bao-cao-thong-ke | draft | UC39 | — | — | — | 2026-09-19 |
 | 51 | [baocao-xuat](bao-cao-thong-ke.md#baocao-xuat) | bao-cao-thong-ke | draft | UC31, UC40 | — | — | — | 2026-09-19 |
-| 52 | [cauhinh-sla](cau-hinh-ai-danh-muc.md#cauhinh-sla) | cau-hinh-ai-danh-muc | draft | — | — | — | — | 2026-09-19 |
+| 52 | [cauhinh-sla](cau-hinh-ai-danh-muc.md#cauhinh-sla) | cau-hinh-ai-danh-muc | draft | UC46 | — | — | — | 2026-09-19 |
 | 53 | [kh-kich-hoat-tk-het-han](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk-het-han) | dang-nhap-kich-hoat-kh | draft | UC9, UC10 | — | — | — | 2026-09-19 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
@@ -232,7 +232,7 @@ CSAT, AI deflection rate, top lỗi được hỏi nhiều, bài KB hữu ích n
 Xuất báo cáo Excel/PDF ngay hoặc cấu hình lịch gửi tự động định kỳ.
 
 ### cauhinh-sla
-Quản trị viên cấu hình giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ và thời gian tự đóng ticket (UC mới, chờ bổ sung).
+Quản trị viên cấu hình giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ và thời gian tự đóng ticket (UC46).
 
 ### kh-kich-hoat-tk-het-han
 Khách hàng mở link mời đã hết hạn hoặc đã dùng: thông báo và hướng dẫn liên hệ đầu mối/quản trị viên để gửi lại lời mời.

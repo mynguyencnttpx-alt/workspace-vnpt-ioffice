@@ -286,9 +286,9 @@
 | 3 | Ngưỡng cảnh báo | Textbox (số %) | Text | • Cảnh báo "sắp quá hạn" khi còn ngần này % thời gian (đề xuất 20%); dùng cho màn `agent-canh-bao-sla`. Khoảng hợp lệ 1-90 [GIẢ ĐỊNH]. |
 | 4 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA (đề xuất: Chờ khách hàng, Chờ khách hàng xác nhận) vì đang chờ phía khách hàng. |
 | 5 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket ở "Chờ khách hàng xác nhận" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
-| 6 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** (ticket đang mở giữ SLA cũ) [GIẢ ĐỊNH]; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC mới thuộc nhóm danh mục đầu vào, chờ bổ sung vào danh sách UC). |
+| 6 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** (ticket đang mở giữ SLA cũ) [GIẢ ĐỊNH]; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC46, nhóm danh mục đầu vào). |
 
-- Màn mới bổ sung ngày 19/09/2026 (userflow [52]). Dữ liệu là giá trị đề xuất, chờ khách hàng xác nhận.
+- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC46). Dữ liệu là giá trị đề xuất, chờ khách hàng xác nhận.
 
 
 ---
