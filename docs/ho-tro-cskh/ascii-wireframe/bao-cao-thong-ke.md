@@ -47,6 +47,8 @@
 
 - Header nội bộ dùng chung (không đánh số). Số liệu, tên team/tỉnh là dữ liệu mẫu chỉ minh họa; biểu đồ vẽ dạng cột ngang bằng ký tự #. Đây cũng là màn landing của Chủ quản dịch vụ và là báo cáo cơ bản (giới hạn team) của Agent.
 
+- Bản chính từ thiết kế Figma (21/09/2026): ngoài 3 thẻ số liệu [4] (đã tạo / đã xử lý / tồn đọng, kèm % so kỳ trước) còn hiện thêm thẻ "Quá hạn SLA" và khối "Đúng hạn SLA" + "AI deflection" — là số liệu tóm tắt của 2 tab `baocao-hieusuat-sla` và `baocao-chatluong` [GIẢ ĐỊNH, chờ khách hàng xác nhận]; bảng theo team hiện avatar viết tắt và nhãn Tồn theo màu.
+
 
 ---
 

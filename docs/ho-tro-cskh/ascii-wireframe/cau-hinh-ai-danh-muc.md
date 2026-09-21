@@ -1,8 +1,53 @@
 # Flow: Cấu hình AI + danh mục hệ thống
 
-> Màn hình thuộc flow này: cauhinh-tich-hop-ai → cauhinh-tham-so-ai → cauhinh-thu-nghiem-ai → cauhinh-nhat-ky-ai → danhmuc-dich-vu-loai-van-de → cauhinh-kenh-thongbao → cauhinh-sla. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
+> Màn hình thuộc flow này: cauhinh-hub → cauhinh-tich-hop-ai → cauhinh-tham-so-ai → cauhinh-thu-nghiem-ai → cauhinh-nhat-ky-ai → danhmuc-dich-vu-loai-van-de → cauhinh-kenh-thongbao → cauhinh-mau-thong-bao → cauhinh-sla → cauhinh-onebss. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+
+---
+
+## Screen: cauhinh-hub — Trung tâm cấu hình
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Trung tâm cấu hình                                                   │
+│ Thiết lập kết nối, tri thức AI và quy tắc vận hành.                  │
+├──────────────────────────────────────────────────────────────────────┤
+│ ┌────────────────────┐ ┌────────────────────┐ ┌────────────────────┐ │
+│ │ [1] Tích hợp AI    │ │ [2] Tham số AI     │ │ [3] Thử nghiệm AI  │ │
+│ │ Đã kết nối         │ │ Đang bật           │ │ Sẵn sàng           │ │
+│ └────────────────────┘ └────────────────────┘ └────────────────────┘ │
+│ ┌────────────────────┐ ┌────────────────────┐ ┌────────────────────┐ │
+│ │ [4] Nhật ký AI     │ │ [5] Chỉ mục AI     │ │ [6] Danh mục chung │ │
+│ │ 1.240 lượt/tháng   │ │ 3 bài cần tái lập  │ │ 5 danh mục         │ │
+│ └────────────────────┘ └────────────────────┘ └────────────────────┘ │
+│ ┌────────────────────┐ ┌────────────────────┐ ┌────────────────────┐ │
+│ │ [7] Kênh & mẫu TB  │ │ [8] Cấu hình SLA   │ │ [9] Kết nối OneBSS │ │
+│ │ Email - SMS bật    │ │ Đã cấu hình        │ │ Chưa cấu hình      │ │
+│ └────────────────────┘ └────────────────────┘ └────────────────────┘ │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Tích hợp AI | Card | Click | • → `cauhinh-tich-hop-ai`; huy hiệu trạng thái (Đã kết nối / Lỗi / Chưa kiểm tra). Chỉ Quản trị viên. |
+| 2 | Tham số & chế độ AI | Card | Click | • → `cauhinh-tham-so-ai`; huy hiệu "Đang bật" khi có chế độ AI bật. Chỉ Quản trị viên. |
+| 3 | Thử nghiệm AI | Card | Click | • → `cauhinh-thu-nghiem-ai`; Quản trị viên và **Biên tập nội dung** (như ghi ở màn đó). |
+| 4 | Nhật ký hội thoại AI | Card | Click | • → `cauhinh-nhat-ky-ai`; hiện số lượt gọi trong tháng. Chỉ Quản trị viên. |
+| 5 | Chỉ mục AI | Card | Click | • → `kb-chi-muc-ai` (thuộc flow quản trị nội dung); hiện số bài cần tái lập. |
+| 6 | Danh mục dùng chung | Card | Click | • → `danhmuc-dich-vu-loai-van-de`; hiện số danh mục (5). |
+| 7 | Kênh & mẫu thông báo | Card | Click | • → `cauhinh-kenh-thongbao` (từ đó vào `cauhinh-mau-thong-bao`); hiện kênh đang bật. |
+| 8 | Cấu hình SLA | Card | Click | • → `cauhinh-sla`; **chỉ Quản trị viên**. |
+| 9 | Kết nối OneBSS | Card | Click | • → `cauhinh-onebss`; huy hiệu Chưa cấu hình / Đã kết nối / Lỗi kết nối. **Chỉ Quản trị viên**. |
+
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — thay node "Menu cấu hình hệ thống" của userflow bằng màn thật; mục hiển thị theo vai trò (mục không có quyền thì ẩn, không hiện rồi báo 403). Nhãn MỚI trên bản Figma đánh dấu phần bổ sung.
+
 
 ---
 
@@ -45,6 +90,27 @@
 
 - Header nội bộ dùng chung (không đánh số). Flow 9 là khu vực menu "Cấu hình": 3 màn AI nối theo trình tự cấu hình → tham số → thử nghiệm, còn danh mục dùng chung và kênh thông báo vào độc lập từ menu. Chỉ Quản trị viên (màn thử nghiệm thêm Biên tập viên).
 
+#### Trạng thái phụ — kiểm tra kết nối lỗi
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Cấu hình tích hợp AI                   Kết nối: Lỗi [1]              │
+├──────────────────────────────────────────────────────────────────────┤
+│ (!) Không kết nối được nhà cung cấp AI. Kiểm tra API key/endpoint.   │
+│ Nhà cung cấp [2]  [v: Anthropic Claude        ]                      │
+│ Model [3]         [v: Chọn model              ]                      │
+│ API key [4]       [************************] (eye)                   │
+│ Endpoint [5]      [https://api.example.com/v1______]                 │
+│ Giới hạn request [6]  [1000____] lượt / ngày                         │
+├──────────────────────────────────────────────────────────────────────┤
+│ [7] [ Kiểm tra kết nối ]   [8] [ Lưu ]   [9] [ Hủy ]                 │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: [1] Kết nối: Lỗi + dòng (!) báo không kết nối được nhà cung cấp AI (kiểm tra API key/endpoint); dữ liệu đã nhập giữ nguyên để sửa và thử lại.
+
 
 ---
 
@@ -85,6 +151,25 @@
 | 6 | Thử nghiệm AI | Link | Click | • → `cauhinh-thu-nghiem-ai` để kiểm tra chất lượng **trước khi bật rộng rãi** (userflow: thử → đạt → quay lại bật). |
 
 - Cột "AI soạn" = AI hỗ trợ soạn phản hồi cho agent; "AI tự động" = AI tự động phản hồi ticket.
+
+#### Trạng thái phụ — giá trị không hợp lệ
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Tham số & chế độ AI                                                  │
+├──────────────────────────────────────────────────────────────────────┤
+│ Ngưỡng tin cậy [1] [1.50__]   Số đoạn ngữ cảnh top-k [2] [5___]      │
+│ (!) Ngưỡng tin cậy phải nằm trong khoảng 0 đến 1.                    │
+├──────────────────────────────────────────────────────────────────────┤
+│ Bật/tắt từng chế độ AI theo phạm vi [3]  (giữ nguyên như màn gốc)    │
+├──────────────────────────────────────────────────────────────────────┤
+│ [5] [ Lưu ] (mờ)        [6] < Thử nghiệm AI >                        │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: ngưỡng tin cậy ngoài khoảng 0–1 → (!) lỗi tại ô [1]; [5] Lưu mờ tới khi sửa [wording tạm, chưa có mã E-…].
 
 
 ---
@@ -129,6 +214,28 @@
 
 - Dữ liệu mẫu chỉ minh họa; "->" thay mũi tên để không lệch cột.
 
+#### Trạng thái phụ — dưới ngưỡng tin cậy
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Khu vực thử nghiệm AI                          [1] < Về tham số AI > │
+├──────────────────────────────────────────────────────────────────────┤
+│ [3] [Hướng dẫn cấu hình máy chủ mail?_____________] [4] [ Hỏi thử ]  │
+├──────────────────────────────────────────────────────────────────────┤
+│ Kết quả                                                              │
+│ AI: (không trả lời) Độ liên quan 0.41 thấp hơn ngưỡng 0.70 [6]       │
+│ -> Hệ thống sẽ đề xuất tạo ticket cho khách hàng.                    │
+├──────────────────────────────────────────────────────────────────────┤
+│ Đoạn tài liệu đã tìm được (top-5) [7]                                │
+│ 1. Cấu hình email nhận thông báo - Bước 1        0.41                │
+│ 2. Danh sách văn bản đến                          0.33               │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: độ liên quan thấp hơn ngưỡng → AI không trả lời, hệ thống sẽ đề xuất tạo ticket cho khách hàng; vẫn liệt kê đoạn tài liệu tìm được để chỉnh nội dung.
+
 
 ---
 
@@ -171,6 +278,26 @@
 
 - Dữ liệu và số liệu mẫu chỉ minh họa; chi phí ghi "d" (đồng) để không lệch cột.
 
+#### Trạng thái phụ — xem chi tiết một dòng
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Nhật ký hội thoại AI & chi phí                                       │
+├──────────────────────────────────────────────────────────────────────┤
+│ 17/09 10:20  KH BĐ  Hỏi đáp  Ký số báo lỗi 403...   Trả lời  <[5]>   │
+├──────────────────────────────────────────────────────────────────────┤
+│ Chi tiết [6]                                            [ Đóng ]     │
+│ Câu hỏi: Ký số báo lỗi 403 thì xử lý sao?                            │
+│ Trả lời: Lỗi 403 thường do tài khoản chưa có quyền ký...             │
+│ Nguồn: < Lỗi 403 khi ký số >   Độ liên quan: 0.82                    │
+│ Phản hồi của khách hàng: Hữu ích                                     │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: bấm 1 dòng mở panel [6] gồm câu hỏi, câu trả lời, nguồn + độ liên quan, phản hồi của khách hàng (Hữu ích/Không); [ Đóng ] về danh sách.
+
 
 ---
 
@@ -208,6 +335,30 @@
 | 4 | Xóa | Link | Click | • Hộp thoại xác nhận. Mục **đã được ticket/bài viết dùng** → không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) [GIẢ ĐỊNH — nguồn chỉ nói "thêm/sửa/xóa", quy tắc ràng buộc: OQ-22]. |
 
 - Vẽ tab "Loại vấn đề" làm đại diện; 4 tab còn lại cùng bố cục bảng + Thêm/Sửa/Xóa, chỉ khác cột (Mẫu trả lời có thêm nội dung mẫu).
+
+- Bản Figma có **đủ 5 tab** (Dịch vụ, Loại vấn đề, Ưu tiên, Loại nội dung, Mẫu trả lời) cùng bố cục bảng + Thêm/Sửa/Xóa; cột khác nhau theo tab (Mẫu trả lời: Tiêu đề + Nội dung mẫu). Mức ưu tiên gắn SLA ở `cauhinh-sla`.
+
+#### Trạng thái phụ — xác nhận xóa mục đã được dùng
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Danh mục dùng chung                                                  │
+│ [1] [Dịch vụ] [Loại vấn đề] [Ưu tiên] [*Loại nội dung*] [Mẫu trả lời]│
+│ (nền mờ - danh sách loại nội dung ở phía sau)                        │
+│     ┌──────────────────────────────────────────────────────────┐     │
+│     │ Xóa "Câu hỏi thường gặp"?                                │     │
+│     │ Mục đã được bài viết sử dụng. Hệ thống sẽ chuyển sang    │     │
+│     │ "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ).             │     │
+│     │                                                          │     │
+│     │ [3] [ Chuyển sang Ngừng dùng ]  [4] [ Hủy ]              │     │
+│     └──────────────────────────────────────────────────────────┘     │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: hộp xác nhận — mục đã được ticket/bài viết dùng không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) [GIẢ ĐỊNH, OQ-22]; [3] Chuyển sang Ngừng dùng / [4] Hủy; nền mờ.
 
 
 ---
@@ -247,6 +398,93 @@
 | 3 | Brandname SMS | Textbox | Text | • Tên hiển thị người gửi SMS; **bắt buộc khi SMS bật**. Định dạng/độ dài hợp lệ, brandname phải đăng ký với nhà mạng: đã đề xuất, chờ xác nhận (OQ-22). |
 | 4 | Kênh theo loại thông báo | Checkbox grid | Check | • Chọn kênh nhận mặc định **theo loại thông báo** (Đề xuất — Cấu hình kênh thông báo): phản hồi mới, đổi trạng thái, chờ xác nhận/tự đóng, lời mời kích hoạt, cảnh báo SLA nội bộ. Mỗi loại ≥1 kênh. Chọn kênh riêng **theo từng khách hàng** (ghi đè) có trong đề xuất nhưng chưa có màn/nơi cấu hình: OQ-22. |
 | 5 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu brandname khi SMS bật; áp dụng ngay cho thông báo tiếp theo (UC16); báo "Đã lưu" (wording tạm). |
+
+- Bổ sung 21/09/2026: có link "Chỉnh mẫu nội dung Email/SMS" [6] tới `cauhinh-mau-thong-bao`.
+
+#### Trạng thái phụ — bật SMS thiếu brandname
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Cấu hình kênh thông báo                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│ Kênh: [x] Email [1]  [x] SMS [2]   Brandname SMS [3] [______________]│
+│ (!) Bật SMS thì bắt buộc nhập brandname.                             │
+│ Chỉnh mẫu nội dung: < Chỉnh mẫu nội dung Email/SMS > [6]             │
+├──────────────────────────────────────────────────────────────────────┤
+│ Kênh mặc định theo loại thông báo [4]  (giữ nguyên như màn gốc)      │
+├──────────────────────────────────────────────────────────────────────┤
+│ [5] [ Lưu ] (mờ)                                                     │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: bật SMS mà brandname trống → (!) "Bật SMS thì bắt buộc nhập brandname." tại ô [3]; [5] Lưu mờ [wording tạm, chưa có mã E-…].
+
+
+---
+
+## Screen: cauhinh-mau-thong-bao — Mẫu nội dung thông báo Email/SMS
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Mẫu nội dung thông báo                                [7] [ Lưu mẫu ]│
+│ [1] (*) Email   ( ) SMS                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│ Loại thông báo [2]              Tiêu đề [3]                          │
+│ (*) Phản hồi mới      [[CSKH] Ticket {mã_ticket} có phản hồi mới____]│
+│ ( ) Đổi trạng thái    Nội dung [4]                                   │
+│ ( ) Chờ xác nhận      [Kính gửi {tên_khách_hàng},                    │
+│ ( ) Lời mời kích hoạt  Ticket {mã_ticket} vừa có phản hồi mới]       │
+│ ( ) Cảnh báo SLA                                                     │
+├──────────────────────────────────────────────────────────────────────┤
+│ Biến chèn [5]: {tên_khách_hàng} {mã_ticket} {tiêu_đề} {trạng_thái}   │
+│ [6] < Xem trước >   < Khôi phục mẫu mặc định >                       │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Kênh | Tab/Radio | Select | • Email hoặc SMS; SMS không có ô tiêu đề. Chỉ hiện kênh đang bật ở `cauhinh-kenh-thongbao`. |
+| 2 | Loại thông báo | Radio list | Select | • 5 loại như ở `cauhinh-kenh-thongbao`: ticket có phản hồi mới, đổi trạng thái, chờ khách hàng xác nhận/tự đóng, lời mời kích hoạt, cảnh báo SLA (nội bộ). |
+| 3 | Tiêu đề (Email) | Textbox | Text | • Bắt buộc với Email; cho chèn biến. |
+| 4 | Nội dung | Textarea | Text | • Bắt buộc; **phải giữ biến bắt buộc** của loại đó (vd lời mời kích hoạt/đặt lại phải có biến liên kết kích hoạt/đặt lại) — thiếu → không lưu được (xem Trạng thái phụ). SMS: đếm độ dài, cảnh báo khi vượt 1 tin theo nhà mạng. |
+| 5 | Biến chèn | Chip list | Click | • {tên_khách_hàng}, {mã_ticket}, {tiêu_đề}, {trạng_thái}, {liên_kết…}; bấm để chèn vào vị trí con trỏ. |
+| 6 | Xem trước / Khôi phục mẫu mặc định | Link | Click | • Xem trước với dữ liệu mẫu; Khôi phục đưa mẫu về nội dung mặc định (hộp xác nhận). |
+| 7 | Lưu mẫu | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu biến bắt buộc/tiêu đề; áp dụng cho thông báo gửi sau; ghi nhật ký thao tác. Về `cauhinh-kenh-thongbao` bằng breadcrumb/Quay lại. |
+
+- **Đề xuất bổ sung, chờ xác nhận (OQ-26).** Thông báo trung lập của `kh-quen-mat-khau` (email không có trong danh mục) **không nằm trong mẫu sửa được**. Vào từ `cauhinh-kenh-thongbao`.
+
+#### Trạng thái phụ — thiếu biến bắt buộc
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Mẫu nội dung thông báo                                [7] [ Lưu mẫu ]│
+│ [1] (*) Email   ( ) SMS                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│ Loại thông báo [2]              Tiêu đề [3]                          │
+│ ( ) Phản hồi mới      Tiêu đề [3]                                    │
+│ ( ) Đổi trạng thái    [Kích hoạt tài khoản CSKH_______________]      │
+│ ( ) Chờ xác nhận      Nội dung [4]                                   │
+│ (*) Lời mời kích hoạt [Kính gửi {tên_khách_hàng}, tài khoản của bạn  │
+│ ( ) Cảnh báo SLA       đã được tạo.]                                 │
+├──────────────────────────────────────────────────────────────────────┤
+│ Biến chèn [5]: {tên_khách_hàng} {mã_ticket} {tiêu_đề} {trạng_thái}   │
+│ (!) Thiếu biến bắt buộc {liên_kết_kích_hoạt}. Không lưu được.        │
+│ [6] < Khôi phục mẫu mặc định >                                       │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: chọn "Lời mời kích hoạt" mà nội dung thiếu biến liên kết kích hoạt → (!) báo thiếu và không lưu được; có lối Khôi phục mẫu mặc định.
 
 
 ---
@@ -290,6 +528,97 @@
 
 - Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC46). Dữ liệu là giá trị đề xuất, chờ khách hàng xác nhận.
 
+#### Trạng thái phụ — giờ làm việc không hợp lệ
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Cấu hình SLA                                       Chỉ Quản trị viên │
+├──────────────────────────────────────────────────────────────────────┤
+│ Giờ làm việc [1]: T2-T6  Từ [17:00] đến [08:00]                      │
+│ (!) Giờ bắt đầu phải nhỏ hơn giờ kết thúc.                           │
+├──────────────────────────────────────────────────────────────────────┤
+│ Mức ưu tiên      Phản hồi trong   Xử lý trong [2]  (giữ nguyên)      │
+├──────────────────────────────────────────────────────────────────────┤
+│ [6] [ Lưu ] (mờ)                                                     │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: giờ bắt đầu lớn hơn hoặc bằng giờ kết thúc → (!) lỗi tại ô [1]; [6] Lưu mờ [wording tạm, chưa có mã E-…].
+
+
+---
+
+## Screen: cauhinh-onebss — Kết nối OneBSS
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Kết nối OneBSS                                     [Đã kết nối]      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Địa chỉ dịch vụ [1] [https://onebss.example.vn/api/v1_______]        │
+│ Client ID [2]       [csskh-integration___________________]           │
+│ Client secret [3]   [**************] (đã lưu, nhập mới để thay)      │
+│ [4] (i) Kết nối OneBSS thành công                                    │
+│     Phản hồi 240 ms, kiểm tra lúc 21/09 09:12                        │
+│ [5] [ Kiểm tra kết nối ]   [6] [ Lưu cấu hình ]                      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Dữ liệu đẩy sang OneBSS [7]: KH/site, mô tả + ưu tiên, lịch sử,      │
+│ người tạo. Agent tỉnh gửi trực tiếp; Agent TT có bước xác nhận.      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Nhật ký gửi phiếu gần đây [8]                                        │
+│ 21/09 09:05  #T-0123  OB-2026-0456         Thành công                │
+│ 20/09 16:40  #T-0121  OB-2026-0449         Thành công                │
+│ 20/09 11:12  #T-0118  (chưa có mã)         Lỗi - không phản hồi      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Địa chỉ dịch vụ OneBSS | Textbox | Text | • **Bắt buộc**, đúng dạng địa chỉ web (https). |
+| 2 | Client ID | Textbox | Text | • **Bắt buộc**; mã định danh hệ thống CSKH khi làm việc với OneBSS. |
+| 3 | Client secret | Password | Text | • Che ký tự; **đã lưu thì không hiển thị lại**, chỉ nhập mới để thay (cùng cách xử lý API key ở `cauhinh-tich-hop-ai`, OQ-22a). Chỉ Quản trị viên xem/sửa. |
+| 4 | Kết quả kiểm tra | Alert | ReadOnly | • Thành công: thời gian phản hồi + thời điểm kiểm tra. Thất bại: nguyên nhân chung (không phản hồi sau 30 giây, kiểm tra địa chỉ/mã client), **không lộ chi tiết kỹ thuật hay secret**. |
+| 5 | Kiểm tra kết nối | Button | Click | • Gọi thử OneBSS bằng cấu hình đang nhập; khóa khi đang kiểm tra. Lỗi → giữ màn, cho sửa và thử lại. |
+| 6 | Lưu cấu hình | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu [1]/[2]; áp dụng cho lần gửi phiếu sau; ghi nhật ký thao tác. |
+| 7 | Dữ liệu đẩy sang OneBSS | List | ReadOnly | • Khách hàng/site, mô tả + mức ưu tiên, lịch sử trao đổi liên quan, người tạo (Đề xuất — Tích hợp OneBSS mục 2). Agent tỉnh gửi trực tiếp; Agent trung tâm có bước xác nhận (UC6, UC8); lý do chuyển: lỗi hệ thống / cần đội dự án. |
+| 8 | Nhật ký gửi phiếu gần đây | Table | ReadOnly | • Thời gian, ticket, mã phiếu OneBSS, kết quả (Thành công / Lỗi). Chứa dữ liệu khách hàng nên **chỉ Quản trị viên xem**; dòng lỗi chưa có mã phiếu. |
+
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026), chờ xác nhận (OQ-29).** Trước khi Thử lại ở `agent-tao-phieu-onebss` phải kiểm tra ticket đã có mã phiếu chưa. Vào từ `cauhinh-hub`.
+
+#### Trạng thái phụ — kết nối thất bại
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Kết nối OneBSS                                     [Lỗi kết nối]     │
+├──────────────────────────────────────────────────────────────────────┤
+│ Địa chỉ dịch vụ [1] [https://onebss.example.vn/api/v1_______]        │
+│ Client ID [2]       [csskh-integration___________________]           │
+│ Client secret [3]   [**************] (đã lưu, nhập mới để thay)      │
+│ [4] (!) Kết nối OneBSS thất bại                                      │
+│     Không nhận phản hồi sau 30 giây. Kiểm tra địa chỉ, mã client.    │
+│ [5] [ Kiểm tra kết nối ]   [6] [ Lưu cấu hình ]                      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Dữ liệu đẩy sang OneBSS [7]: KH/site, mô tả + ưu tiên, lịch sử,      │
+│ người tạo. Agent tỉnh gửi trực tiếp; Agent TT có bước xác nhận.      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Nhật ký gửi phiếu gần đây [8]                                        │
+│ 21/09 09:05  #T-0123  OB-2026-0456         Thành công                │
+│ 20/09 16:40  #T-0121  OB-2026-0449         Thành công                │
+│ 20/09 11:12  #T-0118  (chưa có mã)         Lỗi - không phản hồi      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: [4] báo "Kết nối OneBSS thất bại" kèm gợi ý kiểm tra địa chỉ/mã client; nhãn trạng thái "Lỗi kết nối"; các trường giữ nguyên để sửa.
+
 
 ---
 
@@ -303,3 +632,5 @@
 | OQ-22d | Xóa mục danh mục | Mục đã dùng → "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu); chưa dùng → xóa được. | Chờ khách hàng xác nhận |
 | OQ-22e | Brandname SMS; kênh theo khách hàng | Brandname ≤11 ký tự không dấu, VNPT IT đăng ký với nhà mạng; MVP chọn kênh theo loại thông báo, ghi đè theo khách hàng để giai đoạn sau. | Chờ khách hàng xác nhận |
 | OQ-19a | Màn cấu hình SLA | Đã thêm `cauhinh-sla` [52]: giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ, thời gian tự đóng ticket. | Chờ khách hàng xác nhận |
+| OQ-26 | Mẫu nội dung Email/SMS (bổ sung OQ-22e) | Quản trị viên sửa tiêu đề/nội dung; bắt buộc giữ biến liên kết kích hoạt/đặt lại; có khôi phục mẫu mặc định; SMS cảnh báo khi vượt độ dài; thông báo trung lập của `kh-quen-mat-khau` không sửa được. | Chờ khách hàng xác nhận |
+| OQ-29 | Kết nối OneBSS (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; bí mật client che và chỉ nhập lại để thay; nhật ký gửi phiếu chỉ Quản trị viên xem; kiểm tra mã phiếu trước khi thử lại. | Chờ khách hàng xác nhận |

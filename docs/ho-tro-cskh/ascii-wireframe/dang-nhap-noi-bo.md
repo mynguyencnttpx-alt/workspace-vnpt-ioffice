@@ -1,6 +1,6 @@
 # Flow: Agent/Quản trị viên đăng nhập
 
-> Màn hình thuộc flow này: noibo-dang-nhap → noibo-tai-khoan-ca-nhan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
+> Màn hình thuộc flow này: noibo-dang-nhap → noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
@@ -92,8 +92,50 @@
 
 ---
 
+## Screen: noibo-tong-quan — Tổng quan nội bộ
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Xin chào, Trần Thị B                    [1] [ Xem hàng đợi ticket ]  │
+├──────────────────────────────────────────────────────────────────────┤
+│ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐          │
+│ │ [2] 7      │ │ [3] 2      │ │ [4] 4      │ │ [5] 5      │          │
+│ │ Ticket mới │ │ Sắp quá hạn│ │ KH phản hồi│ │ Bài chờ    │          │
+│ │ 3 khẩn cấp │ │ dưới 1 giờ │ │ cần trả lời│ │ duyệt      │          │
+│ └────────────┘ └────────────┘ └────────────┘ └────────────┘          │
+├──────────────────────────────────────────────────────────────────────┤
+│ Việc cần làm ngay [6]                 | Hoạt động gần đây [7]        │
+│ #T-0123 Không ký số được  Khẩn cấp    | Ticket #T-0110 đã đóng       │
+│ #T-0121 Lỗi tải tệp       Sắp quá hạn | Bài "Lỗi 403" được duyệt     │
+│ #T-0118 Hướng dẫn quyền   KH phản hồi | 3 bài cần tái lập chỉ mục    │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Nút hành động chính | Button | Click | • Theo vai trò [GIẢ ĐỊNH]: Agent/Quản trị viên → "Xem hàng đợi ticket" (`agent-hang-doi`); Chủ quản dịch vụ → "Xem báo cáo" (`baocao-tong-quan`); Biên tập nội dung → "Xem chờ duyệt" (`kb-cho-duyet`). |
+| 2 | Thẻ Ticket mới cho tôi | Stat card | Click | • Số ticket mới được giao cho tài khoản (kèm số khẩn cấp); bấm → `agent-hang-doi` lọc "của tôi". Chỉ vai trò xử lý ticket (Agent, Quản trị viên). |
+| 3 | Thẻ Sắp quá hạn SLA | Stat card | Click | • Số ticket còn dưới ngưỡng cảnh báo SLA (cấu hình ở `cauhinh-sla`); bấm → `agent-canh-bao-sla`. Chỉ Agent/Quản trị viên phụ trách. |
+| 4 | Thẻ Khách vừa phản hồi | Stat card | Click | • Số ticket khách hàng vừa phản hồi cần trả lời; bấm → `agent-hang-doi` lọc trạng thái tương ứng. |
+| 5 | Thẻ Bài chờ duyệt | Stat card | Click | • **Chỉ Quản trị viên thấy** (chỉ Quản trị viên duyệt — OQ-4); bấm → `kb-cho-duyet`. Vai trò khác không hiện thẻ (tránh bấm vào màn không có quyền). |
+| 6 | Việc cần làm ngay | List | Click | • Tối đa 3 mục ưu tiên (khẩn cấp, sắp quá hạn, khách phản hồi); bấm 1 dòng → `agent-chi-tiet-ticket`. Rỗng → "Chưa có việc cần làm". |
+| 7 | Hoạt động gần đây | List | ReadOnly | • Sự kiện gần nhất liên quan đến tài khoản (ticket đóng, bài được duyệt, chỉ mục cần tái lập...). Chỉ hiển thị mục thuộc phạm vi/quyền của vai trò. |
+
+- **Đề xuất bổ sung, chờ khách hàng xác nhận (OQ-25).** Màn này KHÔNG thay landing mặc định theo vai trò (OQ-18: Agent/Quản trị viên → hàng đợi, Chủ quản → báo cáo tổng quan, Biên tập → chờ duyệt); mở từ menu "Tổng quan". Mọi thẻ hiển thị theo vai trò; lối sang `noibo-tai-khoan-ca-nhan` giữ nguyên.
+
+
+---
+
 ## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
 | OQ-18 | Tài khoản nội bộ | Quản trị viên tạo → hệ thống gửi email mời đặt mật khẩu (không cấp mật khẩu qua kênh khác); có "quên mật khẩu" qua email; trang đầu: Agent và Quản trị viên → hàng đợi ticket, Chủ quản dịch vụ → báo cáo tổng quan, Biên tập → chờ duyệt. | Chờ khách hàng xác nhận |
+| OQ-25 | [63] Tổng quan nội bộ có làm landing không (bổ sung OQ-18) | Không; landing giữ theo OQ-18, Tổng quan mở từ menu, thẻ chỉ hiện theo vai trò. | Chờ khách hàng xác nhận |

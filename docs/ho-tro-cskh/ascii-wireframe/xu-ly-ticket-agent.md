@@ -97,6 +97,8 @@
 
 - Vẽ ở trạng thái có nhãn AI tự trả lời [5] (chỉ hiện khi áp dụng). Panel "Mẫu trả lời" [10] và "AI gợi ý" [11] mở dạng panel bên phải trong cùng màn, không phải màn riêng (đúng userflow đã duyệt). Quản trị viên xem cùng màn với phạm vi toàn hệ thống (UC19).
 
+- Bổ sung 21/09/2026: panel AI soạn phản hồi chỉ hiện khi chế độ "AI soạn" bật cho dịch vụ/site; AI tắt hoặc lỗi/quá thời gian → ẩn panel/báo lỗi ngắn, agent soạn phản hồi thủ công (OQ-15).
+
 
 ---
 
@@ -174,10 +176,63 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Thông tin gửi | Label list | ReadOnly | • Dữ liệu đẩy sang OneBSS: thông tin khách hàng/site, mô tả vấn đề, mức ưu tiên, lịch sử trao đổi liên quan, người tạo (Đề xuất — Tích hợp OneBSS mục 2); chỉ xem, agent không chỉnh.<br>• **Agent tỉnh gửi trực tiếp — không có bước xác nhận trung gian** (UC6): bấm "Chuyển OneBSS" ở `agent-chi-tiet-ticket` là hệ thống gửi luôn, màn này hiển thị tiến trình + kết quả. |
-| 2 | Kết quả gửi | Label / Message | ReadOnly | • Các trạng thái loại trừ của màn (chỉ 1 hiện tại 1 thời điểm): **Đang gửi** (chờ) → **Thành công**: hiện mã phiếu OneBSS, hệ thống lưu liên kết vào ticket gốc để tra cứu 2 chiều và cập nhật trạng thái ticket (UC6) → **Lỗi** (API OneBSS không phản hồi/từ chối): báo lỗi + nút [ Thử lại ], chưa lưu liên kết, ticket giữ nguyên [wording chưa có nguồn, chưa có mã E-…]. Vẽ trạng thái Thành công làm đại diện.<br>• MVP chỉ đẩy một chiều (push kèm mã tham chiếu); đồng bộ trạng thái phiếu ngược về ticket để giai đoạn sau. |
+| 2 | Kết quả gửi | Label / Message | ReadOnly | • Các trạng thái loại trừ của màn (chỉ 1 hiện tại 1 thời điểm): **Đang gửi** (chờ) → **Thành công**: hiện mã phiếu OneBSS, hệ thống lưu liên kết vào ticket gốc để tra cứu 2 chiều và cập nhật trạng thái ticket (UC6) → **Lỗi** (API OneBSS không phản hồi/từ chối): báo lỗi + nút [ Thử lại ], chưa lưu liên kết, ticket giữ nguyên [wording chưa có nguồn, chưa có mã E-…]. Vẽ trạng thái Thành công làm đại diện.<br>• MVP chỉ đẩy một chiều (push kèm mã tham chiếu); đồng bộ trạng thái phiếu ngược về ticket để giai đoạn sau.<br>• **Chống tạo trùng phiếu:** trước khi thử lại sau lỗi/chưa rõ kết quả, hệ thống kiểm tra ticket đã có mã phiếu OneBSS chưa (OQ-29). |
 | 3 | Quay lại ticket | Button | Click | • Về `agent-chi-tiet-ticket`, nay hiện mã phiếu OneBSS + liên kết và ẩn nút "Chuyển OneBSS". Chỉ agent tỉnh phụ trách ticket của mình mới tạo được (RBAC). |
+| 4 | Thử lại | Button | Click | • Chỉ hiện ở trạng thái Gửi lỗi (xem Trạng thái phụ): kiểm tra ticket đã có mã phiếu chưa; chưa có → gửi lại; đã có → hiện mã phiếu, không tạo phiếu thứ hai. |
 
 - Màn trạng thái/kết quả của thao tác gửi trực tiếp; vẽ trạng thái Thành công, các trạng thái Đang gửi/Lỗi mô tả trong Description [2].
+
+#### Trạng thái phụ — đang gửi
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│     ┌──────────────────────────────────────────────────────────┐     │
+│     │ Chuyển OneBSS  #T-0123  (agent tỉnh)                     │     │
+│     │                                                          │     │
+│     │ [1] Thông tin gửi tự động sang OneBSS:                   │     │
+│     │     - Khách hàng/site: UBND Q.1 - iOffice                │     │
+│     │     - Mô tả vấn đề, mức ưu tiên: Khẩn cấp                │     │
+│     │     - Lịch sử trao đổi liên quan (3)                     │     │
+│     ├──────────────────────────────────────────────────────────┤     │
+│     │ [2] Đang gửi sang OneBSS...                              │     │
+│     │     Vui lòng chờ, không đóng trang.                      │     │
+│     ├──────────────────────────────────────────────────────────┤     │
+│     │ [3] [ Quay lại ticket ]   [ Đang gửi... ] (mờ)           │     │
+│     └──────────────────────────────────────────────────────────┘     │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: khối [2] hiện "Đang gửi sang OneBSS..."; nút gửi bị khóa (mờ) để chống bấm đúp; ticket giữ nguyên tới khi có mã phiếu. Không bấm được "Thử lại".
+
+#### Trạng thái phụ — gửi lỗi
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│     ┌──────────────────────────────────────────────────────────┐     │
+│     │ Chuyển OneBSS  #T-0123  (agent tỉnh)                     │     │
+│     │                                                          │     │
+│     │ [1] Thông tin gửi tự động sang OneBSS:                   │     │
+│     │     - Khách hàng/site: UBND Q.1 - iOffice                │     │
+│     │     - Mô tả vấn đề, mức ưu tiên: Khẩn cấp                │     │
+│     │     - Lịch sử trao đổi liên quan (3)                     │     │
+│     ├──────────────────────────────────────────────────────────┤     │
+│     │ [2] (!) Gửi thất bại                                     │     │
+│     │     OneBSS không phản hồi. Ticket giữ nguyên.            │     │
+│     ├──────────────────────────────────────────────────────────┤     │
+│     │ [3] [ Quay lại ticket ]   [4] [ Thử lại ]                │     │
+│     └──────────────────────────────────────────────────────────┘     │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: khối [2] báo lỗi (OneBSS không phản hồi/từ chối), chưa lưu liên kết, ticket giữ nguyên; hiện [4] Thử lại và [3] Quay lại ticket (Hủy). Wording chưa có nguồn, chưa có mã E-….
 
 
 ---
@@ -218,6 +273,8 @@
 | 2 | Lý do chuyển | Dropdown | Select | • [GIẢ ĐỊNH] chọn: Lỗi hệ thống / Cần đội dự án (Đề xuất — Điều kiện tạo phiếu nêu 2 trường hợp này). Bắt buộc hay không, có gửi kèm sang OneBSS không: đã đề xuất, chờ xác nhận (OQ-19). |
 | 3 | Xác nhận & gửi | Button | Click | • Gọi API tạo phiếu OneBSS, nhận mã phiếu, lưu liên kết vào ticket và cập nhật trạng thái (UC8); khóa khi submitting. Thành công → báo mã phiếu, về `agent-chi-tiet-ticket`. Lỗi API → giữ màn, báo lỗi + thử lại [wording chưa có, chưa có mã E-…]. |
 | 4 | Hủy | Button | Click | • Không gửi, về `agent-chi-tiet-ticket`, ticket giữ nguyên. |
+
+- Bổ sung 21/09/2026: lỗi API/không phản hồi khi [3] Xác nhận & gửi → báo lỗi + thử lại, cùng quy tắc kiểm tra mã phiếu trước khi gửi lại như `agent-tao-phieu-onebss` (OQ-29); [4] Hủy về `agent-chi-tiet-ticket`.
 
 
 ---
@@ -267,3 +324,4 @@
 | OQ-19b | Nhận/phân công ticket; khối lượng việc | Agent tự nhận ticket chưa gán trong team, chuyển được cho đồng nghiệp cùng team; chỉ Quản trị viên phân công lại ticket đang do người khác xử lý. Tự gán: chọn agent có ít ticket đang mở nhất (Mới, Đang xử lý, Chờ khách hàng), bằng nhau thì luân phiên. | Chờ khách hàng xác nhận |
 | OQ-19c | Lý do chuyển OneBSS | Bắt buộc chọn (Lỗi hệ thống / Cần đội dự án / Khác) và gửi kèm ghi chú. | Chờ khách hàng xác nhận |
 | OQ-19d | Kênh cảnh báo SLA | Trong hệ thống (huy hiệu + màn Cảnh báo) và Email cho agent phụ trách + Quản trị viên; SMS chỉ khi ticket Khẩn cấp quá hạn; cảnh báo khi còn 20% thời gian. | Chờ khách hàng xác nhận |
+| OQ-29 | OneBSS: cấu hình kết nối và chống tạo trùng phiếu (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; trước khi Thử lại kiểm tra ticket đã có mã phiếu; hủy được về ticket. | Chờ khách hàng xác nhận |

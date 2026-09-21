@@ -1,6 +1,6 @@
 # Flow: Quản trị nội dung tri thức
 
-> Màn hình thuộc flow này: kb-soan-thao → kb-cho-duyet → kb-duyet-xuat-ban → kb-danh-sach-noi-dung → kb-import-um → kb-cau-hinh-dong-bo-drive → kb-tu-ticket-thanh-faq. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
+> Màn hình thuộc flow này: kb-soan-thao → kb-cho-duyet → kb-duyet-xuat-ban → kb-danh-sach-noi-dung → kb-chi-muc-ai → kb-import-um → kb-cau-hinh-dong-bo-drive → kb-tu-ticket-thanh-faq. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
@@ -51,6 +51,26 @@
 
 - Header nội bộ dùng chung (không đánh số); Flow 8 là khu vực menu quản trị nội dung — các màn vào độc lập, không phải wizard.
 
+#### Trạng thái phụ — thiếu trường bắt buộc
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Soạn bài viết mới                               Trạng thái: Bản nháp │
+├──────────────────────────────────────────────────────────────────────┤
+│ Tiêu đề [1] [_________________________________________________]      │
+│ (!) Vui lòng nhập tiêu đề.                                           │
+│ Loại nội dung [v: Hướng dẫn sử dụng] [2]   Dịch vụ [v: iOffice] [3]  │
+│ Phạm vi [4]: (*) Dùng chung mọi site   ( ) Site: [v: chọn site]      │
+├──────────────────────────────────────────────────────────────────────┤
+│ [7] [ ] Không dùng cho AI (nội dung chỉ dành cho agent nội bộ)       │
+│ [8] [ Lưu nháp ]   [9] [ Gửi duyệt ] (mờ)   [10] [ Hủy ]             │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: ô [1] Tiêu đề trống → (!) báo lỗi tại ô; [9] Gửi duyệt mờ tới khi đủ trường bắt buộc; [8] Lưu nháp vẫn dùng được [wording tạm, chưa có mã E-…].
+
 
 ---
 
@@ -88,6 +108,24 @@
 | 5 | Phân trang | Pagination | Click | • OQ-11. |
 
 - Dữ liệu mẫu chỉ minh họa; "HDSD/Lỗi/FAQ" là viết tắt loại nội dung.
+
+#### Trạng thái phụ — không có nội dung chờ duyệt
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Nội dung chờ duyệt                             [1] Nguồn [v: Tất cả] │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│               Không có nội dung chờ duyệt                            │
+│    Bài soạn, import, đồng bộ Drive hoặc từ ticket sẽ hiện ở đây.     │
+│                     [ + Soạn bài mới ]                               │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: danh sách rỗng → "Không có nội dung chờ duyệt" + gợi ý nguồn (soạn tay, import, đồng bộ Drive, từ ticket) và nút "+ Soạn bài mới".
 
 
 ---
@@ -130,6 +168,25 @@
 
 - Phạm vi vai trò được duyệt chờ chốt ở OQ-4 (Quản trị viên hay cả Biên tập nội dung).
 
+- Bổ sung 21/09/2026: sau khi phê duyệt & xuất bản có lối xem trạng thái lập chỉ mục AI ở `kb-chi-muc-ai` (chỉ xem).
+
+#### Trạng thái phụ — từ chối kèm ghi chú
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ [1] < Về danh sách chờ duyệt >                                       │
+├──────────────────────────────────────────────────────────────────────┤
+│ Hướng dẫn ký số văn bản đi          [2] Nguồn: Soạn tay - Biên tập A │
+├──────────────────────────────────────────────────────────────────────┤
+│ Ghi chú khi từ chối [4] [Thiếu ảnh minh họa ở bước 2. Cần bổ sung.]  │
+│ [5] [ Phê duyệt & xuất bản ]        [6] [ Từ chối ]                  │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: [4] ghi chú lý do từ chối (bắt buộc khi từ chối); [6] Từ chối gửi bài về `kb-soan-thao` với trạng thái Bị từ chối kèm ghi chú.
+
 
 ---
 
@@ -171,6 +228,109 @@
 
 - Màn cửa vào của khu vực nội dung: có 3 lối tắt Import/Đồng bộ Drive/Ticket thành FAQ. Dữ liệu mẫu chỉ minh họa; cột "Hữu ích" = số lượt đánh giá hữu ích/tổng.
 
+- Bổ sung 21/09/2026: bản Figma có lối "Chỉ mục AI" tới `kb-chi-muc-ai` để xem trạng thái lập chỉ mục AI của bài đã xuất bản.
+
+#### Trạng thái phụ — xác nhận ẩn bài
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Nội dung đã xuất bản    [1] [ + Soạn bài ]  [2] < Chỉ mục AI >       │
+│ (nền mờ - danh sách nội dung ở phía sau)                             │
+│                                                                      │
+│      ┌────────────────────────────────────────────────────────┐      │
+│      │ Ẩn bài viết?                                           │      │
+│      │ Bài "Lỗi 403 khi ký số" sẽ ẩn khỏi tra cứu và khỏi AI, │      │
+│      │ nhưng vẫn giữ lịch sử. Hệ thống tái lập chỉ mục AI.    │      │
+│      │                                                        │      │
+│      │ [8] [ Ẩn bài ]   [9] [ Hủy ]                           │      │
+│      └────────────────────────────────────────────────────────┘      │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: hộp xác nhận "Ẩn bài viết?" — bài ẩn khỏi tra cứu và khỏi AI nhưng giữ lịch sử; hệ thống tái lập chỉ mục AI; [8] Ẩn bài / [9] Hủy. Nền màn phía sau mờ đi.
+
+
+---
+
+## Screen: kb-chi-muc-ai — Chỉ mục AI
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Chỉ mục AI                          [1] [ Tái lập 3 bài ]            │
+├──────────────────────────────────────────────────────────────────────┤
+│ Đã xuất bản 128 | Đã lập 121 | Cần tái lập 3 | Loại khỏi AI 4 [2]    │
+├──────────────────────────────────────────────────────────────────────┤
+│ Bài viết                    Phạm vi  Đoạn  Lập lần cuối  Trạng thái  │
+│ [3] ---------------------------------------------------------------  │
+│ Hướng dẫn ký số văn bản đi  Chung    12    19/09 10:20   Đã lập      │
+│ Lỗi 403 khi ký số           site-bd  6     17/09 09:05   Cần tái lập │
+│ Quy trình gửi công văn      site-bd  9     16/09 14:40   Đang xử lý  │
+│ Ghi chú nội bộ: mẫu phản    Chung    -     -             Loại khỏi AI│
+│                                                                      │
+│ Chọn dòng: [4] < Tái lập bài này >  [5] < Về danh sách đã xuất bản > │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Tái lập N bài cần cập nhật | Button | Click | • Tái lập chỉ mục cho các bài đang ở trạng thái "Cần tái lập"; **hộp xác nhận** trước khi chạy hàng loạt (có chi phí gọi dịch vụ AI — xem Trạng thái phụ). Chỉ Quản trị viên (OQ-27); ẩn/mờ khi không còn bài cần tái lập. |
+| 2 | Số liệu tổng quan | Stat row | ReadOnly | • Đã xuất bản / Đã lập chỉ mục / Cần tái lập / Loại khỏi AI. Bài đánh dấu "Không dùng cho AI" (đặt ở `kb-soan-thao`, OQ-21c) hoặc đã ẩn **không vào chỉ mục**. |
+| 3 | Bảng bài viết | Table | Select | • Cột: bài viết, phạm vi (Chung/site), số đoạn, lập lần cuối, trạng thái (Đã lập / Cần tái lập / Đang xử lý / Lỗi tái lập / Loại khỏi AI). Chỉ hiện bài trong phạm vi của vai trò; rỗng → "Chưa có bài xuất bản". |
+| 4 | Tái lập bài này | Link | Click | • Tái lập chỉ mục 1 bài; khóa khi bài đang xử lý. Lỗi từng bài → trạng thái "Lỗi tái lập" + báo lỗi, cho thử lại. |
+| 5 | Về danh sách đã xuất bản | Link | Click | • Về `kb-danh-sach-noi-dung`. |
+
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026), chờ xác nhận (OQ-27).** Vào từ `kb-danh-sach-noi-dung`, `kb-duyet-xuat-ban` (sau xuất bản) và trung tâm cấu hình `cauhinh-hub`. Màn này **chỉ xem trạng thái + tái lập**; cờ loại khỏi AI đặt ở `kb-soan-thao`.
+
+#### Trạng thái phụ — xác nhận tái lập hàng loạt
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Chỉ mục AI                                                           │
+│ (nền mờ - danh sách bài viết ở phía sau)                             │
+│                                                                      │
+│    ┌────────────────────────────────────────────────────────────┐    │
+│    │ Tái lập chỉ mục cho 3 bài?                                 │    │
+│    │ Hệ thống gọi dịch vụ AI để lập lại chỉ mục, có tính chi phí│    │
+│    │ ước tính khoảng 2.000 đ.                                   │    │
+│    │                                                            │    │
+│    │ [6] [ Tái lập ]   [7] [ Hủy ]                              │    │
+│    └────────────────────────────────────────────────────────────┘    │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: hộp xác nhận "Tái lập chỉ mục cho N bài?" nêu chi phí ước tính; [6] Tái lập / [7] Hủy; nền mờ.
+
+#### Trạng thái phụ — có bài tái lập lỗi
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Chỉ mục AI                          [1] [ Tái lập 1 bài lỗi ]        │
+├──────────────────────────────────────────────────────────────────────┤
+│ (!) 1 bài tái lập không thành công. Thử lại hoặc liên hệ hỗ trợ.     │
+├──────────────────────────────────────────────────────────────────────┤
+│ Bài viết                    Phạm vi  Đoạn  Lập lần cuối  Trạng thái  │
+│ Lỗi 403 khi ký số           site-bd  6     17/09 09:05   Lỗi tái lập │
+│ Hướng dẫn ký số văn bản đi  Chung    12    19/09 10:20   Đã lập      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: banner (!) báo số bài tái lập không thành công; dòng bài đó "Lỗi tái lập"; nút [1] đổi thành "Tái lập N bài lỗi".
+
 
 ---
 
@@ -180,26 +340,19 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│       ┌──────────────────────────────────────────────────────┐       │
-│       │ Import tài liệu UM/SRS hiện có                       │       │
-│       │                                                      │       │
-│       │ [1] [ Chọn file ]  UM_iOffice_v2.docx  <Xóa>         │       │
-│       │                    UM_iStorage.docx    <Xóa>         │       │
-│       │ Dịch vụ       [2] [v: iOffice             ]          │       │
-│       │ Phạm vi       [3] [v: Dùng chung mọi site ]          │       │
-│       │ Danh mục đích [4] [v: Tự nhận theo mục    ]          │       │
-│       ├──────────────────────────────────────────────────────┤       │
-│       │ [5] Xem trước: 2 file -> 14 bài nháp                 │       │
-│       │     - Ký số văn bản đi        (Hướng dẫn)            │       │
-│       │     - Gửi văn bản đến         (Hướng dẫn)            │       │
-│       │     ... 12 bài khác                                  │       │
-│       ├──────────────────────────────────────────────────────┤       │
-│       │ [6] [ Import ]        [7] [  Hủy  ]                  │       │
-│       └──────────────────────────────────────────────────────┘       │
-│                                                                      │
+│ Import tài liệu UM/SRS hiện có                                       │
+│ (*) 1. Chọn tệp ( ) 2. Cấu hình ( ) 3. Xử lý ( ) 4. Kết quả          │
+├──────────────────────────────────────────────────────────────────────┤
+│ [1] ┌ Kéo thả tệp vào đây hoặc [ Chọn tệp ] ┐  docx, md, pdf         │
+│     └ tối đa 10 tệp/lần ┘                                            │
+│ Tệp đã chọn [2]                                                      │
+│   [DOC] UM-iOffice-v3.docx  2,4 MB  <Xóa>                            │
+│   [PDF] SRS-ky-so.pdf       1,1 MB  <Xóa>                            │
+│ [3] < Xem hướng dẫn chuẩn bị tệp (mẫu BM_UM_BM_AI) >                 │
+├──────────────────────────────────────────────────────────────────────┤
+│ [4] [ Hủy ]                                  [5] [ Tiếp tục ]        │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -207,13 +360,92 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Chọn file | File upload | Select | • Chọn tài liệu UM/SRS đã soạn (vd theo mẫu BM_UM_BM_AI) để khởi tạo kho nhanh, tránh viết lại từ đầu (Đề xuất — Nhập liệu ban đầu). Định dạng/dung lượng/số file tối đa: đã đề xuất, chờ xác nhận (OQ-21). Sai định dạng → báo lỗi ngay [wording chưa có, chưa có mã E-…]. |
-| 2 | Dịch vụ | Dropdown | Select | • **Bắt buộc**; áp cho toàn bộ bài tạo ra từ lần import này. |
-| 3 | Phạm vi | Dropdown | Select | • **Bắt buộc**: Dùng chung hoặc 1 site — gắn nhãn khi nhập (không tự suy). |
-| 4 | Danh mục đích | Dropdown | Select | • Mặc định tự nhận theo cấu trúc mục của tài liệu (dịch vụ → nhóm chức năng → bài); chọn tay để đưa cả lô vào 1 nhóm [GIẢ ĐỊNH]. |
-| 5 | Xem trước kết quả tách | List | ReadOnly | • Hệ thống chuẩn hóa tài liệu về **đúng khuôn dạng bài viết KB** rồi tách thành các bài nháp; hiện số bài và vài tiêu đề mẫu để kiểm tra trước khi import. Cách tách bài và xử lý tài liệu không tách được: đã đề xuất, chờ xác nhận (OQ-21). |
-| 6 | Import | Button | Click | • **Disabled** tới khi có file + [2], [3]. Tạo hàng loạt **bản nháp vào hàng chờ duyệt** (`kb-cho-duyet`, nhãn nguồn "Import") — **không xuất bản thẳng**, không vào chỉ mục AI cho tới khi được duyệt. Khóa khi submitting; báo số bài đã tạo/lỗi. |
-| 7 | Hủy | Button | Click | • Về `kb-danh-sach-noi-dung`, không tạo gì. |
+| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm [ Chọn tệp ]; nhận **docx, md, pdf**, tối đa **10 tệp/lần** (OQ-21a); dung lượng tối đa và cách tách bài: đã đề xuất, chờ xác nhận (OQ-21). Sai định dạng → báo lỗi ngay tại dòng tệp (xem Trạng thái phụ) [wording chưa có, chưa có mã E-…]. |
+| 2 | Tệp đã chọn | List | Select | • Mỗi dòng: loại tệp, tên, dung lượng, <Xóa>; tệp lỗi đánh (!) kèm lý do và không tính vào lượt import. |
+| 3 | Hướng dẫn chuẩn bị tệp | Link | Click | • Mở hướng dẫn tài liệu theo mẫu BM_UM_BM_AI (Đề xuất — Nhập liệu ban đầu). |
+| 4 | Hủy | Button | Click | • Về `kb-danh-sach-noi-dung`; đã chọn tệp → hỏi xác nhận bỏ. |
+| 5 | Tiếp tục | Button | Click | • **Disabled** tới khi có ≥1 tệp hợp lệ; sang bước 2 Cấu hình. |
+
+- Bản Figma (21/09/2026) chia **4 bước**: 1 Chọn tệp → 2 Cấu hình → 3 Xử lý → 4 Kết quả; thanh bước ở đầu màn. Đầu ra luôn là **bản nháp vào hàng chờ duyệt** (`kb-cho-duyet`, nhãn nguồn "Import") — không xuất bản thẳng, không vào chỉ mục AI cho tới khi được duyệt. Số thứ tự [n] của mỗi bước ở dưới tính riêng theo bước.
+
+#### Trạng thái phụ — tệp sai định dạng (bước 1)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Import tài liệu UM/SRS hiện có                                       │
+│ (*) 1. Chọn tệp ( ) 2. Cấu hình ( ) 3. Xử lý ( ) 4. Kết quả          │
+├──────────────────────────────────────────────────────────────────────┤
+│ [1] ┌ Kéo thả tệp vào đây hoặc [ Chọn tệp ] ┐  docx, md, pdf         │
+│     └ tối đa 10 tệp/lần ┘                                            │
+│ Tệp đã chọn [2]                                                      │
+│   (!) [EXE] ghi-chu.exe  2,1 MB  <Xóa>                               │
+│       Sai định dạng. Chỉ nhận docx, md, pdf.                         │
+├──────────────────────────────────────────────────────────────────────┤
+│ [4] [ Hủy ]                              [5] [ Tiếp tục ] (mờ)       │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: dòng tệp (!) "Sai định dạng. Chỉ nhận docx, md, pdf."; [5] Tiếp tục mờ nếu không còn tệp hợp lệ.
+
+#### Trạng thái phụ — bước 2 — cấu hình
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Import tài liệu UM/SRS hiện có                                       │
+│ ( ) 1. Chọn tệp (*) 2. Cấu hình ( ) 3. Xử lý ( ) 4. Kết quả          │
+├──────────────────────────────────────────────────────────────────────┤
+│ Dịch vụ [1]       [v: iOffice                 ]                      │
+│ Phạm vi [2]       (*) Dùng chung   ( ) Site: [v: chọn site]          │
+│ Danh mục đích [3] [v: Tự nhận theo mục        ]                      │
+│ [ ] Không dùng cho AI [4]                                            │
+├──────────────────────────────────────────────────────────────────────┤
+│ [5] [ Quay lại ]  [6] [ Hủy ]              [7] [ Bắt đầu import ]    │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- [1] Dịch vụ (bắt buộc, áp cho cả lô); [2] Phạm vi (bắt buộc: Dùng chung hoặc 1 site — gắn nhãn khi nhập, không tự suy); [3] Danh mục đích (mặc định tự nhận theo cấu trúc mục của tài liệu; chọn tay đưa cả lô vào 1 nhóm [GIẢ ĐỊNH]); [4] cờ Không dùng cho AI áp cho cả lô (OQ-21c); [5] Quay lại (giữ tệp đã chọn); [6] Hủy; [7] Bắt đầu import (khóa tới khi đủ [1],[2]).
+
+#### Trạng thái phụ — bước 3 — đang xử lý
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Import tài liệu UM/SRS hiện có                                       │
+│ ( ) 1. Chọn tệp ( ) 2. Cấu hình (*) 3. Xử lý ( ) 4. Kết quả          │
+├──────────────────────────────────────────────────────────────────────┤
+│ Đang xử lý 2 tệp...  [#######-----]  60% [1]                         │
+│   UM-iOffice-v3.docx   Đang tách bài viết                            │
+│   SRS-ky-so.pdf        Chờ xử lý                                     │
+├──────────────────────────────────────────────────────────────────────┤
+│ Rời trang sẽ hỏi xác nhận; xử lý vẫn tiếp tục nền [2]                │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- [1] Tiến độ chung + trạng thái từng tệp (đang tách bài/chờ xử lý); [2] rời trang khi đang xử lý → hỏi xác nhận, việc xử lý vẫn tiếp tục nền. Bước này không có Quay lại.
+
+#### Trạng thái phụ — bước 4 — kết quả từng tệp
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Import tài liệu UM/SRS hiện có                                       │
+│ ( ) 1. Chọn tệp ( ) 2. Cấu hình ( ) 3. Xử lý (*) 4. Kết quả          │
+├──────────────────────────────────────────────────────────────────────┤
+│ Kết quả [1]: 1 tệp thành công, 1 tệp lỗi                             │
+│   UM-iOffice-v3.docx   Thành công - 14 bản nháp                      │
+│   (!) SRS-ky-so.pdf    Lỗi - không đọc được nội dung  < Thử lại >    │
+├──────────────────────────────────────────────────────────────────────┤
+│ [2] [ Thử lại tệp lỗi ]        [3] [ Xem danh sách chờ duyệt ]       │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- [1] Tổng kết: thành công/lỗi **từng tệp** (số bản nháp tạo được, lý do lỗi); [2] Thử lại tệp lỗi; [3] Xem danh sách chờ duyệt → `kb-cho-duyet` (chỉ phần tệp thành công). Import lỗi từng phần không làm mất phần đã thành công.
 
 
 ---
@@ -252,6 +484,23 @@
 | 4 | Lịch đồng bộ | Dropdown | Select | • Chu kỳ quét định kỳ (UC15/UC30). Các lựa chọn chu kỳ: đã đề xuất, chờ xác nhận (OQ-21). |
 | 5 | Kết quả lần chạy gần nhất | Label | ReadOnly | • Job đồng bộ (UC30) quét thư mục theo lịch, đưa **tài liệu mới/thay đổi vào hàng chờ duyệt** (nhãn "Drive") — không xuất bản thẳng, không đưa dữ liệu thô vào chỉ mục AI. Hiện số tài liệu, lỗi nếu có. |
 | 6 | Lưu cấu hình | Button | Click | • **Disabled** khi chưa đổi gì; lưu → áp dụng từ lần quét kế tiếp; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. |
+
+#### Trạng thái phụ — mất kết nối
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Đồng bộ tài liệu từ Google Drive  [1] Kết nối: Mất kết nối           │
+│ (!) Không kết nối được Google Drive.            [ Kết nối lại ]      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Lịch đồng bộ [4] [v: Hằng ngày 02:00]                                │
+│ Lần chạy gần nhất: 19/09 02:00 - lỗi kết nối, chưa quét được [5]     │
+│ [6] [ Lưu cấu hình ] (mờ)                                            │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: [1] Kết nối: Mất kết nối + dòng (!) kèm nút Kết nối lại; [6] Lưu mờ; "Lần chạy gần nhất" ghi lỗi kết nối, chưa quét được.
 
 
 ---
@@ -295,6 +544,24 @@
 
 - Màn này cần một lối vào cho agent (menu Nội dung hoặc nút trên `agent-chi-tiet-ticket`) — userflow chỉ có đường từ `kb-danh-sach-noi-dung`; chốt ở OQ-21.
 
+#### Trạng thái phụ — chưa chọn ticket
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Chuyển ticket đã xử lý thành FAQ nháp                                │
+├──────────────────────────────────────────────────────────────────────┤
+│ [ ] #T-0123   Ký số báo lỗi 403 thì xử lý sao?         x5 [2]        │
+│ [ ] #T-0098   Không tải được tệp đính kèm              x3            │
+├──────────────────────────────────────────────────────────────────────┤
+│ Câu hỏi: [Chọn ticket ở trên để rút câu hỏi...___________________]   │
+│ [5] [ Tạo FAQ nháp ] (mờ)   [6] [ Hủy ]                              │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: chưa tích ticket nào → ô câu hỏi/trả lời còn placeholder, [5] Tạo FAQ nháp mờ.
+
 
 ---
 
@@ -308,3 +575,4 @@
 | OQ-21c | Bài "không dùng cho AI" | Thêm trường "Đối tượng xem" (Khách hàng + Agent / Chỉ nội bộ), tách khỏi cờ "Không dùng cho AI" (chỉ loại khỏi chỉ mục AI). | Chờ khách hàng xác nhận |
 | OQ-21d | Google Drive | Tài khoản dịch vụ được chia sẻ thư mục; quét mặc định hằng ngày 02:00 (chọn hằng giờ/ngày/tuần); hỗ trợ Google Docs, docx, pdf văn bản, md. | Chờ khách hàng xác nhận |
 | OQ-21e | Ticket → FAQ | "Lặp nhiều" = ≥3 ticket hỏi tương tự trong 30 ngày; tự thay tên đơn vị/người/email/SĐT/số hợp đồng bằng [ẩn], agent rà lại; phạm vi mặc định là site của ticket; lối vào thêm nút "Tạo FAQ từ ticket này" ở `agent-chi-tiet-ticket`. | Chờ khách hàng xác nhận |
+| OQ-27 | Chỉ mục AI: ai tái lập, loại bài khỏi AI ở đâu (bổ sung OQ-21b/c) | Chỉ Quản trị viên tái lập; loại khỏi AI đặt ở `kb-soan-thao`; `kb-chi-muc-ai` chỉ xem trạng thái + tái lập, xác nhận khi hàng loạt. | Chờ khách hàng xác nhận |
