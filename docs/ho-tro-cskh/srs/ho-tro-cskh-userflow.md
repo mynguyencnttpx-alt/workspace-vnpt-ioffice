@@ -5,7 +5,7 @@ updated: 2026-09-21
 primary_device: desktop          # desktop (1024) — khối màn khách hàng thiết kế responsive-friendly, không tách flow riêng
 stage: flow-approved
 flow_approved_at: 2026-09-21
-flow_hash: "ea5d4254"
+flow_hash: "9fc1cfd9"
 ---
 
 # Hệ thống Hỗ trợ & Chăm sóc Khách hàng — User Flow
@@ -352,7 +352,9 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    f9menu["Menu nội bộ:<br/>mục Cấu hình"]
     f9hub["[54] Trung tâm<br/>cấu hình"]
+    f9403["Không có quyền<br/>truy cập [60]"]
     f9n1["[42] Cấu hình<br/>provider/model AI"]
     f9edge1["Kết nối AI<br/>provider lỗi"]
     f9n2["[43] Tham số AI"]
@@ -367,6 +369,8 @@ flowchart TD
     f9edge3["Mẫu thiếu biến<br/>bắt buộc"]
     f9kb["Sang Flow 8:<br/>Chỉ mục AI [56]"]
 
+    f9menu -->|"Quản trị viên (đủ mục), Biên tập nội dung (chỉ mục Thử nghiệm AI)"| f9hub
+    f9menu -->|"vai trò không được phép"| f9403
     f9hub -->|"Quản trị viên"| f9n1
     f9hub -->|"Quản trị viên"| f9n2
     f9hub -->|"Quản trị viên, Biên tập nội dung"| f9n3
@@ -393,8 +397,9 @@ flowchart TD
     classDef error fill:#f8d7da,stroke:#dc3545
     classDef edge fill:#fff3cd,stroke:#ffc107
 
-    class f9hub,f9n1,f9n2,f9n3,f9n4,f9n5,f9n6,f9n8,f9n9,f9n10 happy
+    class f9menu,f9hub,f9n1,f9n2,f9n3,f9n4,f9n5,f9n6,f9n8,f9n9,f9n10 happy
     class f9edge1,f9edge2,f9edge3 edge
+    class f9403 error
     class f9kb happy
 ```
 
@@ -569,7 +574,7 @@ flowchart TD
 | 51 | baocao-xuat | Xuất báo cáo | 2 chế độ: xuất ngay (Excel/PDF) hoặc cấu hình lịch gửi tự động định kỳ kèm danh sách người nhận | bao-cao-thong-ke |
 | 52 | cauhinh-sla | Cấu hình SLA | Quản trị viên cấu hình thời gian phản hồi/xử lý theo mức ưu tiên, giờ làm việc, ngưỡng cảnh báo và thời gian tự đóng ticket | cau-hinh-ai-danh-muc |
 | 53 | kh-kich-hoat-tk-het-han | Liên kết mời hết hạn | Thông báo liên kết mời đã hết hạn hoặc đã dùng, hướng dẫn liên hệ đầu mối/quản trị viên để gửi lại lời mời | dang-nhap-kich-hoat-kh |
-| 54 | cauhinh-hub | Trung tâm cấu hình | Cửa vào các mục cấu hình (tích hợp AI, tham số, thử nghiệm, nhật ký AI, chỉ mục AI, danh mục, kênh và mẫu thông báo, SLA, kết nối OneBSS), hiện trạng thái từng mục; mục hiển thị theo vai trò [đề xuất bổ sung] | cau-hinh-ai-danh-muc |
+| 54 | cauhinh-hub | Trung tâm cấu hình | Mở từ mục "Cấu hình" trên menu bên trái; cửa vào các mục cấu hình (tích hợp AI, tham số, thử nghiệm, nhật ký AI, chỉ mục AI, danh mục, kênh và mẫu thông báo, SLA, kết nối OneBSS), hiện trạng thái từng mục; mục hiển thị theo vai trò [đề xuất bổ sung] | cau-hinh-ai-danh-muc |
 | 55 | cauhinh-onebss | Kết nối OneBSS | Nhập địa chỉ dịch vụ, mã client, bí mật client (che, chỉ nhập lại để thay); kiểm tra kết nối (có nhánh lỗi); xem dữ liệu đẩy sang và nhật ký gửi phiếu gần đây; chỉ Quản trị viên [đề xuất bổ sung, OQ-29] | cau-hinh-ai-danh-muc |
 | 56 | kb-chi-muc-ai | Chỉ mục AI | Xem số bài đã lập / cần tái lập / loại khỏi AI, trạng thái từng bài (đang xử lý, lỗi), tái lập chỉ mục có xác nhận khi hàng loạt [đề xuất bổ sung, OQ-27] | quan-tri-noi-dung-kb |
 | 57 | qt-form-khach-hang | Thêm khách hàng/site | Tạo đơn vị: tên, loại khách hàng (quyết định team tiếp nhận), dịch vụ, mã site duy nhất, đầu mối liên hệ chính thức (tên, email, SĐT — OQ-20b); lưu xong sang [29] để tạo tài khoản đầu mối + mời (điền sẵn đầu mối vừa nhập). Sửa và đổi loại vẫn làm tại [28] | quan-tri-nguoi-dung |
@@ -775,6 +780,8 @@ flowchart TD
 
 | Từ màn | Đến màn | Trigger | Điều kiện |
 |--------|---------|---------|-----------|
+| Menu nội bộ | Trung tâm cấu hình [54] | Bấm mục "Cấu hình" trên menu bên trái | Quản trị viên: đủ mục; Biên tập nội dung: chỉ mục Thử nghiệm AI; vai trò khác → [60] |
+| Màn cấu hình bất kỳ ([42]–[47], [52], [55], [56], [64]) | Trung tâm cấu hình [54] | Bấm mục "Cấu hình" trên menu bên trái | Quay về cửa vào cấu hình từ mọi màn con |
 | Trung tâm cấu hình [54] | Cấu hình provider/model AI [42] | Vào mục "Tích hợp AI" | Chỉ Quản trị viên |
 | Trung tâm cấu hình [54] | Tham số AI [43] | Vào mục "Tham số & chế độ AI" | Chỉ Quản trị viên |
 | Trung tâm cấu hình [54] | Thử nghiệm AI [44] | Vào mục "Thử nghiệm AI" | Quản trị viên và Biên tập nội dung |

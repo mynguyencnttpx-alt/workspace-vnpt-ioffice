@@ -46,6 +46,7 @@
 | 8 | Cấu hình SLA | Card | Click | • → `cauhinh-sla`; **chỉ Quản trị viên**. |
 | 9 | Kết nối OneBSS | Card | Click | • → `cauhinh-onebss`; huy hiệu Chưa cấu hình / Đã kết nối / Lỗi kết nối. **Chỉ Quản trị viên**. |
 
+- **Lối vào và lối quay về:** mở từ mục "Cấu hình" trên menu bên trái (Quản trị viên: đủ 9 mục; Biên tập nội dung: chỉ mục [3] Thử nghiệm AI; vai trò khác → `loi-403`). Từ mọi màn cấu hình con, bấm lại mục "Cấu hình" trên menu để về màn này.
 - **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — thay node "Menu cấu hình hệ thống" của userflow bằng màn thật; mục hiển thị theo vai trò (mục không có quyền thì ẩn, không hiện rồi báo 403). Nhãn MỚI trên bản Figma đánh dấu phần bổ sung.
 
 
