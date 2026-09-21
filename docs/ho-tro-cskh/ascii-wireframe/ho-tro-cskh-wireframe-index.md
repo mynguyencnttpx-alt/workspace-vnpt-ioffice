@@ -23,7 +23,7 @@ links:
 | 8 | [kb-ket-qua-tim-kiem](tra-cuu-kb.md#kb-ket-qua-tim-kiem) | tra-cuu-kb | draft | UC20 | [08 · kb-ket-qua-tim-kiem](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1451) | — | — | 2026-09-21 |
 | 9 | [kb-chi-tiet-bai-viet](tra-cuu-kb.md#kb-chi-tiet-bai-viet) | tra-cuu-kb | draft | UC21, UC53 | [09 · kb-chi-tiet-bai-viet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-592) | — | — | 2026-09-21 |
 | 10 | [kb-danh-muc-loi](tra-cuu-kb.md#kb-danh-muc-loi) | tra-cuu-kb | draft | UC20 | [10 · kb-danh-muc-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1514) | — | — | 2026-09-21 |
-| 11 | [ai-khung-chat](hoi-dap-ai.md#ai-khung-chat) | hoi-dap-ai | draft | UC3, UC62 | [11 · ai-khung-chat](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-421) | — | — | 2026-09-20 |
+| 11 | [ai-khung-chat](hoi-dap-ai.md#ai-khung-chat) | hoi-dap-ai | draft | UC3, UC62 | [11 · ai-khung-chat (+1 state)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-421) | — | — | 2026-09-20 |
 | 12 | [ai-tra-loi](hoi-dap-ai.md#ai-tra-loi) | hoi-dap-ai | draft | UC3, UC54 | [12 · ai-tra-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-465) | — | — | 2026-09-20 |
 | 13 | [ai-de-xuat-tao-ticket](hoi-dap-ai.md#ai-de-xuat-tao-ticket) | hoi-dap-ai | draft | UC3 | [13 · ai-de-xuat-tao-ticket](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-513) | — | — | 2026-09-20 |
 | 14 | [ticket-tao-moi](gui-theo-doi-ticket.md#ticket-tao-moi) | gui-theo-doi-ticket | draft | UC2 | [14 · ticket-tao-moi (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-642) | — | — | 2026-09-21 |
@@ -79,10 +79,10 @@ links:
 | 64 | [cauhinh-mau-thong-bao](cau-hinh-ai-danh-muc.md#cauhinh-mau-thong-bao) | cau-hinh-ai-danh-muc | draft | UC16, UC52 | [64 · cauhinh-mau-thong-bao (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2330) | — | — | 2026-09-21 |
 | 65 | [kb-khong-co-ket-qua](tra-cuu-kb.md#kb-khong-co-ket-qua) | tra-cuu-kb | draft | UC20 | [65 · kb-khong-co-ket-qua (08b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-2945) | — | — | 2026-09-21 |
 | 66 | [kb-bai-viet-khong-con](tra-cuu-kb.md#kb-bai-viet-khong-con) | tra-cuu-kb | draft | UC21, UC26 | [66 · kb-bai-viet-khong-con (09b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-3397) | — | — | 2026-09-21 |
-| 67 | [noibo-ai-khung-chat](noibo-hoi-dap-ai.md#noibo-ai-khung-chat) | noibo-hoi-dap-ai | draft | UC61, UC62 | — | — | — | 2026-09-21 |
-| 68 | [noibo-ai-tra-loi](noibo-hoi-dap-ai.md#noibo-ai-tra-loi) | noibo-hoi-dap-ai | draft | UC61 | — | — | — | 2026-09-21 |
-| 69 | [ai-lich-su](hoi-dap-ai.md#ai-lich-su) | hoi-dap-ai | draft | UC62 | — | — | — | 2026-09-21 |
-| 70 | [noibo-ai-lich-su](noibo-hoi-dap-ai.md#noibo-ai-lich-su) | noibo-hoi-dap-ai | draft | UC62 | — | — | — | 2026-09-21 |
+| 67 | [noibo-ai-khung-chat](noibo-hoi-dap-ai.md#noibo-ai-khung-chat) | noibo-hoi-dap-ai | draft | UC61, UC62 | [67 · noibo-ai-khung-chat (+1 state)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-6718) | — | — | 2026-09-21 |
+| 68 | [noibo-ai-tra-loi](noibo-hoi-dap-ai.md#noibo-ai-tra-loi) | noibo-hoi-dap-ai | draft | UC61 | [68 · noibo-ai-tra-loi (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-7162) | — | — | 2026-09-21 |
+| 69 | [ai-lich-su](hoi-dap-ai.md#ai-lich-su) | hoi-dap-ai | draft | UC62 | [69 · ai-lich-su (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-8624) | — | — | 2026-09-21 |
+| 70 | [noibo-ai-lich-su](noibo-hoi-dap-ai.md#noibo-ai-lich-su) | noibo-hoi-dap-ai | draft | UC62 | [70 · noibo-ai-lich-su (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-7833) | — | — | 2026-09-21 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
 
