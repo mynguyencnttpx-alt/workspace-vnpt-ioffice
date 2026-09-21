@@ -360,7 +360,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm [ Chọn tệp ]; nhận **docx, md, pdf**, tối đa **10 tệp/lần** (OQ-21a); dung lượng tối đa và cách tách bài: đã đề xuất, chờ xác nhận (OQ-21). Sai định dạng → báo lỗi ngay tại dòng tệp (xem Trạng thái phụ) [wording chưa có, chưa có mã E-…]. |
+| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm [ Chọn tệp ]; nhận **docx, md, pdf**, tối đa **10 tệp/lần, 20 MB/tệp** (OQ-21a); tách bài theo tiêu đề cấp 1/2, phần không tách được gom vào 1 bản nháp "Chưa phân loại" để biên tập xử lý. Sai định dạng → báo lỗi ngay tại dòng tệp (xem Trạng thái phụ) [wording chưa có, chưa có mã E-…]. |
 | 2 | Tệp đã chọn | List | Select | • Mỗi dòng: loại tệp, tên, dung lượng, <Xóa>; tệp lỗi đánh (!) kèm lý do và không tính vào lượt import. |
 | 3 | Hướng dẫn chuẩn bị tệp | Link | Click | • Mở hướng dẫn tài liệu theo mẫu BM_UM_BM_AI (Đề xuất — Nhập liệu ban đầu). |
 | 4 | Hủy | Button | Click | • Về `kb-danh-sach-noi-dung`; đã chọn tệp → hỏi xác nhận bỏ. |

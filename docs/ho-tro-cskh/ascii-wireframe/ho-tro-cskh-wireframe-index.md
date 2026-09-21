@@ -14,85 +14,32 @@ links:
 | # | Slug | Thuộc flow | Status | Used by functions | Figma | HTML prototype | HTML wireframe | Updated |
 |---|------|------------|--------|-------------------|-------|----------------|-----------------|---------|
 <<<<<<< Updated upstream
-| 1 | [kh-dang-nhap](dang-nhap-kich-hoat-kh.md#kh-dang-nhap) | dang-nhap-kich-hoat-kh | draft | — | — | — | — | 2026-09-19 |
-| 2 | [kh-kich-hoat-tk](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk) | dang-nhap-kich-hoat-kh | draft | UC9, UC10 | — | — | — | 2026-09-19 |
-| 3 | [kh-quen-mat-khau](dang-nhap-kich-hoat-kh.md#kh-quen-mat-khau) | dang-nhap-kich-hoat-kh | draft | — | — | — | — | 2026-09-19 |
-| 4 | [kh-danh-sach-thanh-vien](dang-nhap-kich-hoat-kh.md#kh-danh-sach-thanh-vien) | dang-nhap-kich-hoat-kh | draft | UC22, UC23 | — | — | — | 2026-09-19 |
-| 5 | [kh-moi-thanh-vien](dang-nhap-kich-hoat-kh.md#kh-moi-thanh-vien) | dang-nhap-kich-hoat-kh | draft | UC10 | — | — | — | 2026-09-19 |
-| 6 | [kh-tai-khoan-ca-nhan](dang-nhap-kich-hoat-kh.md#kh-tai-khoan-ca-nhan) | dang-nhap-kich-hoat-kh | draft | UC44 | — | — | — | 2026-09-19 |
-| 7 | [kb-trang-chu](tra-cuu-kb.md#kb-trang-chu) | tra-cuu-kb | draft | UC20 | — | — | — | 2026-09-19 |
-| 8 | [kb-ket-qua-tim-kiem](tra-cuu-kb.md#kb-ket-qua-tim-kiem) | tra-cuu-kb | draft | UC20 | — | — | — | 2026-09-19 |
-| 9 | [kb-chi-tiet-bai-viet](tra-cuu-kb.md#kb-chi-tiet-bai-viet) | tra-cuu-kb | draft | UC21 | — | — | — | 2026-09-19 |
-| 10 | [kb-danh-muc-loi](tra-cuu-kb.md#kb-danh-muc-loi) | tra-cuu-kb | draft | UC20 | — | — | — | 2026-09-19 |
-| 11 | [ai-khung-chat](hoi-dap-ai.md#ai-khung-chat) | hoi-dap-ai | draft | UC3 | — | — | — | 2026-09-19 |
-| 12 | [ai-tra-loi](hoi-dap-ai.md#ai-tra-loi) | hoi-dap-ai | draft | UC3 | — | — | — | 2026-09-19 |
-| 13 | [ai-de-xuat-tao-ticket](hoi-dap-ai.md#ai-de-xuat-tao-ticket) | hoi-dap-ai | draft | UC3 | — | — | — | 2026-09-19 |
-| 14 | [ticket-tao-moi](gui-theo-doi-ticket.md#ticket-tao-moi) | gui-theo-doi-ticket | draft | UC2 | — | — | — | 2026-09-19 |
-| 15 | [ticket-goi-y-faq](gui-theo-doi-ticket.md#ticket-goi-y-faq) | gui-theo-doi-ticket | draft | UC2 | — | — | — | 2026-09-19 |
-| 16 | [ticket-danh-sach-kh](gui-theo-doi-ticket.md#ticket-danh-sach-kh) | gui-theo-doi-ticket | draft | UC18 | — | — | — | 2026-09-19 |
-| 17 | [ticket-chi-tiet-kh](gui-theo-doi-ticket.md#ticket-chi-tiet-kh) | gui-theo-doi-ticket | draft | UC19 | — | — | — | 2026-09-19 |
-| 18 | [ticket-xac-nhan](gui-theo-doi-ticket.md#ticket-xac-nhan) | gui-theo-doi-ticket | draft | UC4 | — | — | — | 2026-09-19 |
-| 19 | [ticket-da-dong](gui-theo-doi-ticket.md#ticket-da-dong) | gui-theo-doi-ticket | draft | UC4, UC27 | — | — | — | 2026-09-19 |
-| 20 | [noibo-dang-nhap](dang-nhap-noi-bo.md#noibo-dang-nhap) | dang-nhap-noi-bo | draft | UC41 | — | — | — | 2026-09-19 |
-| 21 | [noibo-tai-khoan-ca-nhan](dang-nhap-noi-bo.md#noibo-tai-khoan-ca-nhan) | dang-nhap-noi-bo | draft | UC44 | — | — | — | 2026-09-19 |
-| 22 | [agent-hang-doi](xu-ly-ticket-agent.md#agent-hang-doi) | xu-ly-ticket-agent | draft | UC5, UC18, UC28 | — | — | — | 2026-09-19 |
-| 23 | [agent-chi-tiet-ticket](xu-ly-ticket-agent.md#agent-chi-tiet-ticket) | xu-ly-ticket-agent | draft | UC5, UC7, UC19, UC28 | — | — | — | 2026-09-19 |
-| 24 | [agent-phan-cong](xu-ly-ticket-agent.md#agent-phan-cong) | xu-ly-ticket-agent | draft | UC17 | — | — | — | 2026-09-19 |
-| 25 | [agent-tao-phieu-onebss](xu-ly-ticket-agent.md#agent-tao-phieu-onebss) | xu-ly-ticket-agent | draft | UC6 | — | — | — | 2026-09-19 |
-| 26 | [agent-xac-nhan-phieu-onebss](xu-ly-ticket-agent.md#agent-xac-nhan-phieu-onebss) | xu-ly-ticket-agent | draft | UC8 | — | — | — | 2026-09-19 |
-| 27 | [agent-canh-bao-sla](xu-ly-ticket-agent.md#agent-canh-bao-sla) | xu-ly-ticket-agent | draft | UC29 | — | — | — | 2026-09-19 |
-| 28 | [qt-danh-muc-khach-hang](quan-tri-nguoi-dung.md#qt-danh-muc-khach-hang) | quan-tri-nguoi-dung | draft | UC1, UC25 | — | — | — | 2026-09-19 |
-| 29 | [qt-moi-dau-moi](quan-tri-nguoi-dung.md#qt-moi-dau-moi) | quan-tri-nguoi-dung | draft | UC9 | — | — | — | 2026-09-19 |
-| 30 | [qt-danh-sach-tai-khoan](quan-tri-nguoi-dung.md#qt-danh-sach-tai-khoan) | quan-tri-nguoi-dung | draft | UC22 | — | — | — | 2026-09-19 |
-| 31 | [qt-chi-tiet-tai-khoan](quan-tri-nguoi-dung.md#qt-chi-tiet-tai-khoan) | quan-tri-nguoi-dung | draft | UC23, UC42 | — | — | — | 2026-09-19 |
-| 32 | [qt-tao-tai-khoan-noibo](quan-tri-nguoi-dung.md#qt-tao-tai-khoan-noibo) | quan-tri-nguoi-dung | draft | UC41 | — | — | — | 2026-09-19 |
-| 33 | [qt-phan-quyen](quan-tri-nguoi-dung.md#qt-phan-quyen) | quan-tri-nguoi-dung | draft | UC43 | — | — | — | 2026-09-19 |
-| 34 | [qt-nhat-ky-thao-tac](quan-tri-nguoi-dung.md#qt-nhat-ky-thao-tac) | quan-tri-nguoi-dung | draft | UC45 | — | — | — | 2026-09-19 |
-| 35 | [kb-soan-thao](quan-tri-noi-dung-kb.md#kb-soan-thao) | quan-tri-noi-dung-kb | draft | UC11 | — | — | — | 2026-09-19 |
-| 36 | [kb-cho-duyet](quan-tri-noi-dung-kb.md#kb-cho-duyet) | quan-tri-noi-dung-kb | draft | UC12 | — | — | — | 2026-09-19 |
-| 37 | [kb-duyet-xuat-ban](quan-tri-noi-dung-kb.md#kb-duyet-xuat-ban) | quan-tri-noi-dung-kb | draft | UC12 | — | — | — | 2026-09-19 |
-| 38 | [kb-danh-sach-noi-dung](quan-tri-noi-dung-kb.md#kb-danh-sach-noi-dung) | quan-tri-noi-dung-kb | draft | UC24, UC26 | — | — | — | 2026-09-19 |
-| 39 | [kb-import-um](quan-tri-noi-dung-kb.md#kb-import-um) | quan-tri-noi-dung-kb | draft | UC11 | — | — | — | 2026-09-19 |
-| 40 | [kb-cau-hinh-dong-bo-drive](quan-tri-noi-dung-kb.md#kb-cau-hinh-dong-bo-drive) | quan-tri-noi-dung-kb | draft | UC15, UC30 | — | — | — | 2026-09-19 |
-| 41 | [kb-tu-ticket-thanh-faq](quan-tri-noi-dung-kb.md#kb-tu-ticket-thanh-faq) | quan-tri-noi-dung-kb | draft | UC11 | — | — | — | 2026-09-19 |
-| 42 | [cauhinh-tich-hop-ai](cau-hinh-ai-danh-muc.md#cauhinh-tich-hop-ai) | cau-hinh-ai-danh-muc | draft | UC13 | — | — | — | 2026-09-19 |
-| 43 | [cauhinh-tham-so-ai](cau-hinh-ai-danh-muc.md#cauhinh-tham-so-ai) | cau-hinh-ai-danh-muc | draft | UC13 | — | — | — | 2026-09-19 |
-| 44 | [cauhinh-thu-nghiem-ai](cau-hinh-ai-danh-muc.md#cauhinh-thu-nghiem-ai) | cau-hinh-ai-danh-muc | draft | UC14 | — | — | — | 2026-09-19 |
-| 45 | [cauhinh-nhat-ky-ai](cau-hinh-ai-danh-muc.md#cauhinh-nhat-ky-ai) | cau-hinh-ai-danh-muc | draft | UC46 | — | — | — | 2026-09-19 |
-| 46 | [danhmuc-dich-vu-loai-van-de](cau-hinh-ai-danh-muc.md#danhmuc-dich-vu-loai-van-de) | cau-hinh-ai-danh-muc | draft | UC32, UC33, UC34, UC35, UC36 | — | — | — | 2026-09-19 |
-| 47 | [cauhinh-kenh-thongbao](cau-hinh-ai-danh-muc.md#cauhinh-kenh-thongbao) | cau-hinh-ai-danh-muc | draft | UC16 | — | — | — | 2026-09-19 |
-| 48 | [baocao-tong-quan](bao-cao-thong-ke.md#baocao-tong-quan) | bao-cao-thong-ke | draft | UC37 | — | — | — | 2026-09-19 |
-| 49 | [baocao-hieusuat-sla](bao-cao-thong-ke.md#baocao-hieusuat-sla) | bao-cao-thong-ke | draft | UC38 | — | — | — | 2026-09-19 |
-| 50 | [baocao-chatluong](bao-cao-thong-ke.md#baocao-chatluong) | bao-cao-thong-ke | draft | UC39 | — | — | — | 2026-09-19 |
-| 51 | [baocao-xuat](bao-cao-thong-ke.md#baocao-xuat) | bao-cao-thong-ke | draft | UC31, UC40 | — | — | — | 2026-09-19 |
-| 52 | [cauhinh-sla](cau-hinh-ai-danh-muc.md#cauhinh-sla) | cau-hinh-ai-danh-muc | draft | UC46 | — | — | — | 2026-09-19 |
-| 53 | [kh-kich-hoat-tk-het-han](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk-het-han) | dang-nhap-kich-hoat-kh | draft | UC9, UC10 | — | — | — | 2026-09-19 |
 =======
-| 1 | [kh-dang-nhap](dang-nhap-kich-hoat-kh.md#kh-dang-nhap) | dang-nhap-kich-hoat-kh | draft | — | [01 · kh-dang-nhap (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-730) | — | — | 2026-09-20 |
-| 2 | [kh-kich-hoat-tk](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk) | dang-nhap-kich-hoat-kh | draft | UC9, UC10 | [02 · kh-kich-hoat-tk (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-816) | — | — | 2026-09-20 |
-| 3 | [kh-quen-mat-khau](dang-nhap-kich-hoat-kh.md#kh-quen-mat-khau) | dang-nhap-kich-hoat-kh | draft | — | [03 · kh-quen-mat-khau (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-898) | — | — | 2026-09-20 |
+| 1 | [kh-dang-nhap](dang-nhap-kich-hoat-kh.md#kh-dang-nhap) | dang-nhap-kich-hoat-kh | draft | UC47 | [01 · kh-dang-nhap (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-730) | — | — | 2026-09-20 |
+| 2 | [kh-kich-hoat-tk](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk) | dang-nhap-kich-hoat-kh | draft | UC9, UC10, UC48 | [02 · kh-kich-hoat-tk (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-816) | — | — | 2026-09-20 |
+| 3 | [kh-quen-mat-khau](dang-nhap-kich-hoat-kh.md#kh-quen-mat-khau) | dang-nhap-kich-hoat-kh | draft | UC48 | [03 · kh-quen-mat-khau (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-898) | — | — | 2026-09-20 |
 | 4 | [kh-danh-sach-thanh-vien](dang-nhap-kich-hoat-kh.md#kh-danh-sach-thanh-vien) | dang-nhap-kich-hoat-kh | draft | UC22, UC23 | [04 · kh-danh-sach-thanh-vien (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-944) | — | — | 2026-09-20 |
 | 5 | [kh-moi-thanh-vien](dang-nhap-kich-hoat-kh.md#kh-moi-thanh-vien) | dang-nhap-kich-hoat-kh | draft | UC10 | [05 · kh-moi-thanh-vien (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1070) | — | — | 2026-09-20 |
-| 6 | [kh-tai-khoan-ca-nhan](dang-nhap-kich-hoat-kh.md#kh-tai-khoan-ca-nhan) | dang-nhap-kich-hoat-kh | draft | UC44 | [06 · kh-tai-khoan-ca-nhan (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1168) | — | — | 2026-09-20 |
-| 7 | [kb-trang-chu](tra-cuu-kb.md#kb-trang-chu) | tra-cuu-kb | draft | UC20 | [07 · kb-trang-chu (bản chính) (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-8085) | — | — | 2026-09-21 |
+| 6 | [kh-tai-khoan-ca-nhan](dang-nhap-kich-hoat-kh.md#kh-tai-khoan-ca-nhan) | dang-nhap-kich-hoat-kh | draft | UC44, UC53 | [06 · kh-tai-khoan-ca-nhan (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1168) | — | — | 2026-09-20 |
+| 7 | [kb-trang-chu](tra-cuu-kb.md#kb-trang-chu) | tra-cuu-kb | draft | UC20, UC60 | [07 · kb-trang-chu (bản chính) (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-8085) | — | — | 2026-09-21 |
 | 8 | [kb-ket-qua-tim-kiem](tra-cuu-kb.md#kb-ket-qua-tim-kiem) | tra-cuu-kb | draft | UC20 | [08 · kb-ket-qua-tim-kiem](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1451) | — | — | 2026-09-21 |
-| 9 | [kb-chi-tiet-bai-viet](tra-cuu-kb.md#kb-chi-tiet-bai-viet) | tra-cuu-kb | draft | UC21 | [09 · kb-chi-tiet-bai-viet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-592) | — | — | 2026-09-21 |
+| 9 | [kb-chi-tiet-bai-viet](tra-cuu-kb.md#kb-chi-tiet-bai-viet) | tra-cuu-kb | draft | UC21, UC53 | [09 · kb-chi-tiet-bai-viet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-592) | — | — | 2026-09-21 |
 | 10 | [kb-danh-muc-loi](tra-cuu-kb.md#kb-danh-muc-loi) | tra-cuu-kb | draft | UC20 | [10 · kb-danh-muc-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1514) | — | — | 2026-09-21 |
 | 11 | [ai-khung-chat](hoi-dap-ai.md#ai-khung-chat) | hoi-dap-ai | draft | UC3 | [11 · ai-khung-chat](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-421) | — | — | 2026-09-20 |
-| 12 | [ai-tra-loi](hoi-dap-ai.md#ai-tra-loi) | hoi-dap-ai | draft | UC3 | [12 · ai-tra-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-465) | — | — | 2026-09-20 |
+| 12 | [ai-tra-loi](hoi-dap-ai.md#ai-tra-loi) | hoi-dap-ai | draft | UC3, UC54 | [12 · ai-tra-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-465) | — | — | 2026-09-20 |
 | 13 | [ai-de-xuat-tao-ticket](hoi-dap-ai.md#ai-de-xuat-tao-ticket) | hoi-dap-ai | draft | UC3 | [13 · ai-de-xuat-tao-ticket](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-513) | — | — | 2026-09-20 |
 | 14 | [ticket-tao-moi](gui-theo-doi-ticket.md#ticket-tao-moi) | gui-theo-doi-ticket | draft | UC2 | [14 · ticket-tao-moi (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-642) | — | — | 2026-09-21 |
 | 15 | [ticket-goi-y-faq](gui-theo-doi-ticket.md#ticket-goi-y-faq) | gui-theo-doi-ticket | draft | UC2 | [15 · ticket-goi-y-faq](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1636) | — | — | 2026-09-21 |
 | 16 | [ticket-danh-sach-kh](gui-theo-doi-ticket.md#ticket-danh-sach-kh) | gui-theo-doi-ticket | draft | UC18 | [16 · ticket-danh-sach-kh](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1680) | — | — | 2026-09-21 |
 | 17 | [ticket-chi-tiet-kh](gui-theo-doi-ticket.md#ticket-chi-tiet-kh) | gui-theo-doi-ticket | draft | UC19 | [17 · ticket-chi-tiet-kh (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1785) | — | — | 2026-09-21 |
-| 18 | [ticket-xac-nhan](gui-theo-doi-ticket.md#ticket-xac-nhan) | gui-theo-doi-ticket | draft | UC4 | [18 · ticket-xac-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1883) | — | — | 2026-09-21 |
-| 19 | [ticket-da-dong](gui-theo-doi-ticket.md#ticket-da-dong) | gui-theo-doi-ticket | draft | UC4, UC27 | [19 · ticket-da-dong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1838) | — | — | 2026-09-21 |
-| 20 | [noibo-dang-nhap](dang-nhap-noi-bo.md#noibo-dang-nhap) | dang-nhap-noi-bo | draft | UC41 | [20 · noibo-dang-nhap](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2464) | — | — | 2026-09-20 |
+| 18 | [ticket-xac-nhan](gui-theo-doi-ticket.md#ticket-xac-nhan) | gui-theo-doi-ticket | draft | UC4, UC55 | [18 · ticket-xac-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1883) | — | — | 2026-09-21 |
+| 19 | [ticket-da-dong](gui-theo-doi-ticket.md#ticket-da-dong) | gui-theo-doi-ticket | draft | UC4, UC27, UC55 | [19 · ticket-da-dong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1838) | — | — | 2026-09-21 |
+| 20 | [noibo-dang-nhap](dang-nhap-noi-bo.md#noibo-dang-nhap) | dang-nhap-noi-bo | draft | UC47 | [20 · noibo-dang-nhap](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2464) | — | — | 2026-09-20 |
 | 21 | [noibo-tai-khoan-ca-nhan](dang-nhap-noi-bo.md#noibo-tai-khoan-ca-nhan) | dang-nhap-noi-bo | draft | UC44 | [21 · noibo-tai-khoan-ca-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2486) | — | — | 2026-09-20 |
 | 22 | [agent-hang-doi](xu-ly-ticket-agent.md#agent-hang-doi) | xu-ly-ticket-agent | draft | UC5, UC18, UC28 | [22 · agent-hang-doi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2562) | — | — | 2026-09-20 |
 | 23 | [agent-chi-tiet-ticket](xu-ly-ticket-agent.md#agent-chi-tiet-ticket) | xu-ly-ticket-agent | draft | UC5, UC7, UC19, UC28 | [23 · agent-chi-tiet-ticket (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2680) | — | — | 2026-09-21 |
 | 24 | [agent-phan-cong](xu-ly-ticket-agent.md#agent-phan-cong) | xu-ly-ticket-agent | draft | UC17 | [24 · agent-phan-cong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2783) | — | — | 2026-09-20 |
-| 25 | [agent-tao-phieu-onebss](xu-ly-ticket-agent.md#agent-tao-phieu-onebss) | xu-ly-ticket-agent | draft | UC6 | [25 · agent-tao-phieu-onebss (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2837) | — | — | 2026-09-21 |
+| 25 | [agent-tao-phieu-onebss](xu-ly-ticket-agent.md#agent-tao-phieu-onebss) | xu-ly-ticket-agent | draft | UC6 | [25 · agent-tao-phieu-onebss (+3 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=46-4132) | — | — | 2026-09-21 |
 | 26 | [agent-xac-nhan-phieu-onebss](xu-ly-ticket-agent.md#agent-xac-nhan-phieu-onebss) | xu-ly-ticket-agent | draft | UC8 | [26 · agent-xac-nhan-phieu-onebss](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2882) | — | — | 2026-09-21 |
 | 27 | [agent-canh-bao-sla](xu-ly-ticket-agent.md#agent-canh-bao-sla) | xu-ly-ticket-agent | draft | UC29 | [27 · agent-canh-bao-sla](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2924) | — | — | 2026-09-20 |
 | 28 | [qt-danh-muc-khach-hang](quan-tri-nguoi-dung.md#qt-danh-muc-khach-hang) | quan-tri-nguoi-dung | draft | UC1, UC25 | [28 · qt-danh-muc-khach-hang](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3093) | — | — | 2026-09-21 |
@@ -106,34 +53,34 @@ links:
 | 36 | [kb-cho-duyet](quan-tri-noi-dung-kb.md#kb-cho-duyet) | quan-tri-noi-dung-kb | draft | UC12 | [36 · kb-cho-duyet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3928) | — | — | 2026-09-21 |
 | 37 | [kb-duyet-xuat-ban](quan-tri-noi-dung-kb.md#kb-duyet-xuat-ban) | quan-tri-noi-dung-kb | draft | UC12 | [37 · kb-duyet-xuat-ban (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4086) | — | — | 2026-09-21 |
 | 38 | [kb-danh-sach-noi-dung](quan-tri-noi-dung-kb.md#kb-danh-sach-noi-dung) | quan-tri-noi-dung-kb | draft | UC24, UC26 | [38 · kb-danh-sach-noi-dung (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4238) | — | — | 2026-09-21 |
-| 39 | [kb-import-um](quan-tri-noi-dung-kb.md#kb-import-um) | quan-tri-noi-dung-kb | draft | UC11 | [39 · kb-import-um (+3 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=28-7408) | — | — | 2026-09-21 |
+| 39 | [kb-import-um](quan-tri-noi-dung-kb.md#kb-import-um) | quan-tri-noi-dung-kb | draft | UC56 | [39 · kb-import-um (+3 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=28-7408) | — | — | 2026-09-21 |
 | 40 | [kb-cau-hinh-dong-bo-drive](quan-tri-noi-dung-kb.md#kb-cau-hinh-dong-bo-drive) | quan-tri-noi-dung-kb | draft | UC15, UC30 | [40 · kb-cau-hinh-dong-bo-drive (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4588) | — | — | 2026-09-21 |
-| 41 | [kb-tu-ticket-thanh-faq](quan-tri-noi-dung-kb.md#kb-tu-ticket-thanh-faq) | quan-tri-noi-dung-kb | draft | UC11 | [41 · kb-tu-ticket-thanh-faq (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4780) | — | — | 2026-09-21 |
+| 41 | [kb-tu-ticket-thanh-faq](quan-tri-noi-dung-kb.md#kb-tu-ticket-thanh-faq) | quan-tri-noi-dung-kb | draft | UC57 | [41 · kb-tu-ticket-thanh-faq (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4780) | — | — | 2026-09-21 |
 | 42 | [cauhinh-tich-hop-ai](cau-hinh-ai-danh-muc.md#cauhinh-tich-hop-ai) | cau-hinh-ai-danh-muc | draft | UC13 | [42 · cauhinh-tich-hop-ai (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5063) | — | — | 2026-09-21 |
 | 43 | [cauhinh-tham-so-ai](cau-hinh-ai-danh-muc.md#cauhinh-tham-so-ai) | cau-hinh-ai-danh-muc | draft | UC13 | [43 · cauhinh-tham-so-ai (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5207) | — | — | 2026-09-21 |
 | 44 | [cauhinh-thu-nghiem-ai](cau-hinh-ai-danh-muc.md#cauhinh-thu-nghiem-ai) | cau-hinh-ai-danh-muc | draft | UC14 | [44 · cauhinh-thu-nghiem-ai (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5424) | — | — | 2026-09-21 |
-| 45 | [cauhinh-nhat-ky-ai](cau-hinh-ai-danh-muc.md#cauhinh-nhat-ky-ai) | cau-hinh-ai-danh-muc | draft | — | [45 · cauhinh-nhat-ky-ai (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5620) | — | — | 2026-09-21 |
+| 45 | [cauhinh-nhat-ky-ai](cau-hinh-ai-danh-muc.md#cauhinh-nhat-ky-ai) | cau-hinh-ai-danh-muc | draft | UC49 | [45 · cauhinh-nhat-ky-ai (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5620) | — | — | 2026-09-21 |
 | 46 | [danhmuc-dich-vu-loai-van-de](cau-hinh-ai-danh-muc.md#danhmuc-dich-vu-loai-van-de) | cau-hinh-ai-danh-muc | draft | UC32, UC33, UC34, UC35, UC36 | [46 · danhmuc-dich-vu-loai-van-de (5 tab)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5848) | — | — | 2026-09-21 |
 | 47 | [cauhinh-kenh-thongbao](cau-hinh-ai-danh-muc.md#cauhinh-kenh-thongbao) | cau-hinh-ai-danh-muc | draft | UC16 | [47 · cauhinh-kenh-thongbao (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-6041) | — | — | 2026-09-21 |
 | 48 | [baocao-tong-quan](bao-cao-thong-ke.md#baocao-tong-quan) | bao-cao-thong-ke | draft | UC37 | [48 · baocao-tong-quan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-9033) | — | — | 2026-09-21 |
 | 49 | [baocao-hieusuat-sla](bao-cao-thong-ke.md#baocao-hieusuat-sla) | bao-cao-thong-ke | draft | UC38 | [49 · baocao-hieusuat-sla](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-6665) | — | — | 2026-09-20 |
 | 50 | [baocao-chatluong](bao-cao-thong-ke.md#baocao-chatluong) | bao-cao-thong-ke | draft | UC39 | [50 · baocao-chatluong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-6786) | — | — | 2026-09-20 |
 | 51 | [baocao-xuat](bao-cao-thong-ke.md#baocao-xuat) | bao-cao-thong-ke | draft | UC31, UC40 | [51 · baocao-xuat](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-6875) | — | — | 2026-09-20 |
-| 52 | [cauhinh-sla](cau-hinh-ai-danh-muc.md#cauhinh-sla) | cau-hinh-ai-danh-muc | draft | — | [52 · cauhinh-sla (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-6242) | — | — | 2026-09-21 |
-| 53 | [kh-kich-hoat-tk-het-han](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk-het-han) | dang-nhap-kich-hoat-kh | draft | UC9, UC10 | [53 · kh-kich-hoat-tk-het-han](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-886) | — | — | 2026-09-20 |
+| 52 | [cauhinh-sla](cau-hinh-ai-danh-muc.md#cauhinh-sla) | cau-hinh-ai-danh-muc | draft | UC46 | [52 · cauhinh-sla (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-6242) | — | — | 2026-09-21 |
+| 53 | [kh-kich-hoat-tk-het-han](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk-het-han) | dang-nhap-kich-hoat-kh | draft | UC9, UC10, UC48 | [53 · kh-kich-hoat-tk-het-han](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-886) | — | — | 2026-09-20 |
 | 54 | [cauhinh-hub](cau-hinh-ai-danh-muc.md#cauhinh-hub) | cau-hinh-ai-danh-muc | draft | — | [54 · cauhinh-hub](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-8469) | — | — | 2026-09-21 |
-| 55 | [cauhinh-onebss](cau-hinh-ai-danh-muc.md#cauhinh-onebss) | cau-hinh-ai-danh-muc | draft | UC6, UC8 | [55 · cauhinh-onebss (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-8623) | — | — | 2026-09-21 |
-| 56 | [kb-chi-muc-ai](quan-tri-noi-dung-kb.md#kb-chi-muc-ai) | quan-tri-noi-dung-kb | draft | — | [56 · kb-chi-muc-ai](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18385) | — | — | 2026-09-21 |
-| 57 | [qt-form-khach-hang](quan-tri-nguoi-dung.md#qt-form-khach-hang) | quan-tri-nguoi-dung | draft | — | [57 · qt-form-khach-hang](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18610) | — | — | 2026-09-21 |
-| 58 | [qt-ma-tran-phan-quyen](quan-tri-nguoi-dung.md#qt-ma-tran-phan-quyen) | quan-tri-nguoi-dung | draft | — | [58 · qt-ma-tran-phan-quyen](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18796) | — | — | 2026-09-21 |
-| 59 | [thong-bao](thong-bao-loi-chung.md#thong-bao) | thong-bao-loi-chung | draft | — | [59 · thong-bao](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19568) | — | — | 2026-09-21 |
+| 55 | [cauhinh-onebss](cau-hinh-ai-danh-muc.md#cauhinh-onebss) | cau-hinh-ai-danh-muc | draft | UC51 | [55 · cauhinh-onebss (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-8623) | — | — | 2026-09-21 |
+| 56 | [kb-chi-muc-ai](quan-tri-noi-dung-kb.md#kb-chi-muc-ai) | quan-tri-noi-dung-kb | draft | UC12, UC50 | [56 · kb-chi-muc-ai](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18385) | — | — | 2026-09-21 |
+| 57 | [qt-form-khach-hang](quan-tri-nguoi-dung.md#qt-form-khach-hang) | quan-tri-nguoi-dung | draft | UC1 | [57 · qt-form-khach-hang](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18610) | — | — | 2026-09-21 |
+| 58 | [qt-ma-tran-phan-quyen](quan-tri-nguoi-dung.md#qt-ma-tran-phan-quyen) | quan-tri-nguoi-dung | draft | UC43 | [58 · qt-ma-tran-phan-quyen](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18796) | — | — | 2026-09-21 |
+| 59 | [thong-bao](thong-bao-loi-chung.md#thong-bao) | thong-bao-loi-chung | draft | UC58 | [59 · thong-bao](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19568) | — | — | 2026-09-21 |
 | 60 | [loi-403](thong-bao-loi-chung.md#loi-403) | thong-bao-loi-chung | draft | — | [60 · loi-403](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19761) | — | — | 2026-09-21 |
 | 61 | [loi-404](thong-bao-loi-chung.md#loi-404) | thong-bao-loi-chung | draft | — | [61 · loi-404](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19836) | — | — | 2026-09-21 |
 | 62 | [phien-het-han](thong-bao-loi-chung.md#phien-het-han) | thong-bao-loi-chung | draft | — | [62 · phien-het-han](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19911) | — | — | 2026-09-21 |
-| 63 | [noibo-tong-quan](dang-nhap-noi-bo.md#noibo-tong-quan) | dang-nhap-noi-bo | draft | — | [63 · noibo-tong-quan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2134) | — | — | 2026-09-21 |
-| 64 | [cauhinh-mau-thong-bao](cau-hinh-ai-danh-muc.md#cauhinh-mau-thong-bao) | cau-hinh-ai-danh-muc | draft | — | [64 · cauhinh-mau-thong-bao](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2330) | — | — | 2026-09-21 |
+| 63 | [noibo-tong-quan](dang-nhap-noi-bo.md#noibo-tong-quan) | dang-nhap-noi-bo | draft | UC59 | [63 · noibo-tong-quan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2134) | — | — | 2026-09-21 |
+| 64 | [cauhinh-mau-thong-bao](cau-hinh-ai-danh-muc.md#cauhinh-mau-thong-bao) | cau-hinh-ai-danh-muc | draft | UC16, UC52 | [64 · cauhinh-mau-thong-bao](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2330) | — | — | 2026-09-21 |
 | 65 | [kb-khong-co-ket-qua](tra-cuu-kb.md#kb-khong-co-ket-qua) | tra-cuu-kb | draft | UC20 | [65 · kb-khong-co-ket-qua (08b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-2945) | — | — | 2026-09-21 |
-| 66 | [kb-bai-viet-khong-con](tra-cuu-kb.md#kb-bai-viet-khong-con) | tra-cuu-kb | draft | UC26 | [66 · kb-bai-viet-khong-con (09b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-3397) | — | — | 2026-09-21 |
+| 66 | [kb-bai-viet-khong-con](tra-cuu-kb.md#kb-bai-viet-khong-con) | tra-cuu-kb | draft | UC21, UC26 | [66 · kb-bai-viet-khong-con (09b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-3397) | — | — | 2026-09-21 |
 >>>>>>> Stashed changes
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
@@ -320,7 +267,7 @@ Quản trị viên cấu hình kết nối OneBSS (địa chỉ, client, bí m�
 Quản trị viên xem trạng thái chỉ mục AI của bài đã xuất bản (đã lập, cần tái lập, đang xử lý, lỗi, loại khỏi AI) và tái lập chỉ mục.
 
 ### qt-form-khach-hang
-Quản trị viên tạo khách hàng/site (tên, loại khách hàng quyết định team tiếp nhận, dịch vụ, mã site duy nhất) rồi sang bước mời đầu mối.
+Quản trị viên tạo khách hàng/site (tên, loại khách hàng quyết định team tiếp nhận, dịch vụ, mã site duy nhất) kèm đầu mối liên hệ chính thức, rồi sang bước tạo tài khoản đầu mối + mời.
 
 ### qt-ma-tran-phan-quyen
 Quản trị viên xem bảng quyền vai trò × chức năng (chỉ xem, tham khảo chờ xác nhận).

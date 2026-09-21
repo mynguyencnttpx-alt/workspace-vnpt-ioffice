@@ -161,7 +161,7 @@
 │ Tham số & chế độ AI                                                  │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Ngưỡng tin cậy [1] [1.50__]   Số đoạn ngữ cảnh top-k [2] [5___]      │
-│ (!) Ngưỡng tin cậy phải nằm trong khoảng 0 đến 1.                    │
+│ (!) Ngưỡng tin cậy phải nằm trong khoảng 0,50 đến 0,95.              │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Bật/tắt từng chế độ AI theo phạm vi [3]  (giữ nguyên như màn gốc)    │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -169,7 +169,7 @@
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Khác màn gốc: ngưỡng tin cậy ngoài khoảng 0–1 → (!) lỗi tại ô [1]; [5] Lưu mờ tới khi sửa [wording tạm, chưa có mã E-…].
+- Khác màn gốc: ngưỡng tin cậy ngoài khoảng 0,50–0,95 (hoặc top-k ngoài 1–10) → (!) lỗi tại ô tương ứng; [5] Lưu mờ tới khi sửa [wording tạm, chưa có mã E-…].
 
 
 ---

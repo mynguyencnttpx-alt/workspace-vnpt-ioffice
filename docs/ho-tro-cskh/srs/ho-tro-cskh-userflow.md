@@ -12,7 +12,7 @@ flow_hash: "e29272d9"
 
 > Nguồn chia flow DUY NHẤT cho feature này. `/wireframe-ascii` và `/wireframe-html` đọc file này để biết flow nào gồm những màn nào — KHÔNG tự chia flow riêng.
 >
-> Nguồn nghiệp vụ: bản đề xuất "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx" (mục tiêu, mô hình vận hành, tính năng theo actor, RBAC, RAG, roadmap) + "DanhSach_UC_HeThongHoTroCSKH.xlsx" (45 Use Case, 7 nhóm). Đã qua review của UX_Reviewer (flow-reviewer) trước khi chốt; bản cập nhật 19/09/2026 áp dụng các quyết định đề xuất; bản cập nhật 21/09/2026 bổ sung 13 màn + 1 flow theo thiết kế Figma (đã qua UX_Reviewer lần 2), đánh dấu là đề xuất bổ sung chờ khách hàng xác nhận.
+> Nguồn nghiệp vụ: bản đề xuất "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx" (mục tiêu, mô hình vận hành, tính năng theo actor, RBAC, RAG, roadmap) + "DanhSach_UC_HeThongHoTroCSKH.xlsx" (60 Use Case, 7 nhóm — UC46 cấu hình SLA gắn [52]; UC47–UC60 bổ sung 21/09/2026 trong file UC, gắn theo cột "Used by functions" của chỉ mục wireframe). Đã qua review của UX_Reviewer (flow-reviewer) trước khi chốt; bản cập nhật 19/09/2026 áp dụng các quyết định đề xuất; bản cập nhật 21/09/2026 bổ sung 13 màn + 1 flow theo thiết kế Figma (đã qua UX_Reviewer lần 2), đánh dấu là đề xuất bổ sung chờ khách hàng xác nhận.
 
 ## 1. User Flow (tổng)
 
@@ -474,11 +474,11 @@ flowchart TD
 | 22 | agent-hang-doi | Bảng tiếp nhận ticket | Hàng đợi riêng theo team (tỉnh/trung tâm), lọc trạng thái/ưu tiên/dịch vụ; lọc riêng "AI đã tự trả lời - cần review"; Quản trị viên xem được toàn bộ không giới hạn team | xu-ly-ticket-agent |
 | 23 | agent-chi-tiet-ticket | Xử lý ticket | Phản hồi công khai + ghi chú nội bộ; gồm panel chọn mẫu trả lời dựng sẵn và panel AI hỗ trợ soạn phản hồi; hiển thị nhãn "Đã trả lời tự động bởi AI" kèm nút can thiệp khi áp dụng Panel AI soạn phản hồi hiển thị khi chế độ AI bật; AI tắt hoặc lỗi/quá thời gian → agent soạn tay. | xu-ly-ticket-agent |
 | 24 | agent-phan-cong | Phân công / chuyển cấp | Phân công thủ công cho agent trong team hoặc escalate tỉnh lên trung tâm; Quản trị viên gán được mọi team, Agent chỉ gán trong team mình | xu-ly-ticket-agent |
-| 25 | agent-tao-phieu-onebss | Tạo phiếu OneBSS (agent tỉnh) | Agent tỉnh tự quyết định và gửi thẳng, không qua bước xác nhận trung gian Có trạng thái phụ Đang gửi / Gửi lỗi (Thử lại): kiểm tra ticket đã có mã phiếu chưa trước khi gửi lại để không tạo trùng phiếu; có lối Hủy về [23]. [26] áp dụng tương tự. | xu-ly-ticket-agent |
-| 26 | agent-xac-nhan-phieu-onebss | Xác nhận tạo phiếu OneBSS (agent trung tâm) | Agent trung tâm xem form xác nhận thông tin trước khi gửi sang OneBSS | xu-ly-ticket-agent |
+| 25 | agent-tao-phieu-onebss | Tạo phiếu OneBSS (agent tỉnh) | Agent tỉnh tự quyết định và gửi thẳng, không qua bước xác nhận trung gian; form bắt buộc chọn lý do (Lỗi hệ thống / Cần đội dự án / Khác) + ghi chú gửi kèm (OQ-19c) Có trạng thái phụ Đang gửi / Gửi lỗi (Thử lại): kiểm tra ticket đã có mã phiếu chưa trước khi gửi lại để không tạo trùng phiếu; có lối Hủy về [23]. [26] áp dụng tương tự. | xu-ly-ticket-agent |
+| 26 | agent-xac-nhan-phieu-onebss | Xác nhận tạo phiếu OneBSS (agent trung tâm) | Agent trung tâm xem form xác nhận thông tin trước khi gửi sang OneBSS; bắt buộc chọn lý do (3 lựa chọn) + ghi chú gửi kèm (OQ-19c) | xu-ly-ticket-agent |
 | 27 | agent-canh-bao-sla | Cảnh báo quá hạn SLA | Cảnh báo ticket sắp/đã quá hạn SLA cho agent và Quản trị viên phụ trách | xu-ly-ticket-agent |
 | 28 | qt-danh-muc-khach-hang | Danh mục khách hàng/site | Thêm/sửa đơn vị, dịch vụ dùng, site/tenant, đầu mối liên hệ (gồm sửa/chi tiết inline) Sửa và đổi loại khách hàng tại chỗ (có xác nhận, ghi [34]); thêm mới qua [57]. | quan-tri-nguoi-dung |
-| 29 | qt-moi-dau-moi | Khởi tạo đầu mối + gửi lời mời | Khởi tạo tài khoản đầu mối đầu tiên cho đơn vị/site, gửi lời mời kích hoạt Đầu mối chỉ nhập tại màn này (không nhập ở [57]). | quan-tri-nguoi-dung |
+| 29 | qt-moi-dau-moi | Khởi tạo đầu mối + gửi lời mời | Khởi tạo tài khoản đầu mối đầu tiên cho đơn vị/site, gửi lời mời kích hoạt Điền sẵn đầu mối đã lưu ở [57]/danh mục (không nhập lại); xác nhận kênh gửi và tạo tài khoản chờ kích hoạt (UC9). | quan-tri-nguoi-dung |
 | 30 | qt-danh-sach-tai-khoan | Danh sách tài khoản | Xem danh sách tài khoản (nội bộ + khách hàng) trong phạm vi quản lý Có lối xem bảng quyền tổng quan [58]. | quan-tri-nguoi-dung |
 | 31 | qt-chi-tiet-tai-khoan | Chi tiết tài khoản | Thông tin chi tiết, vai trò/site gắn kèm; vô hiệu hóa tài khoản | quan-tri-nguoi-dung |
 | 32 | qt-tao-tai-khoan-noibo | Tạo tài khoản nội bộ | Gán vai trò và team (trung tâm hoặc tỉnh/thành cụ thể) cho tài khoản agent/admin mới; vô hiệu hóa làm ở chi tiết tài khoản | quan-tri-nguoi-dung |
@@ -506,7 +506,7 @@ flowchart TD
 | 54 | cauhinh-hub | Trung tâm cấu hình | Cửa vào các mục cấu hình (tích hợp AI, tham số, thử nghiệm, nhật ký AI, chỉ mục AI, danh mục, kênh và mẫu thông báo, SLA, kết nối OneBSS), hiện trạng thái từng mục; mục hiển thị theo vai trò [đề xuất bổ sung] | cau-hinh-ai-danh-muc |
 | 55 | cauhinh-onebss | Kết nối OneBSS | Nhập địa chỉ dịch vụ, mã client, bí mật client (che, chỉ nhập lại để thay); kiểm tra kết nối (có nhánh lỗi); xem dữ liệu đẩy sang và nhật ký gửi phiếu gần đây; chỉ Quản trị viên [đề xuất bổ sung, OQ-29] | cau-hinh-ai-danh-muc |
 | 56 | kb-chi-muc-ai | Chỉ mục AI | Xem số bài đã lập / cần tái lập / loại khỏi AI, trạng thái từng bài (đang xử lý, lỗi), tái lập chỉ mục có xác nhận khi hàng loạt [đề xuất bổ sung, OQ-27] | quan-tri-noi-dung-kb |
-| 57 | qt-form-khach-hang | Thêm khách hàng/site | Tạo đơn vị: tên, loại khách hàng (quyết định team tiếp nhận), dịch vụ, mã site duy nhất; lưu xong sang [29] để mời đầu mối. Sửa và đổi loại vẫn làm tại [28] | quan-tri-nguoi-dung |
+| 57 | qt-form-khach-hang | Thêm khách hàng/site | Tạo đơn vị: tên, loại khách hàng (quyết định team tiếp nhận), dịch vụ, mã site duy nhất, đầu mối liên hệ chính thức (tên, email, SĐT — OQ-20b); lưu xong sang [29] để tạo tài khoản đầu mối + mời (điền sẵn đầu mối vừa nhập). Sửa và đổi loại vẫn làm tại [28] | quan-tri-nguoi-dung |
 | 58 | qt-ma-tran-phan-quyen | Bảng quyền theo vai trò (chỉ xem) | Xem tổng quan vai trò × chức năng; nhãn tham khảo, chờ khách hàng xác nhận [đề xuất bổ sung, OQ-28] | quan-tri-nguoi-dung |
 | 59 | thong-bao | Thông báo | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ, lọc tất cả/chưa đọc/ticket/hệ thống; từng thông báo dẫn tới [23]/[27]/[36]; có trạng thái rỗng [đề xuất bổ sung, có điều kiện OQ-24] | thong-bao-loi-chung |
 | 60 | loi-403 | Không có quyền truy cập | Dành cho người dùng nội bộ vào chức năng có thật nhưng vai trò không được phép; khách hàng không thấy trang này | thong-bao-loi-chung (màn dùng chung) |
@@ -630,8 +630,9 @@ flowchart TD
 | Xử lý ticket [23] | Bảng tiếp nhận ticket [22] | Phản hồi + cập nhật trạng thái | — |
 | Xử lý ticket [23] | Tạo phiếu OneBSS (agent tỉnh) [25] | Bấm "Chuyển OneBSS" | Agent tỉnh, vượt khả năng xử lý |
 | Xử lý ticket [23] | Xác nhận tạo phiếu OneBSS (agent trung tâm) [26] | Bấm "Chuyển OneBSS" | Agent trung tâm, vượt khả năng xử lý |
-| Tạo phiếu OneBSS (agent tỉnh) [25] | Xử lý ticket [23] | Gửi trực tiếp | Không qua bước xác nhận trung gian, nhận mã phiếu |
-| Xác nhận tạo phiếu OneBSS (agent trung tâm) [26] | Xử lý ticket [23] | Xác nhận & gửi | Nhận mã phiếu, lưu liên kết |
+| Tạo phiếu OneBSS (agent tỉnh) [25] | Xử lý ticket [23] | Bấm "Gửi sang OneBSS" | Đã chọn lý do; gửi trực tiếp, không qua bước xác nhận trung gian, nhận mã phiếu |
+| Tạo phiếu OneBSS (agent tỉnh) [25] | (giữ nguyên) [25] | Bấm "Gửi sang OneBSS" | Chưa chọn lý do → báo lỗi tại ô, không gửi |
+| Xác nhận tạo phiếu OneBSS (agent trung tâm) [26] | Xử lý ticket [23] | Xác nhận & gửi | Đã chọn lý do (Lỗi hệ thống / Cần đội dự án / Khác); nhận mã phiếu, lưu liên kết |
 | Xử lý ticket [23] | Phân công / chuyển cấp [24] | Cần đổi người xử lý | Phân công thủ công hoặc escalate |
 | Phân công / chuyển cấp [24] | Bảng tiếp nhận ticket [22] | Escalate tỉnh lên trung tâm | — |
 | Xử lý ticket [23] | Chuyển ticket thành FAQ nháp [41] | Bấm "Tạo FAQ từ ticket này" | Ticket đã giải quyết; chỉ Agent/Quản trị viên |
@@ -646,9 +647,9 @@ flowchart TD
 | Từ màn | Đến màn | Trigger | Điều kiện |
 |--------|---------|---------|-----------|
 | Danh mục khách hàng/site [28] | Thêm khách hàng/site [57] | Bấm "Thêm khách hàng/site" | — |
-| Thêm khách hàng/site [57] | Khởi tạo đầu mối + gửi lời mời [29] | Bấm "Lưu và mời đầu mối" | Đủ tên đơn vị, loại khách hàng, dịch vụ, mã site hợp lệ |
+| Thêm khách hàng/site [57] | Khởi tạo đầu mối + gửi lời mời [29] | Bấm "Lưu và tiếp tục mời đầu mối" | Đủ tên đơn vị, loại khách hàng, dịch vụ, mã site và đầu mối (tên, email, SĐT) hợp lệ; [29] điền sẵn đầu mối |
 | Thêm khách hàng/site [57] | Danh mục khách hàng/site [28] | Bấm "Hủy" | Không lưu gì |
-| Thêm khách hàng/site [57] | (giữ nguyên) [57] | Bấm "Lưu và mời đầu mối" | Mã site đã tồn tại → báo lỗi ngay tại ô (OQ-20b) |
+| Thêm khách hàng/site [57] | (giữ nguyên) [57] | Bấm "Lưu và tiếp tục mời đầu mối" | Mã site đã tồn tại → báo lỗi ngay tại ô (OQ-20b) |
 | Khởi tạo đầu mối + gửi lời mời [29] | Danh mục khách hàng/site [28] | Gửi lời mời đầu mối | — |
 | Khởi tạo đầu mối + gửi lời mời [29] | Danh mục khách hàng/site [28] | Bỏ dở / quay lại | Khách hàng đã tạo nhưng chưa có đầu mối → [28] hiện nhãn "chưa có đầu mối", mời sau |
 | Danh mục khách hàng/site [28] | (giữ nguyên) [28] | Sửa tại dòng, đổi loại khách hàng | Hộp xác nhận; ghi Nhật ký thao tác [34]; ticket đang mở giữ team cũ (OQ-20c) |
@@ -747,9 +748,9 @@ flowchart TD
 **Điều chỉnh luồng đã áp dụng ngày 21/09/2026 (đề xuất bổ sung theo thiết kế Figma, đã qua UX_Reviewer):**
 - Thêm 13 màn hình [54]-[66] và flow thứ 11 `thong-bao-loi-chung`; tách [65]/[66] khỏi [8]/[9] theo quy tắc mỗi trạng thái loại trừ là một màn.
 - `dang-nhap-noi-bo`: [63] là màn tổng quan mở từ menu, KHÔNG thay landing theo vai trò (OQ-18).
-- `quan-tri-nguoi-dung`: [57] chỉ dùng để tạo mới khách hàng/site; sửa và đổi loại vẫn tại [28]; đầu mối chỉ nhập tại [29].
+- `quan-tri-nguoi-dung`: [57] tạo mới khách hàng/site kèm đầu mối liên hệ chính thức (UC1, OQ-20b); [29] điền sẵn đầu mối đó để tạo tài khoản + mời (UC9); sửa và đổi loại vẫn tại [28].
 - `cau-hinh-ai-danh-muc`: [54] thành màn thật (thay node "Menu cấu hình hệ thống"), có lối vào trực tiếp [43]/[44]/[45]; thêm [55], [64] và nhánh lỗi; flow này hiện có 10 màn, có thể tách thành 2 flow (cấu hình AI / cấu hình hệ thống và kết nối) nếu khách hàng muốn.
-- `xu-ly-ticket-agent`: [25]/[26] thêm nhánh gửi lỗi, kiểm tra mã phiếu trước khi thử lại, Hủy về [23]; [23] thêm nhánh AI tắt/lỗi.
+- `xu-ly-ticket-agent`: [25]/[26] bắt buộc chọn lý do + ghi chú gửi kèm (OQ-19c); thêm nhánh gửi lỗi, kiểm tra mã phiếu trước khi thử lại, Hủy về [23]; [23] thêm nhánh AI tắt/lỗi.
 - `gui-theo-doi-ticket`: thêm [19]→[18] để đánh giá/sửa đánh giá trong 7 ngày sau khi đóng.
 - `tra-cuu-kb`: [7] nay là trang chủ khách hàng (nối [4], [6], [11], [14], [16]); thẻ Hỏi đáp AI ẩn khi tắt AI theo site.
 - `quan-tri-noi-dung-kb`: thêm [56]; [39] dạng 4 bước, lỗi từng phần.

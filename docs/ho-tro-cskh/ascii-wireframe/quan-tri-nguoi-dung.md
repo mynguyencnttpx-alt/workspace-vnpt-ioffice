@@ -44,7 +44,7 @@
 
 - Header nội bộ dùng chung (không đánh số); Flow 7/8/9 là khu vực menu quản trị — các màn truy cập độc lập, không phải wizard. Dữ liệu mẫu chỉ minh họa.
 
-- Bổ sung 21/09/2026: nút "Thêm khách hàng/site" mở `qt-form-khach-hang` (không còn mở thẳng `qt-moi-dau-moi`). **Sửa và đổi loại khách hàng vẫn làm tại chỗ ở màn này**, có hộp xác nhận và ghi `qt-nhat-ky-thao-tac`; ticket đang mở giữ team cũ (OQ-20c). Khách hàng đã tạo nhưng bỏ dở bước mời đầu mối hiện nhãn "Chưa có đầu mối" để mời sau.
+- Bổ sung 21/09/2026: nút "Thêm khách hàng/site" mở `qt-form-khach-hang` (không còn mở thẳng `qt-moi-dau-moi`). **Sửa và đổi loại khách hàng vẫn làm tại chỗ ở màn này**, có hộp xác nhận và ghi `qt-nhat-ky-thao-tac`; ticket đang mở giữ team cũ (OQ-20c). Khách hàng đã tạo nhưng bỏ dở bước tạo tài khoản đầu mối hiện nhãn "Chưa có tài khoản đầu mối" để mời sau.
 
 
 ---
@@ -64,11 +64,15 @@
 │     │ Tên đơn vị [1] [UBND tỉnh Bình Định_______________]      │     │
 │     │ Loại khách hàng [2]                                      │     │
 │     │   (*) UBND tỉnh/thành  ( ) Doanh nghiệp  ( ) Trung ương  │     │
-│     │ (i) Loại khách hàng quyết định team tiếp nhận.           │     │
-│     │ Dịch vụ đang dùng [3]  [x] iOffice  [ ] iStorage         │     │
+│     │ Dịch vụ [3] [x] iOffice [ ] iStorage                     │     │
 │     │ Site/tenant [4] [site-bd_____]  (mã duy nhất)            │     │
 │     ├──────────────────────────────────────────────────────────┤     │
-│     │ [5] [ Lưu và mời đầu mối ]  [6] [ Hủy ]                  │     │
+│     │ Đầu mối liên hệ chính thức (từ hợp đồng/bàn giao)        │     │
+│     │ Họ tên [5] [Nguyễn Văn A__________________]              │     │
+│     │ Email  [6] [a.nguyen@ubnd.gov.vn___________]             │     │
+│     │ SĐT    [7] [0912345678____________________]              │     │
+│     ├──────────────────────────────────────────────────────────┤     │
+│     │ [8] [ Lưu và tiếp tục mời đầu mối ]  [9] [ Hủy ]         │     │
 │     └──────────────────────────────────────────────────────────┘     │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
@@ -82,10 +86,13 @@
 | 2 | Loại khách hàng | Radio group | Select | • **Bắt buộc**: UBND tỉnh/thành, Doanh nghiệp, Trung ương. **Quyết định team tiếp nhận**: khách hàng tỉnh → team tỉnh; doanh nghiệp/trung ương → team trung tâm (OQ-20c).<br>• Màn này chỉ để tạo mới; đổi loại về sau thao tác ở `qt-danh-muc-khach-hang` (xác nhận + ghi nhật ký). |
 | 3 | Dịch vụ đang dùng | Checkbox group | Check | • **Chọn ≥1** trong iOffice, iStorage (danh mục dùng chung, `danhmuc-dich-vu-loai-van-de`); thiếu → báo lỗi tại nhóm. |
 | 4 | Site/tenant | Textbox | Text | • **Bắt buộc**, mã site **duy nhất** (OQ-20b); trùng → lỗi ngay tại ô (xem Trạng thái phụ). |
-| 5 | Lưu và mời đầu mối | Button | Click | • Disabled tới khi đủ [1]–[4] hợp lệ. Lưu khách hàng/site rồi sang `qt-moi-dau-moi` để nhập đầu mối và gửi lời mời; ghi nhật ký thao tác. |
-| 6 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không lưu gì. |
+| 5 | Họ tên đầu mối | Textbox | Text | • **Bắt buộc** (OQ-20b). Đầu mối liên hệ chính thức của đơn vị/site, lấy từ hồ sơ hợp đồng/biên bản bàn giao (UC1); lưu vào danh mục khách hàng. Mỗi đơn vị/site có 1–3 đầu mối do Quản trị viên chỉ định (OQ-20a) — màn này nhập đầu mối đầu tiên. |
+| 6 | Email đầu mối | Textbox | Text | • **Bắt buộc**, đúng định dạng; là nơi gửi lời mời kích hoạt ở `qt-moi-dau-moi` và là định danh đăng nhập [GIẢ ĐỊNH]. |
+| 7 | SĐT đầu mối | Textbox | Text | • **Bắt buộc** (OQ-20b), định dạng số VN; dùng khi gửi lời mời qua SMS. |
+| 8 | Lưu và tiếp tục mời đầu mối | Button | Click | • Disabled tới khi đủ [1]–[7] hợp lệ. Lưu khách hàng/site vào danh mục (UC1) rồi sang `qt-moi-dau-moi` — màn đó **điền sẵn** đầu mối vừa nhập để Quản trị viên/Agent chỉ xác nhận kênh gửi và tạo tài khoản chờ kích hoạt (UC9); ghi nhật ký thao tác. |
+| 9 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không lưu gì. |
 
-- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — tách bước tạo khách hàng/site khỏi bước mời đầu mối; sửa vẫn inline ở `qt-danh-muc-khach-hang`.
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — tách bước tạo khách hàng/site (UC1, lưu cả đầu mối liên hệ như danh mục khách hàng yêu cầu) khỏi bước tạo tài khoản đầu mối + gửi lời mời (UC9); sửa vẫn inline ở `qt-danh-muc-khach-hang` (UC25).
 
 #### Trạng thái phụ — mã site trùng
 
@@ -101,13 +108,13 @@
 │     │ Site/tenant [4] [site-bd_____]                           │     │
 │     │ (!) Mã site đã tồn tại. Vui lòng nhập mã khác.           │     │
 │     ├──────────────────────────────────────────────────────────┤     │
-│     │ [5] [ Lưu và mời đầu mối ]  [6] [ Hủy ]                  │     │
+│     │ [8] [ Lưu và tiếp tục mời đầu mối ]  [9] [ Hủy ]         │     │
 │     └──────────────────────────────────────────────────────────┘     │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Khác màn gốc: ô [4] báo "Mã site đã tồn tại. Vui lòng nhập mã khác." (wording tạm, chưa có mã E-…); [5] mờ tới khi sửa.
+- Khác màn gốc: ô [4] báo "Mã site đã tồn tại. Vui lòng nhập mã khác." (wording tạm, chưa có mã E-…); [8] mờ tới khi sửa.
 
 
 ---
@@ -153,7 +160,7 @@
 | 6 | Tạo & gửi lời mời | Button | Click | • Tạo tài khoản đầu mối **chờ kích hoạt** rồi gửi lời mời (UC9); khóa khi submitting. Thành công → về `qt-danh-muc-khach-hang`, dòng đơn vị hiện đầu mối trạng thái "Chờ kích hoạt". Người nhận bấm link → `kh-kich-hoat-tk`.<br>• **Ai được tạo:** Agent tỉnh (với KH tỉnh) hoặc Agent trung tâm/Quản trị viên (với KH doanh nghiệp/TW) — mỗi vai trò chỉ thấy khách hàng thuộc phạm vi mình. Không có trang đăng ký công khai.<br>• Lỗi gửi (Email/SMS lỗi) → tài khoản vẫn tạo, báo lỗi và cho gửi lại ở `qt-chi-tiet-tai-khoan` [GIẢ ĐỊNH]. |
 | 7 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không tạo gì. |
 
-- Bổ sung 21/09/2026: **đầu mối chỉ nhập tại màn này** (`qt-form-khach-hang` không thu đầu mối). Vào từ `qt-form-khach-hang` sau khi lưu khách hàng/site; bỏ dở → về `qt-danh-muc-khach-hang`, khách hàng ở trạng thái "Chưa có đầu mối".
+- Bổ sung 21/09/2026: khi vào từ `qt-form-khach-hang` (sau khi lưu khách hàng/site), các ô [2]–[4] **điền sẵn** đầu mối vừa nhập ở đó — không nhập lại; Quản trị viên/Agent chỉ xác nhận kênh gửi [5] rồi tạo tài khoản chờ kích hoạt. Bỏ dở → về `qt-danh-muc-khach-hang`, khách hàng ở trạng thái "Chưa có tài khoản đầu mối".
 
 
 ---
@@ -335,12 +342,13 @@
 │ Chức năng [3]            KH   AgT  AgTT BT   QT   CQ                 │
 │ ---------------------------------------------------------------      │
 │ Tra cứu KB, hỏi AI       x    x    x    x    x    -                  │
-│ Tạo & theo dõi ticket    x    -    -    -    x    -                  │
+│ Tạo & theo dõi ticket    x    -    -    -    -    -                  │
 │ Xử lý ticket (team)      -    x    x    -    x    -                  │
 │ Tạo phiếu OneBSS         -    x    x    -    x    -                  │
-│ Soạn bài KB              -    x    -    x    x    -                  │
+│ Soạn bài KB              -    x    x    x    x    -                  │
 │ Duyệt & xuất bản KB      -    -    -    -    x    -                  │
 │ Quản lý TK, phân quyền   -    -    -    -    x    -                  │
+│ Tạo TK đầu mối KH        -    x    x    -    x    -                  │
 │ Cấu hình AI/OneBSS/SLA   -    -    -    -    x    -                  │
 │ Xem báo cáo              -    cb   x    -    x    x                  │
 │ KH=Khách AgT=A.tỉnh AgTT=A.TT BT=Biên tập QT=Quản trị CQ=Chủ quản    │
@@ -353,7 +361,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Về màn trước | Link | Click | • Quay về `qt-danh-sach-tai-khoan` hoặc `qt-phan-quyen` tùy nơi mở. |
 | 2 | Nhãn tham khảo | Label | ReadOnly | • "Tham khảo, chờ khách hàng xác nhận" — bảng suy ra từ mô tả vai trò trong tài liệu đề xuất (OQ-28). |
-| 3 | Bảng quyền | Table | ReadOnly | • Hàng = 9 nhóm chức năng, cột = 6 vai trò (Khách hàng, Agent tỉnh, Agent trung tâm, Biên tập, Quản trị viên, Chủ quản dịch vụ). `x` = được phép, `-` = không, `cb` = chỉ xem báo cáo cơ bản của team mình (Agent tỉnh — [GIẢ ĐỊNH] theo OQ-23b).<br>• **Chỉ xem**: đổi vai trò của 1 tài khoản làm ở `qt-phan-quyen`. Chỉ Quản trị viên mở được. |
+| 3 | Bảng quyền | Table | ReadOnly | • Hàng = 10 nhóm chức năng, cột = 6 vai trò (Khách hàng, Agent tỉnh, Agent trung tâm, Biên tập, Quản trị viên, Chủ quản dịch vụ). `x` = được phép, `-` = không, `cb` = chỉ xem báo cáo cơ bản của team mình (Agent tỉnh — [GIẢ ĐỊNH] theo OQ-23b). Soạn bài KB: Biên tập và Agent (UC11); tạo ticket: chỉ Khách hàng.<br>• **Chỉ xem**: đổi vai trò của 1 tài khoản làm ở `qt-phan-quyen`. Chỉ Quản trị viên mở được. |
 
 - **Đề xuất bổ sung, chờ xác nhận (OQ-28).** Vào từ `qt-phan-quyen` và `qt-danh-sach-tai-khoan`; ký hiệu: KH=Khách hàng, AgT=Agent tỉnh, AgTT=Agent trung tâm, BT=Biên tập, QT=Quản trị viên, CQ=Chủ quản dịch vụ.
 
