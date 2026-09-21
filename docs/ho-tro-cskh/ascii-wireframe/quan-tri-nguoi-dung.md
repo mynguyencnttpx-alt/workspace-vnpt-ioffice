@@ -325,6 +325,8 @@
 
 - Bổ sung 21/09/2026: có link "Xem bảng quyền tổng quan" tới `qt-ma-tran-phan-quyen`.
 
+- Quyền "Xem nghiệp vụ toàn bộ khách hàng trong Hỏi đáp AI" và "Dùng Hỏi đáp AI nội bộ" gắn cố định theo vai trò (xem `qt-ma-tran-phan-quyen`); màn này chỉ gán/đổi vai trò cho tài khoản, chỉnh quyền theo vai trò ngoài MVP [GIẢ ĐỊNH] (OQ-34).
+
 
 ---
 
@@ -342,6 +344,8 @@
 │ Chức năng [3]            KH   AgT  AgTT BT   QT   CQ                 │
 │ ---------------------------------------------------------------      │
 │ Tra cứu KB, hỏi AI       x    x    x    x    x    -                  │
+│ Hỏi đáp AI nội bộ        -    x    x    -    x    x                  │
+│ Xem nghiệp vụ mọi KH(AI) -    -    x    -    x    x                  │
 │ Tạo & theo dõi ticket    x    -    -    -    -    -                  │
 │ Xử lý ticket (team)      -    x    x    -    x    -                  │
 │ Tạo phiếu OneBSS         -    x    x    -    x    -                  │
@@ -361,7 +365,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Về màn trước | Link | Click | • Quay về `qt-danh-sach-tai-khoan` hoặc `qt-phan-quyen` tùy nơi mở. |
 | 2 | Nhãn tham khảo | Label | ReadOnly | • "Tham khảo, chờ khách hàng xác nhận" — bảng suy ra từ mô tả vai trò trong tài liệu đề xuất (OQ-28). |
-| 3 | Bảng quyền | Table | ReadOnly | • Hàng = 10 nhóm chức năng, cột = 6 vai trò (Khách hàng, Agent tỉnh, Agent trung tâm, Biên tập, Quản trị viên, Chủ quản dịch vụ). `x` = được phép, `-` = không, `cb` = chỉ xem báo cáo cơ bản của team mình (Agent tỉnh — [GIẢ ĐỊNH] theo OQ-23b). Soạn bài KB: Biên tập và Agent (UC11); tạo ticket: chỉ Khách hàng.<br>• **Chỉ xem**: đổi vai trò của 1 tài khoản làm ở `qt-phan-quyen`. Chỉ Quản trị viên mở được. |
+| 3 | Bảng quyền | Table | ReadOnly | • Hàng = 12 nhóm chức năng, cột = 6 vai trò (Khách hàng, Agent tỉnh, Agent trung tâm, Biên tập, Quản trị viên, Chủ quản dịch vụ). `x` = được phép, `-` = không, `cb` = chỉ xem báo cáo cơ bản của team mình (Agent tỉnh — [GIẢ ĐỊNH] theo OQ-23b). Soạn bài KB: Biên tập và Agent (UC11); tạo ticket: chỉ Khách hàng.<br>• **Chỉ xem**: đổi vai trò của 1 tài khoản làm ở `qt-phan-quyen`. Chỉ Quản trị viên mở được.<br>• Thêm 2 dòng Hỏi đáp AI nội bộ (OQ-34): "Hỏi đáp AI nội bộ" cho Agent tỉnh, Agent trung tâm, Quản trị viên, Chủ quản dịch vụ; "Xem nghiệp vụ mọi KH (AI)" cho Agent trung tâm, Quản trị viên, Chủ quản dịch vụ — Agent tỉnh chỉ site của team [GIẢ ĐỊNH]. Hàng 10 nhóm chức năng nay thành 12. Dòng cũ "Tra cứu KB, hỏi AI" chỉ nghĩa khách hàng tra cứu và hỏi AI; nhân viên không có màn Tra cứu (OQ-35) — cần khách hàng xác nhận lại các ô x của nhân viên ở dòng này. |
 
 - **Đề xuất bổ sung, chờ xác nhận (OQ-28).** Vào từ `qt-phan-quyen` và `qt-danh-sach-tai-khoan`; ký hiệu: KH=Khách hàng, AgT=Agent tỉnh, AgTT=Agent trung tâm, BT=Biên tập, QT=Quản trị viên, CQ=Chủ quản dịch vụ.
 

@@ -150,7 +150,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Thông báo | Label + Icon | ReadOnly | • Hiện khi phiên hết hạn ở màn bất kỳ; nêu lý do bảo mật và **nội dung đang soạn chưa gửi sẽ không được giữ lại** (OQ-31, đề xuất). Hành động đang gửi dở (tạo ticket, gửi OneBSS): kiểm tra kết quả trước khi cho làm lại. |
-| 2 | Đăng nhập lại | Button | Click | • Khách hàng → `kh-dang-nhap`; nội bộ → `noibo-dang-nhap`. Đăng nhập xong quay về đúng màn trước đó. |
+| 2 | Đăng nhập lại | Button | Click | • Mọi người dùng → `kh-dang-nhap` (đăng nhập chung). Đăng nhập xong quay về đúng màn trước đó nếu cùng loại tài khoản và còn quyền; khác loại hoặc mất quyền → trang đầu tương ứng hoặc `loi-403`/`loi-404`. |
 
 - Dùng chung mọi flow.
 

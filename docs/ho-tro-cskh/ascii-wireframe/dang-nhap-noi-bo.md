@@ -1,51 +1,8 @@
-# Flow: Agent/Quản trị viên đăng nhập
+# Flow: Trang đầu & tổng quan nội bộ theo vai trò
 
-> Màn hình thuộc flow này: noibo-dang-nhap → noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
+> Màn hình thuộc flow này: noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Vào từ màn đăng nhập chung `kh-dang-nhap` (màn `noibo-dang-nhap` đã gộp vào đó, OQ-32). Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
-
----
-
-## Screen: noibo-dang-nhap — Đăng nhập nội bộ
-
-### Wireframe (ASCII)
-
-```text
-┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH Nội bộ - Đăng nhập cho agent / quản trị viên                    │
-├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│            ┌────────────────────────────────────────────┐            │
-│            │ Đăng nhập nội bộ                           │            │
-│            │                                            │            │
-│            │ Email đăng nhập                            │            │
-│            │ [1] [tran.thi.b@vnpt.vn________________]   │            │
-│            │                                            │            │
-│            │ Mật khẩu                                   │            │
-│            │ [2] [********________________] (eye) [3]   │            │
-│            │                                            │            │
-│            │ [4] [            Đăng nhập             ]   │            │
-│            ├────────────────────────────────────────────┤            │
-│            │ [5] Tài khoản nội bộ do quản trị viên      │            │
-│            │     cấp. Quên mật khẩu hoặc bị khóa:       │            │
-│            │     liên hệ quản trị viên.                 │            │
-│            └────────────────────────────────────────────┘            │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
-```
-
-### Screen description
-
-| # | Items | Control type | Data type | Description |
-|---|-------|--------------|-----------|-------------|
-| 1 | Email đăng nhập | Textbox | Text | • **Bắt buộc**. Tài khoản nội bộ (agent tỉnh/trung tâm, biên tập nội dung, quản trị viên, chủ quản dịch vụ) do quản trị viên tạo và gán team (UC41); phân biệt với tài khoản khách hàng (Đề xuất — Đăng nhập & xác thực).<br>• [GIẢ ĐỊNH] dùng email làm tên đăng nhập, giống màn khách hàng. |
-| 2 | Mật khẩu | Textbox (password) | Text | • **Bắt buộc**, che ký tự. Quy tắc độ mạnh/khóa tạm sau nhiều lần sai: đã đề xuất, chờ xác nhận (OQ-5). |
-| 3 | Hiện/ẩn mật khẩu | Icon button (eye) | Click | • Bật/tắt hiển thị ký tự đã nhập. |
-| 4 | Đăng nhập | Button | Click | • **Disabled** tới khi [1], [2] có giá trị; khóa khi submitting.<br>• Đúng → vào Trang chủ nội bộ theo vai trò [GIẢ ĐỊNH]: Agent → `agent-hang-doi`; Chủ quản dịch vụ → `baocao-tong-quan` (chỉ có quyền xem báo cáo); Biên tập nội dung → `kb-cho-duyet`; Quản trị viên → `agent-hang-doi` (thấy toàn bộ) [chốt landing: OQ-18]. Menu chỉ hiện mục đúng quyền (RBAC).<br>• Sai → giữ nguyên, báo "Sai email hoặc mật khẩu" (wording tạm, chưa có mã E-…), xóa ô mật khẩu.<br>• **Tài khoản đã bị vô hiệu hóa** (nhân sự nghỉ việc, UC41) → không cho đăng nhập, báo "Tài khoản đã bị khóa, vui lòng liên hệ quản trị viên" (wording tạm), giữ nguyên màn. |
-| 5 | Ghi chú cấp tài khoản | Label | ReadOnly | • Nhắc tài khoản do quản trị viên cấp; **không có link tự đăng ký hay tự đặt lại mật khẩu** vì nguồn chưa mô tả cơ chế quên mật khẩu cho tài khoản nội bộ (OQ-18).<br>• MVP chưa SSO; thiết kế cho phép bổ sung SSO sau mà không đổi bố cục (Đề xuất — Đăng nhập & xác thực). |
-
-- Chỉ 1 màn đăng nhập cho mọi vai trò nội bộ; "tài khoản bị vô hiệu hóa" xử lý bằng thông báo tại màn (userflow không có slug riêng).
-
 
 ---
 
@@ -137,5 +94,5 @@
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-18 | Tài khoản nội bộ | Quản trị viên tạo → hệ thống gửi email mời đặt mật khẩu (không cấp mật khẩu qua kênh khác); có "quên mật khẩu" qua email; trang đầu: Agent và Quản trị viên → hàng đợi ticket, Chủ quản dịch vụ → báo cáo tổng quan, Biên tập → chờ duyệt. | Chờ khách hàng xác nhận |
+| OQ-18 | Tài khoản nội bộ | Quản trị viên tạo → hệ thống gửi email mời đặt mật khẩu (không cấp mật khẩu qua kênh khác); có "quên mật khẩu" qua email; đăng nhập dùng chung một màn với khách hàng (OQ-32); trang đầu: Agent và Quản trị viên → hàng đợi ticket, Chủ quản dịch vụ → báo cáo tổng quan, Biên tập → chờ duyệt. | Chờ khách hàng xác nhận |
 | OQ-25 | [63] Tổng quan nội bộ có làm landing không (bổ sung OQ-18) | Không; landing giữ theo OQ-18, Tổng quan mở từ menu, thẻ chỉ hiện theo vai trò. | Chờ khách hàng xác nhận |

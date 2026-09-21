@@ -13,8 +13,6 @@ links:
 
 | # | Slug | Thuộc flow | Status | Used by functions | Figma | HTML prototype | HTML wireframe | Updated |
 |---|------|------------|--------|-------------------|-------|----------------|-----------------|---------|
-<<<<<<< Updated upstream
-=======
 | 1 | [kh-dang-nhap](dang-nhap-kich-hoat-kh.md#kh-dang-nhap) | dang-nhap-kich-hoat-kh | draft | UC47 | [01 · kh-dang-nhap (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-730) | — | — | 2026-09-20 |
 | 2 | [kh-kich-hoat-tk](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk) | dang-nhap-kich-hoat-kh | draft | UC9, UC10, UC48 | [02 · kh-kich-hoat-tk (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-816) | — | — | 2026-09-20 |
 | 3 | [kh-quen-mat-khau](dang-nhap-kich-hoat-kh.md#kh-quen-mat-khau) | dang-nhap-kich-hoat-kh | draft | UC48 | [03 · kh-quen-mat-khau (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-898) | — | — | 2026-09-20 |
@@ -25,7 +23,7 @@ links:
 | 8 | [kb-ket-qua-tim-kiem](tra-cuu-kb.md#kb-ket-qua-tim-kiem) | tra-cuu-kb | draft | UC20 | [08 · kb-ket-qua-tim-kiem](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1451) | — | — | 2026-09-21 |
 | 9 | [kb-chi-tiet-bai-viet](tra-cuu-kb.md#kb-chi-tiet-bai-viet) | tra-cuu-kb | draft | UC21, UC53 | [09 · kb-chi-tiet-bai-viet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-592) | — | — | 2026-09-21 |
 | 10 | [kb-danh-muc-loi](tra-cuu-kb.md#kb-danh-muc-loi) | tra-cuu-kb | draft | UC20 | [10 · kb-danh-muc-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1514) | — | — | 2026-09-21 |
-| 11 | [ai-khung-chat](hoi-dap-ai.md#ai-khung-chat) | hoi-dap-ai | draft | UC3 | [11 · ai-khung-chat](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-421) | — | — | 2026-09-20 |
+| 11 | [ai-khung-chat](hoi-dap-ai.md#ai-khung-chat) | hoi-dap-ai | draft | UC3, UC62 | [11 · ai-khung-chat](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-421) | — | — | 2026-09-20 |
 | 12 | [ai-tra-loi](hoi-dap-ai.md#ai-tra-loi) | hoi-dap-ai | draft | UC3, UC54 | [12 · ai-tra-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-465) | — | — | 2026-09-20 |
 | 13 | [ai-de-xuat-tao-ticket](hoi-dap-ai.md#ai-de-xuat-tao-ticket) | hoi-dap-ai | draft | UC3 | [13 · ai-de-xuat-tao-ticket](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-513) | — | — | 2026-09-20 |
 | 14 | [ticket-tao-moi](gui-theo-doi-ticket.md#ticket-tao-moi) | gui-theo-doi-ticket | draft | UC2 | [14 · ticket-tao-moi (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-642) | — | — | 2026-09-21 |
@@ -34,7 +32,7 @@ links:
 | 17 | [ticket-chi-tiet-kh](gui-theo-doi-ticket.md#ticket-chi-tiet-kh) | gui-theo-doi-ticket | draft | UC19 | [17 · ticket-chi-tiet-kh (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1785) | — | — | 2026-09-21 |
 | 18 | [ticket-xac-nhan](gui-theo-doi-ticket.md#ticket-xac-nhan) | gui-theo-doi-ticket | draft | UC4, UC55 | [18 · ticket-xac-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1883) | — | — | 2026-09-21 |
 | 19 | [ticket-da-dong](gui-theo-doi-ticket.md#ticket-da-dong) | gui-theo-doi-ticket | draft | UC4, UC27, UC55 | [19 · ticket-da-dong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1838) | — | — | 2026-09-21 |
-| 20 | [noibo-dang-nhap](dang-nhap-noi-bo.md#noibo-dang-nhap) | dang-nhap-noi-bo | draft | UC47 | [20 · noibo-dang-nhap](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2464) | — | — | 2026-09-20 |
+| 20 | ~~noibo-dang-nhap~~ (đã gộp vào [1]) | dang-nhap-kich-hoat-kh | archived | UC47 | [20 · noibo-dang-nhap (đã gộp vào 01)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2464) | — | — | 2026-09-21 |
 | 21 | [noibo-tai-khoan-ca-nhan](dang-nhap-noi-bo.md#noibo-tai-khoan-ca-nhan) | dang-nhap-noi-bo | draft | UC44 | [21 · noibo-tai-khoan-ca-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2486) | — | — | 2026-09-20 |
 | 22 | [agent-hang-doi](xu-ly-ticket-agent.md#agent-hang-doi) | xu-ly-ticket-agent | draft | UC5, UC18, UC28 | [22 · agent-hang-doi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2562) | — | — | 2026-09-20 |
 | 23 | [agent-chi-tiet-ticket](xu-ly-ticket-agent.md#agent-chi-tiet-ticket) | xu-ly-ticket-agent | draft | UC5, UC7, UC19, UC28 | [23 · agent-chi-tiet-ticket (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2680) | — | — | 2026-09-21 |
@@ -47,7 +45,7 @@ links:
 | 30 | [qt-danh-sach-tai-khoan](quan-tri-nguoi-dung.md#qt-danh-sach-tai-khoan) | quan-tri-nguoi-dung | draft | UC22 | [30 · qt-danh-sach-tai-khoan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3266) | — | — | 2026-09-21 |
 | 31 | [qt-chi-tiet-tai-khoan](quan-tri-nguoi-dung.md#qt-chi-tiet-tai-khoan) | quan-tri-nguoi-dung | draft | UC23, UC42 | [31 · qt-chi-tiet-tai-khoan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3375) | — | — | 2026-09-20 |
 | 32 | [qt-tao-tai-khoan-noibo](quan-tri-nguoi-dung.md#qt-tao-tai-khoan-noibo) | quan-tri-nguoi-dung | draft | UC41 | [32 · qt-tao-tai-khoan-noibo](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3441) | — | — | 2026-09-20 |
-| 33 | [qt-phan-quyen](quan-tri-nguoi-dung.md#qt-phan-quyen) | quan-tri-nguoi-dung | draft | UC43 | [33 · qt-phan-quyen](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3498) | — | — | 2026-09-21 |
+| 33 | [qt-phan-quyen](quan-tri-nguoi-dung.md#qt-phan-quyen) | quan-tri-nguoi-dung | draft | UC43, UC61 | [33 · qt-phan-quyen](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3498) | — | — | 2026-09-21 |
 | 34 | [qt-nhat-ky-thao-tac](quan-tri-nguoi-dung.md#qt-nhat-ky-thao-tac) | quan-tri-nguoi-dung | draft | UC45 | [34 · qt-nhat-ky-thao-tac](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3563) | — | — | 2026-09-20 |
 | 35 | [kb-soan-thao](quan-tri-noi-dung-kb.md#kb-soan-thao) | quan-tri-noi-dung-kb | draft | UC11 | [35 · kb-soan-thao (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3718) | — | — | 2026-09-21 |
 | 36 | [kb-cho-duyet](quan-tri-noi-dung-kb.md#kb-cho-duyet) | quan-tri-noi-dung-kb | draft | UC12 | [36 · kb-cho-duyet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3928) | — | — | 2026-09-21 |
@@ -72,7 +70,7 @@ links:
 | 55 | [cauhinh-onebss](cau-hinh-ai-danh-muc.md#cauhinh-onebss) | cau-hinh-ai-danh-muc | draft | UC51 | [55 · cauhinh-onebss (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-8623) | — | — | 2026-09-21 |
 | 56 | [kb-chi-muc-ai](quan-tri-noi-dung-kb.md#kb-chi-muc-ai) | quan-tri-noi-dung-kb | draft | UC12, UC50 | [56 · kb-chi-muc-ai (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18385) | — | — | 2026-09-21 |
 | 57 | [qt-form-khach-hang](quan-tri-nguoi-dung.md#qt-form-khach-hang) | quan-tri-nguoi-dung | draft | UC1 | [57 · qt-form-khach-hang (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18610) | — | — | 2026-09-21 |
-| 58 | [qt-ma-tran-phan-quyen](quan-tri-nguoi-dung.md#qt-ma-tran-phan-quyen) | quan-tri-nguoi-dung | draft | UC43 | [58 · qt-ma-tran-phan-quyen](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18796) | — | — | 2026-09-21 |
+| 58 | [qt-ma-tran-phan-quyen](quan-tri-nguoi-dung.md#qt-ma-tran-phan-quyen) | quan-tri-nguoi-dung | draft | UC43, UC61 | [58 · qt-ma-tran-phan-quyen](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18796) | — | — | 2026-09-21 |
 | 59 | [thong-bao](thong-bao-loi-chung.md#thong-bao) | thong-bao-loi-chung | draft | UC58 | [59 · thong-bao (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19568) | — | — | 2026-09-21 |
 | 60 | [loi-403](thong-bao-loi-chung.md#loi-403) | thong-bao-loi-chung | draft | — | [60 · loi-403](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19761) | — | — | 2026-09-21 |
 | 61 | [loi-404](thong-bao-loi-chung.md#loi-404) | thong-bao-loi-chung | draft | — | [61 · loi-404](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19836) | — | — | 2026-09-21 |
@@ -81,7 +79,10 @@ links:
 | 64 | [cauhinh-mau-thong-bao](cau-hinh-ai-danh-muc.md#cauhinh-mau-thong-bao) | cau-hinh-ai-danh-muc | draft | UC16, UC52 | [64 · cauhinh-mau-thong-bao (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2330) | — | — | 2026-09-21 |
 | 65 | [kb-khong-co-ket-qua](tra-cuu-kb.md#kb-khong-co-ket-qua) | tra-cuu-kb | draft | UC20 | [65 · kb-khong-co-ket-qua (08b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-2945) | — | — | 2026-09-21 |
 | 66 | [kb-bai-viet-khong-con](tra-cuu-kb.md#kb-bai-viet-khong-con) | tra-cuu-kb | draft | UC21, UC26 | [66 · kb-bai-viet-khong-con (09b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-3397) | — | — | 2026-09-21 |
->>>>>>> Stashed changes
+| 67 | [noibo-ai-khung-chat](noibo-hoi-dap-ai.md#noibo-ai-khung-chat) | noibo-hoi-dap-ai | draft | UC61, UC62 | — | — | — | 2026-09-21 |
+| 68 | [noibo-ai-tra-loi](noibo-hoi-dap-ai.md#noibo-ai-tra-loi) | noibo-hoi-dap-ai | draft | UC61 | — | — | — | 2026-09-21 |
+| 69 | [ai-lich-su](hoi-dap-ai.md#ai-lich-su) | hoi-dap-ai | draft | UC62 | — | — | — | 2026-09-21 |
+| 70 | [noibo-ai-lich-su](noibo-hoi-dap-ai.md#noibo-ai-lich-su) | noibo-hoi-dap-ai | draft | UC62 | — | — | — | 2026-09-21 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
 
@@ -95,7 +96,7 @@ links:
 ## Descriptions
 
 ### kh-dang-nhap
-Khách hàng thấy khi mở hệ thống chưa đăng nhập; đăng nhập bằng tài khoản do đơn vị cấp/đầu mối mời.
+Màn đăng nhập dùng chung cho khách hàng và nhân viên khi mở hệ thống chưa đăng nhập; sau khi đăng nhập đúng chuyển tới trang đầu theo loại tài khoản và vai trò.
 
 ### kh-kich-hoat-tk
 Người được mời mở link trong Email/SMS để đặt mật khẩu lần đầu và kích hoạt tài khoản.
@@ -152,7 +153,7 @@ Khách hàng xác nhận đã giải quyết xong khi ticket ở trạng thái C
 Ticket đã đóng (do khách xác nhận hoặc tự đóng quá hạn); nút mở lại nếu vấn đề chưa hết.
 
 ### noibo-dang-nhap
-Agent, biên tập nội dung, quản trị viên, chủ quản dịch vụ đăng nhập bằng tài khoản nội bộ; tài khoản bị vô hiệu hóa không vào được.
+Đã gộp vào màn đăng nhập chung kh-dang-nhap (OQ-32); số thứ tự [20] giữ lại để không lệch đối chiếu.
 
 ### noibo-tai-khoan-ca-nhan
 Người dùng nội bộ đổi mật khẩu/thông tin cá nhân; xem vai trò và team (chỉ đọc).
@@ -295,3 +296,15 @@ Trạng thái không có kết quả tìm kiếm trong phạm vi dịch vụ + s
 
 ### kb-bai-viet-khong-con
 Thông báo gộp khi bài đã ẩn/hủy hoặc ngoài phạm vi; không phân biệt hai trường hợp.
+
+### noibo-ai-khung-chat
+Nhân viên (Agent, Quản trị viên, Chủ quản dịch vụ) hỏi AI để tra cứu nghiệp vụ hỗ trợ khách hàng; chọn dịch vụ + site theo quyền xem; mở từ ticket thì site của ticket chọn sẵn.
+
+### noibo-ai-tra-loi
+Câu trả lời AI kèm trích dẫn cho nhân viên; có nút Sao chép và Chèn vào phản hồi ticket; trạng thái phụ không đủ tự tin và xem trước trích dẫn.
+
+### ai-lich-su
+Khách hàng xem, tìm, mở lại và xóa lịch sử hỏi đáp AI của chính mình; lưu 90 ngày; có trạng thái rỗng và xác nhận xóa.
+
+### noibo-ai-lich-su
+Nhân viên xem, tìm, mở lại và xóa lịch sử hỏi đáp AI của chính mình; Quản trị viên không xem lịch sử cá nhân của người khác.
