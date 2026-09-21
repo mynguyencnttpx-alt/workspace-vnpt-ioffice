@@ -271,7 +271,7 @@ Quản trị viên xem trạng thái chỉ mục AI của bài đã xuất bản
 Quản trị viên tạo khách hàng/site (tên, loại khách hàng quyết định team tiếp nhận, dịch vụ, mã site duy nhất) kèm đầu mối liên hệ chính thức, rồi sang bước tạo tài khoản đầu mối + mời.
 
 ### qt-ma-tran-phan-quyen
-Quản trị viên xem bảng quyền vai trò × chức năng (chỉ xem, tham khảo chờ xác nhận).
+Quản trị viên xem bảng quyền vai trò × chức năng (chỉ xem, tham khảo, khách hàng đã xác nhận).
 
 ### thong-bao
 Tài khoản nội bộ xem trung tâm thông báo trong ứng dụng (ticket, SLA, chờ duyệt, hệ thống) và mở từng thông báo.

@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: agent-hang-doi → agent-chi-tiet-ticket → agent-phan-cong → agent-tao-phieu-onebss → agent-xac-nhan-phieu-onebss → agent-canh-bao-sla. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
-> Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
@@ -39,7 +39,7 @@
 | 3 | Bộ lọc trạng thái / ưu tiên / dịch vụ | Dropdown | Select | • Trạng thái: Mới / Đang xử lý / Chờ khách hàng / Chờ khách hàng xác nhận / Đã đóng. Ưu tiên: Khẩn cấp / Cao / Bình thường. Dịch vụ: iOffice/iStorage… Kết hợp được nhiều bộ lọc; đổi giá trị → lọc lại ngay. |
 | 4 | Lọc khách hàng + AI đã tự trả lời | Textbox + Checkbox | Text / Check | • Ô khách hàng: tìm theo tên đơn vị/site. Checkbox **"Chỉ ticket AI đã tự trả lời"** lọc các ticket AI đã gửi phản hồi tự động (UC28) để agent review/can thiệp — chỉ có ý nghĩa khi chế độ AI tự động phản hồi được bật (`cauhinh-tham-so-ai`). |
 | 5 | Bảng ticket | Table | Select | • Cột: Mã, Khách hàng, Vấn đề, Ưu tiên, Trạng thái, SLA (Còn …/Sắp hết/Quá hạn). Bấm 1 dòng → `agent-chi-tiet-ticket` (nhận xử lý). Đuôi "(AI)" = đã được AI tự trả lời.<br>• Sắp xếp mặc định: ưu tiên/hạn SLA gần nhất trước [GIẢ ĐỊNH].<br>• Ticket mới do định tuyến tự động; quá hạn SLA **chỉ cảnh báo, không tự chuyển cấp** (MVP).<br>• Empty: "Không có ticket nào phù hợp". |
-| 6 | Phân trang | Pagination | Click | • Số bản ghi/trang: đã đề xuất, chờ xác nhận (OQ-11). |
+| 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
 
 - Header nội bộ dùng chung (không đánh số). Dữ liệu mẫu chỉ minh họa; "Bình thư" là viết tắt để vừa khung.
 
@@ -135,8 +135,8 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Phân công thủ công | Radio + Dropdown | Select | • Chọn agent cụ thể **trong team** làm người xử lý (Đề xuất — Phân công & chuyển cấp). Dropdown chỉ liệt kê agent cùng team.<br>• **Quản trị viên** phân công lại được cho agent của bất kỳ team nào (UC17); Agent chỉ trong team mình. Có cho agent tự nhận/phân công lại ticket của người khác không: đã đề xuất, chờ xác nhận (OQ-19). |
-| 2 | Tự gán theo khối lượng | Radio | Check | • Hệ thống tự chọn agent trong team đang có ít ticket nhất; ngưỡng/cách tính khối lượng: đã đề xuất, chờ xác nhận (OQ-19). |
+| 1 | Phân công thủ công | Radio + Dropdown | Select | • Chọn agent cụ thể **trong team** làm người xử lý (Đề xuất — Phân công & chuyển cấp). Dropdown chỉ liệt kê agent cùng team.<br>• **Quản trị viên** phân công lại được cho agent của bất kỳ team nào (UC17); Agent chỉ trong team mình. Có cho agent tự nhận/phân công lại ticket của người khác không: đã chốt (OQ-19). |
+| 2 | Tự gán theo khối lượng | Radio | Check | • Hệ thống tự chọn agent trong team đang có ít ticket nhất; ngưỡng/cách tính khối lượng: đã chốt (OQ-19). |
 | 3 | Chuyển cấp lên trung tâm | Radio | Check | • Chỉ **team tỉnh** thấy tùy chọn này, khi ticket vượt khả năng xử lý tại tỉnh; ticket chuyển sang hàng đợi team trung tâm. MVP **không** tự động chuyển cấp theo SLA — agent/quản trị viên tự quyết thủ công (Đề xuất — Phân công & chuyển cấp). Tạo phiếu OneBSS là đường khác (từ `agent-chi-tiet-ticket`). |
 | 4 | Ghi chú | Textbox (multi-line) | Text | • Không bắt buộc [GIẢ ĐỊNH]; ghi vào lịch sử nội bộ, chỉ agent thấy. |
 | 5 | Xác nhận | Button | Click | • **Disabled** khi chưa chọn tùy chọn (và chưa chọn agent nếu chọn [1]). Thành công → cập nhật người phụ trách/team, báo agent được gán; sang `agent-hang-doi` (theo userflow). Thao tác đổi định tuyến ghi nhật ký (`qt-nhat-ky-thao-tac` — đổi định tuyến khách hàng). |
@@ -331,7 +331,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Về hàng đợi | Link | Click | • Navigate → `agent-hang-doi` (theo userflow: cảnh báo dẫn về hàng đợi). |
 | 2 | Lọc | Dropdown | Select | • Tình trạng: Tất cả / Sắp quá hạn / Đã quá hạn; Ưu tiên: Khẩn cấp / Cao / Bình thường. Mặc định Tất cả. |
-| 3 | Danh sách ticket cảnh báo | Table | Select | • Do job kiểm tra ticket theo ngưỡng SLA rồi **gửi cảnh báo cho agent/quản trị viên phụ trách** (UC29); màn này tổng hợp các ticket đó. Cột: Mã, Vấn đề, Ưu tiên, Hạn xử lý, Tình trạng (Còn … / Quá hạn …), Người xử lý.<br>• Agent chỉ thấy ticket team mình; **Quản trị viên thấy mọi team/tỉnh** (chọn team ở tiêu đề).<br>• Bấm 1 dòng → `agent-chi-tiet-ticket` [GIẢ ĐỊNH — userflow chỉ nêu dẫn về hàng đợi].<br>• Kênh gửi cảnh báo (trong hệ thống/Email/SMS): đã đề xuất, chờ xác nhận (OQ-19). Empty: "Không có ticket nào sắp/quá hạn". |
+| 3 | Danh sách ticket cảnh báo | Table | Select | • Do job kiểm tra ticket theo ngưỡng SLA rồi **gửi cảnh báo cho agent/quản trị viên phụ trách** (UC29); màn này tổng hợp các ticket đó. Cột: Mã, Vấn đề, Ưu tiên, Hạn xử lý, Tình trạng (Còn … / Quá hạn …), Người xử lý.<br>• Agent chỉ thấy ticket team mình; **Quản trị viên thấy mọi team/tỉnh** (chọn team ở tiêu đề).<br>• Bấm 1 dòng → `agent-chi-tiet-ticket` [GIẢ ĐỊNH — userflow chỉ nêu dẫn về hàng đợi].<br>• Kênh gửi cảnh báo (trong hệ thống/Email/SMS): đã chốt (OQ-19). Empty: "Không có ticket nào sắp/quá hạn". |
 | 4 | Ghi chú MVP | Label | ReadOnly | • MVP chưa tự động chuyển cấp theo SLA hay tự re-route khi tỉnh chỉ có 1 agent (nghỉ/ốm) — quá hạn chỉ cảnh báo, agent/quản trị viên xử lý thủ công (Đề xuất — Phân công & chuyển cấp). Tự động chuyển cấp theo SLA thuộc Giai đoạn 4. |
 
 - Dữ liệu mẫu chỉ minh họa; "Bình thư" viết tắt để vừa khung.
@@ -339,12 +339,12 @@
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-19a | Màn cấu hình SLA | Đã bổ sung màn `cauhinh-sla` [52] ở Flow 9 (cùng Giai đoạn 2). | Chờ khách hàng xác nhận |
-| OQ-19b | Nhận/phân công ticket; khối lượng việc | Agent tự nhận ticket chưa gán trong team, chuyển được cho đồng nghiệp cùng team; chỉ Quản trị viên phân công lại ticket đang do người khác xử lý. Tự gán: chọn agent có ít ticket đang mở nhất (Mới, Đang xử lý, Chờ khách hàng), bằng nhau thì luân phiên. | Chờ khách hàng xác nhận |
-| OQ-19c | Lý do chuyển OneBSS | Bắt buộc chọn (Lỗi hệ thống / Cần đội dự án / Khác) và gửi kèm ghi chú. | Chờ khách hàng xác nhận |
-| OQ-19d | Kênh cảnh báo SLA | Trong hệ thống (huy hiệu + màn Cảnh báo) và Email cho agent phụ trách + Quản trị viên; SMS chỉ khi ticket Khẩn cấp quá hạn; cảnh báo khi còn 20% thời gian. | Chờ khách hàng xác nhận |
-| OQ-29 | OneBSS: cấu hình kết nối và chống tạo trùng phiếu (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; trước khi Thử lại kiểm tra ticket đã có mã phiếu; hủy được về ticket. | Chờ khách hàng xác nhận |
+| OQ-19a | Màn cấu hình SLA | Đã bổ sung màn `cauhinh-sla` [52] ở Flow 9 (cùng Giai đoạn 2). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-19b | Nhận/phân công ticket; khối lượng việc | Agent tự nhận ticket chưa gán trong team, chuyển được cho đồng nghiệp cùng team; chỉ Quản trị viên phân công lại ticket đang do người khác xử lý. Tự gán: chọn agent có ít ticket đang mở nhất (Mới, Đang xử lý, Chờ khách hàng), bằng nhau thì luân phiên. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-19c | Lý do chuyển OneBSS | Bắt buộc chọn (Lỗi hệ thống / Cần đội dự án / Khác) và gửi kèm ghi chú. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-19d | Kênh cảnh báo SLA | Trong hệ thống (huy hiệu + màn Cảnh báo) và Email cho agent phụ trách + Quản trị viên; SMS chỉ khi ticket Khẩn cấp quá hạn; cảnh báo khi còn 20% thời gian. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-29 | OneBSS: cấu hình kết nối và chống tạo trùng phiếu (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; trước khi Thử lại kiểm tra ticket đã có mã phiếu; hủy được về ticket. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

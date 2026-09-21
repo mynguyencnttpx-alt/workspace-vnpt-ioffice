@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: noibo-ai-khung-chat → noibo-ai-tra-loi → noibo-ai-lich-su. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
-> Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026 (UC61, UC62), chờ khách hàng xác nhận**. Các mục ghi "(OQ-n)" có đề xuất ở bảng cuối file.
+> Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026 (UC61, UC62), đã được khách hàng xác nhận**. Các mục ghi "(OQ-n)" có đề xuất ở bảng cuối file.
 
 ---
 
@@ -255,7 +255,7 @@
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|

@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: baocao-tong-quan → baocao-hieusuat-sla → baocao-chatluong → baocao-xuat. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
-> Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
@@ -172,21 +172,21 @@
 | 3 | Loại báo cáo | Dropdown | Select | • **Bắt buộc**: Tổng quan hoạt động hỗ trợ / Hiệu suất & SLA / Chất lượng & nội dung (UC40). |
 | 4 | Khoảng thời gian | Date range | Select | • **Bắt buộc** khi Xuất ngay: Từ, Đến (dd/mm/yyyy); Đến < Từ → báo lỗi tại ô [wording chưa có, chưa có mã E-…]. Khoảng tối đa: OQ-23. Ở chế độ lịch: khoảng tự tính theo tần suất (tuần trước/tháng trước) [GIẢ ĐỊNH]. |
 | 5 | Phạm vi | Dropdown | Select | • Team/dịch vụ trong quyền xem; dữ liệu xuất **chỉ gồm phạm vi được phép** (Chủ quản dịch vụ không xuất được dịch vụ khác). |
-| 6 | Định dạng | Radio group | Check | • Excel hoặc PDF (UC40: xuất file Excel/PDF); bố cục file mẫu: đã đề xuất, chờ xác nhận (OQ-23). |
+| 6 | Định dạng | Radio group | Check | • Excel hoặc PDF (UC40: xuất file Excel/PDF); bố cục file mẫu: đã chốt (OQ-23). |
 | 7 | Xuất file | Button | Click | • **Disabled** tới khi [3], [4] hợp lệ; khóa khi đang tạo file (chống bấm lặp); xong → tải file về máy, báo "Đã xuất" (wording tạm). Không có dữ liệu trong khoảng → không tạo file, báo "Không có dữ liệu để xuất". Lỗi tạo file → báo lỗi, cho thử lại [chưa có mã E-…]. |
-| 8 | Lịch gửi tự động | Table | Select | • Danh sách lịch đã cấu hình: tần suất, loại báo cáo, người nhận; Sửa/Xóa (xóa có xác nhận). Job (UC31) **tổng hợp số liệu theo lịch và gửi file tới Quản trị viên/Chủ quản dịch vụ**.<br>• Người nhận là tài khoản trong hệ thống hay email ngoài, giờ gửi, gửi lỗi thì thử lại: đã đề xuất, chờ xác nhận (OQ-23). |
+| 8 | Lịch gửi tự động | Table | Select | • Danh sách lịch đã cấu hình: tần suất, loại báo cáo, người nhận; Sửa/Xóa (xóa có xác nhận). Job (UC31) **tổng hợp số liệu theo lịch và gửi file tới Quản trị viên/Chủ quản dịch vụ**.<br>• Người nhận là tài khoản trong hệ thống hay email ngoài, giờ gửi, gửi lỗi thì thử lại: đã chốt (OQ-23). |
 
 - Vẽ chế độ "Xuất ngay"; chế độ "Gửi tự động theo lịch" mô tả trong Description [2] (2 chế độ loại trừ nhau, userflow chưa có slug riêng).
 
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-23a | Định nghĩa chỉ số | Đã xử lý = chuyển "Chờ KH xác nhận"/"Đã đóng" trong kỳ; Tồn đọng = chưa "Đã đóng" cuối kỳ; Phản hồi = từ tạo đến phản hồi công khai đầu tiên; Xử lý = từ tạo đến lần đầu "Chờ KH xác nhận" trừ thời gian chờ khách hàng, theo giờ làm việc; AI deflection = phiên hỏi đáp AI không phát sinh ticket / tổng phiên; Kỳ trước = kỳ liền trước cùng độ dài. | Chờ khách hàng xác nhận |
-| OQ-23b | Báo cáo Agent, Chủ quản dịch vụ | Agent: số ticket theo trạng thái, ticket sắp/quá hạn của team + của chính mình. Chủ quản dịch vụ xem theo team/tỉnh, không theo từng agent. | Chờ khách hàng xác nhận |
-| OQ-23c | Top hỏi nhiều, xếp hạng KB | Top 10 nhóm câu hỏi (AI, từ khóa tìm kiếm, loại vấn đề ticket); chỉ xếp hạng bài có ≥10 lượt đánh giá. | Chờ khách hàng xác nhận |
-| OQ-23d | Xuất báo cáo | Tối đa 12 tháng/lần, ≤50.000 dòng; Excel 1 sheet tổng hợp + sheet chi tiết, PDF bản tổng hợp; tên tệp {loại}_{từ}_{đến}. | Chờ khách hàng xác nhận |
-| OQ-23e | Gửi báo cáo tự động | Người nhận là tài khoản Quản trị viên/Chủ quản dịch vụ trong hệ thống; 08:00 thứ Hai hằng tuần hoặc ngày 1 hằng tháng; lỗi gửi thử lại 3 lần cách 30 phút rồi báo Quản trị viên. | Chờ khách hàng xác nhận |
+| OQ-23a | Định nghĩa chỉ số | Đã xử lý = chuyển "Chờ KH xác nhận"/"Đã đóng" trong kỳ; Tồn đọng = chưa "Đã đóng" cuối kỳ; Phản hồi = từ tạo đến phản hồi công khai đầu tiên; Xử lý = từ tạo đến lần đầu "Chờ KH xác nhận" trừ thời gian chờ khách hàng, theo giờ làm việc; AI deflection = phiên hỏi đáp AI không phát sinh ticket / tổng phiên; Kỳ trước = kỳ liền trước cùng độ dài. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-23b | Báo cáo Agent, Chủ quản dịch vụ | Agent: số ticket theo trạng thái, ticket sắp/quá hạn của team + của chính mình. Chủ quản dịch vụ xem theo team/tỉnh, không theo từng agent. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-23c | Top hỏi nhiều, xếp hạng KB | Top 10 nhóm câu hỏi (AI, từ khóa tìm kiếm, loại vấn đề ticket); chỉ xếp hạng bài có ≥10 lượt đánh giá. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-23d | Xuất báo cáo | Tối đa 12 tháng/lần, ≤50.000 dòng; Excel 1 sheet tổng hợp + sheet chi tiết, PDF bản tổng hợp; tên tệp {loại}_{từ}_{đến}. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-23e | Gửi báo cáo tự động | Người nhận là tài khoản Quản trị viên/Chủ quản dịch vụ trong hệ thống; 08:00 thứ Hai hằng tuần hoặc ngày 1 hằng tháng; lỗi gửi thử lại 3 lần cách 30 phút rồi báo Quản trị viên. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

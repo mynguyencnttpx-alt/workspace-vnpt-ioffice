@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: ai-khung-chat → ai-tra-loi → ai-de-xuat-tao-ticket → ai-lich-su. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
-> Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
@@ -36,7 +36,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Phạm vi trả lời | Label | ReadOnly | • Hiện dịch vụ + site của khách hàng đang đăng nhập — AI **chỉ dùng tài liệu trong phạm vi này** (dùng chung của dịch vụ + riêng của site), lọc cứng trước khi tìm câu trả lời; tuyệt đối không trả lời chéo dữ liệu khách hàng khác (Đề xuất — Tính năng khách hàng mục 3, Kiến trúc RAG).<br>• Tài liệu đánh dấu "không dùng cho AI" không bao giờ được dùng ở đây. |
 | 2 | Gợi ý câu hỏi | Link list | Click | • Câu hỏi mẫu, bấm → điền vào [3] và gửi luôn [GIẢ ĐỊNH — nguồn không nói có gợi ý mẫu; có thể bỏ].<br>• Nguồn gợi ý (do biên tập chọn hay từ câu hỏi hay gặp): chưa có nguồn. |
-| 3 | Ô nhập câu hỏi | Textbox (multi-line) | Text | • Nhập câu hỏi ngôn ngữ tự nhiên; Enter gửi, Shift+Enter xuống dòng [GIẢ ĐỊNH].<br>• Rỗng → nút [4] disabled. Giới hạn độ dài câu hỏi: đã đề xuất, chờ xác nhận (OQ-13).<br>• Khi AI đang trả lời: khóa ô nhập, tránh gửi chồng. |
+| 3 | Ô nhập câu hỏi | Textbox (multi-line) | Text | • Nhập câu hỏi ngôn ngữ tự nhiên; Enter gửi, Shift+Enter xuống dòng [GIẢ ĐỊNH].<br>• Rỗng → nút [4] disabled. Giới hạn độ dài câu hỏi: đã chốt (OQ-13).<br>• Khi AI đang trả lời: khóa ô nhập, tránh gửi chồng. |
 | 4 | Gửi | Button | Click | • **Disabled** khi [3] rỗng hoặc AI đang xử lý; click → gửi và chuyển sang khung hội thoại `ai-tra-loi`.<br>• Câu hỏi + câu trả lời được lưu vào nhật ký hội thoại AI để quản trị viên kiểm tra chất lượng (Đề xuất — Cấu hình tích hợp AI; xem `cauhinh-nhat-ky-ai`).<br>• Chế độ "Hỏi đáp AI cho khách hàng" bị tắt cho dịch vụ/site này (quản trị viên cấu hình tại `cauhinh-tham-so-ai`): ẩn mục "Hỏi đáp AI" trên menu [GIẢ ĐỊNH — cách hiển thị: OQ-15].<br>• Lỗi kết nối AI/quá giới hạn request: báo "Chưa trả lời được lúc này" + gợi ý tạo ticket [wording chưa có nguồn, chưa có mã E-…]. |
 | 5 | Lịch sử | Link | Click | • Navigate → `ai-lich-su` (UC62): xem, mở lại và xóa hội thoại của chính mình. Vẫn hiện khi Hỏi đáp AI đang tắt hoặc lỗi để người dùng xem/xóa lịch sử. |
 
@@ -101,7 +101,7 @@
 | 1 | Câu hỏi của khách hàng | Chat bubble | ReadOnly | • Hiển thị nguyên văn câu đã gửi, căn phải; không sửa/xóa được sau khi gửi [GIẢ ĐỊNH]. |
 | 2 | Câu trả lời của AI | Chat bubble | ReadOnly | • AI tổng hợp từ các đoạn tài liệu tìm được trong phạm vi dịch vụ + site (RAG: chunk → lọc metadata → semantic search top-k → tổng hợp).<br>• Chỉ hiện khi **độ liên quan đạt ngưỡng tin cậy** do quản trị viên cấu hình; dưới ngưỡng → chuyển sang `ai-de-xuat-tao-ticket` thay vì trả lời liều.<br>• Trạng thái: đang soạn (hiệu ứng chờ) / đã trả lời. Thời gian chờ tối đa: chưa có nguồn.<br>• Câu trả lời do AI tạo, không có nhãn "phản hồi tự động" (nhãn đó chỉ dùng cho ticket ở luồng agent). |
 | 3 | Nguồn trích dẫn | Link list | Click | • Mỗi câu trả lời **kèm trích dẫn nguồn bài viết gốc** để khách hàng tự kiểm chứng; bấm tên bài → `kb-chi-tiet-bai-viet`.<br>• Chỉ trích bài khách hàng có quyền xem (cùng phạm vi dịch vụ + site).<br>• Số nguồn tối đa hiển thị: chưa có nguồn.<br>• Bài đã ẩn/hủy hoặc ngoài phạm vi (kể cả khi mở lại hội thoại cũ từ `ai-lich-su`) → `kb-bai-viet-khong-con`, không phân biệt hai trường hợp. |
-| 4 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `ai-khung-chat`; hỏi tiếp trong cùng phiên hội thoại. AI có nhớ ngữ cảnh các câu trước hay mỗi câu độc lập: đã đề xuất, chờ xác nhận (OQ-13). |
+| 4 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `ai-khung-chat`; hỏi tiếp trong cùng phiên hội thoại. AI có nhớ ngữ cảnh các câu trước hay mỗi câu độc lập: đã chốt (OQ-13). |
 | 5 | Gửi | Button | Click | • Disabled khi [4] rỗng hoặc AI đang xử lý; gửi → thêm cặp hỏi-đáp mới vào khung, cuộn xuống cuối. |
 
 - Nội dung hỏi-đáp là dữ liệu mẫu chỉ minh họa; không phải câu trả lời thật.
@@ -186,7 +186,7 @@
 | 4 | Xóa hội thoại | Icon button | Click | • Xóa từng hội thoại, luôn có hộp xác nhận (trạng thái phụ); không khôi phục. Chỉ xóa hội thoại của chính mình.<br>• Thông báo khi xóa: bản ghi phục vụ kiểm tra chất lượng của hệ thống vẫn giữ theo chính sách quản trị (nhật ký AI) (OQ-36). |
 | 5 | Ghi chú thời hạn lưu | Label | ReadOnly | • "Hội thoại được lưu 90 ngày rồi tự xóa; chỉ bạn xem được" (OQ-36). Quản trị viên không xem lịch sử cá nhân của người khác. |
 
-- Đề xuất bổ sung ngày 21/09/2026 (UC62, OQ-36), chờ khách hàng xác nhận. Vào từ nút Lịch sử ở `ai-khung-chat`.
+- Đề xuất bổ sung ngày 21/09/2026 (UC62, OQ-36), đã được khách hàng xác nhận. Vào từ nút Lịch sử ở `ai-khung-chat`.
 
 #### Trạng thái phụ — chưa có hội thoại
 
@@ -239,11 +239,11 @@
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-13 | Giới hạn hỏi đáp AI, ngữ cảnh, lịch sử | Câu hỏi ≤1.000 ký tự; AI nhớ ngữ cảnh 5 lượt gần nhất trong phiên; tối đa 30 câu/giờ/người; khách xem lại, mở lại và xóa hội thoại của mình trong `ai-lich-su`, lưu 90 ngày (OQ-36). | Chờ khách hàng xác nhận |
-| OQ-14 | Đánh giá câu trả lời AI | Có nút "Hữu ích / Không hữu ích" dưới mỗi câu trả lời AI; đưa vào nhật ký AI và báo cáo chất lượng. | Chờ khách hàng xác nhận |
-| OQ-15 | Khi tắt chế độ Hỏi đáp AI | Ẩn mục "Hỏi đáp AI" khỏi menu của dịch vụ/site đó. | Chờ khách hàng xác nhận |
+| OQ-13 | Giới hạn hỏi đáp AI, ngữ cảnh, lịch sử | Câu hỏi ≤1.000 ký tự; AI nhớ ngữ cảnh 5 lượt gần nhất trong phiên; tối đa 30 câu/giờ/người; khách xem lại, mở lại và xóa hội thoại của mình trong `ai-lich-su`, lưu 90 ngày (OQ-36). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-14 | Đánh giá câu trả lời AI | Có nút "Hữu ích / Không hữu ích" dưới mỗi câu trả lời AI; đưa vào nhật ký AI và báo cáo chất lượng. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-15 | Khi tắt chế độ Hỏi đáp AI | Ẩn mục "Hỏi đáp AI" khỏi menu của dịch vụ/site đó. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-36 | Lịch sử hỏi đáp AI (cập nhật OQ-13) | Lưu tự động, chỉ chủ tài khoản xem, giữ 90 ngày rồi tự xóa, xóa được từng hội thoại; Quản trị viên không xem lịch sử cá nhân; nhật ký AI quản trị theo chính sách riêng, khi xóa có thông báo bản ghi phục vụ kiểm tra chất lượng vẫn được giữ. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: qt-danh-muc-khach-hang → qt-form-khach-hang → qt-moi-dau-moi → qt-danh-sach-tai-khoan → qt-chi-tiet-tai-khoan → qt-tao-tai-khoan-noibo → qt-phan-quyen → qt-ma-tran-phan-quyen → qt-nhat-ky-thao-tac. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
-> Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
@@ -38,9 +38,9 @@
 | 1 | + Thêm khách hàng/site | Button | Click | • Chỉ **Quản trị viên** (UC1). Mở form thêm inline/panel: tên đơn vị, loại khách hàng (UBND tỉnh/thành, doanh nghiệp, trung ương), dịch vụ đang dùng (iOffice/iStorage), site/tenant, đầu mối liên hệ ban đầu (tên, email, SĐT lấy từ hợp đồng/biên bản bàn giao).<br>• Lưu → tạo bản ghi khách hàng/site mới; **đây là dữ liệu gốc** để định tuyến ticket (tỉnh/trung tâm) và phân vùng tài liệu (Đề xuất — Quản trị danh mục người dùng). Sau khi lưu hỏi "Khởi tạo tài khoản đầu mối ngay?" → `qt-moi-dau-moi` (theo userflow).<br>• Trùng site/tenant → báo trùng, không lưu [wording, mã E-… chưa có]. |
 | 2 | Tìm kiếm | Textbox | Text | • Tìm theo tên đơn vị/site/đầu mối; rỗng → hiện tất cả. |
 | 3 | Lọc loại KH / dịch vụ | Dropdown | Select | • Loại: Tất cả / UBND tỉnh-thành / Doanh nghiệp / Trung ương; Dịch vụ: theo danh mục. Kết hợp được. |
-| 4 | Sửa | Link | Click | • Sửa thông tin đơn vị/site/đầu mối ngay tại dòng (UC25); không có màn chi tiết riêng. Lưu → cập nhật và **áp dụng cho định tuyến & phân vùng tài liệu** từ đó về sau.<br>• **Đổi loại KH (tỉnh ⇄ DN/TW) làm đổi team tiếp nhận** — thao tác nhạy cảm: hỏi xác nhận, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang xử lý có chuyển team theo không: đã đề xuất, chờ xác nhận (OQ-20).<br>• Xóa khách hàng/site: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
+| 4 | Sửa | Link | Click | • Sửa thông tin đơn vị/site/đầu mối ngay tại dòng (UC25); không có màn chi tiết riêng. Lưu → cập nhật và **áp dụng cho định tuyến & phân vùng tài liệu** từ đó về sau.<br>• **Đổi loại KH (tỉnh ⇄ DN/TW) làm đổi team tiếp nhận** — thao tác nhạy cảm: hỏi xác nhận, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang xử lý có chuyển team theo không: đã chốt (OQ-20).<br>• Xóa khách hàng/site: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
 | 5 | Khởi tạo đầu mối | Link | Click | • Sang `qt-moi-dau-moi` với đơn vị/site của dòng đã chọn. Dòng "(chưa có)" đầu mối cần làm bước này trước khi khách hàng dùng được hệ thống. |
-| 6 | Phân trang | Pagination | Click | • Số bản ghi/trang: đã đề xuất, chờ xác nhận (OQ-11). |
+| 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
 
 - Header nội bộ dùng chung (không đánh số); Flow 7/8/9 là khu vực menu quản trị — các màn truy cập độc lập, không phải wizard. Dữ liệu mẫu chỉ minh họa.
 
@@ -236,7 +236,7 @@
 | 3 | Vai trò | Label | ReadOnly | • Vai trò và phạm vi/site gắn kèm (UC23); đổi qua nút [5]. |
 | 4 | Team / Đơn vị-site | Label | ReadOnly | • Nội bộ: team (trung tâm hoặc tỉnh/thành cụ thể). Khách hàng: đơn vị + site (không đổi được site của người được mời). |
 | 5 | Phân quyền | Button | Click | • → `qt-phan-quyen` để gán/đổi vai trò (UC43). |
-| 6 | Vô hiệu hóa / Kích hoạt lại | Button | Click | • Nhãn đổi theo trạng thái. **Vô hiệu hóa** (nhân sự nghỉ việc UC41; tài khoản khách hàng UC42): hộp thoại xác nhận nêu rõ tên + hậu quả "khóa quyền truy cập ngay" (tránh vô hiệu hóa nhầm tài khoản đang hoạt động); xác nhận → khóa, ghi nhật ký. **Kích hoạt lại** khôi phục quyền cũ.<br>• Tài khoản nội bộ đang giữ ticket dở → ticket xử lý thế nào: đã đề xuất, chờ xác nhận (OQ-20).<br>• Không tự vô hiệu hóa chính mình [GIẢ ĐỊNH]. |
+| 6 | Vô hiệu hóa / Kích hoạt lại | Button | Click | • Nhãn đổi theo trạng thái. **Vô hiệu hóa** (nhân sự nghỉ việc UC41; tài khoản khách hàng UC42): hộp thoại xác nhận nêu rõ tên + hậu quả "khóa quyền truy cập ngay" (tránh vô hiệu hóa nhầm tài khoản đang hoạt động); xác nhận → khóa, ghi nhật ký. **Kích hoạt lại** khôi phục quyền cũ.<br>• Tài khoản nội bộ đang giữ ticket dở → ticket xử lý thế nào: đã chốt (OQ-20).<br>• Không tự vô hiệu hóa chính mình [GIẢ ĐỊNH]. |
 | 7 | Gửi lại lời mời | Button | Click | • Chỉ hiện khi "Chờ kích hoạt" (kể cả link mời hết hạn — userflow edge): tạo link mới gửi Email/SMS. Số lần/khoảng cách gửi lại: OQ-6. |
 
 - Vẽ ở tài khoản nội bộ đang hoạt động; nút [7] chỉ hiện khi "Chờ kích hoạt", nút [6] đổi nhãn theo trạng thái.
@@ -281,7 +281,7 @@
 | 4 | Vai trò | Dropdown | Select | • **Bắt buộc**: Agent tỉnh / Agent trung tâm / Biên tập nội dung / Quản trị viên / Chủ quản dịch vụ (Đề xuất — RBAC; vai trò Khách hàng không tạo ở đây). Chi tiết quyền xem `qt-phan-quyen`. |
 | 5 | Team | Dropdown | Select | • **Bắt buộc với Agent**: team trung tâm hoặc 1 tỉnh/thành cụ thể (quyết định hàng đợi ticket agent thấy). Các vai trò khác: ẩn ô này; Chủ quản dịch vụ thay bằng ô chọn dịch vụ phụ trách [GIẢ ĐỊNH]. |
 | 6 | Ghi chú vô hiệu hóa | Label | ReadOnly | • Vô hiệu hóa (UC41) thực hiện ở `qt-chi-tiet-tai-khoan` cho thống nhất với tài khoản khách hàng; màn này chỉ tạo tài khoản (đã đổi tên từ "Tạo/vô hiệu hóa"). |
-| 7 | Tạo tài khoản | Button | Click | • **Disabled** tới khi [1], [2], [4] (và [5] nếu là agent) hợp lệ. Thành công → tạo tài khoản, gán team, về `qt-danh-sach-tai-khoan`. Cách cấp mật khẩu ban đầu/gửi thông tin đăng nhập: đã đề xuất, chờ xác nhận (OQ-18). |
+| 7 | Tạo tài khoản | Button | Click | • **Disabled** tới khi [1], [2], [4] (và [5] nếu là agent) hợp lệ. Thành công → tạo tài khoản, gán team, về `qt-danh-sach-tai-khoan`. Cách cấp mật khẩu ban đầu/gửi thông tin đăng nhập: đã chốt (OQ-18). |
 | 8 | Hủy | Button | Click | • Về `qt-danh-sach-tai-khoan`, không tạo gì. |
 
 
@@ -339,7 +339,7 @@
 │ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Bảng quyền theo vai trò (chỉ xem)              [1] < Về tài khoản >  │
-│ (i) Tham khảo, chờ khách hàng xác nhận [2]                           │
+│ (i) Tham khảo, khách hàng đã xác nhận [2]                            │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Chức năng [3]            KH   AgT  AgTT BT   QT   CQ                 │
 │ ---------------------------------------------------------------      │
@@ -364,10 +364,10 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Về màn trước | Link | Click | • Quay về `qt-danh-sach-tai-khoan` hoặc `qt-phan-quyen` tùy nơi mở. |
-| 2 | Nhãn tham khảo | Label | ReadOnly | • "Tham khảo, chờ khách hàng xác nhận" — bảng suy ra từ mô tả vai trò trong tài liệu đề xuất (OQ-28). |
+| 2 | Nhãn tham khảo | Label | ReadOnly | • "Tham khảo, khách hàng đã xác nhận" — bảng suy ra từ mô tả vai trò trong tài liệu đề xuất (OQ-28). |
 | 3 | Bảng quyền | Table | ReadOnly | • Hàng = 12 nhóm chức năng, cột = 6 vai trò (Khách hàng, Agent tỉnh, Agent trung tâm, Biên tập, Quản trị viên, Chủ quản dịch vụ). `x` = được phép, `-` = không, `cb` = chỉ xem báo cáo cơ bản của team mình (Agent tỉnh — [GIẢ ĐỊNH] theo OQ-23b). Soạn bài KB: Biên tập và Agent (UC11); tạo ticket: chỉ Khách hàng.<br>• **Chỉ xem**: đổi vai trò của 1 tài khoản làm ở `qt-phan-quyen`. Chỉ Quản trị viên mở được.<br>• Thêm 2 dòng Hỏi đáp AI nội bộ (OQ-34): "Hỏi đáp AI nội bộ" cho Agent tỉnh, Agent trung tâm, Quản trị viên, Chủ quản dịch vụ; "Xem nghiệp vụ mọi KH (AI)" cho Agent trung tâm, Quản trị viên, Chủ quản dịch vụ — Agent tỉnh chỉ site của team [GIẢ ĐỊNH]. Hàng 10 nhóm chức năng nay thành 12. Dòng cũ "Tra cứu KB, hỏi AI" chỉ nghĩa khách hàng tra cứu và hỏi AI; nhân viên không có màn Tra cứu (OQ-35) — cần khách hàng xác nhận lại các ô x của nhân viên ở dòng này. |
 
-- **Đề xuất bổ sung, chờ xác nhận (OQ-28).** Vào từ `qt-phan-quyen` và `qt-danh-sach-tai-khoan`; ký hiệu: KH=Khách hàng, AgT=Agent tỉnh, AgTT=Agent trung tâm, BT=Biên tập, QT=Quản trị viên, CQ=Chủ quản dịch vụ.
+- **Đề xuất bổ sung, đã chốt (OQ-28).** Vào từ `qt-phan-quyen` và `qt-danh-sach-tai-khoan`; ký hiệu: KH=Khách hàng, AgT=Agent tỉnh, AgTT=Agent trung tâm, BT=Biên tập, QT=Quản trị viên, CQ=Chủ quản dịch vụ.
 
 
 ---
@@ -402,19 +402,19 @@
 | 1 | Lọc hành động | Dropdown | Select | • Các thao tác nhạy cảm được ghi tối thiểu (Đề xuất — Nhật ký thao tác): **đổi quyền, xóa tài liệu, đổi định tuyến khách hàng**. Danh sách giá trị mở rộng nếu sau này ghi thêm loại khác. |
 | 2 | Lọc người thực hiện | Textbox | Text | • Theo tên/email người thực hiện. |
 | 3 | Lọc thời gian | Date range | Select | • Từ ngày – đến ngày; mặc định gần đây nhất [GIẢ ĐỊNH]. Đến < Từ → báo lỗi ngay tại ô [wording chưa có]. |
-| 4 | Bảng nhật ký | Table | ReadOnly | • Cột: Thời gian, Người thực hiện, Hành động, Đối tượng, Chi tiết (giá trị trước → sau) (UC45). **Chỉ Quản trị viên xem**; chỉ đọc, không sửa/xóa/xuất được từ màn này [GIẢ ĐỊNH].<br>• Thời gian lưu giữ nhật ký, có xuất file không: đã đề xuất, chờ xác nhận (OQ-20). Empty: "Không có thao tác nào phù hợp". |
+| 4 | Bảng nhật ký | Table | ReadOnly | • Cột: Thời gian, Người thực hiện, Hành động, Đối tượng, Chi tiết (giá trị trước → sau) (UC45). **Chỉ Quản trị viên xem**; chỉ đọc, không sửa/xóa/xuất được từ màn này [GIẢ ĐỊNH].<br>• Thời gian lưu giữ nhật ký, có xuất file không: đã chốt (OQ-20). Empty: "Không có thao tác nào phù hợp". |
 
 - Dữ liệu mẫu chỉ minh họa; "->" thay mũi tên để không lệch cột.
 
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-20a | Đầu mối | Cờ "đầu mối" trên tài khoản khách hàng (không phải vai trò riêng); mỗi đơn vị/site 1-3 đầu mối do Quản trị viên chỉ định. | Chờ khách hàng xác nhận |
-| OQ-20b | Danh mục khách hàng/site | Bắt buộc: tên đơn vị, loại KH, dịch vụ, site/tenant (mã duy nhất), đầu mối (tên, email, SĐT). Không xóa cứng: hết hợp đồng chuyển "Ngừng hoạt động", khóa tài khoản, giữ dữ liệu. | Chờ khách hàng xác nhận |
-| OQ-20c | Đổi loại KH; vô hiệu hóa agent đang giữ ticket | Đổi loại KH: ticket đang mở giữ team cũ đến khi đóng, ticket mới theo loại mới. Vô hiệu hóa agent: yêu cầu chuyển ticket sang agent khác, chưa chuyển thì tự về hàng đợi team. | Chờ khách hàng xác nhận |
-| OQ-20d | Nhật ký thao tác | Chỉ Quản trị viên xem, chỉ đọc; giữ 12 tháng trực tuyến; xuất được Excel. | Chờ khách hàng xác nhận |
-| OQ-28 | Bảng quyền vai trò × chức năng chính thức (bổ sung OQ-23b) | Dùng `qt-ma-tran-phan-quyen` làm tham khảo; Agent tỉnh chỉ xem báo cáo cơ bản của team mình. | Chờ khách hàng xác nhận |
+| OQ-20a | Đầu mối | Cờ "đầu mối" trên tài khoản khách hàng (không phải vai trò riêng); mỗi đơn vị/site 1-3 đầu mối do Quản trị viên chỉ định. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-20b | Danh mục khách hàng/site | Bắt buộc: tên đơn vị, loại KH, dịch vụ, site/tenant (mã duy nhất), đầu mối (tên, email, SĐT). Không xóa cứng: hết hợp đồng chuyển "Ngừng hoạt động", khóa tài khoản, giữ dữ liệu. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-20c | Đổi loại KH; vô hiệu hóa agent đang giữ ticket | Đổi loại KH: ticket đang mở giữ team cũ đến khi đóng, ticket mới theo loại mới. Vô hiệu hóa agent: yêu cầu chuyển ticket sang agent khác, chưa chuyển thì tự về hàng đợi team. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-20d | Nhật ký thao tác | Chỉ Quản trị viên xem, chỉ đọc; giữ 12 tháng trực tuyến; xuất được Excel. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-28 | Bảng quyền vai trò × chức năng chính thức (bổ sung OQ-23b) | Dùng `qt-ma-tran-phan-quyen` làm tham khảo; Agent tỉnh chỉ xem báo cáo cơ bản của team mình. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: thong-bao, loi-403, loi-404, phien-het-han (3 màn sau dùng chung nhiều flow). Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1 (Flow 11) và quy tắc trang trạng thái ở Mục 5.
 >
-> Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026, chờ khách hàng xác nhận** (OQ-24, OQ-31).
+> Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026, đã được khách hàng xác nhận** (OQ-24, OQ-31).
 
 ---
 
@@ -157,9 +157,9 @@
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-24 | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ (bổ sung OQ-19d) | Có; giữ 30 ngày; loại: ticket được giao/khách phản hồi, sắp quá hạn SLA, bài chờ duyệt (chỉ Quản trị viên), lỗi hệ thống. | Chờ khách hàng xác nhận |
-| OQ-31 | Hết phiên (bổ sung OQ-5) | Quay về đúng màn cũ sau đăng nhập lại; nội dung soạn dở không giữ; hành động đang gửi dở kiểm tra kết quả trước khi làm lại. | Chờ khách hàng xác nhận |
+| OQ-24 | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ (bổ sung OQ-19d) | Có; giữ 30 ngày; loại: ticket được giao/khách phản hồi, sắp quá hạn SLA, bài chờ duyệt (chỉ Quản trị viên), lỗi hệ thống. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-31 | Hết phiên (bổ sung OQ-5) | Quay về đúng màn cũ sau đăng nhập lại; nội dung soạn dở không giữ; hành động đang gửi dở kiểm tra kết quả trước khi làm lại. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

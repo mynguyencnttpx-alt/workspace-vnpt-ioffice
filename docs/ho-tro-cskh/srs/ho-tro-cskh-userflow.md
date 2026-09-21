@@ -573,7 +573,7 @@ flowchart TD
 | 55 | cauhinh-onebss | Kết nối OneBSS | Nhập địa chỉ dịch vụ, mã client, bí mật client (che, chỉ nhập lại để thay); kiểm tra kết nối (có nhánh lỗi); xem dữ liệu đẩy sang và nhật ký gửi phiếu gần đây; chỉ Quản trị viên [đề xuất bổ sung, OQ-29] | cau-hinh-ai-danh-muc |
 | 56 | kb-chi-muc-ai | Chỉ mục AI | Xem số bài đã lập / cần tái lập / loại khỏi AI, trạng thái từng bài (đang xử lý, lỗi), tái lập chỉ mục có xác nhận khi hàng loạt [đề xuất bổ sung, OQ-27] | quan-tri-noi-dung-kb |
 | 57 | qt-form-khach-hang | Thêm khách hàng/site | Tạo đơn vị: tên, loại khách hàng (quyết định team tiếp nhận), dịch vụ, mã site duy nhất, đầu mối liên hệ chính thức (tên, email, SĐT — OQ-20b); lưu xong sang [29] để tạo tài khoản đầu mối + mời (điền sẵn đầu mối vừa nhập). Sửa và đổi loại vẫn làm tại [28] | quan-tri-nguoi-dung |
-| 58 | qt-ma-tran-phan-quyen | Bảng quyền theo vai trò (chỉ xem) | Xem tổng quan vai trò × chức năng; nhãn tham khảo, chờ khách hàng xác nhận; có dòng quyền Hỏi đáp AI nội bộ và xem nghiệp vụ toàn bộ khách hàng [đề xuất bổ sung, OQ-28, OQ-34] | quan-tri-nguoi-dung |
+| 58 | qt-ma-tran-phan-quyen | Bảng quyền theo vai trò (chỉ xem) | Xem tổng quan vai trò × chức năng; nhãn tham khảo, khách hàng đã xác nhận; có dòng quyền Hỏi đáp AI nội bộ và xem nghiệp vụ toàn bộ khách hàng [đề xuất bổ sung, OQ-28, OQ-34] | quan-tri-nguoi-dung |
 | 59 | thong-bao | Thông báo | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ, lọc tất cả/chưa đọc/ticket/hệ thống; từng thông báo dẫn tới [23]/[27]/[36]; có trạng thái rỗng [đề xuất bổ sung, có điều kiện OQ-24] | thong-bao-loi-chung |
 | 60 | loi-403 | Không có quyền truy cập | Dành cho người dùng nội bộ vào chức năng có thật nhưng vai trò không được phép; khách hàng không thấy trang này | thong-bao-loi-chung (màn dùng chung) |
 | 61 | loi-404 | Không tìm thấy nội dung | Link cũ hoặc tài nguyên (ticket, tài khoản...) ngoài phạm vi của khách hàng; lời lẽ trung lập, không xác nhận tài nguyên có tồn tại | thong-bao-loi-chung (màn dùng chung) |
@@ -744,7 +744,7 @@ flowchart TD
 | Tạo tài khoản nội bộ [32] | Danh sách tài khoản [30] | Gán team xong | — |
 | Chi tiết tài khoản [31] | Phân quyền theo vai trò (RBAC) [33] | Bấm "Phân quyền" | — |
 | Phân quyền theo vai trò (RBAC) [33] | Chi tiết tài khoản [31] | Gán/đổi vai trò | Áp dụng quyền tương ứng ngay |
-| Phân quyền theo vai trò (RBAC) [33] | Bảng quyền theo vai trò [58] | Bấm "Xem bảng quyền tổng quan" | Chỉ xem; nhãn tham khảo, chờ xác nhận (OQ-28) |
+| Phân quyền theo vai trò (RBAC) [33] | Bảng quyền theo vai trò [58] | Bấm "Xem bảng quyền tổng quan" | Chỉ xem; nhãn tham khảo, đã chốt (OQ-28) |
 | Danh sách tài khoản [30] | Bảng quyền theo vai trò [58] | Bấm "Xem bảng quyền" | Chỉ Quản trị viên |
 | Bảng quyền theo vai trò [58] | Danh sách tài khoản [30] | Quay lại | — |
 | Danh mục khách hàng/site [28] | Nhật ký thao tác (audit log) [34] | Xem nhật ký | Thao tác nhạy cảm: đổi định tuyến khách hàng |
@@ -837,16 +837,16 @@ flowchart TD
 | Lịch sử hỏi đáp AI nội bộ [70] | (giữ nguyên) [70] | Mở khi chưa có hội thoại, hoặc vừa xóa hội thoại cuối | Trạng thái rỗng |
 | Menu nội bộ | Không có quyền truy cập [60] | Vào chức năng bằng link | Vai trò không được dùng (Biên tập nội dung) |
 
-## 4. Quyết định đề xuất (chờ khách hàng xác nhận)
+## 4. Quyết định đề xuất (đã chốt với khách hàng 21/09/2026)
 
 > Các điểm dưới đây đã được đề xuất giá trị và ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx" (mục "Bổ sung: quy tắc nghiệp vụ và cấu hình mặc định đề xuất"). Còn chờ khách hàng xác nhận; các Open Question chi tiết của từng flow nằm cuối file `ascii-wireframe/{flow-slug}.md`.
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-1 | Thời gian tự đóng ticket khi "chờ khách hàng xác nhận" | 3 ngày làm việc, nhắc 1 lần trước 1 ngày; khách nhắn thêm thì ticket về "Đang xử lý". Cấu hình được ở màn Cấu hình SLA | Chờ xác nhận |
-| OQ-2 | Ngưỡng SLA theo mức ưu tiên | Giờ làm việc T2-T6 08:00-17:00. Khẩn cấp: phản hồi 30 phút, xử lý 4 giờ. Cao: 2 giờ, 1 ngày làm việc. Bình thường: 4 giờ, 3 ngày làm việc; tạm dừng khi "Chờ khách hàng"/"Chờ khách hàng xác nhận" | Chờ xác nhận |
-| OQ-3 | Thang đánh giá hài lòng | 5 sao + nhận xét tùy chọn (≤500 ký tự), không bắt buộc, sửa/bổ sung trong 7 ngày sau khi đóng | Chờ xác nhận |
-| OQ-4 | Ai được duyệt và xuất bản bài KB | Chỉ Quản trị viên duyệt; Biên tập nội dung soạn và gửi duyệt, không tự duyệt bài mình soạn (đã sửa bảng vai trò trong tài liệu đề xuất) | Chờ xác nhận |
+| OQ-1 | Thời gian tự đóng ticket khi "chờ khách hàng xác nhận" | 3 ngày làm việc, nhắc 1 lần trước 1 ngày; khách nhắn thêm thì ticket về "Đang xử lý". Cấu hình được ở màn Cấu hình SLA | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-2 | Ngưỡng SLA theo mức ưu tiên | Giờ làm việc T2-T6 08:00-17:00. Khẩn cấp: phản hồi 30 phút, xử lý 4 giờ. Cao: 2 giờ, 1 ngày làm việc. Bình thường: 4 giờ, 3 ngày làm việc; tạm dừng khi "Chờ khách hàng"/"Chờ khách hàng xác nhận" | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-3 | Thang đánh giá hài lòng | 5 sao + nhận xét tùy chọn (≤500 ký tự), không bắt buộc, sửa/bổ sung trong 7 ngày sau khi đóng | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-4 | Ai được duyệt và xuất bản bài KB | Chỉ Quản trị viên duyệt; Biên tập nội dung soạn và gửi duyệt, không tự duyệt bài mình soạn (đã sửa bảng vai trò trong tài liệu đề xuất) | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 
 **Điều chỉnh luồng đã áp dụng ngày 19/09/2026:** thêm màn `cauhinh-sla` [52] (Flow 9) và `kh-kich-hoat-tk-het-han` [53] (Flow 1); "Vẫn muốn gửi yêu cầu" ở `ticket-goi-y-faq` gửi luôn ticket; thêm lối vào `kb-tu-ticket-thanh-faq` từ `agent-chi-tiet-ticket`; đổi tên màn [32] thành "Tạo tài khoản nội bộ".
 
@@ -870,14 +870,14 @@ flowchart TD
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-24 | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ (bổ sung OQ-19d: huy hiệu + màn Cảnh báo SLA) | Có; giữ 30 ngày, loại: ticket được giao/khách phản hồi, sắp quá hạn SLA, bài chờ duyệt (chỉ Quản trị viên), lỗi hệ thống (đồng bộ Drive, OneBSS); [27] vẫn là màn riêng, không thay bằng [59] | Chờ xác nhận |
-| OQ-25 | [63] Tổng quan nội bộ có dùng làm landing không (bổ sung OQ-18) | Không; landing giữ theo OQ-18, [63] mở từ menu, thẻ chỉ hiện theo vai trò | Chờ xác nhận |
-| OQ-26 | Mẫu nội dung Email/SMS (bổ sung OQ-22e) | Quản trị viên sửa được tiêu đề/nội dung; bắt buộc giữ biến link kích hoạt/đặt lại; có khôi phục mẫu mặc định; SMS cảnh báo khi vượt độ dài; thông báo trung lập của [3] không nằm trong mẫu sửa được | Chờ xác nhận |
-| OQ-27 | Chỉ mục AI: ai tái lập thủ công, loại bài khỏi AI ở đâu (bổ sung OQ-21b/c) | Chỉ Quản trị viên tái lập; loại khỏi AI vẫn đặt ở [35] (cờ "không dùng cho AI"), [56] chỉ hiển thị trạng thái; xác nhận khi tái lập hàng loạt | Chờ xác nhận |
-| OQ-28 | Bảng quyền vai trò × chức năng chính thức (bổ sung OQ-23b) | Dùng bảng ở [58] làm tham khảo; ô "Agent tỉnh xem báo cáo" chỉ xem cơ bản của team mình | Chờ xác nhận |
-| OQ-29 | Kết nối OneBSS: nơi cấu hình và chống tạo trùng phiếu (bổ sung OQ-22a) | Cấu hình tại [55], chỉ Quản trị viên; bí mật client che, chỉ nhập lại để thay; trước khi Thử lại kiểm tra ticket đã có mã phiếu | Chờ xác nhận |
-| OQ-30 | Bài viết liên quan ở [9] | Tối đa 3 bài cùng nhóm chức năng, cùng bộ lọc site/dịch vụ; bài đã ẩn dẫn tới [66] | Chờ xác nhận |
-| OQ-31 | Hết phiên (bổ sung OQ-5) | Sau đăng nhập lại quay về đúng màn cũ; nội dung đang soạn chưa gửi không giữ lại; hành động đang gửi dở kiểm tra kết quả trước khi cho làm lại | Chờ xác nhận |
+| OQ-24 | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ (bổ sung OQ-19d: huy hiệu + màn Cảnh báo SLA) | Có; giữ 30 ngày, loại: ticket được giao/khách phản hồi, sắp quá hạn SLA, bài chờ duyệt (chỉ Quản trị viên), lỗi hệ thống (đồng bộ Drive, OneBSS); [27] vẫn là màn riêng, không thay bằng [59] | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-25 | [63] Tổng quan nội bộ có dùng làm landing không (bổ sung OQ-18) | Không; landing giữ theo OQ-18, [63] mở từ menu, thẻ chỉ hiện theo vai trò | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-26 | Mẫu nội dung Email/SMS (bổ sung OQ-22e) | Quản trị viên sửa được tiêu đề/nội dung; bắt buộc giữ biến link kích hoạt/đặt lại; có khôi phục mẫu mặc định; SMS cảnh báo khi vượt độ dài; thông báo trung lập của [3] không nằm trong mẫu sửa được | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-27 | Chỉ mục AI: ai tái lập thủ công, loại bài khỏi AI ở đâu (bổ sung OQ-21b/c) | Chỉ Quản trị viên tái lập; loại khỏi AI vẫn đặt ở [35] (cờ "không dùng cho AI"), [56] chỉ hiển thị trạng thái; xác nhận khi tái lập hàng loạt | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-28 | Bảng quyền vai trò × chức năng chính thức (bổ sung OQ-23b) | Dùng bảng ở [58] làm tham khảo; ô "Agent tỉnh xem báo cáo" chỉ xem cơ bản của team mình | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-29 | Kết nối OneBSS: nơi cấu hình và chống tạo trùng phiếu (bổ sung OQ-22a) | Cấu hình tại [55], chỉ Quản trị viên; bí mật client che, chỉ nhập lại để thay; trước khi Thử lại kiểm tra ticket đã có mã phiếu | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-30 | Bài viết liên quan ở [9] | Tối đa 3 bài cùng nhóm chức năng, cùng bộ lọc site/dịch vụ; bài đã ẩn dẫn tới [66] | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-31 | Hết phiên (bổ sung OQ-5) | Sau đăng nhập lại quay về đúng màn cũ; nội dung đang soạn chưa gửi không giữ lại; hành động đang gửi dở kiểm tra kết quả trước khi cho làm lại | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-32 | Đường truy cập đăng nhập (bổ sung OQ-18) | Một địa chỉ duy nhất; hệ thống nhận biết loại tài khoản (khách hàng hoặc nội bộ) và chuyển tới trang đầu tương ứng, không tách hai cổng | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-33 | Người có cả tài khoản khách hàng và nội bộ | Định danh đăng nhập là email duy nhất toàn hệ thống; một email có thể gắn cả quyền khách hàng lẫn vai trò nội bộ; đăng nhập vào giao diện nội bộ trước, có nút chuyển giao diện ở menu tài khoản của cả hai giao diện | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-34 | Phạm vi nghiệp vụ nhân viên xem được trong Hỏi đáp AI | Một số vai trò được phân quyền xem nghiệp vụ của toàn bộ khách hàng/site (quyền gắn cố định theo vai trò, hiển thị ở [58]; Quản trị viên gán vai trò ở [33], chỉnh quyền theo vai trò ngoài MVP); vai trò còn lại chỉ thấy site thuộc team mình; nội dung dành riêng cho nội bộ chưa thuộc phạm vi | Đã chốt (khách hàng xác nhận, 21/09/2026) |

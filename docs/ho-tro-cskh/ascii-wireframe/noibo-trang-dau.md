@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Vào từ màn đăng nhập chung `dang-nhap` (màn `noibo-dang-nhap` đã gộp vào đó, OQ-32). Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
-> Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
@@ -40,7 +40,7 @@
 | 5 | Team | Label | ReadOnly | • Team được gán (trung tâm hoặc tỉnh/thành cụ thể) — quyết định phạm vi ticket agent thấy; chỉ Quản trị viên đổi (`qt-tao-tai-khoan-noibo`). |
 | 6 | Lưu thông tin | Button | Click | • **Disabled** khi chưa đổi gì hoặc [1] rỗng; thành công → báo "Đã cập nhật" (wording tạm); lỗi → giữ nguyên, báo lỗi [chưa có mã E-…]. |
 | 7 | Mật khẩu hiện tại | Textbox (password) | Text | • **Bắt buộc** khi đổi mật khẩu; hệ thống xác thực trước khi cập nhật (UC44). Sai → báo "Mật khẩu hiện tại không đúng" (wording tạm). |
-| 8 | Mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**; quy tắc độ mạnh: đã đề xuất, chờ xác nhận (OQ-5). |
+| 8 | Mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**; quy tắc độ mạnh: đã chốt (OQ-5). |
 | 9 | Nhập lại mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**, phải khớp [8]. |
 | 10 | Đổi mật khẩu | Button | Click | • **Disabled** tới khi [7][8][9] hợp lệ; thành công → báo "Đã đổi mật khẩu"; có buộc đăng nhập lại/đăng xuất phiên khác không: OQ-5. Việc đổi mật khẩu không ghi vào nhật ký thao tác nhạy cảm [GIẢ ĐỊNH — nguồn chỉ liệt kê đổi quyền, xóa tài liệu, đổi định tuyến]. |
 
@@ -85,14 +85,14 @@
 | 6 | Việc cần làm ngay | List | Click | • Tối đa 3 mục ưu tiên (khẩn cấp, sắp quá hạn, khách phản hồi); bấm 1 dòng → `agent-chi-tiet-ticket`. Rỗng → "Chưa có việc cần làm". |
 | 7 | Hoạt động gần đây | List | ReadOnly | • Sự kiện gần nhất liên quan đến tài khoản (ticket đóng, bài được duyệt, chỉ mục cần tái lập...). Chỉ hiển thị mục thuộc phạm vi/quyền của vai trò. |
 
-- **Đề xuất bổ sung, chờ khách hàng xác nhận (OQ-25).** Màn này KHÔNG thay landing mặc định theo vai trò (OQ-18: Agent/Quản trị viên → hàng đợi, Chủ quản → báo cáo tổng quan, Biên tập → chờ duyệt); mở từ menu "Tổng quan". Mọi thẻ hiển thị theo vai trò; lối sang `noibo-tai-khoan-ca-nhan` giữ nguyên.
+- **Đề xuất bổ sung, đã chốt (OQ-25).** Màn này KHÔNG thay landing mặc định theo vai trò (OQ-18: Agent/Quản trị viên → hàng đợi, Chủ quản → báo cáo tổng quan, Biên tập → chờ duyệt); mở từ menu "Tổng quan". Mọi thẻ hiển thị theo vai trò; lối sang `noibo-tai-khoan-ca-nhan` giữ nguyên.
 
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-18 | Tài khoản nội bộ | Quản trị viên tạo → hệ thống gửi email mời đặt mật khẩu (không cấp mật khẩu qua kênh khác); có "quên mật khẩu" qua email; đăng nhập dùng chung một màn với khách hàng (OQ-32); trang đầu: Agent và Quản trị viên → hàng đợi ticket, Chủ quản dịch vụ → báo cáo tổng quan, Biên tập → chờ duyệt. | Chờ khách hàng xác nhận |
-| OQ-25 | [63] Tổng quan nội bộ có làm landing không (bổ sung OQ-18) | Không; landing giữ theo OQ-18, Tổng quan mở từ menu, thẻ chỉ hiện theo vai trò. | Chờ khách hàng xác nhận |
+| OQ-18 | Tài khoản nội bộ | Quản trị viên tạo → hệ thống gửi email mời đặt mật khẩu (không cấp mật khẩu qua kênh khác); có "quên mật khẩu" qua email; đăng nhập dùng chung một màn với khách hàng (OQ-32); trang đầu: Agent và Quản trị viên → hàng đợi ticket, Chủ quản dịch vụ → báo cáo tổng quan, Biên tập → chờ duyệt. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-25 | [63] Tổng quan nội bộ có làm landing không (bổ sung OQ-18) | Không; landing giữ theo OQ-18, Tổng quan mở từ menu, thẻ chỉ hiện theo vai trò. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

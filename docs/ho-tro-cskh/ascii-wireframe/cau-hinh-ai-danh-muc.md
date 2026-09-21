@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: cauhinh-hub → cauhinh-tich-hop-ai → cauhinh-tham-so-ai → cauhinh-thu-nghiem-ai → cauhinh-nhat-ky-ai → danhmuc-dich-vu-loai-van-de → cauhinh-kenh-thongbao → cauhinh-mau-thong-bao → cauhinh-sla → cauhinh-onebss. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
-> Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
@@ -79,7 +79,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Trạng thái kết nối | Label (badge) | ReadOnly | • Chưa kiểm tra / Đang kiểm tra / Kết nối OK / **Lỗi kết nối** (kèm lý do). Cập nhật sau mỗi lần bấm [7] hoặc [8]. |
-| 2 | Nhà cung cấp | Dropdown | Select | • **Bắt buộc**. Chọn provider (ví dụ Anthropic Claude hoặc mô hình nội bộ VNPT — Đề xuất, Cấu hình tích hợp & vận hành AI). Danh sách provider hỗ trợ: đã đề xuất, chờ xác nhận (OQ-22). |
+| 2 | Nhà cung cấp | Dropdown | Select | • **Bắt buộc**. Chọn provider (ví dụ Anthropic Claude hoặc mô hình nội bộ VNPT — Đề xuất, Cấu hình tích hợp & vận hành AI). Danh sách provider hỗ trợ: đã chốt (OQ-22). |
 | 3 | Model | Dropdown | Select | • **Bắt buộc**, danh sách phụ thuộc [2]; đổi provider thì reset model. |
 | 4 | API key | Textbox (password) | Text | • **Bắt buộc** lần đầu. Luôn che ký tự; sau khi lưu **không hiển thị lại** — chỉ cho nhập key mới để thay (ô hiện dấu * khi đã có key) [GIẢ ĐỊNH]. Chỉ Quản trị viên xem/sửa (UC13). |
 | 5 | Endpoint | Textbox | Text | • **Bắt buộc** với provider tự cấu hình; sai định dạng URL → báo lỗi ngay tại ô [wording chưa có, chưa có mã E-…]. |
@@ -143,10 +143,10 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Ngưỡng tin cậy | Textbox (số) | Text | • Ngưỡng độ liên quan để AI **trả lời hay chuyển sang gợi ý tạo ticket** (Đề xuất — Cấu hình tham số trả lời): dưới ngưỡng → `ai-de-xuat-tao-ticket`. Khoảng giá trị hợp lệ và giá trị mặc định: đã đề xuất, chờ xác nhận (OQ-22). |
+| 1 | Ngưỡng tin cậy | Textbox (số) | Text | • Ngưỡng độ liên quan để AI **trả lời hay chuyển sang gợi ý tạo ticket** (Đề xuất — Cấu hình tham số trả lời): dưới ngưỡng → `ai-de-xuat-tao-ticket`. Khoảng giá trị hợp lệ và giá trị mặc định: đã chốt (OQ-22). |
 | 2 | Top-k | Textbox (số nguyên) | Text | • Số đoạn ngữ cảnh lấy từ kho RAG mỗi lần trả lời; số nguyên dương; giá trị mặc định/tối đa: OQ-22. |
 | 3 | Bật/tắt chế độ theo phạm vi | Checkbox grid | Check | • 3 chế độ AI: **Hỏi đáp AI cho khách hàng** (`ai-khung-chat`), **AI hỗ trợ soạn phản hồi** (nút AI gợi ý ở `agent-chi-tiet-ticket`), **AI tự động phản hồi ticket** (UC28). Bật/tắt **theo dịch vụ/site hoặc toàn hệ thống** (UC13); dòng cụ thể ghi đè dòng chung; tắt → chức năng tương ứng ẩn/vô hiệu ở nơi dùng.<br>• Theo lộ trình, **AI tự động gửi thẳng chỉ bật ở Giai đoạn 4**, sau khi đã kiểm chứng chất lượng — mặc định tắt. |
-| 4 | Phạm vi AI tự động | Checkbox group | Check | • Chọn AI tự động áp cho loại ticket/mức ưu tiên nào (đề xuất: cấu hình "theo loại ticket hoặc mức ưu tiên"). **Ticket khẩn cấp luôn cần agent duyệt trước khi gửi** → ô Khẩn cấp bị khóa, không bật được. Chọn theo loại vấn đề: đã đề xuất, chờ xác nhận (OQ-22). |
+| 4 | Phạm vi AI tự động | Checkbox group | Check | • Chọn AI tự động áp cho loại ticket/mức ưu tiên nào (đề xuất: cấu hình "theo loại ticket hoặc mức ưu tiên"). **Ticket khẩn cấp luôn cần agent duyệt trước khi gửi** → ô Khẩn cấp bị khóa, không bật được. Chọn theo loại vấn đề: đã chốt (OQ-22). |
 | 5 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc giá trị [1]/[2] không hợp lệ; áp dụng ngay cho lần hỏi kế tiếp; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. |
 | 6 | Thử nghiệm AI | Link | Click | • → `cauhinh-thu-nghiem-ai` để kiểm tra chất lượng **trước khi bật rộng rãi** (userflow: thử → đạt → quay lại bật). |
 
@@ -207,7 +207,7 @@
 | 1 | Về tham số AI | Link | Click | • → `cauhinh-tham-so-ai`; ở đó bật rộng rãi khi kết quả thử đạt yêu cầu. |
 | 2 | Phạm vi thử | Dropdown x2 | Select | • Chọn dịch vụ + site để AI trả lời **đúng như khách hàng của site đó** (lọc cứng theo phạm vi) — kiểm tra được cả việc không trả lời chéo dữ liệu. Chỉ Quản trị viên/Biên tập viên dùng (UC14); biên tập chỉ chọn được phạm vi được gán. |
 | 3 | Câu hỏi thử | Textbox | Text | • **Bắt buộc**, giới hạn độ dài như `ai-khung-chat` (OQ-13). |
-| 4 | Hỏi thử | Button | Click | • **Disabled** khi [3] rỗng; khóa khi đang xử lý; lỗi kết nối AI → báo, gợi ý kiểm tra `cauhinh-tich-hop-ai`. Lượt thử có tính vào giới hạn request/chi phí và ghi vào nhật ký hay không: đã đề xuất, chờ xác nhận (OQ-22). |
+| 4 | Hỏi thử | Button | Click | • **Disabled** khi [3] rỗng; khóa khi đang xử lý; lỗi kết nối AI → báo, gợi ý kiểm tra `cauhinh-tich-hop-ai`. Lượt thử có tính vào giới hạn request/chi phí và ghi vào nhật ký hay không: đã chốt (OQ-22). |
 | 5 | Câu trả lời của AI | Label | ReadOnly | • Hiển thị câu trả lời kèm **nguồn trích dẫn** để kiểm tra chất lượng (UC14); không tạo ticket, không gửi cho khách hàng. |
 | 6 | Độ liên quan / kết luận | Label | ReadOnly | • So độ liên quan với ngưỡng tin cậy hiện hành: đạt → "AI sẽ trả lời"; dưới ngưỡng → "AI sẽ đề xuất tạo ticket" (giúp chỉnh ngưỡng). |
 | 7 | Đoạn tài liệu tìm được | List | ReadOnly | • Top-k đoạn RAG lấy được kèm điểm, để biết AI dựa vào đâu và phát hiện bài thiếu/sai cần sửa. Không hiện tài liệu đánh dấu "không dùng cho AI". |
@@ -269,7 +269,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Kỳ báo cáo | Dropdown | Select | • Chọn tháng theo dõi mức sử dụng: **số lượt gọi AI** và **chi phí ước tính** theo tháng (Đề xuất — Theo dõi mức sử dụng). Cách ước tính chi phí (đơn giá): đã đề xuất, chờ xác nhận (OQ-22). |
+| 1 | Kỳ báo cáo | Dropdown | Select | • Chọn tháng theo dõi mức sử dụng: **số lượt gọi AI** và **chi phí ước tính** theo tháng (Đề xuất — Theo dõi mức sử dụng). Cách ước tính chi phí (đơn giá): đã chốt (OQ-22). |
 | 2 | Theo dịch vụ | Label | ReadOnly | • Tách lượt gọi/chi phí theo dịch vụ ("chi phí ước tính theo tháng/theo dịch vụ"). Theo site có cần không: chưa có nguồn. |
 | 3 | Lọc chế độ | Dropdown | Select | • Hỏi đáp AI (khách hàng) / AI hỗ trợ soạn (agent) / AI tự động phản hồi. |
 | 4 | Lọc kết quả | Dropdown | Select | • Trả lời / Chuyển ticket (không đủ tự tin) / Lỗi / Đã dùng (agent dùng gợi ý). |
@@ -395,7 +395,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Bật/tắt Email | Checkbox | Check | • Bật/tắt gửi thông báo Email toàn hệ thống (UC16). Tắt → mọi loại thông báo không gửi Email, các ô Email ở [4] bị vô hiệu. |
 | 2 | Bật/tắt SMS | Checkbox | Check | • Bật/tắt gửi SMS; tắt → ô SMS ở [4] vô hiệu. Tắt cả 2 kênh: cảnh báo hộp thoại vì khách hàng không nhận được lời mời kích hoạt/phản hồi ticket [GIẢ ĐỊNH]. |
-| 3 | Brandname SMS | Textbox | Text | • Tên hiển thị người gửi SMS; **bắt buộc khi SMS bật**. Định dạng/độ dài hợp lệ, brandname phải đăng ký với nhà mạng: đã đề xuất, chờ xác nhận (OQ-22). |
+| 3 | Brandname SMS | Textbox | Text | • Tên hiển thị người gửi SMS; **bắt buộc khi SMS bật**. Định dạng/độ dài hợp lệ, brandname phải đăng ký với nhà mạng: đã chốt (OQ-22). |
 | 4 | Kênh theo loại thông báo | Checkbox grid | Check | • Chọn kênh nhận mặc định **theo loại thông báo** (Đề xuất — Cấu hình kênh thông báo): phản hồi mới, đổi trạng thái, chờ xác nhận/tự đóng, lời mời kích hoạt, cảnh báo SLA nội bộ. Mỗi loại ≥1 kênh. Chọn kênh riêng **theo từng khách hàng** (ghi đè) có trong đề xuất nhưng chưa có màn/nơi cấu hình: OQ-22. |
 | 5 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu brandname khi SMS bật; áp dụng ngay cho thông báo tiếp theo (UC16); báo "Đã lưu" (wording tạm). |
 
@@ -460,7 +460,7 @@
 | 6 | Xem trước / Khôi phục mẫu mặc định | Link | Click | • Xem trước với dữ liệu mẫu; Khôi phục đưa mẫu về nội dung mặc định (hộp xác nhận). |
 | 7 | Lưu mẫu | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu biến bắt buộc/tiêu đề; áp dụng cho thông báo gửi sau; ghi nhật ký thao tác. Về `cauhinh-kenh-thongbao` bằng breadcrumb/Quay lại. |
 
-- **Đề xuất bổ sung, chờ xác nhận (OQ-26).** Thông báo trung lập của `kh-quen-mat-khau` (email không có trong danh mục) **không nằm trong mẫu sửa được**. Vào từ `cauhinh-kenh-thongbao`.
+- **Đề xuất bổ sung, đã chốt (OQ-26).** Thông báo trung lập của `kh-quen-mat-khau` (email không có trong danh mục) **không nằm trong mẫu sửa được**. Vào từ `cauhinh-kenh-thongbao`.
 
 #### Trạng thái phụ — thiếu biến bắt buộc
 
@@ -519,14 +519,14 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Giờ làm việc | Textbox (giờ) x2 | Text | • Khung giờ làm việc dùng để **tính SLA** (đề xuất T2-T6, 08:00-17:00 — OQ-2); ngoài khung này đồng hồ SLA không chạy. Ngày nghỉ lễ: đã đề xuất, chờ xác nhận (OQ-19). Giờ kết thúc phải sau giờ bắt đầu, sai → báo lỗi tại ô [wording chưa có, chưa có mã E-…]. |
+| 1 | Giờ làm việc | Textbox (giờ) x2 | Text | • Khung giờ làm việc dùng để **tính SLA** (đề xuất T2-T6, 08:00-17:00 — OQ-2); ngoài khung này đồng hồ SLA không chạy. Ngày nghỉ lễ: đã chốt (OQ-19). Giờ kết thúc phải sau giờ bắt đầu, sai → báo lỗi tại ô [wording chưa có, chưa có mã E-…]. |
 | 2 | Bảng SLA theo mức ưu tiên | Table (Textbox) | Text | • Mỗi mức ưu tiên (lấy từ danh mục **Mức ưu tiên** ở `danhmuc-dich-vu-loai-van-de`) có thời gian **phản hồi** và **xử lý**. Đề xuất mặc định: Khẩn cấp 30 phút / 4 giờ; Cao 2 giờ / 1 ngày làm việc; Bình thường 4 giờ / 3 ngày làm việc (OQ-2). Nhập số + đơn vị (phút/giờ/ngày làm việc); xử lý phải ≥ phản hồi. Thêm mức ưu tiên mới ở danh mục thì hiện dòng mới ở đây. |
 | 3 | Ngưỡng cảnh báo | Textbox (số %) | Text | • Cảnh báo "sắp quá hạn" khi còn ngần này % thời gian (đề xuất 20%); dùng cho màn `agent-canh-bao-sla`. Khoảng hợp lệ 1-90 [GIẢ ĐỊNH]. |
 | 4 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA (đề xuất: Chờ khách hàng, Chờ khách hàng xác nhận) vì đang chờ phía khách hàng. |
 | 5 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket ở "Chờ khách hàng xác nhận" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
 | 6 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** (ticket đang mở giữ SLA cũ) [GIẢ ĐỊNH]; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC46, nhóm danh mục đầu vào). |
 
-- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC46). Dữ liệu là giá trị đề xuất, chờ khách hàng xác nhận.
+- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC46). Dữ liệu là giá trị đề xuất, đã được khách hàng xác nhận (21/09/2026).
 
 #### Trạng thái phụ — giờ làm việc không hợp lệ
 
@@ -590,7 +590,7 @@
 | 7 | Dữ liệu đẩy sang OneBSS | List | ReadOnly | • Khách hàng/site, mô tả + mức ưu tiên, lịch sử trao đổi liên quan, người tạo (Đề xuất — Tích hợp OneBSS mục 2). Agent tỉnh gửi trực tiếp; Agent trung tâm có bước xác nhận (UC6, UC8); lý do chuyển: lỗi hệ thống / cần đội dự án. |
 | 8 | Nhật ký gửi phiếu gần đây | Table | ReadOnly | • Thời gian, ticket, mã phiếu OneBSS, kết quả (Thành công / Lỗi). Chứa dữ liệu khách hàng nên **chỉ Quản trị viên xem**; dòng lỗi chưa có mã phiếu. |
 
-- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026), chờ xác nhận (OQ-29).** Trước khi Thử lại ở `agent-tao-phieu-onebss` phải kiểm tra ticket đã có mã phiếu chưa. Vào từ `cauhinh-hub`.
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026), đã chốt (OQ-29).** Trước khi Thử lại ở `agent-tao-phieu-onebss` phải kiểm tra ticket đã có mã phiếu chưa. Vào từ `cauhinh-hub`.
 
 #### Trạng thái phụ — kết nối thất bại
 
@@ -622,15 +622,15 @@
 
 ---
 
-## Đề xuất đã cập nhật (chờ khách hàng xác nhận)
+## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-22a | Provider, giới hạn, ngưỡng, top-k | Anthropic Claude + mô hình nội bộ VNPT; giới hạn request theo ngày, vượt thì AI báo bận và gợi ý ticket; ngưỡng tin cậy 0,70 (0,50-0,95); top-k 5 (1-10); AI tự động chỉ chọn theo mức ưu tiên (Bình thường/Cao). | Chờ khách hàng xác nhận |
-| OQ-22b | Thử nghiệm AI | Không tính vào giới hạn của khách; có tính chi phí, ghi nhật ký nhãn "Thử nghiệm". | Chờ khách hàng xác nhận |
-| OQ-22c | Chi phí, nhật ký AI | Chi phí = token × đơn giá (QT nhập); email QT khi đạt 80% ngân sách tháng; nhật ký giữ 12 tháng, chỉ QT xem. | Chờ khách hàng xác nhận |
-| OQ-22d | Xóa mục danh mục | Mục đã dùng → "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu); chưa dùng → xóa được. | Chờ khách hàng xác nhận |
-| OQ-22e | Brandname SMS; kênh theo khách hàng | Brandname ≤11 ký tự không dấu, VNPT IT đăng ký với nhà mạng; MVP chọn kênh theo loại thông báo, ghi đè theo khách hàng để giai đoạn sau. | Chờ khách hàng xác nhận |
-| OQ-19a | Màn cấu hình SLA | Đã thêm `cauhinh-sla` [52]: giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ, thời gian tự đóng ticket. | Chờ khách hàng xác nhận |
-| OQ-26 | Mẫu nội dung Email/SMS (bổ sung OQ-22e) | Quản trị viên sửa tiêu đề/nội dung; bắt buộc giữ biến liên kết kích hoạt/đặt lại; có khôi phục mẫu mặc định; SMS cảnh báo khi vượt độ dài; thông báo trung lập của `kh-quen-mat-khau` không sửa được. | Chờ khách hàng xác nhận |
-| OQ-29 | Kết nối OneBSS (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; bí mật client che và chỉ nhập lại để thay; nhật ký gửi phiếu chỉ Quản trị viên xem; kiểm tra mã phiếu trước khi thử lại. | Chờ khách hàng xác nhận |
+| OQ-22a | Provider, giới hạn, ngưỡng, top-k | Anthropic Claude + mô hình nội bộ VNPT; giới hạn request theo ngày, vượt thì AI báo bận và gợi ý ticket; ngưỡng tin cậy 0,70 (0,50-0,95); top-k 5 (1-10); AI tự động chỉ chọn theo mức ưu tiên (Bình thường/Cao). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-22b | Thử nghiệm AI | Không tính vào giới hạn của khách; có tính chi phí, ghi nhật ký nhãn "Thử nghiệm". | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-22c | Chi phí, nhật ký AI | Chi phí = token × đơn giá (QT nhập); email QT khi đạt 80% ngân sách tháng; nhật ký giữ 12 tháng, chỉ QT xem. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-22d | Xóa mục danh mục | Mục đã dùng → "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu); chưa dùng → xóa được. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-22e | Brandname SMS; kênh theo khách hàng | Brandname ≤11 ký tự không dấu, VNPT IT đăng ký với nhà mạng; MVP chọn kênh theo loại thông báo, ghi đè theo khách hàng để giai đoạn sau. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-19a | Màn cấu hình SLA | Đã thêm `cauhinh-sla` [52]: giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ, thời gian tự đóng ticket. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-26 | Mẫu nội dung Email/SMS (bổ sung OQ-22e) | Quản trị viên sửa tiêu đề/nội dung; bắt buộc giữ biến liên kết kích hoạt/đặt lại; có khôi phục mẫu mặc định; SMS cảnh báo khi vượt độ dài; thông báo trung lập của `kh-quen-mat-khau` không sửa được. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-29 | Kết nối OneBSS (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; bí mật client che và chỉ nhập lại để thay; nhật ký gửi phiếu chỉ Quản trị viên xem; kiểm tra mã phiếu trước khi thử lại. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
