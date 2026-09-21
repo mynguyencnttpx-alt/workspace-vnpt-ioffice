@@ -259,7 +259,7 @@
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-34 | Phạm vi nghiệp vụ nhân viên xem được trong Hỏi đáp AI | Một số vai trò được phân quyền xem nghiệp vụ của toàn bộ khách hàng/site (quyền gắn cố định theo vai trò, xem `qt-ma-tran-phan-quyen`); vai trò còn lại chỉ thấy site của team mình; nội dung dành riêng cho nội bộ chưa thuộc phạm vi. | Đã thống nhất với BA 21/09/2026, chờ khách hàng xác nhận |
-| OQ-35 | Màn Tra cứu bài viết cho nhân viên | Không làm; nhân viên chỉ dùng Hỏi đáp AI. | Đã chốt (BA, 21/09/2026) |
-| OQ-36 | Lịch sử hỏi đáp AI | Lưu tự động, chỉ chủ tài khoản xem, giữ 90 ngày rồi tự xóa, xóa được từng hội thoại; Quản trị viên không xem lịch sử cá nhân; nhật ký AI quản trị theo chính sách riêng. | Đã thống nhất với BA 21/09/2026, chờ khách hàng xác nhận |
-| OQ-39 | Trích dẫn nguồn ở `noibo-ai-tra-loi` | [GIẢ ĐỊNH] Xem trước bài viết chỉ đọc tại chỗ; bài đã ẩn ghi "bài không còn". | Chờ khách hàng xác nhận |
+| OQ-34 | Phạm vi nghiệp vụ nhân viên xem được trong Hỏi đáp AI | Một số vai trò được phân quyền xem nghiệp vụ của toàn bộ khách hàng/site (quyền gắn cố định theo vai trò, xem `qt-ma-tran-phan-quyen`); vai trò còn lại chỉ thấy site của team mình; nội dung dành riêng cho nội bộ chưa thuộc phạm vi. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-35 | Màn Tra cứu bài viết cho nhân viên | Không làm; nhân viên chỉ dùng Hỏi đáp AI. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-36 | Lịch sử hỏi đáp AI | Lưu tự động, chỉ chủ tài khoản xem, giữ 90 ngày rồi tự xóa, xóa được từng hội thoại; Quản trị viên không xem lịch sử cá nhân; nhật ký AI quản trị theo chính sách riêng. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-39 | Trích dẫn nguồn ở `noibo-ai-tra-loi` | Xem trước bài viết chỉ đọc tại chỗ; bài đã ẩn ghi "bài không còn". | Đã chốt (khách hàng xác nhận, 21/09/2026) |
