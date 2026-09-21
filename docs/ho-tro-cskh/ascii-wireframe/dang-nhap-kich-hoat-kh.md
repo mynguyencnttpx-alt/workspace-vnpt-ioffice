@@ -1,12 +1,12 @@
 # Flow: Đăng nhập chung & kích hoạt tài khoản
 
-> Màn hình thuộc flow này: kh-dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
+> Màn hình thuộc flow này: dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
 > Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 
 ---
 
-## Screen: kh-dang-nhap — Đăng nhập (dùng chung mọi vai trò)
+## Screen: dang-nhap — Đăng nhập (dùng chung mọi vai trò)
 
 ### Wireframe (ASCII)
 
@@ -143,7 +143,7 @@
 | 3 | Hiện/ẩn mật khẩu mới | Icon button (eye) | Click | • Bật/tắt hiển thị ô [2]. |
 | 4 | Nhập lại mật khẩu | Textbox (password) | Text | • **Bắt buộc**, phải khớp [2]; lệch → báo "Mật khẩu nhập lại chưa khớp" (wording tạm). |
 | 5 | Hiện/ẩn nhập lại | Icon button (eye) | Click | • Bật/tắt hiển thị ô [4]. |
-| 6 | Kích hoạt tài khoản | Button | Click | • **Disabled** tới khi [2], [4] hợp lệ và khớp nhau; khóa khi submitting.<br>• Thành công → chuyển `kh-dang-nhap` (theo userflow: đặt mật khẩu xong quay về đăng nhập).<br>• **Link mời hết hạn hoặc đã dùng** (khi mở link hoặc khi bấm nút) → không hiện form, chuyển sang `kh-kich-hoat-tk-het-han`. Thời hạn link: đề xuất 7 ngày (OQ-6). |
+| 6 | Kích hoạt tài khoản | Button | Click | • **Disabled** tới khi [2], [4] hợp lệ và khớp nhau; khóa khi submitting.<br>• Thành công → chuyển `dang-nhap` (theo userflow: đặt mật khẩu xong quay về đăng nhập).<br>• **Link mời hết hạn hoặc đã dùng** (khi mở link hoặc khi bấm nút) → không hiện form, chuyển sang `kh-kich-hoat-tk-het-han`. Thời hạn link: đề xuất 7 ngày (OQ-6). |
 
 - Màn dùng chung: mở từ link mời (kích hoạt) hoặc từ link đặt lại mật khẩu gửi bởi `kh-quen-mat-khau` (tiêu đề và nút đổi thành "Đặt lại mật khẩu", link hiệu lực 30 phút; hết hạn hoặc đã dùng → `kh-kich-hoat-tk-het-han`). Nhân viên (email mời do quản trị viên tạo, OQ-18) dùng chính màn này; dòng "Đơn vị" chỉ hiện với khách hàng (OQ-40).
 
@@ -180,7 +180,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Thông báo hết hạn | Label | ReadOnly | • Hiện khi mở link mời đã **hết hạn (đề xuất 7 ngày, OQ-6) hoặc đã dùng rồi**; không hiện form đặt mật khẩu và không tiết lộ thông tin tài khoản/đơn vị. Tách thành màn riêng vì loại trừ với form `kh-kich-hoat-tk` (ba-conventions Mục 8). |
 | 2 | Hướng dẫn liên hệ | Label | ReadOnly | • Nhắc liên hệ đầu mối đơn vị hoặc quản trị viên để **gửi lại lời mời** (nút "Gửi lại lời mời" ở `qt-chi-tiet-tai-khoan`; đề xuất tối đa 5 lần/ngày/tài khoản). Người nhận mở link mới → quay lại `kh-kich-hoat-tk`. |
-| 3 | Về trang đăng nhập | Link | Click | • Navigate → `kh-dang-nhap` (nếu đã kích hoạt xong trước đó thì đăng nhập được bình thường). |
+| 3 | Về trang đăng nhập | Link | Click | • Navigate → `dang-nhap` (nếu đã kích hoạt xong trước đó thì đăng nhập được bình thường). |
 
 
 ---
@@ -217,8 +217,8 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Email | Textbox | Text | • **Bắt buộc**, đúng định dạng email.<br>• States: default / focus / lỗi định dạng (inline). |
-| 2 | Gửi liên kết đặt lại | Button | Click | • **Disabled** tới khi [1] hợp lệ; khóa khi submitting.<br>• Email có trong danh mục tài khoản (khách hàng hoặc nhân viên) → gửi liên kết đặt lại; người dùng mở link → `kh-kich-hoat-tk` (đặt lại mật khẩu, OQ-40), đặt xong quay về `kh-dang-nhap` (userflow).<br>• Email KHÔNG có trong danh mục → vẫn hiện thông báo trung lập giống trường hợp có, không xác nhận email tồn tại hay không (chống dò tài khoản), kèm gợi ý [4].<br>• Thời hạn liên kết, giới hạn số lần gửi: đã đề xuất, chờ xác nhận (OQ-6). |
-| 3 | Quay lại đăng nhập | Link | Click | • Navigate → `kh-dang-nhap`. |
+| 2 | Gửi liên kết đặt lại | Button | Click | • **Disabled** tới khi [1] hợp lệ; khóa khi submitting.<br>• Email có trong danh mục tài khoản (khách hàng hoặc nhân viên) → gửi liên kết đặt lại; người dùng mở link → `kh-kich-hoat-tk` (đặt lại mật khẩu, OQ-40), đặt xong quay về `dang-nhap` (userflow).<br>• Email KHÔNG có trong danh mục → vẫn hiện thông báo trung lập giống trường hợp có, không xác nhận email tồn tại hay không (chống dò tài khoản), kèm gợi ý [4].<br>• Thời hạn liên kết, giới hạn số lần gửi: đã đề xuất, chờ xác nhận (OQ-6). |
+| 3 | Quay lại đăng nhập | Link | Click | • Navigate → `dang-nhap`. |
 | 4 | Gợi ý liên hệ đầu mối | Label | ReadOnly | • Hiện sau khi gửi (và luôn hiện dưới nút) để người không nhận được email biết đường xử lý — vì tài khoản không tự đăng ký được (userflow edge: email không có trong danh mục). |
 
 

@@ -1,6 +1,6 @@
 # Flow: Trang đầu & tổng quan nội bộ theo vai trò
 
-> Màn hình thuộc flow này: noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Vào từ màn đăng nhập chung `kh-dang-nhap` (màn `noibo-dang-nhap` đã gộp vào đó, OQ-32). Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
+> Màn hình thuộc flow này: noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Vào từ màn đăng nhập chung `dang-nhap` (màn `noibo-dang-nhap` đã gộp vào đó, OQ-32). Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã có **đề xuất chờ khách hàng xác nhận** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 

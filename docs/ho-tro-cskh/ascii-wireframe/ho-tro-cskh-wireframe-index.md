@@ -13,7 +13,7 @@ links:
 
 | # | Slug | Thuộc flow | Status | Used by functions | Figma | HTML prototype | HTML wireframe | Updated |
 |---|------|------------|--------|-------------------|-------|----------------|-----------------|---------|
-| 1 | [kh-dang-nhap](dang-nhap-kich-hoat-kh.md#kh-dang-nhap) | dang-nhap-kich-hoat-kh | draft | UC47 | [01 · kh-dang-nhap (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-730) | — | — | 2026-09-20 |
+| 1 | [dang-nhap](dang-nhap-kich-hoat-kh.md#dang-nhap) | dang-nhap-kich-hoat-kh | draft | UC47 | [01 · dang-nhap (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-730) | — | — | 2026-09-20 |
 | 2 | [kh-kich-hoat-tk](dang-nhap-kich-hoat-kh.md#kh-kich-hoat-tk) | dang-nhap-kich-hoat-kh | draft | UC9, UC10, UC48 | [02 · kh-kich-hoat-tk (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-816) | — | — | 2026-09-20 |
 | 3 | [kh-quen-mat-khau](dang-nhap-kich-hoat-kh.md#kh-quen-mat-khau) | dang-nhap-kich-hoat-kh | draft | UC48 | [03 · kh-quen-mat-khau (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-898) | — | — | 2026-09-20 |
 | 4 | [kh-danh-sach-thanh-vien](dang-nhap-kich-hoat-kh.md#kh-danh-sach-thanh-vien) | dang-nhap-kich-hoat-kh | draft | UC22, UC23 | [04 · kh-danh-sach-thanh-vien (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-944) | — | — | 2026-09-20 |
@@ -33,7 +33,7 @@ links:
 | 18 | [ticket-xac-nhan](gui-theo-doi-ticket.md#ticket-xac-nhan) | gui-theo-doi-ticket | draft | UC4, UC55 | [18 · ticket-xac-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1883) | — | — | 2026-09-21 |
 | 19 | [ticket-da-dong](gui-theo-doi-ticket.md#ticket-da-dong) | gui-theo-doi-ticket | draft | UC4, UC27, UC55 | [19 · ticket-da-dong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=24-1838) | — | — | 2026-09-21 |
 | 20 | ~~noibo-dang-nhap~~ (đã gộp vào [1]) | dang-nhap-kich-hoat-kh | archived | UC47 | — (frame đã xóa, gộp vào 01) | — | — | 2026-09-21 |
-| 21 | [noibo-tai-khoan-ca-nhan](dang-nhap-noi-bo.md#noibo-tai-khoan-ca-nhan) | dang-nhap-noi-bo | draft | UC44 | [21 · noibo-tai-khoan-ca-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2486) | — | — | 2026-09-20 |
+| 21 | [noibo-tai-khoan-ca-nhan](noibo-trang-dau.md#noibo-tai-khoan-ca-nhan) | noibo-trang-dau | draft | UC44 | [21 · noibo-tai-khoan-ca-nhan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2486) | — | — | 2026-09-20 |
 | 22 | [agent-hang-doi](xu-ly-ticket-agent.md#agent-hang-doi) | xu-ly-ticket-agent | draft | UC5, UC18, UC28 | [22 · agent-hang-doi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2562) | — | — | 2026-09-20 |
 | 23 | [agent-chi-tiet-ticket](xu-ly-ticket-agent.md#agent-chi-tiet-ticket) | xu-ly-ticket-agent | draft | UC5, UC7, UC19, UC28 | [23 · agent-chi-tiet-ticket (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2680) | — | — | 2026-09-21 |
 | 24 | [agent-phan-cong](xu-ly-ticket-agent.md#agent-phan-cong) | xu-ly-ticket-agent | draft | UC17 | [24 · agent-phan-cong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2783) | — | — | 2026-09-20 |
@@ -75,7 +75,7 @@ links:
 | 60 | [loi-403](thong-bao-loi-chung.md#loi-403) | thong-bao-loi-chung | draft | — | [60 · loi-403](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19761) | — | — | 2026-09-21 |
 | 61 | [loi-404](thong-bao-loi-chung.md#loi-404) | thong-bao-loi-chung | draft | — | [61 · loi-404](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19836) | — | — | 2026-09-21 |
 | 62 | [phien-het-han](thong-bao-loi-chung.md#phien-het-han) | thong-bao-loi-chung | draft | — | [62 · phien-het-han](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-19911) | — | — | 2026-09-21 |
-| 63 | [noibo-tong-quan](dang-nhap-noi-bo.md#noibo-tong-quan) | dang-nhap-noi-bo | draft | UC59 | [63 · noibo-tong-quan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2134) | — | — | 2026-09-21 |
+| 63 | [noibo-tong-quan](noibo-trang-dau.md#noibo-tong-quan) | noibo-trang-dau | draft | UC59 | [63 · noibo-tong-quan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2134) | — | — | 2026-09-21 |
 | 64 | [cauhinh-mau-thong-bao](cau-hinh-ai-danh-muc.md#cauhinh-mau-thong-bao) | cau-hinh-ai-danh-muc | draft | UC16, UC52 | [64 · cauhinh-mau-thong-bao (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=32-2330) | — | — | 2026-09-21 |
 | 65 | [kb-khong-co-ket-qua](tra-cuu-kb.md#kb-khong-co-ket-qua) | tra-cuu-kb | draft | UC20 | [65 · kb-khong-co-ket-qua (08b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-2945) | — | — | 2026-09-21 |
 | 66 | [kb-bai-viet-khong-con](tra-cuu-kb.md#kb-bai-viet-khong-con) | tra-cuu-kb | draft | UC21, UC26 | [66 · kb-bai-viet-khong-con (09b)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=34-3397) | — | — | 2026-09-21 |
@@ -95,7 +95,7 @@ links:
 
 ## Descriptions
 
-### kh-dang-nhap
+### dang-nhap
 Màn đăng nhập dùng chung cho khách hàng và nhân viên khi mở hệ thống chưa đăng nhập; sau khi đăng nhập đúng chuyển tới trang đầu theo loại tài khoản và vai trò.
 
 ### kh-kich-hoat-tk
@@ -153,7 +153,7 @@ Khách hàng xác nhận đã giải quyết xong khi ticket ở trạng thái C
 Ticket đã đóng (do khách xác nhận hoặc tự đóng quá hạn); nút mở lại nếu vấn đề chưa hết.
 
 ### noibo-dang-nhap
-Đã gộp vào màn đăng nhập chung kh-dang-nhap (OQ-32); số thứ tự [20] giữ lại để không lệch đối chiếu.
+Đã gộp vào màn đăng nhập chung dang-nhap (OQ-32); số thứ tự [20] giữ lại để không lệch đối chiếu.
 
 ### noibo-tai-khoan-ca-nhan
 Người dùng nội bộ đổi mật khẩu/thông tin cá nhân; xem vai trò và team (chỉ đọc).
