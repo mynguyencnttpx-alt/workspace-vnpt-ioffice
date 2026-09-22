@@ -159,8 +159,8 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | + Tạo yêu cầu mới | Button | Click | • Navigate → `ticket-tao-moi`. Luôn hiện với khách hàng đã đăng nhập. |
 | 2 | Lọc trạng thái | Dropdown | Select | • Giá trị: Tất cả / Mới / Đang xử lý / Chờ khách hàng / Chờ khách hàng xác nhận / Đã đóng (Đề xuất — Xử lý ticket). Đổi giá trị → lọc lại ngay. |
-| 3 | Lọc ưu tiên / dịch vụ | Dropdown | Select | • Ưu tiên: Khẩn cấp / Cao / Bình thường; Dịch vụ: theo dịch vụ khách hàng dùng (UC18: bộ lọc trạng thái/ưu tiên/dịch vụ). Có thể kết hợp nhiều bộ lọc. |
-| 4 | Bảng ticket | Table | Select | • Cột: Mã, Vấn đề, Ưu tiên, Trạng thái, Ngày cập nhật. Bấm 1 dòng → `ticket-chi-tiet-kh` (UC19).<br>• **Phạm vi dữ liệu:** khách hàng chỉ thấy ticket của mình; đầu mối có thấy ticket của thành viên khác trong đơn vị không: đã chốt (OQ-17).<br>• Dòng "Chờ khách hàng xác nhận" nên nổi bật (cần hành động) [GIẢ ĐỊNH].<br>• Empty: "Bạn chưa có yêu cầu hỗ trợ nào" + nút [1]. Định dạng mã ticket: chưa có nguồn (dữ liệu mẫu). |
+| 3 | Lọc ưu tiên / dịch vụ | Dropdown | Select | • Ưu tiên: Khẩn cấp / Cao / Bình thường; Dịch vụ: theo dịch vụ khách hàng dùng (UC21: bộ lọc trạng thái/ưu tiên/dịch vụ). Có thể kết hợp nhiều bộ lọc. |
+| 4 | Bảng ticket | Table | Select | • Cột: Mã, Vấn đề, Ưu tiên, Trạng thái, Ngày cập nhật. Bấm 1 dòng → `ticket-chi-tiet-kh` (UC22).<br>• **Phạm vi dữ liệu:** khách hàng chỉ thấy ticket của mình; đầu mối có thấy ticket của thành viên khác trong đơn vị không: đã chốt (OQ-17).<br>• Dòng "Chờ khách hàng xác nhận" nên nổi bật (cần hành động) [GIẢ ĐỊNH].<br>• Empty: "Bạn chưa có yêu cầu hỗ trợ nào" + nút [1]. Định dạng mã ticket: chưa có nguồn (dữ liệu mẫu). |
 | 5 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11); ẩn khi 1 trang. |
 | 6 | Biểu tượng tệp đính kèm | Icon (clip) | ReadOnly | • Hiện cạnh tiêu đề vấn đề khi ticket có ít nhất 1 tệp/ảnh đính kèm (lúc tạo hoặc trong trao đổi). Không bấm riêng — bấm dòng vẫn vào `ticket-chi-tiet-kh`; ticket không có tệp thì không hiện. |
 
@@ -314,8 +314,8 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Phản hồi gần nhất | Label | ReadOnly | • Trích phản hồi công khai cuối cùng của agent làm cơ sở để khách hàng xác nhận. |
 | 2 | Đã giải quyết xong | Button | Click | • Click → xác nhận ticket đã giải quyết: hệ thống **đóng ticket chính thức**, ghi mốc đóng, sang `ticket-da-dong` (Flow: chỉ 2 kết cục — xác nhận xong, hoặc không phản hồi rồi tự đóng; **không có nút "Chưa xong"**).<br>• Khóa nút khi submitting. Lỗi lưu → giữ màn, báo lỗi, cho thử lại [wording chưa có, chưa có mã E-…]. |
-| 3 | Mức hài lòng | Star rating (5 sao) | Select | • Đánh giá **đơn giản** khi đóng chính thức (Đề xuất — Gửi yêu cầu hỗ trợ), **không bắt buộc** [GIẢ ĐỊNH].<br>• [GIẢ ĐỊNH] thang 1-5 chỉ để minh họa; thang thật (sao/emoji/3 mức): OQ-3. Dữ liệu nuôi báo cáo CSAT (UC39).<br>• Bản mới: thang **5 sao** (chọn sao, có nhãn "n/5 sao") + ô nhận xét tùy chọn [7]; thêm/sửa trong 7 ngày sau khi đóng, kể cả ticket tự đóng (OQ-3). |
-| 4 | Nhắc tự động đóng | Label | ReadOnly | • Nhắc: không phản hồi sau khoảng thời gian cấu hình → hệ thống tự đóng ticket và báo khách hàng (UC27, trạng thái tự đóng xem `ticket-da-dong`). Thời gian cụ thể: OQ-1. |
+| 3 | Mức hài lòng | Star rating (5 sao) | Select | • Đánh giá **đơn giản** khi đóng chính thức (Đề xuất — Gửi yêu cầu hỗ trợ), **không bắt buộc** [GIẢ ĐỊNH].<br>• [GIẢ ĐỊNH] thang 1-5 chỉ để minh họa; thang thật (sao/emoji/3 mức): OQ-3. Dữ liệu nuôi báo cáo CSAT (UC52).<br>• Bản mới: thang **5 sao** (chọn sao, có nhãn "n/5 sao") + ô nhận xét tùy chọn [7]; thêm/sửa trong 7 ngày sau khi đóng, kể cả ticket tự đóng (OQ-3). |
+| 4 | Nhắc tự động đóng | Label | ReadOnly | • Nhắc: không phản hồi sau khoảng thời gian cấu hình → hệ thống tự đóng ticket và báo khách hàng (UC35, trạng thái tự đóng xem `ticket-da-dong`). Thời gian cụ thể: OQ-1. |
 | 5 | Quay lại chi tiết ticket | Link | Click | • Navigate → `ticket-chi-tiet-kh` để nhắn thêm cho đội hỗ trợ nếu chưa hài lòng. |
 | 6 | Tệp kèm theo phản hồi | File chip | Click | • Nếu phản hồi gần nhất của đội hỗ trợ có tệp đính kèm thì hiện dòng tệp (tên + dung lượng; bấm để tải) ngay dưới trích dẫn [1] để khách hàng xem lại trước khi xác nhận; không có tệp thì ẩn. |
 | 7 | Nhận xét thêm | Textarea | Text | • Không bắt buộc, **≤500 ký tự**, có bộ đếm "n/500" (OQ-3); vượt giới hạn → chặn nhập thêm và báo ngay tại ô [wording tạm, chưa có mã E-…]. Nhận xét chỉ nội bộ đội hỗ trợ xem, không hiện công khai [GIẢ ĐỊNH]. |
@@ -354,7 +354,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Trạng thái Đã đóng | Label (badge) | ReadOnly | • Ticket đã đóng chính thức, không nhắn thêm được (ô phản hồi ẩn). |
-| 2 | Lý do đóng | Label | ReadOnly | • Phân biệt 2 lý do để khách hàng hiểu: **"Bạn đã xác nhận đã giải quyết xong (ngày giờ)"** hoặc **"Tự động đóng do không phản hồi sau thời gian quy định"** (UC27). Cùng bố cục, chỉ khác dòng chữ này (không tách màn). |
+| 2 | Lý do đóng | Label | ReadOnly | • Phân biệt 2 lý do để khách hàng hiểu: **"Bạn đã xác nhận đã giải quyết xong (ngày giờ)"** hoặc **"Tự động đóng do không phản hồi sau thời gian quy định"** (UC35). Cùng bố cục, chỉ khác dòng chữ này (không tách màn). |
 | 3 | Đánh giá hài lòng | Label | ReadOnly | • Hiện mức đã đánh giá; nếu khách hàng bỏ qua hoặc ticket tự đóng thì hiện "Chưa đánh giá" [GIẢ ĐỊNH]; sau khi đóng có cho đánh giá bổ sung không: OQ-3. |
 | 4 | Mốc thời gian | Label | ReadOnly | • Tạo, đóng, mở lại — lưu đầy đủ trong lịch sử ticket; mỗi lần mở lại/đóng lại thêm 1 mốc. |
 | 5 | Mở lại ticket | Button | Click | • Mở lại ngay ticket đã đóng khi vấn đề chưa hết, **không cần tạo ticket mới**; hệ thống khôi phục trạng thái xử lý (UC4), ghi mốc "mở lại", báo agent phụ trách, sang `ticket-chi-tiet-kh`.<br>• Giới hạn thời hạn cho phép mở lại / số lần mở lại: đã chốt (OQ-16).<br>• Chỉ người gửi ticket hoặc đầu mối đơn vị mở lại được [GIẢ ĐỊNH]. |

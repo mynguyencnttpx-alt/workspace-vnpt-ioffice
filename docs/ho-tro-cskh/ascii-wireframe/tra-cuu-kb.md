@@ -113,7 +113,7 @@
 | 2 | Lọc loại nội dung | Dropdown | Select | • Giá trị: Tất cả / Hướng dẫn sử dụng / Câu hỏi thường gặp (FAQ) / Xử lý lỗi/sự cố / Thông báo cập nhật hệ thống (Đề xuất — Quản trị danh mục nội dung mục 2). Đổi giá trị → lọc lại ngay, giữ từ khóa. |
 | 3 | Lọc danh mục | Dropdown | Select | • Danh sách nhóm chức năng trong phạm vi được xem; mặc định Tất cả. |
 | 4 | Số kết quả | Label | ReadOnly | • Đếm kết quả **sau khi đã lọc cứng theo dịch vụ + site** của người dùng — bài của site khác không bao giờ được đếm hay hiện.<br>• **Không có kết quả** (kể cả do nội dung nằm ngoài phạm vi site): thay danh sách bằng thông báo "Không tìm thấy kết quả" + gợi ý đổi từ khóa; không tiết lộ là có/không có bài ở site khác. Từ đó khách hàng dùng menu Hỏi đáp AI hoặc tạo ticket (Flow 3/4).<br>• **Không có kết quả** (kể cả do nội dung nằm ngoài phạm vi site) → chuyển sang màn riêng `kb-khong-co-ket-qua`. |
-| 5 | Kết quả tìm kiếm | List | Select | • Mỗi dòng: tiêu đề (link), loại nội dung, đoạn trích, tỷ lệ đánh giá hữu ích. Bấm tiêu đề → `kb-chi-tiet-bai-viet`.<br>• Chỉ hiện bài trạng thái đã xuất bản; bài đã ẩn/hủy không xuất hiện (UC26).<br>• Thứ tự xếp hạng: chưa có nguồn. |
+| 5 | Kết quả tìm kiếm | List | Select | • Mỗi dòng: tiêu đề (link), loại nội dung, đoạn trích, tỷ lệ đánh giá hữu ích. Bấm tiêu đề → `kb-chi-tiet-bai-viet`.<br>• Chỉ hiện bài trạng thái đã xuất bản; bài đã ẩn/hủy không xuất hiện (UC29).<br>• Thứ tự xếp hạng: chưa có nguồn. |
 | 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11); ẩn khi chỉ có 1 trang. |
 | 7 | Thẻ Hỏi đáp AI | Card + Button | Click | • "Hỏi AI về <từ khóa>" → `ai-khung-chat`, tự điền từ khóa làm câu hỏi đầu [GIẢ ĐỊNH]; **ẩn khi tắt Hỏi đáp AI theo dịch vụ/site** (OQ-15). |
 | 8 | Thẻ Cần hỗ trợ | Card + Button | Click | • "Tạo yêu cầu hỗ trợ" → `ticket-tao-moi` (tự điền dịch vụ); bổ sung cho nút "Chưa giải quyết được" ở `kb-chi-tiet-bai-viet` và `kb-danh-muc-loi`. |
@@ -191,7 +191,7 @@
 | 1 | Đường dẫn danh mục | Breadcrumb | Click | • Dịch vụ → nhóm chức năng → tên bài; bấm 1 cấp → về `kb-trang-chu` mở đúng nhánh danh mục. |
 | 2 | Thông tin bài viết | Label | ReadOnly | • Loại nội dung, dịch vụ, ngày cập nhật lần xuất bản gần nhất. Không hiện thông tin nội bộ (người soạn/duyệt). |
 | 3 | Nội dung bài viết | Rich text | ReadOnly | • Hướng dẫn từng bước kèm ảnh minh họa (Đề xuất — Tra cứu lỗi/tình huống). Chỉ xem, không sửa.<br>• Bài chỉ đánh dấu "không dùng cho AI" vẫn xem bình thường ở đây (chỉ ảnh hưởng Hỏi đáp AI).<br>• **Truy cập ngoài phạm vi / bài đã ẩn-hủy còn link cũ** (mở link đã lưu, deep-link): thay nội dung bằng thông báo "Bài viết không còn hoặc bạn không có quyền xem" (không phân biệt hai trường hợp, tránh lộ dữ liệu site khác) + nút về `kb-trang-chu`.<br>• Bài đã ẩn/hủy hoặc ngoài phạm vi khi mở link cũ → chuyển sang màn riêng `kb-bai-viet-khong-con`. |
-| 4 | Đánh giá hữu ích | Button group | Click | • Chọn 1 trong 2 (Hữu ích / Không hữu ích) → ghi nhận, nút chuyển trạng thái đã chọn, hiện "Cảm ơn bạn" (wording tạm). Đổi ý được hay chỉ đánh giá 1 lần/khách hàng/bài: đã chốt (OQ-12).<br>• Dữ liệu này nuôi báo cáo bài KB hữu ích nhiều/ít nhất (UC39). |
+| 4 | Đánh giá hữu ích | Button group | Click | • Chọn 1 trong 2 (Hữu ích / Không hữu ích) → ghi nhận, nút chuyển trạng thái đã chọn, hiện "Cảm ơn bạn" (wording tạm). Đổi ý được hay chỉ đánh giá 1 lần/khách hàng/bài: đã chốt (OQ-12).<br>• Dữ liệu này nuôi báo cáo bài KB hữu ích nhiều/ít nhất (UC52). |
 | 5 | Lưu bài viết | Link | Click | • Bấm → thêm bài vào "Bài viết đã lưu" trong `kh-tai-khoan-ca-nhan`; nhãn đổi thành "Bỏ lưu". Chưa có "theo dõi cập nhật" ở MVP (giai đoạn sau, OQ-8). |
 | 6 | Tạo yêu cầu hỗ trợ | Button | Click | • CTA cho khách hàng đọc xong vẫn chưa giải quyết được → sang `ticket-tao-moi`; tự điền dịch vụ và gắn bài viết đang xem làm tham chiếu [GIẢ ĐỊNH — việc gắn tham chiếu do `/srs` chốt]. |
 | 7 | Bài viết liên quan | Link list | Click | • [GIẢ ĐỊNH — chưa có nguồn, OQ-30] Tối đa 3 bài cùng nhóm chức năng, **chịu cùng bộ lọc cứng dịch vụ + site** (không lộ tiêu đề bài site khác); bấm → `kb-chi-tiet-bai-viet` của bài đó; bài đã ẩn dẫn tới `kb-bai-viet-khong-con`. |
@@ -244,7 +244,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Thông báo | Label + Icon | ReadOnly | • "Bài viết không còn hoặc bạn không có quyền xem": **một thông báo gộp cho cả bài đã ẩn/hủy lẫn bài ngoài phạm vi site/dịch vụ** — không phân biệt để tránh lộ dữ liệu site khác (UC26). Không hiện tên hay đoạn trích bài. |
+| 1 | Thông báo | Label + Icon | ReadOnly | • "Bài viết không còn hoặc bạn không có quyền xem": **một thông báo gộp cho cả bài đã ẩn/hủy lẫn bài ngoài phạm vi site/dịch vụ** — không phân biệt để tránh lộ dữ liệu site khác (UC29). Không hiện tên hay đoạn trích bài. |
 | 2 | Về trang tra cứu | Button | Click | • Về `kb-trang-chu` (lối ra duy nhất). Header chung giữ nguyên nên khách hàng vẫn chuyển được sang Hỏi đáp AI/Ticket. |
 
 - Tách khỏi `kb-chi-tiet-bai-viet`. Đường vào: mở link đã lưu/deep-link tới bài không còn hoặc ngoài phạm vi. Quy tắc trang trạng thái tổng: userflow Mục 5.

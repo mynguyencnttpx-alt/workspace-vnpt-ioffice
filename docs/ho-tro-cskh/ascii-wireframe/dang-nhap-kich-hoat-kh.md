@@ -42,9 +42,9 @@
 | 1 | Email đăng nhập | Textbox | Text | • **Bắt buộc**. Định danh tài khoản do đơn vị cấp / đầu mối mời (khách hàng) hoặc do quản trị viên tạo (nhân viên) — không có đăng ký công khai (Đề xuất, mục Quản trị hệ thống 2).<br>• [GIẢ ĐỊNH] email làm tên đăng nhập, **duy nhất toàn hệ thống**; một email có thể có cả quyền khách hàng lẫn vai trò nội bộ (OQ-33). Màn dùng chung cho mọi vai trò, không có màn đăng nhập nội bộ riêng (OQ-32).<br>• States: default / focus / lỗi. |
 | 2 | Mật khẩu | Textbox (password) | Text | • **Bắt buộc**. Che ký tự mặc định.<br>• Đăng nhập chỉ so khớp mật khẩu; quy tắc độ mạnh mật khẩu áp ở màn đặt mật khẩu [2] — đã chốt (OQ-5). |
 | 3 | Hiện/ẩn mật khẩu | Icon button (eye) | Click | • Bật/tắt hiển thị ký tự mật khẩu, không đổi giá trị đã nhập. |
-| 4 | Đăng nhập | Button | Click | • **Disabled** tới khi [1] và [2] đều có giá trị; trạng thái submitting: khóa nút, chống double-submit.<br>• Đúng → chuyển tới trang đầu theo loại tài khoản và vai trò: khách hàng → `kb-trang-chu`; Agent, Quản trị viên → `agent-hang-doi`; Chủ quản dịch vụ → `baocao-tong-quan`; Biên tập nội dung → `kb-cho-duyet` (OQ-18). Người có cả tài khoản khách hàng lẫn vai trò nội bộ vào giao diện nội bộ trước, chuyển giao diện ở menu tài khoản (OQ-33). Nhiều vai trò → trang đầu của vai trò cao nhất; chưa có vai trò → `loi-403` (OQ-37).<br>• Sai → giữ nguyên màn, báo chung "Sai email hoặc mật khẩu" (không phân biệt email không tồn tại; wording tạm, chưa có mã E-…), xóa ô mật khẩu, cho thử lại.<br>• Sai 5 lần liên tiếp → tạm khóa 15 phút, báo còn bao lâu được thử lại (UC47, OQ-5).<br>• Tài khoản bị vô hiệu hóa (UC41/UC42): chỉ báo **sau khi mật khẩu đúng**, hướng dẫn liên hệ đầu mối/quản trị viên [wording chưa có nguồn].<br>• Tài khoản chờ kích hoạt: báo dùng link mời trong email (link hết hạn xem `kh-kich-hoat-tk-het-han`). |
+| 4 | Đăng nhập | Button | Click | • **Disabled** tới khi [1] và [2] đều có giá trị; trạng thái submitting: khóa nút, chống double-submit.<br>• Đúng → chuyển tới trang đầu theo loại tài khoản và vai trò: khách hàng → `kb-trang-chu`; Agent, Quản trị viên → `agent-hang-doi`; Chủ quản dịch vụ → `baocao-tong-quan`; Biên tập nội dung → `kb-cho-duyet` (OQ-18). Người có cả tài khoản khách hàng lẫn vai trò nội bộ vào giao diện nội bộ trước, chuyển giao diện ở menu tài khoản (OQ-33). Nhiều vai trò → trang đầu của vai trò cao nhất; chưa có vai trò → `loi-403` (OQ-37).<br>• Sai → giữ nguyên màn, báo chung "Sai email hoặc mật khẩu" (không phân biệt email không tồn tại; wording tạm, chưa có mã E-…), xóa ô mật khẩu, cho thử lại.<br>• Sai 5 lần liên tiếp → tạm khóa 15 phút, báo còn bao lâu được thử lại (UC59, OQ-5).<br>• Tài khoản bị vô hiệu hóa (UC54/UC55): chỉ báo **sau khi mật khẩu đúng**, hướng dẫn liên hệ đầu mối/quản trị viên [wording chưa có nguồn].<br>• Tài khoản chờ kích hoạt: báo dùng link mời trong email (link hết hạn xem `kh-kich-hoat-tk-het-han`). |
 | 5 | Quên mật khẩu | Link | Click | • Navigate → `kh-quen-mat-khau`.<br>• Dùng chung cho cả khách hàng và nhân viên (OQ-18, OQ-32). |
-| 6 | Ghi chú cấp tài khoản | Label | ReadOnly | • Nhắc: khách hàng — tài khoản chỉ tạo qua lời mời của đầu mối/agent/quản trị viên; nhân viên — do quản trị viên cấp (UC41); không tự đăng ký (tự đăng ký không xác minh được người đăng ký là khách hàng thật).<br>• MVP chưa SSO; thiết kế cho phép bổ sung nút SSO sau mà không đổi bố cục. |
+| 6 | Ghi chú cấp tài khoản | Label | ReadOnly | • Nhắc: khách hàng — tài khoản chỉ tạo qua lời mời của đầu mối/agent/quản trị viên; nhân viên — do quản trị viên cấp (UC54); không tự đăng ký (tự đăng ký không xác minh được người đăng ký là khách hàng thật).<br>• MVP chưa SSO; thiết kế cho phép bổ sung nút SSO sau mà không đổi bố cục. |
 
 - Menu tài khoản ở mọi màn sau đăng nhập có "Đăng xuất" → quay về màn này; người có cả hai loại tài khoản có thêm "Chuyển giao diện khách hàng / nội bộ" (OQ-33). Màn đăng nhập nội bộ riêng (`noibo-dang-nhap`, số thứ tự [20]) đã gộp vào màn này.
 
@@ -102,7 +102,7 @@
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Sai 5 lần liên tiếp (UC47): [1] báo thời gian còn lại; nút Đăng nhập bị khóa tới hết 15 phút; đăng nhập đúng trong thời gian khóa cũng không vào được.
+- Sai 5 lần liên tiếp (UC59): [1] báo thời gian còn lại; nút Đăng nhập bị khóa tới hết 15 phút; đăng nhập đúng trong thời gian khóa cũng không vào được.
 
 
 ---
@@ -250,7 +250,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | + Mời thêm người dùng | Button | Click | • Chỉ tài khoản **đầu mối** thấy màn này và nút này (RBAC: khách hàng thường không có mục "Thành viên" trên menu).<br>• Click → `kh-moi-thanh-vien`. |
-| 2 | Bảng thành viên | Table | ReadOnly | • Cột: Họ tên, Email, Vai trò (Đầu mối/Thành viên), Trạng thái (Chờ kích hoạt/Đang hoạt động) — [GIẢ ĐỊNH] tập cột; đề xuất/UC22 chỉ nói "danh sách tài khoản trong phạm vi quản lý".<br>• Phạm vi dữ liệu: chỉ người dùng thuộc cùng đơn vị/site của đầu mối (không thấy site khác).<br>• Không có thao tác khóa/đổi vai trò tại đây — việc đó thuộc Quản trị viên (UC42/43).<br>• Empty state: chỉ có chính đầu mối → hiện "Chưa mời thành viên nào" [wording tạm]. |
+| 2 | Bảng thành viên | Table | ReadOnly | • Cột: Họ tên, Email, Vai trò (Đầu mối/Thành viên), Trạng thái (Chờ kích hoạt/Đang hoạt động) — [GIẢ ĐỊNH] tập cột; đề xuất/UC25 chỉ nói "danh sách tài khoản trong phạm vi quản lý".<br>• Phạm vi dữ liệu: chỉ người dùng thuộc cùng đơn vị/site của đầu mối (không thấy site khác).<br>• Không có thao tác khóa/đổi vai trò tại đây — việc đó thuộc Quản trị viên (UC55/56).<br>• Empty state: chỉ có chính đầu mối → hiện "Chưa mời thành viên nào" [wording tạm]. |
 | 3 | Tổng số thành viên | Label | ReadOnly | • Đếm theo bảng [2]. Phân trang/tìm kiếm khi danh sách dài: đã chốt (OQ-7). |
 
 - Chỉ đầu mối thấy màn này. Header dùng chung (không đánh số): logo, menu Tra cứu / Hỏi đáp AI / Ticket của tôi / Thành viên (chỉ đầu mối), menu người dùng.
@@ -328,11 +328,11 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Họ tên | Textbox | Text | • [GIẢ ĐỊNH] sửa được (UC44 chỉ nói "thông tin cần sửa"). **Bắt buộc**. |
+| 1 | Họ tên | Textbox | Text | • [GIẢ ĐỊNH] sửa được (UC57 chỉ nói "thông tin cần sửa"). **Bắt buộc**. |
 | 2 | Số điện thoại | Textbox | Text | • [GIẢ ĐỊNH] sửa được; dùng nhận thông báo SMS. |
 | 3 | Email | Label | ReadOnly | • [GIẢ ĐỊNH] chỉ đọc vì là định danh đăng nhập + đích lời mời; muốn đổi phải qua quản trị viên/đầu mối. |
 | 4 | Lưu thông tin | Button | Click | • **Disabled** khi chưa đổi gì hoặc [1] rỗng; thành công → báo "Đã cập nhật" (wording tạm); lỗi → giữ nguyên, báo lỗi [chưa có mã E-…]. |
-| 5 | Mật khẩu hiện tại | Textbox (password) | Text | • **Bắt buộc** khi đổi mật khẩu (UC44: hệ thống xác thực trước khi cập nhật). Sai → báo "Mật khẩu hiện tại không đúng" (wording tạm), không đổi. |
+| 5 | Mật khẩu hiện tại | Textbox (password) | Text | • **Bắt buộc** khi đổi mật khẩu (UC57: hệ thống xác thực trước khi cập nhật). Sai → báo "Mật khẩu hiện tại không đúng" (wording tạm), không đổi. |
 | 6 | Mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**; quy tắc độ mạnh: đã chốt (OQ-5). |
 | 7 | Nhập lại mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**, phải khớp [6]. |
 | 8 | Đổi mật khẩu | Button | Click | • **Disabled** tới khi [5][6][7] hợp lệ; thành công → báo "Đã đổi mật khẩu", giữ phiên hiện tại hay buộc đăng nhập lại: đã chốt (OQ-5). |

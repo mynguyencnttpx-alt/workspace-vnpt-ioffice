@@ -33,13 +33,13 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Họ tên | Textbox | Text | • [GIẢ ĐỊNH] sửa được (UC44: "thông tin cần sửa"); **bắt buộc**. |
+| 1 | Họ tên | Textbox | Text | • [GIẢ ĐỊNH] sửa được (UC57: "thông tin cần sửa"); **bắt buộc**. |
 | 2 | Số điện thoại | Textbox | Text | • [GIẢ ĐỊNH] sửa được, không bắt buộc. |
 | 3 | Email | Label | ReadOnly | • Chỉ đọc vì là định danh đăng nhập; đổi do quản trị viên. |
-| 4 | Vai trò | Label | ReadOnly | • Hiển thị vai trò hiện có (Agent tỉnh / Agent trung tâm / Biên tập nội dung / Quản trị viên / Chủ quản dịch vụ). Chỉ Quản trị viên đổi được (`qt-phan-quyen`, UC43). |
+| 4 | Vai trò | Label | ReadOnly | • Hiển thị vai trò hiện có (Agent tỉnh / Agent trung tâm / Biên tập nội dung / Quản trị viên / Chủ quản dịch vụ). Chỉ Quản trị viên đổi được (`qt-phan-quyen`, UC56). |
 | 5 | Team | Label | ReadOnly | • Team được gán (trung tâm hoặc tỉnh/thành cụ thể) — quyết định phạm vi ticket agent thấy; chỉ Quản trị viên đổi (`qt-tao-tai-khoan-noibo`). |
 | 6 | Lưu thông tin | Button | Click | • **Disabled** khi chưa đổi gì hoặc [1] rỗng; thành công → báo "Đã cập nhật" (wording tạm); lỗi → giữ nguyên, báo lỗi [chưa có mã E-…]. |
-| 7 | Mật khẩu hiện tại | Textbox (password) | Text | • **Bắt buộc** khi đổi mật khẩu; hệ thống xác thực trước khi cập nhật (UC44). Sai → báo "Mật khẩu hiện tại không đúng" (wording tạm). |
+| 7 | Mật khẩu hiện tại | Textbox (password) | Text | • **Bắt buộc** khi đổi mật khẩu; hệ thống xác thực trước khi cập nhật (UC57). Sai → báo "Mật khẩu hiện tại không đúng" (wording tạm). |
 | 8 | Mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**; quy tắc độ mạnh: đã chốt (OQ-5). |
 | 9 | Nhập lại mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**, phải khớp [8]. |
 | 10 | Đổi mật khẩu | Button | Click | • **Disabled** tới khi [7][8][9] hợp lệ; thành công → báo "Đã đổi mật khẩu"; có buộc đăng nhập lại/đăng xuất phiên khác không: OQ-5. Việc đổi mật khẩu không ghi vào nhật ký thao tác nhạy cảm [GIẢ ĐỊNH — nguồn chỉ liệt kê đổi quyền, xóa tài liệu, đổi định tuyến]. |

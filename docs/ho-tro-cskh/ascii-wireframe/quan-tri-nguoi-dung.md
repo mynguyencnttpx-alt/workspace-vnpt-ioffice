@@ -38,7 +38,7 @@
 | 1 | + Thêm khách hàng/site | Button | Click | • Chỉ **Quản trị viên** (UC1). Mở form thêm inline/panel: tên đơn vị, loại khách hàng (UBND tỉnh/thành, doanh nghiệp, trung ương), dịch vụ đang dùng (iOffice/iStorage), site/tenant, đầu mối liên hệ ban đầu (tên, email, SĐT lấy từ hợp đồng/biên bản bàn giao).<br>• Lưu → tạo bản ghi khách hàng/site mới; **đây là dữ liệu gốc** để định tuyến ticket (tỉnh/trung tâm) và phân vùng tài liệu (Đề xuất — Quản trị danh mục người dùng). Sau khi lưu hỏi "Khởi tạo tài khoản đầu mối ngay?" → `qt-moi-dau-moi` (theo userflow).<br>• Trùng site/tenant → báo trùng, không lưu [wording, mã E-… chưa có]. |
 | 2 | Tìm kiếm | Textbox | Text | • Tìm theo tên đơn vị/site/đầu mối; rỗng → hiện tất cả. |
 | 3 | Lọc loại KH / dịch vụ | Dropdown | Select | • Loại: Tất cả / UBND tỉnh-thành / Doanh nghiệp / Trung ương; Dịch vụ: theo danh mục. Kết hợp được. |
-| 4 | Sửa | Link | Click | • Sửa thông tin đơn vị/site/đầu mối ngay tại dòng (UC25); không có màn chi tiết riêng. Lưu → cập nhật và **áp dụng cho định tuyến & phân vùng tài liệu** từ đó về sau.<br>• **Đổi loại KH (tỉnh ⇄ DN/TW) làm đổi team tiếp nhận** — thao tác nhạy cảm: hỏi xác nhận, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang xử lý có chuyển team theo không: đã chốt (OQ-20).<br>• Xóa khách hàng/site: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
+| 4 | Sửa | Link | Click | • Sửa thông tin đơn vị/site/đầu mối ngay tại dòng (UC28); không có màn chi tiết riêng. Lưu → cập nhật và **áp dụng cho định tuyến & phân vùng tài liệu** từ đó về sau.<br>• **Đổi loại KH (tỉnh ⇄ DN/TW) làm đổi team tiếp nhận** — thao tác nhạy cảm: hỏi xác nhận, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang xử lý có chuyển team theo không: đã chốt (OQ-20).<br>• Xóa khách hàng/site: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
 | 5 | Khởi tạo đầu mối | Link | Click | • Sang `qt-moi-dau-moi` với đơn vị/site của dòng đã chọn. Dòng "(chưa có)" đầu mối cần làm bước này trước khi khách hàng dùng được hệ thống. |
 | 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
 
@@ -92,7 +92,7 @@
 | 8 | Lưu và tiếp tục mời đầu mối | Button | Click | • Disabled tới khi đủ [1]–[7] hợp lệ. Lưu khách hàng/site vào danh mục (UC1) rồi sang `qt-moi-dau-moi` — màn đó **điền sẵn** đầu mối vừa nhập để Quản trị viên/Agent chỉ xác nhận kênh gửi và tạo tài khoản chờ kích hoạt (UC9); ghi nhật ký thao tác. |
 | 9 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không lưu gì. |
 
-- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — tách bước tạo khách hàng/site (UC1, lưu cả đầu mối liên hệ như danh mục khách hàng yêu cầu) khỏi bước tạo tài khoản đầu mối + gửi lời mời (UC9); sửa vẫn inline ở `qt-danh-muc-khach-hang` (UC25).
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — tách bước tạo khách hàng/site (UC1, lưu cả đầu mối liên hệ như danh mục khách hàng yêu cầu) khỏi bước tạo tài khoản đầu mối + gửi lời mời (UC9); sửa vẫn inline ở `qt-danh-muc-khach-hang` (UC28).
 
 #### Trạng thái phụ — mã site trùng
 
@@ -193,11 +193,11 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | + Tạo tài khoản nội bộ | Button | Click | • Chỉ **Quản trị viên** → `qt-tao-tai-khoan-noibo` (UC41). |
+| 1 | + Tạo tài khoản nội bộ | Button | Click | • Chỉ **Quản trị viên** → `qt-tao-tai-khoan-noibo` (UC54). |
 | 2 | Tìm kiếm | Textbox | Text | • Theo họ tên/email; rỗng → tất cả. |
 | 3 | Lọc loại tài khoản | Dropdown | Select | • Tất cả / Nội bộ / Khách hàng (Đề xuất — phân biệt 2 nhóm tài khoản). |
 | 4 | Lọc vai trò / trạng thái | Dropdown | Select | • Vai trò: 6 vai trò RBAC; Trạng thái: Hoạt động / Chờ kích hoạt / Vô hiệu hóa. |
-| 5 | Bảng tài khoản | Table | Select | • Cột: Họ tên, Email, Vai trò, Đơn vị/Team, Trạng thái. Bấm 1 dòng → `qt-chi-tiet-tai-khoan` (UC22, UC23).<br>• **Phạm vi:** Quản trị viên thấy mọi tài khoản (nội bộ + khách hàng); màn tương tự cho đầu mối chỉ thấy đúng thành viên đơn vị mình là `kh-danh-sach-thanh-vien`.<br>• Trạng thái "Vô hiệu" hiển thị mờ. Phân trang: OQ-11. |
+| 5 | Bảng tài khoản | Table | Select | • Cột: Họ tên, Email, Vai trò, Đơn vị/Team, Trạng thái. Bấm 1 dòng → `qt-chi-tiet-tai-khoan` (UC26).<br>• **Phạm vi:** Quản trị viên thấy mọi tài khoản (nội bộ + khách hàng); màn tương tự cho đầu mối chỉ thấy đúng thành viên đơn vị mình là `kh-danh-sach-thanh-vien`.<br>• Trạng thái "Vô hiệu" hiển thị mờ. Phân trang: OQ-11. |
 
 - Dữ liệu mẫu chỉ minh họa (tên/email/đơn vị).
 
@@ -233,10 +233,10 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Quay lại danh sách | Link | Click | • Navigate → `qt-danh-sach-tai-khoan`. |
 | 2 | Trạng thái tài khoản | Label (badge) | ReadOnly | • Hoạt động / Chờ kích hoạt / Vô hiệu hóa. |
-| 3 | Vai trò | Label | ReadOnly | • Vai trò và phạm vi/site gắn kèm (UC23); đổi qua nút [5]. |
+| 3 | Vai trò | Label | ReadOnly | • Vai trò và phạm vi/site gắn kèm (UC26); đổi qua nút [5]. |
 | 4 | Team / Đơn vị-site | Label | ReadOnly | • Nội bộ: team (trung tâm hoặc tỉnh/thành cụ thể). Khách hàng: đơn vị + site (không đổi được site của người được mời). |
-| 5 | Phân quyền | Button | Click | • → `qt-phan-quyen` để gán/đổi vai trò (UC43). |
-| 6 | Vô hiệu hóa / Kích hoạt lại | Button | Click | • Nhãn đổi theo trạng thái. **Vô hiệu hóa** (nhân sự nghỉ việc UC41; tài khoản khách hàng UC42): hộp thoại xác nhận nêu rõ tên + hậu quả "khóa quyền truy cập ngay" (tránh vô hiệu hóa nhầm tài khoản đang hoạt động); xác nhận → khóa, ghi nhật ký. **Kích hoạt lại** khôi phục quyền cũ.<br>• Tài khoản nội bộ đang giữ ticket dở → ticket xử lý thế nào: đã chốt (OQ-20).<br>• Không tự vô hiệu hóa chính mình [GIẢ ĐỊNH]. |
+| 5 | Phân quyền | Button | Click | • → `qt-phan-quyen` để gán/đổi vai trò (UC56). |
+| 6 | Vô hiệu hóa / Kích hoạt lại | Button | Click | • Nhãn đổi theo trạng thái. **Vô hiệu hóa** (nhân sự nghỉ việc UC54; tài khoản khách hàng UC55): hộp thoại xác nhận nêu rõ tên + hậu quả "khóa quyền truy cập ngay" (tránh vô hiệu hóa nhầm tài khoản đang hoạt động); xác nhận → khóa, ghi nhật ký. **Kích hoạt lại** khôi phục quyền cũ.<br>• Tài khoản nội bộ đang giữ ticket dở → ticket xử lý thế nào: đã chốt (OQ-20).<br>• Không tự vô hiệu hóa chính mình [GIẢ ĐỊNH]. |
 | 7 | Gửi lại lời mời | Button | Click | • Chỉ hiện khi "Chờ kích hoạt" (kể cả link mời hết hạn — userflow edge): tạo link mới gửi Email/SMS. Số lần/khoảng cách gửi lại: OQ-6. |
 
 - Vẽ ở tài khoản nội bộ đang hoạt động; nút [7] chỉ hiện khi "Chờ kích hoạt", nút [6] đổi nhãn theo trạng thái.
@@ -280,7 +280,7 @@
 | 3 | SĐT | Textbox | Text | • Không bắt buộc [GIẢ ĐỊNH]. |
 | 4 | Vai trò | Dropdown | Select | • **Bắt buộc**: Agent tỉnh / Agent trung tâm / Biên tập nội dung / Quản trị viên / Chủ quản dịch vụ (Đề xuất — RBAC; vai trò Khách hàng không tạo ở đây). Chi tiết quyền xem `qt-phan-quyen`. |
 | 5 | Team | Dropdown | Select | • **Bắt buộc với Agent**: team trung tâm hoặc 1 tỉnh/thành cụ thể (quyết định hàng đợi ticket agent thấy). Các vai trò khác: ẩn ô này; Chủ quản dịch vụ thay bằng ô chọn dịch vụ phụ trách [GIẢ ĐỊNH]. |
-| 6 | Ghi chú vô hiệu hóa | Label | ReadOnly | • Vô hiệu hóa (UC41) thực hiện ở `qt-chi-tiet-tai-khoan` cho thống nhất với tài khoản khách hàng; màn này chỉ tạo tài khoản (đã đổi tên từ "Tạo/vô hiệu hóa"). |
+| 6 | Ghi chú vô hiệu hóa | Label | ReadOnly | • Vô hiệu hóa (UC54) thực hiện ở `qt-chi-tiet-tai-khoan` cho thống nhất với tài khoản khách hàng; màn này chỉ tạo tài khoản (đã đổi tên từ "Tạo/vô hiệu hóa"). |
 | 7 | Tạo tài khoản | Button | Click | • **Disabled** tới khi [1], [2], [4] (và [5] nếu là agent) hợp lệ. Thành công → tạo tài khoản, gán team, về `qt-danh-sach-tai-khoan`. Cách cấp mật khẩu ban đầu/gửi thông tin đăng nhập: đã chốt (OQ-18). |
 | 8 | Hủy | Button | Click | • Về `qt-danh-sach-tai-khoan`, không tạo gì. |
 
@@ -317,9 +317,9 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Danh sách vai trò | Radio group | Check | • 6 vai trò tối thiểu của đề xuất, mỗi vai trò kèm phạm vi dữ liệu: Khách hàng (site/dịch vụ của mình) · Agent tỉnh (ticket tỉnh phụ trách; xử lý, tạo phiếu OneBSS, xem KB chung + KB tỉnh) · Agent trung tâm (toàn bộ ticket KH doanh nghiệp/TW; xử lý, tạo phiếu OneBSS, xem báo cáo vận hành) · Biên tập nội dung (KB theo phạm vi gán; soạn/duyệt, không quản lý người dùng) · Quản trị viên (toàn hệ thống) · Chủ quản dịch vụ (chỉ xem báo cáo phạm vi dịch vụ phụ trách).<br>• Mỗi tài khoản 1 vai trò [GIẢ ĐỊNH]; tạo vai trò tùy chỉnh/chỉnh tay từng quyền: không có trong nguồn (chỉ gán/đổi vai trò cố định, UC43). "Đầu mối" có là vai trò riêng không: OQ-20.<br>• Không hạ quyền của quản trị viên cuối cùng (luôn còn ≥1) [GIẢ ĐỊNH]. |
+| 1 | Danh sách vai trò | Radio group | Check | • 6 vai trò tối thiểu của đề xuất, mỗi vai trò kèm phạm vi dữ liệu: Khách hàng (site/dịch vụ của mình) · Agent tỉnh (ticket tỉnh phụ trách; xử lý, tạo phiếu OneBSS, xem KB chung + KB tỉnh) · Agent trung tâm (toàn bộ ticket KH doanh nghiệp/TW; xử lý, tạo phiếu OneBSS, xem báo cáo vận hành) · Biên tập nội dung (KB theo phạm vi gán; soạn/duyệt, không quản lý người dùng) · Quản trị viên (toàn hệ thống) · Chủ quản dịch vụ (chỉ xem báo cáo phạm vi dịch vụ phụ trách).<br>• Mỗi tài khoản 1 vai trò [GIẢ ĐỊNH]; tạo vai trò tùy chỉnh/chỉnh tay từng quyền: không có trong nguồn (chỉ gán/đổi vai trò cố định, UC56). "Đầu mối" có là vai trò riêng không: OQ-20.<br>• Không hạ quyền của quản trị viên cuối cùng (luôn còn ≥1) [GIẢ ĐỊNH]. |
 | 2 | Phạm vi | Dropdown | Select | • Hiện theo vai trò: Team (agent), dịch vụ (chủ quản dịch vụ), phạm vi KB (biên tập). Khách hàng: đơn vị/site không đổi được ở đây. |
-| 3 | Áp dụng | Button | Click | • Hộp thoại xác nhận nêu vai trò cũ → mới. Xác nhận → **áp dụng quyền tương ứng ngay** (UC43), về `qt-chi-tiet-tai-khoan`; **ghi nhật ký thao tác nhạy cảm (đổi quyền)**. Disabled khi chưa đổi gì. |
+| 3 | Áp dụng | Button | Click | • Hộp thoại xác nhận nêu vai trò cũ → mới. Xác nhận → **áp dụng quyền tương ứng ngay** (UC56), về `qt-chi-tiet-tai-khoan`; **ghi nhật ký thao tác nhạy cảm (đổi quyền)**. Disabled khi chưa đổi gì. |
 | 4 | Hủy | Button | Click | • Về `qt-chi-tiet-tai-khoan`, không đổi. |
 | 5 | Xem nhật ký thao tác | Link | Click | • Sang `qt-nhat-ky-thao-tac` (theo userflow: từ phân quyền xem lịch sử thao tác nhạy cảm). |
 
@@ -402,7 +402,7 @@
 | 1 | Lọc hành động | Dropdown | Select | • Các thao tác nhạy cảm được ghi tối thiểu (Đề xuất — Nhật ký thao tác): **đổi quyền, xóa tài liệu, đổi định tuyến khách hàng**. Danh sách giá trị mở rộng nếu sau này ghi thêm loại khác. |
 | 2 | Lọc người thực hiện | Textbox | Text | • Theo tên/email người thực hiện. |
 | 3 | Lọc thời gian | Date range | Select | • Từ ngày – đến ngày; mặc định gần đây nhất [GIẢ ĐỊNH]. Đến < Từ → báo lỗi ngay tại ô [wording chưa có]. |
-| 4 | Bảng nhật ký | Table | ReadOnly | • Cột: Thời gian, Người thực hiện, Hành động, Đối tượng, Chi tiết (giá trị trước → sau) (UC45). **Chỉ Quản trị viên xem**; chỉ đọc, không sửa/xóa/xuất được từ màn này [GIẢ ĐỊNH].<br>• Thời gian lưu giữ nhật ký, có xuất file không: đã chốt (OQ-20). Empty: "Không có thao tác nào phù hợp". |
+| 4 | Bảng nhật ký | Table | ReadOnly | • Cột: Thời gian, Người thực hiện, Hành động, Đối tượng, Chi tiết (giá trị trước → sau) (UC58). **Chỉ Quản trị viên xem**; chỉ đọc, không sửa/xóa/xuất được từ màn này [GIẢ ĐỊNH].<br>• Thời gian lưu giữ nhật ký, có xuất file không: đã chốt (OQ-20). Empty: "Không có thao tác nào phù hợp". |
 
 - Dữ liệu mẫu chỉ minh họa; "->" thay mũi tên để không lệch cột.
 

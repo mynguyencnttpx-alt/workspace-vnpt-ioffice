@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: noibo-ai-khung-chat → noibo-ai-tra-loi → noibo-ai-lich-su. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
-> Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026 (UC61, UC62), đã được khách hàng xác nhận**. Các mục ghi "(OQ-n)" có đề xuất ở bảng cuối file.
+> Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026 (UC20, UC34), đã được khách hàng xác nhận**. Các mục ghi "(OQ-n)" có đề xuất ở bảng cuối file.
 
 ---
 
@@ -41,7 +41,7 @@
 | 3 | Lịch sử | Link | Click | • Navigate → `noibo-ai-lich-su`. Vẫn hiện khi AI tắt hoặc lỗi. |
 | 4 | Gợi ý câu hỏi | Link list | Click | • Câu hỏi mẫu, bấm → điền vào [5] và gửi luôn [GIẢ ĐỊNH — như `ai-khung-chat`]. |
 | 5 | Ô nhập câu hỏi | Textbox (multi-line) | Text | • Như `ai-khung-chat`: Enter gửi, Shift+Enter xuống dòng; rỗng → [6] disabled; câu hỏi ≤1.000 ký tự, tối đa 30 câu/giờ/người (OQ-13); khóa ô nhập khi AI đang trả lời. |
-| 6 | Gửi | Button | Click | • **Disabled** khi [5] rỗng hoặc AI đang xử lý (chống gửi trùng); gửi → `noibo-ai-tra-loi`.<br>• Câu hỏi + trả lời lưu vào lịch sử cá nhân (OQ-36) và nhật ký hội thoại AI của quản trị (`cauhinh-nhat-ky-ai`) gắn nhãn "Nội bộ" (UC49).<br>• Hỏi đáp AI tắt theo dịch vụ/site → ẩn menu; vào bằng link → trạng thái phụ. AI lỗi/quá thời gian → trạng thái phụ. |
+| 6 | Gửi | Button | Click | • **Disabled** khi [5] rỗng hoặc AI đang xử lý (chống gửi trùng); gửi → `noibo-ai-tra-loi`.<br>• Câu hỏi + trả lời lưu vào lịch sử cá nhân (OQ-36) và nhật ký hội thoại AI của quản trị (`cauhinh-nhat-ky-ai`) gắn nhãn "Nội bộ" (UC46).<br>• Hỏi đáp AI tắt theo dịch vụ/site → ẩn menu; vào bằng link → trạng thái phụ. AI lỗi/quá thời gian → trạng thái phụ. |
 | 7 | Quay lại ticket | Link | Click | • Chỉ hiện khi mở từ `agent-chi-tiet-ticket`; navigate về ticket đó, không mất nội dung phản hồi đang soạn. |
 
 - Dùng cho nhân viên tra cứu nghiệp vụ để hỗ trợ khách hàng. Menu "Hỏi đáp AI" thuộc khung nội bộ dùng chung: hiện với Agent, Quản trị viên, Chủ quản dịch vụ; Biên tập nội dung không dùng → `loi-403` khi vào bằng link (OQ-34). Nhân viên KHÔNG có màn Tra cứu bài viết (OQ-35).

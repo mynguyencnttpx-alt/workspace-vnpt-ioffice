@@ -146,7 +146,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Ngưỡng tin cậy | Textbox (số) | Text | • Ngưỡng độ liên quan để AI **trả lời hay chuyển sang gợi ý tạo ticket** (Đề xuất — Cấu hình tham số trả lời): dưới ngưỡng → `ai-de-xuat-tao-ticket`. Khoảng giá trị hợp lệ và giá trị mặc định: đã chốt (OQ-22). |
 | 2 | Top-k | Textbox (số nguyên) | Text | • Số đoạn ngữ cảnh lấy từ kho RAG mỗi lần trả lời; số nguyên dương; giá trị mặc định/tối đa: OQ-22. |
-| 3 | Bật/tắt chế độ theo phạm vi | Checkbox grid | Check | • 3 chế độ AI: **Hỏi đáp AI cho khách hàng** (`ai-khung-chat`), **AI hỗ trợ soạn phản hồi** (nút AI gợi ý ở `agent-chi-tiet-ticket`), **AI tự động phản hồi ticket** (UC28). Bật/tắt **theo dịch vụ/site hoặc toàn hệ thống** (UC13); dòng cụ thể ghi đè dòng chung; tắt → chức năng tương ứng ẩn/vô hiệu ở nơi dùng.<br>• Theo lộ trình, **AI tự động gửi thẳng chỉ bật ở Giai đoạn 4**, sau khi đã kiểm chứng chất lượng — mặc định tắt. |
+| 3 | Bật/tắt chế độ theo phạm vi | Checkbox grid | Check | • 3 chế độ AI: **Hỏi đáp AI cho khách hàng** (`ai-khung-chat`), **AI hỗ trợ soạn phản hồi** (nút AI gợi ý ở `agent-chi-tiet-ticket`), **AI tự động phản hồi ticket** (UC36). Bật/tắt **theo dịch vụ/site hoặc toàn hệ thống** (UC13); dòng cụ thể ghi đè dòng chung; tắt → chức năng tương ứng ẩn/vô hiệu ở nơi dùng.<br>• Theo lộ trình, **AI tự động gửi thẳng chỉ bật ở Giai đoạn 4**, sau khi đã kiểm chứng chất lượng — mặc định tắt. |
 | 4 | Phạm vi AI tự động | Checkbox group | Check | • Chọn AI tự động áp cho loại ticket/mức ưu tiên nào (đề xuất: cấu hình "theo loại ticket hoặc mức ưu tiên"). **Ticket khẩn cấp luôn cần agent duyệt trước khi gửi** → ô Khẩn cấp bị khóa, không bật được. Chọn theo loại vấn đề: đã chốt (OQ-22). |
 | 5 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc giá trị [1]/[2] không hợp lệ; áp dụng ngay cho lần hỏi kế tiếp; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. |
 | 6 | Thử nghiệm AI | Link | Click | • → `cauhinh-thu-nghiem-ai` để kiểm tra chất lượng **trước khi bật rộng rãi** (userflow: thử → đạt → quay lại bật). |
@@ -330,7 +330,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Tab danh mục | Tabs | Click | • 5 danh mục dùng chung: **Dịch vụ**, **Loại vấn đề ticket**, **Mức độ ưu tiên ticket**, **Loại nội dung tài liệu**, **Mẫu trả lời dựng sẵn** (UC32-36); mỗi tab cùng thao tác thêm/sửa/xóa. Chỉ Quản trị viên. Thay đổi **áp dụng cho các form liên quan** (`ticket-tao-moi`, `kb-soan-thao`, ...). |
+| 1 | Tab danh mục | Tabs | Click | • 5 danh mục dùng chung: **Dịch vụ**, **Loại vấn đề ticket**, **Mức độ ưu tiên ticket**, **Loại nội dung tài liệu**, **Mẫu trả lời dựng sẵn** (UC40-44); mỗi tab cùng thao tác thêm/sửa/xóa. Chỉ Quản trị viên. Thay đổi **áp dụng cho các form liên quan** (`ticket-tao-moi`, `kb-soan-thao`, ...). |
 | 2 | Thêm | Button | Click | • Mở form thêm nhanh ngay trên dòng/panel. Trường theo tab: **Dịch vụ / Loại vấn đề / Ưu tiên / Loại nội dung** — tên (bắt buộc, không trùng), mô tả, trạng thái; **Mẫu trả lời** — tiêu đề, nội dung mẫu, dịch vụ áp dụng [GIẢ ĐỊNH]. Mức ưu tiên gắn với SLA: cấu hình thời gian nằm ở màn SLA chưa có (OQ-19). |
 | 3 | Sửa | Link | Click | • Sửa tên/mô tả/trạng thái; áp dụng ngay cho form; ticket/bài đã tạo giữ giá trị đã chọn (hiển thị theo tên mới) [GIẢ ĐỊNH]. |
 | 4 | Xóa | Link | Click | • Hộp thoại xác nhận. Mục **đã được ticket/bài viết dùng** → không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) [GIẢ ĐỊNH — nguồn chỉ nói "thêm/sửa/xóa", quy tắc ràng buộc: OQ-22]. |
@@ -525,9 +525,9 @@
 | 3 | Ngưỡng cảnh báo | Textbox (số %) | Text | • Cảnh báo "sắp quá hạn" khi còn ngần này % thời gian (đề xuất 20%); dùng cho màn `agent-canh-bao-sla`. Khoảng hợp lệ 1-90 [GIẢ ĐỊNH]. |
 | 4 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA (đề xuất: Chờ khách hàng, Chờ khách hàng xác nhận) vì đang chờ phía khách hàng. |
 | 5 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket ở "Chờ khách hàng xác nhận" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
-| 6 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** (ticket đang mở giữ SLA cũ) [GIẢ ĐỊNH]; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC46, nhóm danh mục đầu vào). |
+| 6 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** (ticket đang mở giữ SLA cũ) [GIẢ ĐỊNH]; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC45, nhóm danh mục đầu vào). |
 
-- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC46). Dữ liệu là giá trị đề xuất, đã được khách hàng xác nhận (21/09/2026).
+- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC45). Dữ liệu là giá trị đề xuất, đã được khách hàng xác nhận (21/09/2026).
 
 #### Trạng thái phụ — giờ làm việc không hợp lệ
 

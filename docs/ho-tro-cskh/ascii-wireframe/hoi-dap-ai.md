@@ -38,7 +38,7 @@
 | 2 | Gợi ý câu hỏi | Link list | Click | • Câu hỏi mẫu, bấm → điền vào [3] và gửi luôn [GIẢ ĐỊNH — nguồn không nói có gợi ý mẫu; có thể bỏ].<br>• Nguồn gợi ý (do biên tập chọn hay từ câu hỏi hay gặp): chưa có nguồn. |
 | 3 | Ô nhập câu hỏi | Textbox (multi-line) | Text | • Nhập câu hỏi ngôn ngữ tự nhiên; Enter gửi, Shift+Enter xuống dòng [GIẢ ĐỊNH].<br>• Rỗng → nút [4] disabled. Giới hạn độ dài câu hỏi: đã chốt (OQ-13).<br>• Khi AI đang trả lời: khóa ô nhập, tránh gửi chồng. |
 | 4 | Gửi | Button | Click | • **Disabled** khi [3] rỗng hoặc AI đang xử lý; click → gửi và chuyển sang khung hội thoại `ai-tra-loi`.<br>• Câu hỏi + câu trả lời được lưu vào nhật ký hội thoại AI để quản trị viên kiểm tra chất lượng (Đề xuất — Cấu hình tích hợp AI; xem `cauhinh-nhat-ky-ai`).<br>• Chế độ "Hỏi đáp AI cho khách hàng" bị tắt cho dịch vụ/site này (quản trị viên cấu hình tại `cauhinh-tham-so-ai`): ẩn mục "Hỏi đáp AI" trên menu [GIẢ ĐỊNH — cách hiển thị: OQ-15].<br>• Lỗi kết nối AI/quá giới hạn request: báo "Chưa trả lời được lúc này" + gợi ý tạo ticket [wording chưa có nguồn, chưa có mã E-…]. |
-| 5 | Lịch sử | Link | Click | • Navigate → `ai-lich-su` (UC62): xem, mở lại và xóa hội thoại của chính mình. Vẫn hiện khi Hỏi đáp AI đang tắt hoặc lỗi để người dùng xem/xóa lịch sử. |
+| 5 | Lịch sử | Link | Click | • Navigate → `ai-lich-su` (UC34): xem, mở lại và xóa hội thoại của chính mình. Vẫn hiện khi Hỏi đáp AI đang tắt hoặc lỗi để người dùng xem/xóa lịch sử. |
 
 - Header dùng chung (không đánh số). Câu chào và gợi ý câu hỏi là dữ liệu mẫu.
 
@@ -186,7 +186,7 @@
 | 4 | Xóa hội thoại | Icon button | Click | • Xóa từng hội thoại, luôn có hộp xác nhận (trạng thái phụ); không khôi phục. Chỉ xóa hội thoại của chính mình.<br>• Thông báo khi xóa: bản ghi phục vụ kiểm tra chất lượng của hệ thống vẫn giữ theo chính sách quản trị (nhật ký AI) (OQ-36). |
 | 5 | Ghi chú thời hạn lưu | Label | ReadOnly | • "Hội thoại được lưu 90 ngày rồi tự xóa; chỉ bạn xem được" (OQ-36). Quản trị viên không xem lịch sử cá nhân của người khác. |
 
-- Đề xuất bổ sung ngày 21/09/2026 (UC62, OQ-36), đã được khách hàng xác nhận. Vào từ nút Lịch sử ở `ai-khung-chat`.
+- Đề xuất bổ sung ngày 21/09/2026 (UC34, OQ-36), đã được khách hàng xác nhận. Vào từ nút Lịch sử ở `ai-khung-chat`.
 
 #### Trạng thái phụ — chưa có hội thoại
 

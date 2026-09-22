@@ -531,7 +531,7 @@ flowchart TD
 | 8 | kb-ket-qua-tim-kiem | Kết quả tìm kiếm | Hiển thị kết quả đã lọc cứng theo đúng dịch vụ + site khách hàng đang đăng nhập Có thẻ gợi ý Hỏi đáp AI (ẩn khi tắt AI theo site) và tạo yêu cầu hỗ trợ. Không có kết quả → [65]. | tra-cuu-kb |
 | 9 | kb-chi-tiet-bai-viet | Chi tiết bài viết | Nội dung HDSD/FAQ chi tiết; đánh giá hữu ích; CTA tạo ticket nếu chưa giải quyết được Có thẻ 'Chưa giải quyết được' và thẻ 'Bài viết liên quan' ([GIẢ ĐỊNH], OQ-30, cùng bộ lọc site/dịch vụ); bài đã ẩn/hủy/ngoài phạm vi → [66]. Biến thể: đã đánh giá hữu ích và đã lưu. | tra-cuu-kb |
 | 10 | kb-danh-muc-loi | Danh mục lỗi / tình huống thường gặp | Tra theo mã lỗi/thông báo/module, hướng dẫn khắc phục từng bước kèm ảnh minh họa Có thẻ tạo yêu cầu hỗ trợ khi không thấy lỗi của mình. | tra-cuu-kb |
-| 11 | ai-khung-chat | Khung chat hỏi đáp AI | Khách hàng nhập câu hỏi tự nhiên; hệ thống lọc cứng theo site/dịch vụ trước khi tìm câu trả lời; có nút Lịch sử sang [69]; AI tắt/lỗi/quá thời gian: báo tại khung chat, gợi ý tạo yêu cầu hỗ trợ [14] hoặc về tra cứu [7], vẫn xem/xóa được lịch sử [đề xuất bổ sung, UC62] | hoi-dap-ai |
+| 11 | ai-khung-chat | Khung chat hỏi đáp AI | Khách hàng nhập câu hỏi tự nhiên; hệ thống lọc cứng theo site/dịch vụ trước khi tìm câu trả lời; có nút Lịch sử sang [69]; AI tắt/lỗi/quá thời gian: báo tại khung chat, gợi ý tạo yêu cầu hỗ trợ [14] hoặc về tra cứu [7], vẫn xem/xóa được lịch sử [đề xuất bổ sung, UC34] | hoi-dap-ai |
 | 12 | ai-tra-loi | AI trả lời kèm trích dẫn | Câu trả lời tổng hợp từ RAG, kèm trích dẫn nguồn bài viết để khách hàng tự kiểm chứng; bấm trích dẫn sang [9] (bài đã ẩn hoặc ngoài phạm vi → [66]) | hoi-dap-ai |
 | 13 | ai-de-xuat-tao-ticket | Đề xuất tạo ticket | AI không đủ tự tin hoặc không có trong kho → đề xuất tạo ticket, tự đính kèm nội dung đã hỏi | hoi-dap-ai |
 | 14 | ticket-tao-moi | Form tạo ticket | Chọn dịch vụ, loại vấn đề, mức ưu tiên, mô tả, đính kèm ảnh/file | gui-theo-doi-ticket |
@@ -588,9 +588,9 @@ flowchart TD
 | 65 | kb-khong-co-ket-qua | Không có kết quả tìm kiếm | Trạng thái không có kết quả (kể cả do ngoài phạm vi site — không tiết lộ bài site khác); gợi ý đổi từ khóa, hỏi AI (khi AI bật), tạo yêu cầu hỗ trợ | tra-cuu-kb |
 | 66 | kb-bai-viet-khong-con | Bài viết không còn hoặc không có quyền xem | Thông báo gộp cho bài đã ẩn/hủy hoặc ngoài phạm vi (không phân biệt hai trường hợp); nút về trang tra cứu | tra-cuu-kb |
 | 67 | noibo-ai-khung-chat | Khung chat hỏi đáp AI (nội bộ) | Nhân viên tra cứu nghiệp vụ để hỗ trợ khách hàng; chọn dịch vụ + site đang hỗ trợ (site theo quyền xem, OQ-34); lọc cứng theo lựa chọn; mở từ ticket [23] thì site của ticket chọn sẵn; có nút Lịch sử sang [70]; chỉ hiện khi Hỏi đáp AI bật theo dịch vụ/site (AI tắt, lỗi hoặc quá thời gian: báo tại khung chat, về ticket/hàng đợi); mở từ menu nội bộ cho Agent, Quản trị viên, Chủ quản dịch vụ [đề xuất bổ sung, UC61, OQ-34] | noibo-hoi-dap-ai |
-| 68 | noibo-ai-tra-loi | AI trả lời kèm trích dẫn (nội bộ) | Câu trả lời kèm trích dẫn nguồn; nút Sao chép và "Chèn vào phản hồi" (khi mở từ ticket); trạng thái phụ không đủ tự tin: báo rõ, gợi ý đổi cách hỏi hoặc site, KHÔNG đề xuất tạo ticket; bấm trích dẫn mở xem trước bài viết chỉ đọc tại chỗ, bài đã ẩn báo "bài không còn" (OQ-39) [đề xuất bổ sung, UC61] | noibo-hoi-dap-ai |
-| 69 | ai-lich-su | Lịch sử hỏi đáp AI (khách hàng) | Danh sách hội thoại của chính mình (tiêu đề = câu hỏi đầu tiên, thời gian, dịch vụ/site, số lượt), tìm theo từ khóa, mở lại để hỏi tiếp, xóa từng hội thoại có xác nhận; tự xóa sau 90 ngày; có trạng thái rỗng [đề xuất bổ sung, UC62, OQ-36] | hoi-dap-ai |
-| 70 | noibo-ai-lich-su | Lịch sử hỏi đáp AI (nội bộ) | Như [69] cho tài khoản nội bộ; chỉ thấy hội thoại của chính mình, Quản trị viên không xem lịch sử cá nhân của người khác [đề xuất bổ sung, UC62, OQ-36] | noibo-hoi-dap-ai |
+| 68 | noibo-ai-tra-loi | AI trả lời kèm trích dẫn (nội bộ) | Câu trả lời kèm trích dẫn nguồn; nút Sao chép và "Chèn vào phản hồi" (khi mở từ ticket); trạng thái phụ không đủ tự tin: báo rõ, gợi ý đổi cách hỏi hoặc site, KHÔNG đề xuất tạo ticket; bấm trích dẫn mở xem trước bài viết chỉ đọc tại chỗ, bài đã ẩn báo "bài không còn" (OQ-39) [đề xuất bổ sung, UC20] | noibo-hoi-dap-ai |
+| 69 | ai-lich-su | Lịch sử hỏi đáp AI (khách hàng) | Danh sách hội thoại của chính mình (tiêu đề = câu hỏi đầu tiên, thời gian, dịch vụ/site, số lượt), tìm theo từ khóa, mở lại để hỏi tiếp, xóa từng hội thoại có xác nhận; tự xóa sau 90 ngày; có trạng thái rỗng [đề xuất bổ sung, UC34, OQ-36] | hoi-dap-ai |
+| 70 | noibo-ai-lich-su | Lịch sử hỏi đáp AI (nội bộ) | Như [69] cho tài khoản nội bộ; chỉ thấy hội thoại của chính mình, Quản trị viên không xem lịch sử cá nhân của người khác [đề xuất bổ sung, UC34, OQ-36] | noibo-hoi-dap-ai |
 
 ## 3. Danh sách flow
 
@@ -629,7 +629,7 @@ flowchart TD
 | Menu tài khoản (mọi màn) | Đăng nhập chung [1] | Bấm "Đăng xuất" | Kết thúc phiên, cả khách hàng và nhân viên |
 | Menu tài khoản (giao diện nội bộ) | Trang chủ tra cứu [7] | Bấm "Chuyển sang giao diện khách hàng" | Chỉ người có cả tài khoản khách hàng lẫn vai trò nội bộ (OQ-33) |
 | Menu tài khoản (giao diện khách hàng) | Trang chủ nội bộ theo vai trò | Bấm "Chuyển sang giao diện nội bộ" | Chỉ người có cả hai loại (OQ-33) |
-| Đăng nhập chung [1] | (giữ nguyên) [1] | Submit đăng nhập | Sai email hoặc mật khẩu → báo chung, không phân biệt email không tồn tại; sai 5 lần liên tiếp khóa 15 phút (UC47) |
+| Đăng nhập chung [1] | (giữ nguyên) [1] | Submit đăng nhập | Sai email hoặc mật khẩu → báo chung, không phân biệt email không tồn tại; sai 5 lần liên tiếp khóa 15 phút (UC59) |
 | Đăng nhập chung [1] | Quên mật khẩu / đặt lại [3] | Bấm "Quên mật khẩu" | — |
 | Quên mật khẩu / đặt lại [3] | Đăng nhập chung [1] | Submit email | Email hợp lệ, gửi link đặt lại |
 | Quên mật khẩu / đặt lại [3] | Đặt mật khẩu kích hoạt [2] | Mở link đặt lại trong email | Màn [2] dùng chung với tiêu đề "Đặt lại mật khẩu"; link 30 phút, hết hạn hoặc đã dùng → [53] (OQ-40) |
@@ -869,8 +869,8 @@ flowchart TD
 
 **Điều chỉnh luồng đã áp dụng ngày 21/09/2026 (lần 2, theo yêu cầu BA):**
 - `dang-nhap-kich-hoat-kh`: [1] thành màn đăng nhập chung cho mọi vai trò; sau đăng nhập rẽ theo loại tài khoản và vai trò (khách hàng [7]; Agent/Quản trị viên [22]; Chủ quản dịch vụ [48]; Biên tập nội dung [36]). Màn [20] gộp vào [1], giữ số thứ tự; flow `noibo-trang-dau` chỉ còn [21], [63]; [3] và [62] dùng chung.
-- Thêm flow thứ 12 `noibo-hoi-dap-ai` với [67], [68], [70] (UC61, UC62): nhân viên hỏi đáp AI theo dịch vụ/site đang chọn và quyền xem; chèn câu trả lời vào phản hồi ticket; không có màn Tra cứu bài viết cho nhân viên (OQ-35).
-- `hoi-dap-ai`: thêm [69] Lịch sử hỏi đáp AI cho khách hàng (UC62); lưu 90 ngày, chỉ chủ tài khoản xem.
+- Thêm flow thứ 12 `noibo-hoi-dap-ai` với [67], [68], [70] (UC20, UC34): nhân viên hỏi đáp AI theo dịch vụ/site đang chọn và quyền xem; chèn câu trả lời vào phản hồi ticket; không có màn Tra cứu bài viết cho nhân viên (OQ-35).
+- `hoi-dap-ai`: thêm [69] Lịch sử hỏi đáp AI cho khách hàng (UC34); lưu 90 ngày, chỉ chủ tài khoản xem.
 - `quan-tri-nguoi-dung`: [33]/[58] thêm quyền "Xem nghiệp vụ toàn bộ khách hàng trong Hỏi đáp AI" (OQ-34).
 
 ### Open Question bổ sung ngày 21/09/2026 (chỉ hỏi phần còn thiếu, tham chiếu OQ cũ)

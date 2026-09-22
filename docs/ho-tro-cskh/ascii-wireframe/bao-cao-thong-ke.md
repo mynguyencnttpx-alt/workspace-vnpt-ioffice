@@ -41,7 +41,7 @@
 | 1 | Tab báo cáo | Tabs | Click | • 4 tab: Tổng quan (đang xem) / Hiệu suất & SLA / Chất lượng & nội dung / Xuất báo cáo → `baocao-hieusuat-sla` / `baocao-chatluong` / `baocao-xuat` (giữ nguyên bộ lọc kỳ/team/dịch vụ khi chuyển tab [GIẢ ĐỊNH]).<br>• **Phạm vi theo vai trò** (Đề xuất — Phân quyền xem báo cáo): Quản trị viên xem mọi team/tỉnh/dịch vụ; **Chủ quản dịch vụ** (chỉ xem) chỉ thấy phạm vi dịch vụ mình phụ trách, đây là màn landing mặc định sau đăng nhập; **Agent** chỉ xem báo cáo cơ bản team mình. Màn này không có nút sửa danh mục/quyền/nội dung. |
 | 2 | Kỳ báo cáo + so sánh | Dropdown + Checkbox | Select / Check | • Kỳ: ngày / tuần / tháng / khoảng tùy chọn (Đề xuất — Tổng quan hoạt động hỗ trợ). Checkbox **So kỳ trước** hiện tỷ lệ tăng/giảm ở [4]; cách xác định kỳ trước: OQ-23. |
 | 3 | Lọc team / dịch vụ / khách hàng | Dropdown | Select | • Team (trung tâm, từng tỉnh), dịch vụ (iOffice/iStorage), khách hàng — chỉ liệt kê giá trị **trong phạm vi được xem**. Đổi bộ lọc → tải lại số liệu; đang tải hiện trạng thái chờ. |
-| 4 | Số liệu chính | Label (KPI) | ReadOnly | • Số phiếu **đã tạo / đã xử lý / đang tồn đọng (backlog)** trong kỳ (UC37), kèm % so kỳ trước. Định nghĩa "đã xử lý"/"tồn đọng" theo trạng thái nào: OQ-23.<br>• **Không có dữ liệu trong khoảng lọc** → thay số liệu và biểu đồ bằng "Không có dữ liệu trong khoảng đã chọn" + gợi ý đổi bộ lọc. |
+| 4 | Số liệu chính | Label (KPI) | ReadOnly | • Số phiếu **đã tạo / đã xử lý / đang tồn đọng (backlog)** trong kỳ (UC50), kèm % so kỳ trước. Định nghĩa "đã xử lý"/"tồn đọng" theo trạng thái nào: OQ-23.<br>• **Không có dữ liệu trong khoảng lọc** → thay số liệu và biểu đồ bằng "Không có dữ liệu trong khoảng đã chọn" + gợi ý đổi bộ lọc. |
 | 5 | Biểu đồ theo trạng thái | Chart | ReadOnly | • Số ticket theo trạng thái (Mới / Đang xử lý / Chờ khách hàng / Chờ xác nhận / Đã đóng); vẽ dạng cột ngang đơn giản. Có thể xem theo ngày/tuần/tháng. |
 | 6 | Bảng theo team | Table | ReadOnly | • Số ticket theo team (tỉnh/trung tâm), dịch vụ, khách hàng theo bộ lọc; bấm dòng để lọc sâu hơn [GIẢ ĐỊNH]. Chủ quản dịch vụ chỉ thấy các dòng thuộc dịch vụ mình. |
 
@@ -85,7 +85,7 @@
 | 1 | Tab báo cáo | Tabs | Click | • Như `baocao-tong-quan` [1]. Chỉ **Quản trị viên và Chủ quản dịch vụ** thấy tab này (Đề xuất — Hiệu suất & SLA); Agent chỉ có báo cáo cơ bản team mình ở tab Tổng quan. |
 | 2 | Kỳ báo cáo | Dropdown | Select | • Như tab Tổng quan. |
 | 3 | Xem theo | Dropdown | Select | • Team / Tỉnh / Agent (đề xuất: theo team/tỉnh/agent). Chủ quản dịch vụ **không xem theo Agent** (thông tin cá nhân) [GIẢ ĐỊNH — nguồn chưa nói, OQ-23]. |
-| 4 | Thời gian & SLA | Label (KPI) | ReadOnly | • Thời gian phản hồi trung bình, thời gian xử lý trung bình, **tỷ lệ ticket đúng hạn / quá hạn SLA** (UC38). Mốc bắt đầu/kết thúc, có trừ thời gian "Chờ khách hàng"/ngoài giờ làm việc không, ngưỡng SLA từng ưu tiên: OQ-2, OQ-19, OQ-23. |
+| 4 | Thời gian & SLA | Label (KPI) | ReadOnly | • Thời gian phản hồi trung bình, thời gian xử lý trung bình, **tỷ lệ ticket đúng hạn / quá hạn SLA** (UC51). Mốc bắt đầu/kết thúc, có trừ thời gian "Chờ khách hàng"/ngoài giờ làm việc không, ngưỡng SLA từng ưu tiên: OQ-2, OQ-19, OQ-23. |
 | 5 | Escalate & OneBSS | Label (KPI) | ReadOnly | • Số ticket escalate từ tỉnh lên trung tâm và số phiếu đã đẩy sang OneBSS trong kỳ (Đề xuất — Hiệu suất & SLA). |
 | 6 | Bảng chi tiết | Table | ReadOnly | • Số liệu theo lựa chọn [3]; sắp xếp theo cột; không có dữ liệu → thông báo trống như tab Tổng quan. |
 | 7 | Ghi chú MVP | Label | ReadOnly | • Nhắc: MVP không tự động chuyển cấp theo SLA (giai đoạn 4); dữ liệu này để quản trị viên tự quyết xử lý. |
@@ -127,7 +127,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Tab báo cáo | Tabs | Click | • Như `baocao-tong-quan` [1]; chỉ Quản trị viên và Chủ quản dịch vụ. |
 | 2 | Kỳ báo cáo | Dropdown | Select | • Như tab Tổng quan. |
-| 3 | Lọc dịch vụ / tỉnh | Dropdown | Select | • Phạm vi dịch vụ/tỉnh trong quyền xem (UC39: chọn phạm vi dịch vụ/tỉnh); Chủ quản dịch vụ chỉ dịch vụ mình phụ trách. |
+| 3 | Lọc dịch vụ / tỉnh | Dropdown | Select | • Phạm vi dịch vụ/tỉnh trong quyền xem (UC52: chọn phạm vi dịch vụ/tỉnh); Chủ quản dịch vụ chỉ dịch vụ mình phụ trách. |
 | 4 | CSAT & AI deflection | Label (KPI) | ReadOnly | • **CSAT** = điểm hài lòng trung bình từ đánh giá khi đóng ticket (thang: OQ-3, số 4.5/5 chỉ minh họa). **AI deflection rate** = tỷ lệ câu hỏi AI tự trả lời được so với số phải chuyển thành ticket — chỉ số đánh giá hiệu quả kho tri thức (Đề xuất — Chất lượng & nội dung); công thức chính xác: OQ-23. Chưa có đánh giá → "Chưa có dữ liệu". |
 | 5 | Top lỗi / tình huống | List | ReadOnly | • Lỗi/tình huống được hỏi nhiều nhất (từ tra cứu, hỏi đáp AI, ticket) — đầu vào để bổ sung KB, giảm ticket lặp lại. Bấm 1 dòng → mở bài liên quan hoặc `kb-tu-ticket-thanh-faq` [GIẢ ĐỊNH]. Nguồn thống kê "hỏi nhiều": OQ-23. |
 | 6 | KB hữu ích nhiều nhất | List | ReadOnly | • Bài KB có tỷ lệ đánh giá hữu ích cao nhất (từ nút đánh giá ở `kb-chi-tiet-bai-viet`); ngưỡng số lượt tối thiểu để xếp hạng: OQ-23. |
@@ -167,14 +167,14 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Tab báo cáo | Tabs | Click | • Như `baocao-tong-quan` [1]. Chỉ **Quản trị viên và Chủ quản dịch vụ** xuất/cấu hình (UC40, UC31); Chủ quản dịch vụ chỉ trong phạm vi dịch vụ mình. |
+| 1 | Tab báo cáo | Tabs | Click | • Như `baocao-tong-quan` [1]. Chỉ **Quản trị viên và Chủ quản dịch vụ** xuất/cấu hình (UC53, UC39); Chủ quản dịch vụ chỉ trong phạm vi dịch vụ mình. |
 | 2 | Chế độ | Radio group | Check | • **Xuất ngay** (tức thời, tải file) hoặc **Gửi tự động theo lịch** (cấu hình lịch tuần/tháng gửi cho người nhận — Đề xuất — Xuất báo cáo). Chọn chế độ thứ 2 thì [4]-[7] đổi thành: Tần suất (Hằng tuần/Hằng tháng) + thứ/ngày + giờ, Người nhận, Loại báo cáo, Định dạng, nút **Lưu lịch** (vẽ chế độ Xuất ngay làm đại diện; 2 chế độ loại trừ nhau). |
-| 3 | Loại báo cáo | Dropdown | Select | • **Bắt buộc**: Tổng quan hoạt động hỗ trợ / Hiệu suất & SLA / Chất lượng & nội dung (UC40). |
+| 3 | Loại báo cáo | Dropdown | Select | • **Bắt buộc**: Tổng quan hoạt động hỗ trợ / Hiệu suất & SLA / Chất lượng & nội dung (UC53). |
 | 4 | Khoảng thời gian | Date range | Select | • **Bắt buộc** khi Xuất ngay: Từ, Đến (dd/mm/yyyy); Đến < Từ → báo lỗi tại ô [wording chưa có, chưa có mã E-…]. Khoảng tối đa: OQ-23. Ở chế độ lịch: khoảng tự tính theo tần suất (tuần trước/tháng trước) [GIẢ ĐỊNH]. |
 | 5 | Phạm vi | Dropdown | Select | • Team/dịch vụ trong quyền xem; dữ liệu xuất **chỉ gồm phạm vi được phép** (Chủ quản dịch vụ không xuất được dịch vụ khác). |
-| 6 | Định dạng | Radio group | Check | • Excel hoặc PDF (UC40: xuất file Excel/PDF); bố cục file mẫu: đã chốt (OQ-23). |
+| 6 | Định dạng | Radio group | Check | • Excel hoặc PDF (UC53: xuất file Excel/PDF); bố cục file mẫu: đã chốt (OQ-23). |
 | 7 | Xuất file | Button | Click | • **Disabled** tới khi [3], [4] hợp lệ; khóa khi đang tạo file (chống bấm lặp); xong → tải file về máy, báo "Đã xuất" (wording tạm). Không có dữ liệu trong khoảng → không tạo file, báo "Không có dữ liệu để xuất". Lỗi tạo file → báo lỗi, cho thử lại [chưa có mã E-…]. |
-| 8 | Lịch gửi tự động | Table | Select | • Danh sách lịch đã cấu hình: tần suất, loại báo cáo, người nhận; Sửa/Xóa (xóa có xác nhận). Job (UC31) **tổng hợp số liệu theo lịch và gửi file tới Quản trị viên/Chủ quản dịch vụ**.<br>• Người nhận là tài khoản trong hệ thống hay email ngoài, giờ gửi, gửi lỗi thì thử lại: đã chốt (OQ-23). |
+| 8 | Lịch gửi tự động | Table | Select | • Danh sách lịch đã cấu hình: tần suất, loại báo cáo, người nhận; Sửa/Xóa (xóa có xác nhận). Job (UC39) **tổng hợp số liệu theo lịch và gửi file tới Quản trị viên/Chủ quản dịch vụ**.<br>• Người nhận là tài khoản trong hệ thống hay email ngoài, giờ gửi, gửi lỗi thì thử lại: đã chốt (OQ-23). |
 
 - Vẽ chế độ "Xuất ngay"; chế độ "Gửi tự động theo lịch" mô tả trong Description [2] (2 chế độ loại trừ nhau, userflow chưa có slug riêng).
 

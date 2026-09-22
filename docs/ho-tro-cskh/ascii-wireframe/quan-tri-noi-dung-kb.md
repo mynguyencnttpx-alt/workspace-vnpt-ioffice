@@ -223,8 +223,8 @@
 | 3 | Đồng bộ Drive | Link | Click | • → `kb-cau-hinh-dong-bo-drive` (chỉ Quản trị viên, UC15). |
 | 4 | Ticket thành FAQ | Link | Click | • → `kb-tu-ticket-thanh-faq`. |
 | 5 | Bộ lọc | Dropdown | Select | • Loại nội dung / dịch vụ / phạm vi (dùng chung hoặc site). Biên tập chỉ thấy phạm vi được gán. |
-| 6 | Sửa | Link | Click | • Mở `kb-soan-thao` với nội dung hiện có; lưu và **gửi duyệt lại** → bài chuyển về trạng thái chờ duyệt (UC24). Trong lúc chờ duyệt lại, bản đang xuất bản còn hiển thị hay bị gỡ: đã chốt (OQ-21). |
-| 7 | Ẩn (hủy) | Link | Click | • Hộp thoại xác nhận → bài **ẩn khỏi tra cứu và khỏi AI, nhưng giữ lịch sử** (UC26); tái lập chỉ mục AI để AI ngừng dùng. Khôi phục bài đã ẩn: đã chốt (OQ-21). Ghi nhật ký (xóa tài liệu) tại `qt-nhat-ky-thao-tac`. |
+| 6 | Sửa | Link | Click | • Mở `kb-soan-thao` với nội dung hiện có; lưu và **gửi duyệt lại** → bài chuyển về trạng thái chờ duyệt (UC27). Trong lúc chờ duyệt lại, bản đang xuất bản còn hiển thị hay bị gỡ: đã chốt (OQ-21). |
+| 7 | Ẩn (hủy) | Link | Click | • Hộp thoại xác nhận → bài **ẩn khỏi tra cứu và khỏi AI, nhưng giữ lịch sử** (UC29); tái lập chỉ mục AI để AI ngừng dùng. Khôi phục bài đã ẩn: đã chốt (OQ-21). Ghi nhật ký (xóa tài liệu) tại `qt-nhat-ky-thao-tac`. |
 
 - Màn cửa vào của khu vực nội dung: có 3 lối tắt Import/Đồng bộ Drive/Ticket thành FAQ. Dữ liệu mẫu chỉ minh họa; cột "Hữu ích" = số lượt đánh giá hữu ích/tổng.
 
@@ -481,8 +481,8 @@
 | 1 | Trạng thái kết nối | Label / Button | Click | • Kết nối tới Google Drive của tổ chức (Đề xuất — Nguồn dữ liệu đầu vào). Chưa kết nối/mất kết nối → nút "Kết nối lại" và báo lỗi [wording chưa có]. Cách xác thực (tài khoản dịch vụ hay OAuth): đã chốt (OQ-21). |
 | 2 | Bảng thư mục đồng bộ | Table | Select | • Mỗi dòng: thư mục Drive, dịch vụ, phạm vi (dùng chung/site), bật/tắt. Chỉ **Quản trị viên** cấu hình (UC15). Tắt 1 dòng → ngừng quét thư mục đó, bài đã đưa vào KB giữ nguyên. |
 | 3 | Thêm thư mục | Button | Click | • Chọn thư mục Drive cần đồng bộ và **gắn nhãn dịch vụ/site khi nhập** (bắt buộc — để bài đồng bộ có phạm vi rõ ràng, không lọt sang khách hàng khác). |
-| 4 | Lịch đồng bộ | Dropdown | Select | • Chu kỳ quét định kỳ (UC15/UC30). Các lựa chọn chu kỳ: đã chốt (OQ-21). |
-| 5 | Kết quả lần chạy gần nhất | Label | ReadOnly | • Job đồng bộ (UC30) quét thư mục theo lịch, đưa **tài liệu mới/thay đổi vào hàng chờ duyệt** (nhãn "Drive") — không xuất bản thẳng, không đưa dữ liệu thô vào chỉ mục AI. Hiện số tài liệu, lỗi nếu có. |
+| 4 | Lịch đồng bộ | Dropdown | Select | • Chu kỳ quét định kỳ (UC15/UC38). Các lựa chọn chu kỳ: đã chốt (OQ-21). |
+| 5 | Kết quả lần chạy gần nhất | Label | ReadOnly | • Job đồng bộ (UC38) quét thư mục theo lịch, đưa **tài liệu mới/thay đổi vào hàng chờ duyệt** (nhãn "Drive") — không xuất bản thẳng, không đưa dữ liệu thô vào chỉ mục AI. Hiện số tài liệu, lỗi nếu có. |
 | 6 | Lưu cấu hình | Button | Click | • **Disabled** khi chưa đổi gì; lưu → áp dụng từ lần quét kế tiếp; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. |
 
 #### Trạng thái phụ — mất kết nối
