@@ -40,7 +40,8 @@ links:
 | 25 | [agent-tao-phieu-onebss](xu-ly-ticket-agent.md#agent-tao-phieu-onebss) | xu-ly-ticket-agent | draft | UC6 | [25 · agent-tao-phieu-onebss (+3 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=46-4132) | — | — | 2026-09-21 |
 | 26 | [agent-xac-nhan-phieu-onebss](xu-ly-ticket-agent.md#agent-xac-nhan-phieu-onebss) | xu-ly-ticket-agent | draft | UC8 | [26 · agent-xac-nhan-phieu-onebss](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2882) | — | — | 2026-09-21 |
 | 27 | [agent-canh-bao-sla](xu-ly-ticket-agent.md#agent-canh-bao-sla) | xu-ly-ticket-agent | draft | UC37 | [27 · agent-canh-bao-sla](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2924) | — | — | 2026-09-20 |
-| 28 | [qt-danh-muc-khach-hang](quan-tri-nguoi-dung.md#qt-danh-muc-khach-hang) | quan-tri-nguoi-dung | draft | UC1, UC28 | [28 · qt-danh-muc-khach-hang](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3093) | — | — | 2026-09-21 |
+| 28 | [qt-danh-muc-khach-hang](quan-tri-nguoi-dung.md#qt-danh-muc-khach-hang) | quan-tri-nguoi-dung | draft | UC1, UC28 | [28 · qt-danh-muc-khach-hang](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3093) | — | — | 2026-09-23 |
+| 28c | [qt-danh-muc-site](quan-tri-nguoi-dung.md#qt-danh-muc-site) | quan-tri-nguoi-dung | draft | UC1 | — (chưa vẽ, mới thêm 23/09/2026) | — | — | 2026-09-23 |
 | 29 | [qt-moi-dau-moi](quan-tri-nguoi-dung.md#qt-moi-dau-moi) | quan-tri-nguoi-dung | draft | UC9 | [29 · qt-moi-dau-moi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3204) | — | — | 2026-09-21 |
 | 30 | [qt-danh-sach-tai-khoan](quan-tri-nguoi-dung.md#qt-danh-sach-tai-khoan) | quan-tri-nguoi-dung | draft | UC25 | [30 · qt-danh-sach-tai-khoan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3266) | — | — | 2026-09-21 |
 | 31 | [qt-chi-tiet-tai-khoan](quan-tri-nguoi-dung.md#qt-chi-tiet-tai-khoan) | quan-tri-nguoi-dung | draft | UC26, UC54, UC55 | [31 · qt-chi-tiet-tai-khoan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3375) | — | — | 2026-09-20 |
@@ -105,10 +106,10 @@ Người được mời mở link trong Email/SMS để đặt mật khẩu lầ
 Khách hàng quên mật khẩu nhập email để nhận liên kết đặt lại; báo trung lập nếu email không có trong danh mục.
 
 ### kh-danh-sach-thanh-vien
-Chỉ đầu mối thấy: xem người dùng cùng đơn vị/site và vào màn mời thêm.
+Chỉ đầu mối thấy: xem người dùng cùng đơn vị/khách hàng và vào màn mời thêm (cập nhật 23/09/2026 — theo khách hàng, không theo site).
 
 ### kh-moi-thanh-vien
-Đầu mối nhập thông tin người cần mời; người được mời gắn cố định vào site của đầu mối.
+Đầu mối nhập thông tin người cần mời; người được mời gắn cố định vào khách hàng của đầu mối (cập nhật 23/09/2026 — sửa từ "site của đầu mối").
 
 ### kh-tai-khoan-ca-nhan
 Mọi khách hàng đổi mật khẩu/thông tin cá nhân, xem tài liệu đã lưu/theo dõi và lối tới lịch sử ticket.
@@ -177,10 +178,13 @@ Agent trung tâm xem lại thông tin và xác nhận trước khi tạo phiếu
 Danh sách ticket sắp/đã quá hạn SLA cho agent và quản trị viên phụ trách; chỉ cảnh báo, không tự chuyển cấp.
 
 ### qt-danh-muc-khach-hang
-Quản trị viên quản lý danh mục khách hàng/site (dữ liệu gốc để định tuyến ticket và phân vùng tài liệu), sửa tại dòng.
+Quản trị viên quản lý danh mục khách hàng (dữ liệu gốc để định tuyến ticket và phân vùng tài liệu), sửa tại dòng; mỗi khách hàng gắn với ≥1 site đã có trong `qt-danh-muc-site` (cập nhật 23/09/2026).
+
+### qt-danh-muc-site
+Tab riêng trong Chức năng 1 (mới, 23/09/2026) — Quản trị viên quản lý danh mục Site (tenant kỹ thuật, mỗi site 1 dịch vụ), dùng chung được cho nhiều khách hàng nhỏ lẻ hoặc riêng cho 1 khách hàng lớn.
 
 ### qt-moi-dau-moi
-Khởi tạo tài khoản đầu mối cho đơn vị/site và gửi lời mời kích hoạt qua Email/SMS; không có đăng ký công khai.
+Khởi tạo tài khoản đầu mối cho khách hàng và gửi lời mời kích hoạt qua Email/SMS; không có đăng ký công khai.
 
 ### qt-danh-sach-tai-khoan
 Quản trị viên xem danh sách tài khoản nội bộ và khách hàng, lọc theo loại/vai trò/trạng thái.
@@ -268,7 +272,7 @@ Quản trị viên cấu hình kết nối OneBSS (địa chỉ, client, bí m�
 Quản trị viên xem trạng thái chỉ mục AI của bài đã xuất bản (đã lập, cần tái lập, đang xử lý, lỗi, loại khỏi AI) và tái lập chỉ mục.
 
 ### qt-form-khach-hang
-Quản trị viên tạo khách hàng/site (tên, loại khách hàng quyết định team tiếp nhận, dịch vụ, mã site duy nhất) kèm đầu mối liên hệ chính thức, rồi sang bước tạo tài khoản đầu mối + mời.
+Quản trị viên tạo khách hàng (tên, loại khách hàng quyết định team tiếp nhận, chọn ≥1 site có sẵn — mỗi dịch vụ tối đa 1 site, hoặc tạo site mới ngay trong form) kèm đầu mối liên hệ chính thức, rồi sang bước tạo tài khoản đầu mối + mời. Cập nhật 23/09/2026: chọn Site có sẵn thay cho tự khai mã site/tenant mới mỗi lần.
 
 ### qt-ma-tran-phan-quyen
 Quản trị viên xem bảng quyền vai trò × chức năng (chỉ xem, tham khảo, khách hàng đã xác nhận).

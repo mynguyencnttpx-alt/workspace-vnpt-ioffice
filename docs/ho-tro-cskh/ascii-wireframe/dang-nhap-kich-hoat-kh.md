@@ -138,7 +138,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Thông tin lời mời | Label | ReadOnly | • Hiện đơn vị/site và email được mời (lấy từ lời mời) để người nhận xác nhận đúng tài khoản; không sửa được.<br>• Người được mời tự động gắn cố định vào site của đầu mối (Đề xuất — Cơ chế cấp tài khoản), không chọn được site khác. |
+| 1 | Thông tin lời mời | Label | ReadOnly | • Hiện đơn vị (khách hàng) và email được mời (lấy từ lời mời) để người nhận xác nhận đúng tài khoản; không sửa được.<br>• Người được mời tự động gắn cố định vào khách hàng của đầu mối (đã chốt 23/09/2026 — sửa từ "site của đầu mối"), không chọn được khách hàng khác. |
 | 2 | Mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**. Quy tắc độ dài/ký tự: đã chốt (OQ-5).<br>• Sai quy tắc → báo lỗi inline dưới ô [wording chưa có, chưa có mã E-…]. |
 | 3 | Hiện/ẩn mật khẩu mới | Icon button (eye) | Click | • Bật/tắt hiển thị ô [2]. |
 | 4 | Nhập lại mật khẩu | Textbox (password) | Text | • **Bắt buộc**, phải khớp [2]; lệch → báo "Mật khẩu nhập lại chưa khớp" (wording tạm). |
@@ -250,7 +250,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | + Mời thêm người dùng | Button | Click | • Chỉ tài khoản **đầu mối** thấy màn này và nút này (RBAC: khách hàng thường không có mục "Thành viên" trên menu).<br>• Click → `kh-moi-thanh-vien`. |
-| 2 | Bảng thành viên | Table | ReadOnly | • Cột: Họ tên, Email, Vai trò (Đầu mối/Thành viên), Trạng thái (Chờ kích hoạt/Đang hoạt động) — [GIẢ ĐỊNH] tập cột; đề xuất/UC25 chỉ nói "danh sách tài khoản trong phạm vi quản lý".<br>• Phạm vi dữ liệu: chỉ người dùng thuộc cùng đơn vị/site của đầu mối (không thấy site khác).<br>• Không có thao tác khóa/đổi vai trò tại đây — việc đó thuộc Quản trị viên (UC55/56).<br>• Empty state: chỉ có chính đầu mối → hiện "Chưa mời thành viên nào" [wording tạm]. |
+| 2 | Bảng thành viên | Table | ReadOnly | • Cột: Họ tên, Email, Vai trò (Đầu mối/Thành viên), Trạng thái (Chờ kích hoạt/Đang hoạt động) — [GIẢ ĐỊNH] tập cột; đề xuất/UC25 chỉ nói "danh sách tài khoản trong phạm vi quản lý".<br>• Phạm vi dữ liệu: chỉ người dùng thuộc cùng khách hàng/đơn vị của đầu mối (đã chốt 23/09/2026 — không thấy khách hàng khác, kể cả khách hàng khác đang dùng chung site với mình).<br>• Không có thao tác khóa/đổi vai trò tại đây — việc đó thuộc Quản trị viên (UC55/56).<br>• Empty state: chỉ có chính đầu mối → hiện "Chưa mời thành viên nào" [wording tạm]. |
 | 3 | Tổng số thành viên | Label | ReadOnly | • Đếm theo bảng [2]. Phân trang/tìm kiếm khi danh sách dài: đã chốt (OQ-7). |
 
 - Chỉ đầu mối thấy màn này. Header dùng chung (không đánh số): logo, menu Tra cứu / Hỏi đáp AI / Ticket của tôi / Thành viên (chỉ đầu mối), menu người dùng.
@@ -277,7 +277,7 @@
 │        │ Số điện thoại                                      │        │
 │        │ [3] [0912345678______________________________]     │        │
 │        │                                                    │        │
-│        │ [4] Site: UBND tỉnh Bình Định (cố định)            │        │
+│        │ [4] Đơn vị: UBND tỉnh Bình Định (cố định)          │        │
 │        ├────────────────────────────────────────────────────┤        │
 │        │ [5] [   Gửi lời mời    ] [6] [    Hủy     ]        │        │
 │        └────────────────────────────────────────────────────┘        │
@@ -292,7 +292,7 @@
 | 1 | Họ tên | Textbox | Text | • **Bắt buộc** [GIẢ ĐỊNH — UC10 chỉ nói "thông tin người dùng cần mời"]. |
 | 2 | Email | Textbox | Text | • **Bắt buộc**, đúng định dạng; nơi nhận lời mời kích hoạt và là định danh đăng nhập [GIẢ ĐỊNH].<br>• Email đã có tài khoản trong hệ thống → báo trùng, không tạo mới [wording/mã lỗi chưa có nguồn]. |
 | 3 | Số điện thoại | Textbox | Text | • [GIẢ ĐỊNH] tùy chọn; dùng nhận lời mời qua SMS (brandname) khi kênh SMS bật (`cauhinh-kenh-thongbao`). |
-| 4 | Site gắn kèm | Label | ReadOnly | • Hiển thị site của đầu mối, **không chọn/sửa được** — mọi tài khoản mời thêm tự gắn cố định vào đúng site của đầu mối (Đề xuất — Cơ chế cấp tài khoản). |
+| 4 | Đơn vị gắn kèm | Label | ReadOnly | • Hiển thị khách hàng/đơn vị của đầu mối, **không chọn/sửa được** — mọi tài khoản mời thêm tự gắn cố định vào đúng khách hàng của đầu mối (đã chốt 23/09/2026 — sửa từ "Site gắn kèm", vì 1 site có thể dùng chung nhiều khách hàng). |
 | 5 | Gửi lời mời | Button | Click | • **Disabled** tới khi [1], [2] hợp lệ; khóa khi submitting.<br>• Thành công → hệ thống tạo tài khoản chờ kích hoạt, gửi lời mời qua Email/SMS, quay về `kh-danh-sach-thanh-vien` (thành viên mới trạng thái "Chờ kích hoạt").<br>• Lỗi gửi (kênh thông báo lỗi) → giữ nguyên form, báo lỗi [wording chưa có nguồn]. |
 | 6 | Hủy | Button | Click | • Bỏ nhập, quay về `kh-danh-sach-thanh-vien`; nếu đã nhập dở → hỏi xác nhận bỏ [GIẢ ĐỊNH]. |
 

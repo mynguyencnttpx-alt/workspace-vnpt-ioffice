@@ -48,14 +48,31 @@ if (!fs.existsSync(FILE)) {
 }
 
 function findChrome() {
-  const glob = path.join(os.homedir(), '.puppeteer-cache', 'chrome');
-  if (!fs.existsSync(glob)) return null;
-  for (const versionDir of fs.readdirSync(glob)) {
-    const candidate = path.join(glob, versionDir, 'chrome-mac-arm64', 'Google Chrome for Testing.app', 'Contents', 'MacOS', 'Google Chrome for Testing');
-    if (fs.existsSync(candidate)) return candidate;
-    // linux/x64 layout fallback (best-effort — máy khác kiến trúc có thể cần path khác)
-    const linuxCandidate = path.join(glob, versionDir, 'chrome-linux64', 'chrome');
-    if (fs.existsSync(linuxCandidate)) return linuxCandidate;
+  // 2 cache root khác nhau tuỳ version puppeteer: doc cũ ghi ~/.puppeteer-cache,
+  // bản puppeteer hiện tại (dùng bởi `npx puppeteer browsers install`) mặc định
+  // ghi vào ~/.cache/puppeteer — quét cả 2, ưu tiên cache root cũ trước (giữ tương thích ngược).
+  const roots = [
+    path.join(os.homedir(), '.puppeteer-cache', 'chrome'),
+    path.join(os.homedir(), '.cache', 'puppeteer', 'chrome'),
+    path.join(os.homedir(), '.cache', 'puppeteer', 'chrome-headless-shell'),
+  ];
+  const candidatesFor = (glob, versionDir) => [
+    // macOS arm64
+    path.join(glob, versionDir, 'chrome-mac-arm64', 'Google Chrome for Testing.app', 'Contents', 'MacOS', 'Google Chrome for Testing'),
+    // linux x64
+    path.join(glob, versionDir, 'chrome-linux64', 'chrome'),
+    // Windows x64 — chrome full build
+    path.join(glob, versionDir, 'chrome-win64', 'chrome.exe'),
+    // Windows x64 — chrome-headless-shell build
+    path.join(glob, versionDir, 'chrome-headless-shell-win64', 'chrome-headless-shell.exe'),
+  ];
+  for (const glob of roots) {
+    if (!fs.existsSync(glob)) continue;
+    for (const versionDir of fs.readdirSync(glob)) {
+      for (const candidate of candidatesFor(glob, versionDir)) {
+        if (fs.existsSync(candidate)) return candidate;
+      }
+    }
   }
   return null;
 }
@@ -383,6 +400,9 @@ blocks.forEach((b, i) => {
   const res = spawnSync('mmdc', ['-i', mmdPath, '-o', outPath, '-s', '2'], {
     encoding: 'utf8',
     env: { ...process.env, PUPPETEER_EXECUTABLE_PATH: CHROME },
+    // Windows: mmdc là shim .cmd (không phải .exe) — spawnSync cần shell:true để CreateProcess
+    // biết gọi qua cmd.exe, ngược lại fail âm thầm (status null, stderr rỗng, không có PNG).
+    shell: process.platform === 'win32',
   });
   const compileOk = res.status === 0 && fs.existsSync(outPath);
   const issues = NO_LINT ? [] : lintBlock(b.code, b.startLine);
