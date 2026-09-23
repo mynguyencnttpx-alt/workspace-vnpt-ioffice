@@ -4,6 +4,7 @@
 > Cập nhật 2026-09-02 theo đúng 9 skill đang có trong `.claude/skills/` — bản trước có thêm "Nhóm 1 — Vẽ sơ đồ" (11 skill `/sequence /activity /bpmn ...`) đã bị gỡ khỏi workspace, phần đó đã bỏ. Bổ sung mode JIRA-CONTENT của `srs-write-review` (soạn nội dung phiếu Jira sau khi SRS duyệt).
 > Cập nhật 2026-09-03: thêm `usecase-diagram` (copy từ `ai4ba-skills` kèm đúng 7 rule + 1 template nó cần — xem mục riêng bên dưới và `CLAUDE.md`).
 > Cập nhật 2026-09-18: thêm `user-flow`/`wireframe-ascii`/`figma` (copy từ `ai4ba-skills`, kèm 3 rule + 1 subagent + 1 script + 2 template — xem mục riêng bên dưới và `CLAUDE.md`).
+> Cập nhật 2026-09-23: thêm `erd` (copy từ `ai4ba-skills`, dependency đã có sẵn từ các lượt copy trước — chỉ thêm `SKILL.md` + 1 reference + 1 template — xem mục riêng bên dưới và `CLAUDE.md`).
 
 ## Nguyên tắc chung
 
@@ -15,7 +16,7 @@
 
 ---
 
-## 13 skill hiện có (gọi bằng mô tả tự nhiên hoặc `/tên-skill`)
+## 14 skill hiện có (gọi bằng mô tả tự nhiên hoặc `/tên-skill`)
 
 ### `customer-requirement-clarifier` — Làm rõ yêu cầu nâng cấp thô của khách hàng
 
@@ -89,6 +90,14 @@
   - **Cách dùng thực tế:** khi refuse, mô tả trực tiếp actor + use case cần vẽ ngay trong yêu cầu (thay vì để skill tự dò file) — AI vẫn viết được `.puml`/`.svg` từ mô tả đó. Hoặc tự tạo tay `{feature}-usecase-index.md` theo đúng cấu trúc bảng `## Use cases` (xem `_templates/usecase-index.md`) để auto-detect chạy được.
 - **Output:** `docs/{feature}/usecases/{feature}-usecase-diagram.puml` (source) + `.svg` (render qua server công khai `plantuml.com` — nội dung diagram gửi qua internet mỗi lần render, cân nhắc nếu nội dung nhạy cảm) + nhúng ảnh/bảng Actors/Relationships vào `{feature}-usecase-index.md`
 
+### `erd` — Vẽ Entity-Relationship Diagram (Mermaid)
+
+- **Gọi bằng:** "vẽ ERD cho XYZ", "sơ đồ quan hệ dữ liệu", "thiết kế data model", `/erd --feature <slug>`
+- **Nguồn gốc:** copy ngày 2026-09-23 từ `ai4ba-skills`. Dependency (7 rule + script `mermaid-verify.mjs`) **đã có sẵn** trong workspace từ lượt copy `usecase-diagram`/`user-flow` trước đó — chỉ thêm mới `SKILL.md` + `references/example-erd.md` + template `_templates/diagram-erd.md`. Không lỗi thiếu file.
+- **Input cần:** `<feature>` (slug có sẵn, hoặc mô tả data model tự do nếu feature chưa có — skill tự derive slug + tạo feature). Có `srs/{feature}-spec.md` Mục 6 Data Entities → auto-detect, không hỏi lại. Chưa có → skill phỏng vấn: liệt kê entity + attribute nghiệp vụ (chỉ hỏi ý nghĩa, KHÔNG hỏi kiểu DB varchar/int) + quan hệ (1:1/1:N/N:N).
+- **Quy trình:** resolve feature → auto-detect entity từ SRS nếu có, thiếu thì phỏng vấn business-language → sinh Mermaid `erDiagram` (skill tự gán type kỹ thuật gọn string/int/decimal/date/boolean, KHÔNG hỏi user) → duyệt L1 (không L3 iterate vì mermaid không render trong chat) → ghi file → **bắt buộc** verify + tự xem ảnh PNG qua `mermaid-verify.mjs --png` (tự sửa tối đa 2 lần nếu lỗi cú pháp/ngữ nghĩa — entity ma, quan hệ thiếu FK...) → nếu feature đã có `d2-erd`/`dbdiagram` thì đối chiếu chéo (bước này tự bỏ qua vì 2 skill đó không có trong workspace)
+- **Output:** `docs/{feature}/srs/{feature}-erd.md` — Mermaid `erDiagram`, mở bằng IDE/Obsidian/GitHub preview để xem render
+
 ### `user-flow` — Phân tích nghiệp vụ → User Flow tổng (Mermaid)
 
 - **Gọi bằng:** "vẽ user flow", "phân tích luồng người dùng", "chia flow cho tính năng XYZ", `/user-flow <feature-slug | mô tả tự do>`
@@ -130,11 +139,12 @@
 | Hướng dẫn sử dụng cho người dùng cuối | "viết HDSD cho chức năng XYZ" |
 | Thiết kế/review giao diện | "thiết kế dashboard cho module XYZ" |
 | Sơ đồ tổng quan actor + use case | "vẽ use case diagram cho XYZ" |
+| Thiết kế data model (entity + quan hệ) cho feature đã có SRS | "vẽ ERD cho XYZ" |
 | Chia luồng nghiệp vụ thành flow trước khi vẽ màn hình | "vẽ user flow cho XYZ" |
 | Vẽ ASCII wireframe theo flow đã chia | "vẽ wireframe cho XYZ" |
 | Vẽ màn hình thật lên Figma (cần MCP riêng đã cài) | "vẽ lên Figma cho XYZ" |
 
-> **Vẽ sơ đồ nghiệp vụ khác (sequence/activity/BPMN/ERD...) vẫn KHÔNG có skill nào phục vụ** — nhóm 11 skill vẽ sơ đồ gốc đã bị gỡ khỏi workspace (xem ghi chú trong `START-HERE.md`). Chỉ `usecase-diagram` (2026-09-03) và `user-flow`/`wireframe-ascii`/`figma` (2026-09-18) được copy lại kèm đúng dependency của từng skill (xem mục riêng ở trên) — không kéo theo `sequence`/`activity`/`state`/`bpmn`/`wireframe-html`/`prototype-html`... `CAI-DAT-CONG-CU-DIAGRAM.md` có ghi chi tiết công cụ cần cài cho từng skill (plantuml.com cho `usecase-diagram`, `mmdc` cho `user-flow`, MCP `reqwise-figma` cho `figma`).
+> **Vẽ sơ đồ nghiệp vụ khác (sequence/activity/BPMN/D2-ERD/dbdiagram...) vẫn KHÔNG có skill nào phục vụ** — nhóm 11 skill vẽ sơ đồ gốc đã bị gỡ khỏi workspace (xem ghi chú trong `START-HERE.md`). Chỉ `usecase-diagram` (2026-09-03), `user-flow`/`wireframe-ascii`/`figma` (2026-09-18) và `erd` (2026-09-23) được copy lại kèm đúng dependency của từng skill (xem mục riêng ở trên) — không kéo theo `sequence`/`activity`/`state`/`bpmn`/`d2-erd`/`dbdiagram`/`wireframe-html`/`prototype-html`... `CAI-DAT-CONG-CU-DIAGRAM.md` có ghi chi tiết công cụ cần cài cho từng skill (plantuml.com cho `usecase-diagram`, `mmdc` cho `user-flow`/`erd`, MCP `reqwise-figma` cho `figma`).
 
 ---
 

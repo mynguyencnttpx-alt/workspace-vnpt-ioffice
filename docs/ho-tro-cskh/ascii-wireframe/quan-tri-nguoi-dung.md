@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: qt-danh-muc-khach-hang → qt-form-khach-hang → qt-moi-dau-moi → qt-danh-sach-tai-khoan → qt-chi-tiet-tai-khoan → qt-tao-tai-khoan-noibo → qt-phan-quyen → qt-ma-tran-phan-quyen → qt-nhat-ky-thao-tac. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 23/09/2026:** rà soát phát hiện `qt-danh-muc-khach-hang` chưa có hình minh họa cho việc "Sửa" (chỉ có link tĩnh) — đã vẽ bổ sung modal "Sửa thông tin đơn vị" trên Figma. Xem [4] ở màn đó.
 
 ---
 
@@ -38,7 +40,7 @@
 | 1 | + Thêm khách hàng/site | Button | Click | • Chỉ **Quản trị viên** (UC1). Mở form thêm inline/panel: tên đơn vị, loại khách hàng (UBND tỉnh/thành, doanh nghiệp, trung ương), dịch vụ đang dùng (iOffice/iStorage), site/tenant, đầu mối liên hệ ban đầu (tên, email, SĐT lấy từ hợp đồng/biên bản bàn giao).<br>• Lưu → tạo bản ghi khách hàng/site mới; **đây là dữ liệu gốc** để định tuyến ticket (tỉnh/trung tâm) và phân vùng tài liệu (Đề xuất — Quản trị danh mục người dùng). Sau khi lưu hỏi "Khởi tạo tài khoản đầu mối ngay?" → `qt-moi-dau-moi` (theo userflow).<br>• Trùng site/tenant → báo trùng, không lưu [wording, mã E-… chưa có]. |
 | 2 | Tìm kiếm | Textbox | Text | • Tìm theo tên đơn vị/site/đầu mối; rỗng → hiện tất cả. |
 | 3 | Lọc loại KH / dịch vụ | Dropdown | Select | • Loại: Tất cả / UBND tỉnh-thành / Doanh nghiệp / Trung ương; Dịch vụ: theo danh mục. Kết hợp được. |
-| 4 | Sửa | Link | Click | • Sửa thông tin đơn vị/site/đầu mối ngay tại dòng (UC28); không có màn chi tiết riêng. Lưu → cập nhật và **áp dụng cho định tuyến & phân vùng tài liệu** từ đó về sau.<br>• **Đổi loại KH (tỉnh ⇄ DN/TW) làm đổi team tiếp nhận** — thao tác nhạy cảm: hỏi xác nhận, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang xử lý có chuyển team theo không: đã chốt (OQ-20).<br>• Xóa khách hàng/site: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
+| 4 | Sửa | Link | Click | • Mở **modal "Sửa thông tin đơn vị"** giữa màn (nền mờ phía sau, đã vẽ Figma 23/09/2026) — không mở màn chi tiết riêng (UC28), đúng tinh thần "sửa tại dòng" ban đầu nhưng hiện qua modal thay vì sửa trực tiếp trên ô của bảng. Trường sửa được: Tên đơn vị, Loại khách hàng, Đầu mối liên hệ; Dịch vụ + Site/tenant chỉ hiển thị (không sửa ở đây). Lưu → cập nhật và **áp dụng cho định tuyến & phân vùng tài liệu** từ đó về sau.<br>• **Đổi loại KH (tỉnh ⇄ DN/TW) làm đổi team tiếp nhận** — thao tác nhạy cảm: modal hiện cảnh báo ngay tại field, hỏi xác nhận trước khi lưu, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang xử lý có chuyển team theo không: đã chốt (OQ-20).<br>• Xóa khách hàng/site: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
 | 5 | Khởi tạo đầu mối | Link | Click | • Sang `qt-moi-dau-moi` với đơn vị/site của dòng đã chọn. Dòng "(chưa có)" đầu mối cần làm bước này trước khi khách hàng dùng được hệ thống. |
 | 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
 
@@ -92,7 +94,7 @@
 | 8 | Lưu và tiếp tục mời đầu mối | Button | Click | • Disabled tới khi đủ [1]–[7] hợp lệ. Lưu khách hàng/site vào danh mục (UC1) rồi sang `qt-moi-dau-moi` — màn đó **điền sẵn** đầu mối vừa nhập để Quản trị viên/Agent chỉ xác nhận kênh gửi và tạo tài khoản chờ kích hoạt (UC9); ghi nhật ký thao tác. |
 | 9 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không lưu gì. |
 
-- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — tách bước tạo khách hàng/site (UC1, lưu cả đầu mối liên hệ như danh mục khách hàng yêu cầu) khỏi bước tạo tài khoản đầu mối + gửi lời mời (UC9); sửa vẫn inline ở `qt-danh-muc-khach-hang` (UC28).
+- **Đề xuất bổ sung theo thiết kế Figma (21/09/2026)** — tách bước tạo khách hàng/site (UC1, lưu cả đầu mối liên hệ như danh mục khách hàng yêu cầu) khỏi bước tạo tài khoản đầu mối + gửi lời mời (UC9); sửa vẫn ở `qt-danh-muc-khach-hang` (UC28), qua modal (cập nhật 23/09/2026 — trước đó chưa có hình minh họa cụ thể).
 
 #### Trạng thái phụ — mã site trùng
 

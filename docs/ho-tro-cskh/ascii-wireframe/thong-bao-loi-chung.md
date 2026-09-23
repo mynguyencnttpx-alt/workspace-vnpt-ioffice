@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: thong-bao, loi-403, loi-404, phien-het-han (3 màn sau dùng chung nhiều flow). Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1 (Flow 11) và quy tắc trang trạng thái ở Mục 5.
 >
 > Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026, đã được khách hàng xác nhận** (OQ-24, OQ-31).
+>
+> **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** bỏ nút "Gửi yêu cầu hỗ trợ" ở màn 403 (chỉ còn "Về trang chủ"); thông báo giữ **90 ngày** (không phải 30 ngày như đề xuất gốc OQ-24) rồi tự động xóa; không ghi log riêng cho việc đọc/đánh dấu đã đọc thông báo và cho việc hiển thị 403/404/phiên hết hạn.
 
 ---
 
@@ -39,7 +41,7 @@
 | 3 | Danh sách thông báo | List | Click | • Mỗi dòng: icon theo loại, tiêu đề, mô tả ngắn, thời gian tương đối, chấm xanh nếu chưa đọc. Loại: ticket được giao/khách phản hồi (→ `agent-chi-tiet-ticket`), sắp quá hạn SLA (→ `agent-canh-bao-sla`), bài chờ duyệt (→ `kb-cho-duyet`, chỉ Quản trị viên), lỗi hệ thống (đồng bộ Drive, OneBSS).<br>• Thông báo trỏ tới mục người nhận không còn quyền → `loi-403`. Bấm 1 dòng đánh dấu đã đọc. |
 | 4 | Quay lại | Link | Click | • Về màn đang xem trước khi mở thông báo. |
 
-- Mở từ biểu tượng chuông ở header mọi màn nội bộ. Lưu giữ 30 ngày và loại thông báo: [GIẢ ĐỊNH — OQ-24]. Màn `agent-canh-bao-sla` vẫn là màn riêng, không thay bằng màn này.
+- Mở từ biểu tượng chuông ở header mọi màn nội bộ. Lưu giữ **90 ngày** rồi tự động xóa (cập nhật 23/09/2026, thay số liệu "30 ngày" ở đề xuất gốc OQ-24, đồng bộ với thời hạn lưu hội thoại Hỏi đáp AI). Màn `agent-canh-bao-sla` vẫn là màn riêng, không thay bằng màn này.
 
 #### Trạng thái phụ — chưa có thông báo
 
@@ -76,7 +78,7 @@
 │        Bạn không có quyền truy cập trang này [1]                     │
 │   Chức năng này chỉ dành cho một số vai trò nhất định.               │
 │   Liên hệ quản trị viên nếu cần quyền.                               │
-│               [2] [ Về trang chủ ]  [3] [ Gửi yêu cầu hỗ trợ ]       │
+│               [2] [ Về trang chủ ]                                   │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -86,8 +88,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Thông báo | Label + Icon | ReadOnly | • "Bạn không có quyền truy cập trang này" — **chỉ dành cho người dùng nội bộ** vào chức năng có thật nhưng vai trò không được phép (vd Agent vào cấu hình AI). Khách hàng không bao giờ thấy màn này (dùng `loi-404` trung lập). |
-| 2 | Về trang chủ | Button | Click | • Về trang chủ nội bộ theo vai trò. |
-| 3 | Gửi yêu cầu hỗ trợ | Button | Click | • Mở form yêu cầu cấp quyền [GIẢ ĐỊNH — nội dung/kênh do `/srs` chốt]; có thể ẩn nếu chưa có quy trình. |
+| 2 | Về trang chủ | Button | Click | • Về trang chủ nội bộ theo vai trò. Màn 403 chỉ có nút này — **KHÔNG có nút "Gửi yêu cầu hỗ trợ"** (đã chốt 23/09/2026, bỏ so với bản vẽ trước). |
 
 - Dùng chung mọi flow nội bộ. Quy tắc phân biệt 403/404/66: userflow Mục 5.
 
@@ -161,5 +162,5 @@
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-24 | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ (bổ sung OQ-19d) | Có; giữ 30 ngày; loại: ticket được giao/khách phản hồi, sắp quá hạn SLA, bài chờ duyệt (chỉ Quản trị viên), lỗi hệ thống. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-24 | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ (bổ sung OQ-19d) | Có; ~~giữ 30 ngày~~ **giữ 90 ngày** (cập nhật 23/09/2026); loại: ticket được giao/khách phản hồi, sắp quá hạn SLA, bài chờ duyệt (chỉ Quản trị viên), lỗi hệ thống. | Đã chốt (khách hàng xác nhận, 21/09/2026; số ngày lưu **đã sửa lại** 23/09/2026) |
 | OQ-31 | Hết phiên (bổ sung OQ-5) | Quay về đúng màn cũ sau đăng nhập lại; nội dung soạn dở không giữ; hành động đang gửi dở kiểm tra kết quả trước khi làm lại. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

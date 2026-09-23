@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: cauhinh-hub → cauhinh-tich-hop-ai → cauhinh-tham-so-ai → cauhinh-thu-nghiem-ai → cauhinh-nhat-ky-ai → danhmuc-dich-vu-loai-van-de → cauhinh-kenh-thongbao → cauhinh-mau-thong-bao → cauhinh-sla → cauhinh-onebss. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** Mẫu trả lời dùng chung mọi dịch vụ (bỏ trường "dịch vụ áp dụng"); trùng tên danh mục so sánh không phân biệt hoa/thường + cắt khoảng trắng đầu-cuối; đổi tên danh mục → ticket/bài viết cũ hiển thị theo tên mới; ngưỡng cảnh báo SLA 1-90%, tắt cả 2 kênh thông báo, SLA mới chỉ áp dụng ticket sau khi lưu — xác nhận đúng bản vẽ. **Bổ sung mới:** màn `danhmuc-dich-vu-loai-van-de` có thêm modal "Thêm mục mới"/"Sửa mục" (trước đây chỉ có màn xác nhận xóa); màn `cauhinh-sla` có thêm khối "Danh sách ngày nghỉ lễ"; mức ưu tiên mới chưa cấu hình SLA bị chặn dùng ở form tạo ticket — đã vẽ bổ sung trên Figma cùng ngày.
 
 ---
 
@@ -331,9 +333,9 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Tab danh mục | Tabs | Click | • 5 danh mục dùng chung: **Dịch vụ**, **Loại vấn đề ticket**, **Mức độ ưu tiên ticket**, **Loại nội dung tài liệu**, **Mẫu trả lời dựng sẵn** (UC40-44); mỗi tab cùng thao tác thêm/sửa/xóa. Chỉ Quản trị viên. Thay đổi **áp dụng cho các form liên quan** (`ticket-tao-moi`, `kb-soan-thao`, ...). |
-| 2 | Thêm | Button | Click | • Mở form thêm nhanh ngay trên dòng/panel. Trường theo tab: **Dịch vụ / Loại vấn đề / Ưu tiên / Loại nội dung** — tên (bắt buộc, không trùng), mô tả, trạng thái; **Mẫu trả lời** — tiêu đề, nội dung mẫu, dịch vụ áp dụng [GIẢ ĐỊNH]. Mức ưu tiên gắn với SLA: cấu hình thời gian nằm ở màn SLA chưa có (OQ-19). |
-| 3 | Sửa | Link | Click | • Sửa tên/mô tả/trạng thái; áp dụng ngay cho form; ticket/bài đã tạo giữ giá trị đã chọn (hiển thị theo tên mới) [GIẢ ĐỊNH]. |
-| 4 | Xóa | Link | Click | • Hộp thoại xác nhận. Mục **đã được ticket/bài viết dùng** → không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) [GIẢ ĐỊNH — nguồn chỉ nói "thêm/sửa/xóa", quy tắc ràng buộc: OQ-22]. |
+| 2 | Thêm | Button | Click | • Mở modal "Thêm mục mới" giữa màn (nền mờ phía sau, đã vẽ Figma 23/09/2026). Trường theo tab: **Dịch vụ / Loại vấn đề / Ưu tiên / Loại nội dung** — tên (bắt buộc, không trùng — so sánh không phân biệt hoa/thường, đã cắt khoảng trắng đầu-cuối, đã chốt 23/09/2026), mô tả, trạng thái; **Mẫu trả lời** — tiêu đề, nội dung mẫu (dùng chung cho mọi dịch vụ, KHÔNG có trường "dịch vụ áp dụng" — đã chốt 23/09/2026). Mức ưu tiên gắn với SLA: cấu hình thời gian ở màn `cauhinh-sla`; mức mới thêm CHƯA có SLA thì bị chặn dùng ở form tạo ticket cho tới khi cấu hình xong (đã chốt 23/09/2026). |
+| 3 | Sửa | Link | Click | • Mở lại modal ở trạng thái "Sửa mục", điền sẵn dữ liệu hiện có (đã vẽ Figma 23/09/2026); sửa tên/mô tả/trạng thái, áp dụng ngay cho form; ticket/bài đã tạo trước đó lưu theo ID tham chiếu (không lưu bản sao text) nên hiển thị theo TÊN MỚI sau khi đổi (đã chốt 23/09/2026). |
+| 4 | Xóa | Link | Click | • Hộp thoại xác nhận. Mục **đã được ticket/bài viết dùng** → không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) (đã chốt, OQ-22). |
 
 - Vẽ tab "Loại vấn đề" làm đại diện; 4 tab còn lại cùng bố cục bảng + Thêm/Sửa/Xóa, chỉ khác cột (Mẫu trả lời có thêm nội dung mẫu).
 
@@ -359,7 +361,7 @@
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Khác màn gốc: hộp xác nhận — mục đã được ticket/bài viết dùng không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) [GIẢ ĐỊNH, OQ-22]; [3] Chuyển sang Ngừng dùng / [4] Hủy; nền mờ.
+- Khác màn gốc: hộp xác nhận — mục đã được ticket/bài viết dùng không xóa cứng mà chuyển "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu cũ) (đã chốt, OQ-22); [3] Chuyển sang Ngừng dùng / [4] Hủy; nền mờ.
 
 
 ---
@@ -395,7 +397,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Bật/tắt Email | Checkbox | Check | • Bật/tắt gửi thông báo Email toàn hệ thống (UC16). Tắt → mọi loại thông báo không gửi Email, các ô Email ở [4] bị vô hiệu. |
-| 2 | Bật/tắt SMS | Checkbox | Check | • Bật/tắt gửi SMS; tắt → ô SMS ở [4] vô hiệu. Tắt cả 2 kênh: cảnh báo hộp thoại vì khách hàng không nhận được lời mời kích hoạt/phản hồi ticket [GIẢ ĐỊNH]. |
+| 2 | Bật/tắt SMS | Checkbox | Check | • Bật/tắt gửi SMS; tắt → ô SMS ở [4] vô hiệu. Tắt cả 2 kênh: cảnh báo hộp thoại vì khách hàng không nhận được lời mời kích hoạt/phản hồi ticket (đã chốt 23/09/2026). |
 | 3 | Brandname SMS | Textbox | Text | • Tên hiển thị người gửi SMS; **bắt buộc khi SMS bật**. Định dạng/độ dài hợp lệ, brandname phải đăng ký với nhà mạng: đã chốt (OQ-22). |
 | 4 | Kênh theo loại thông báo | Checkbox grid | Check | • Chọn kênh nhận mặc định **theo loại thông báo** (Đề xuất — Cấu hình kênh thông báo): phản hồi mới, đổi trạng thái, chờ xác nhận/tự đóng, lời mời kích hoạt, cảnh báo SLA nội bộ. Mỗi loại ≥1 kênh. Chọn kênh riêng **theo từng khách hàng** (ghi đè) có trong đề xuất nhưng chưa có màn/nơi cấu hình: OQ-22. |
 | 5 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu brandname khi SMS bật; áp dụng ngay cho thông báo tiếp theo (UC16); báo "Đã lưu" (wording tạm). |
@@ -502,16 +504,20 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Giờ làm việc [1]: T2-T6  Từ [08:00] đến [17:00]                      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Mức ưu tiên      Phản hồi trong   Xử lý trong [2]                    │
+│ Danh sách ngày nghỉ lễ [2]                          [ + Thêm ngày ]  │
+│ 01/01/2026  Tết Dương lịch                              <Xóa>        │
+│ 29/01 – 02/02/2026  Tết Nguyên đán                      <Xóa>        │
+├──────────────────────────────────────────────────────────────────────┤
+│ Mức ưu tiên      Phản hồi trong   Xử lý trong [3]                    │
 │ ------------------------------------------------------------         │
 │ Khẩn cấp         [30 phút___]     [4 giờ_____]                       │
 │ Cao              [2 giờ_____]     [1 ngày LV_]                       │
 │ Bình thường      [4 giờ_____]     [3 ngày LV_]                       │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Cảnh báo sắp quá hạn khi còn [20__] % thời gian [3]                  │
-│ Tạm dừng đồng hồ: [x] Chờ khách hàng  [x] Chờ KH xác nhận [4]        │
-│ Tự đóng ticket sau [3__] ngày làm việc kể từ "Chờ KH xác nhận" [5]   │
-│ [6] [ Lưu ]                                                          │
+│ Cảnh báo sắp quá hạn khi còn [20__] % thời gian [4]                  │
+│ Tạm dừng đồng hồ: [x] Chờ khách hàng  [x] Chờ KH xác nhận [5]        │
+│ Tự đóng ticket sau [3__] ngày làm việc kể từ "Chờ KH xác nhận" [6]   │
+│ [7] [ Lưu ]                                                          │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -520,14 +526,15 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Giờ làm việc | Textbox (giờ) x2 | Text | • Khung giờ làm việc dùng để **tính SLA** (đề xuất T2-T6, 08:00-17:00 — OQ-2); ngoài khung này đồng hồ SLA không chạy. Ngày nghỉ lễ: đã chốt (OQ-19). Giờ kết thúc phải sau giờ bắt đầu, sai → báo lỗi tại ô [wording chưa có, chưa có mã E-…]. |
-| 2 | Bảng SLA theo mức ưu tiên | Table (Textbox) | Text | • Mỗi mức ưu tiên (lấy từ danh mục **Mức ưu tiên** ở `danhmuc-dich-vu-loai-van-de`) có thời gian **phản hồi** và **xử lý**. Đề xuất mặc định: Khẩn cấp 30 phút / 4 giờ; Cao 2 giờ / 1 ngày làm việc; Bình thường 4 giờ / 3 ngày làm việc (OQ-2). Nhập số + đơn vị (phút/giờ/ngày làm việc); xử lý phải ≥ phản hồi. Thêm mức ưu tiên mới ở danh mục thì hiện dòng mới ở đây. |
-| 3 | Ngưỡng cảnh báo | Textbox (số %) | Text | • Cảnh báo "sắp quá hạn" khi còn ngần này % thời gian (đề xuất 20%); dùng cho màn `agent-canh-bao-sla`. Khoảng hợp lệ 1-90 [GIẢ ĐỊNH]. |
-| 4 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA (đề xuất: Chờ khách hàng, Chờ khách hàng xác nhận) vì đang chờ phía khách hàng. |
-| 5 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket ở "Chờ khách hàng xác nhận" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
-| 6 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** (ticket đang mở giữ SLA cũ) [GIẢ ĐỊNH]; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC45, nhóm danh mục đầu vào). |
+| 1 | Giờ làm việc | Textbox (giờ) x2 | Text | • Khung giờ làm việc dùng để **tính SLA** (đề xuất T2-T6, 08:00-17:00 — OQ-2); ngoài khung này đồng hồ SLA không chạy. Giờ kết thúc phải sau giờ bắt đầu, sai → báo lỗi tại ô [wording chưa có, chưa có mã E-…]. |
+| 2 | Danh sách ngày nghỉ lễ | Table (date list) + nút Thêm/Xóa | Text | • **Bổ sung mới 23/09/2026, cụ thể hóa OQ-19a.** Quản trị viên tự thêm/sửa/xóa từng ngày nghỉ lễ theo năm (ngày nghỉ lễ đổi hàng năm nên KHÔNG hard-code trong hệ thống); đồng hồ SLA loại trừ các ngày này giống ngoài giờ làm việc. Thêm ngày đã có trong danh sách → báo trùng, không thêm lần 2 [wording tạm]. |
+| 3 | Bảng SLA theo mức ưu tiên | Table (Textbox) | Text | • Mỗi mức ưu tiên (lấy từ danh mục **Mức ưu tiên** ở `danhmuc-dich-vu-loai-van-de`) có thời gian **phản hồi** và **xử lý**. Đề xuất mặc định: Khẩn cấp 30 phút / 4 giờ; Cao 2 giờ / 1 ngày làm việc; Bình thường 4 giờ / 3 ngày làm việc (OQ-2). Nhập số + đơn vị (phút/giờ/ngày làm việc); xử lý phải ≥ phản hồi. Thêm mức ưu tiên mới ở danh mục thì hiện dòng **trống** ở đây; ticket KHÔNG chọn được mức đó cho tới khi Quản trị viên điền đủ 2 giá trị (đã chốt 23/09/2026 — mức ưu tiên mới bị chặn dùng ở form tạo ticket cho tới khi cấu hình xong SLA). |
+| 4 | Ngưỡng cảnh báo | Textbox (số %) | Text | • Cảnh báo "sắp quá hạn" khi còn ngần này % thời gian (đề xuất 20%); dùng cho màn `agent-canh-bao-sla`. Khoảng hợp lệ 1-90 (đã chốt 23/09/2026). |
+| 5 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA (đề xuất: Chờ khách hàng, Chờ khách hàng xác nhận) vì đang chờ phía khách hàng. |
+| 6 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket ở "Chờ khách hàng xác nhận" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
+| 7 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** — ticket đang mở giữ SLA cũ (đã chốt 23/09/2026); báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC45, nhóm danh mục đầu vào). |
 
-- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC45). Dữ liệu là giá trị đề xuất, đã được khách hàng xác nhận (21/09/2026).
+- Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC45). Dữ liệu là giá trị đề xuất, đã được khách hàng xác nhận (21/09/2026). **Cập nhật 23/09/2026:** thêm khối "Danh sách ngày nghỉ lễ" (mục [2]) — đã vẽ bổ sung trên Figma cùng ngày.
 
 #### Trạng thái phụ — giờ làm việc không hợp lệ
 
@@ -540,13 +547,13 @@
 │ Giờ làm việc [1]: T2-T6  Từ [17:00] đến [08:00]                      │
 │ (!) Giờ bắt đầu phải nhỏ hơn giờ kết thúc.                           │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Mức ưu tiên      Phản hồi trong   Xử lý trong [2]  (giữ nguyên)      │
+│ Mức ưu tiên      Phản hồi trong   Xử lý trong [3]  (giữ nguyên)      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [6] [ Lưu ] (mờ)                                                     │
+│ [7] [ Lưu ] (mờ)                                                     │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Khác màn gốc: giờ bắt đầu lớn hơn hoặc bằng giờ kết thúc → (!) lỗi tại ô [1]; [6] Lưu mờ [wording tạm, chưa có mã E-…].
+- Khác màn gốc: giờ bắt đầu lớn hơn hoặc bằng giờ kết thúc → (!) lỗi tại ô [1]; [7] Lưu mờ [wording tạm, chưa có mã E-…].
 
 
 ---
@@ -632,6 +639,6 @@
 | OQ-22c | Chi phí, nhật ký AI | Chi phí = token × đơn giá (QT nhập); email QT khi đạt 80% ngân sách tháng; nhật ký giữ 12 tháng, chỉ QT xem. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-22d | Xóa mục danh mục | Mục đã dùng → "Ngừng dùng" (ẩn khỏi form, giữ dữ liệu); chưa dùng → xóa được. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-22e | Brandname SMS; kênh theo khách hàng | Brandname ≤11 ký tự không dấu, VNPT IT đăng ký với nhà mạng; MVP chọn kênh theo loại thông báo, ghi đè theo khách hàng để giai đoạn sau. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
-| OQ-19a | Màn cấu hình SLA | Đã thêm `cauhinh-sla` [52]: giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ, thời gian tự đóng ticket. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-19a | Màn cấu hình SLA | Đã thêm `cauhinh-sla` [52]: giờ làm việc, SLA theo mức ưu tiên, ngưỡng cảnh báo, tạm dừng đồng hồ, thời gian tự đóng ticket. **Bổ sung 23/09/2026:** thêm khối "Danh sách ngày nghỉ lễ" (Quản trị viên tự thêm/sửa/xóa theo năm) — đồng hồ SLA loại trừ các ngày này. | Đã chốt (khách hàng xác nhận, 21/09/2026; bổ sung 23/09/2026) |
 | OQ-26 | Mẫu nội dung Email/SMS (bổ sung OQ-22e) | Quản trị viên sửa tiêu đề/nội dung; bắt buộc giữ biến liên kết kích hoạt/đặt lại; có khôi phục mẫu mặc định; SMS cảnh báo khi vượt độ dài; thông báo trung lập của `kh-quen-mat-khau` không sửa được. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-29 | Kết nối OneBSS (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; bí mật client che và chỉ nhập lại để thay; nhật ký gửi phiếu chỉ Quản trị viên xem; kiểm tra mã phiếu trước khi thử lại. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

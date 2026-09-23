@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: kb-soan-thao → kb-cho-duyet → kb-duyet-xuat-ban → kb-danh-sach-noi-dung → kb-chi-muc-ai → kb-import-um → kb-cau-hinh-dong-bo-drive → kb-tu-ticket-thanh-faq. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 23/09/2026:** rà soát phát hiện `kb-cau-hinh-dong-bo-drive` chưa có hình minh họa cho nút "+ Thêm thư mục" — đã vẽ bổ sung modal "Thêm thư mục đồng bộ" trên Figma. Xem [3] ở màn đó.
 
 ---
 
@@ -480,7 +482,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Trạng thái kết nối | Label / Button | Click | • Kết nối tới Google Drive của tổ chức (Đề xuất — Nguồn dữ liệu đầu vào). Chưa kết nối/mất kết nối → nút "Kết nối lại" và báo lỗi [wording chưa có]. Cách xác thực (tài khoản dịch vụ hay OAuth): đã chốt (OQ-21). |
 | 2 | Bảng thư mục đồng bộ | Table | Select | • Mỗi dòng: thư mục Drive, dịch vụ, phạm vi (dùng chung/site), bật/tắt. Chỉ **Quản trị viên** cấu hình (UC15). Tắt 1 dòng → ngừng quét thư mục đó, bài đã đưa vào KB giữ nguyên. |
-| 3 | Thêm thư mục | Button | Click | • Chọn thư mục Drive cần đồng bộ và **gắn nhãn dịch vụ/site khi nhập** (bắt buộc — để bài đồng bộ có phạm vi rõ ràng, không lọt sang khách hàng khác). |
+| 3 | Thêm thư mục | Button | Click | • Mở **modal "Thêm thư mục đồng bộ"** giữa màn (nền mờ phía sau, đã vẽ Figma 23/09/2026): đường dẫn thư mục Drive, dịch vụ, phạm vi (dùng chung/site cụ thể — **bắt buộc**, để bài đồng bộ có phạm vi rõ ràng, không lọt sang khách hàng khác), checkbox bật đồng bộ ngay. Bấm "Thêm" → đóng modal, thêm dòng vào bảng. |
 | 4 | Lịch đồng bộ | Dropdown | Select | • Chu kỳ quét định kỳ (UC15/UC38). Các lựa chọn chu kỳ: đã chốt (OQ-21). |
 | 5 | Kết quả lần chạy gần nhất | Label | ReadOnly | • Job đồng bộ (UC38) quét thư mục theo lịch, đưa **tài liệu mới/thay đổi vào hàng chờ duyệt** (nhãn "Drive") — không xuất bản thẳng, không đưa dữ liệu thô vào chỉ mục AI. Hiện số tài liệu, lỗi nếu có. |
 | 6 | Lưu cấu hình | Button | Click | • **Disabled** khi chưa đổi gì; lưu → áp dụng từ lần quét kế tiếp; báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. |

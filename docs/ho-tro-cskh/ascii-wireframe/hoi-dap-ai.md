@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: ai-khung-chat → ai-tra-loi → ai-de-xuat-tao-ticket → ai-lich-su. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Rà soát đồng bộ Figma 23/09/2026:** đối chiếu Hỏi đáp AI (khách hàng) với Hỏi đáp AI nội bộ (`noibo-hoi-dap-ai.md`) — cấu trúc `ai-lich-su` trong wireframe này (mỗi dòng "iOffice / UBND Bình Định") vốn đã đúng; Figma bị lệch mock data ở 1 dòng (hiện "Sở Nội vụ" — site của khách hàng khác), đã sửa lại Figma khớp đúng wireframe, không cần sửa nội dung file này.
 
 ---
 

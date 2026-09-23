@@ -11,7 +11,7 @@ Bạn là BA chuyên nghiệp làm việc theo chuẩn **VNPT iOffice**. Quy t�
 - Không xóa file khi chưa có xác nhận của người dùng.
 - Báo cáo ngắn gọn sau mỗi task: đã tạo/sửa gì, file nằm ở đâu (kèm markdown link để bấm mở).
 
-## 13 skill đang dùng
+## 14 skill đang dùng
 
 Danh sách đầy đủ + input cần chuẩn bị + cách gọi: xem [HUONG-DAN-SU-DUNG-SKILL.md](HUONG-DAN-SU-DUNG-SKILL.md). Bảng tổng quan: [START-HERE.md](START-HERE.md).
 
@@ -21,7 +21,7 @@ Danh sách đầy đủ + input cần chuẩn bị + cách gọi: xem [HUONG-DAN
 | Viết tài liệu VNPT iOffice | `urd-writer-vnpt`, `urd-writer-customer`, `srs-write-review`, `um-writer-vnpt` |
 | Ước lượng & báo giá | `effort-estimate-pmbok`, `baogia` |
 | Thiết kế UI | `ui-ux-pro-max` |
-| Vẽ sơ đồ | `usecase-diagram` (xem lưu ý bên dưới) |
+| Vẽ sơ đồ | `usecase-diagram`, `erd` (xem lưu ý bên dưới) |
 | Luồng & wireframe | `user-flow`, `wireframe-ascii`, `figma` (chuỗi 3 bước, xem lưu ý bên dưới) |
 
 `srs-write-review` là skill nhiều việc nhất — ngoài viết/review SRS còn soạn sẵn nội dung phiếu Jira (mode JIRA-CONTENT) sau khi SRS được duyệt, vì Jira VNPT (`cntt.vnpt.vn`) chặn tạo phiếu tự động bằng OTP bắt buộc trên API — chi tiết ở [HUONG-DAN-SU-DUNG-SKILL.md](HUONG-DAN-SU-DUNG-SKILL.md).
@@ -29,6 +29,10 @@ Danh sách đầy đủ + input cần chuẩn bị + cách gọi: xem [HUONG-DAN
 `usecase-diagram` mới copy về ngày 2026-09-03 từ `ai4ba-skills` (thư mục nguồn, ngoài workspace), kèm đúng các file nó khai trong `SKILL.md` (mục References) để chạy được: 7 rule (`.claude/rules/ba-conventions.md`, `approval-gate.md`, `naming-conventions.md`, `feature-bootstrap.md`, `changelog.md`, `diagram-selection.md`, `diagram-correctness.md`) + template `_templates/usecase-index.md`. KHÔNG kéo theo skill khác (`/usecase`, `/sequence`, `/activity`, `/state`) — những skill đó không phải dependency bắt buộc của `usecase-diagram`, chỉ là gợi ý route khi thiếu nguồn, theo đúng yêu cầu user chỉ cần mỗi skill này.
 
 Do vậy `usecase-diagram` tự chạy được (không lỗi vì thiếu file), nhưng vẫn có 1 giới hạn thiết kế cần biết: nó auto-detect actor/use case từ `docs/{feature}/usecases/{feature}-usecase-index.md` hoặc `docs/{feature}/srs/{feature}-spec.md` — 2 định dạng khác với output hiện tại của `srs-write-review`/`ba-uc` (`docs/<module>/SRS.md`...). Không tìm thấy nguồn đúng định dạng thì skill sẽ refuse theo đúng thiết kế của nó (rule `feature-bootstrap.md` nhóm B) — không phải lỗi. Khi đó, mô tả trực tiếp actor + use case trong yêu cầu để AI vẽ luôn, không cần qua auto-detect.
+
+`erd` mới copy về ngày 2026-09-23 từ `ai4ba-skills`, cùng nguồn với `usecase-diagram`. Dependency **nhẹ nhất trong các skill đã copy** — toàn bộ 7 rule + script `mermaid-verify.mjs` mà nó cần (xem `SKILL.md` mục References) **đã có sẵn** trong workspace từ các lượt copy trước (`usecase-diagram` mang theo 7 rule; `user-flow` mang theo `mermaid-verify.mjs`), nên chỉ cần copy đúng 3 file mới: `SKILL.md`, `references/example-erd.md`, và template `_templates/diagram-erd.md`. Không lỗi thiếu file nào.
+
+`erd` có 1 bước tùy chọn (9.6: đối chiếu `d2-erd`/`dbdiagram` qua script `erd-consistency.mjs`) — script đó **KHÔNG được copy** vì `d2-erd`/`dbdiagram` không có trong workspace; theo đúng thiết kế của skill, thiếu 2 bản phái sinh đó thì bước 9.6 tự bỏ qua ("không có gì lệch"), không phải lỗi. Output cố định: `docs/{feature}/srs/{feature}-erd.md` — auto-detect entity từ SRS Mục 6 nếu `srs-write-review` đã ghi, không thì skill tự phỏng vấn (nhóm A, business language, không hỏi kiểu DB).
 
 `user-flow` → `wireframe-ascii` → `figma` mới copy về ngày 2026-09-18 từ `ai4ba-skills`, cùng nguồn với `usecase-diagram` nhưng dependency **nặng hơn hẳn** — không chỉ 7 rule như `usecase-diagram`, phải kéo theo cả hạ tầng đã bị dọn khỏi workspace ngày 2026-09-02 (`.claude/agents/`, `.claude/scripts/`):
 
@@ -44,7 +48,7 @@ Công cụ ngoài cần cài (Node/Python, chỉ khi xuất `.docx`/`.xlsx`, ho�
 
 ## Tàn dư chưa dọn — đừng nhầm là đang dùng
 
-Workspace này từng chạy một bộ skill lớn hơn nhiều (BA-Kit: `brainstorm`/`srs-baket`/`user-flow`/`wireframe-ascii` + hơn chục skill vẽ sơ đồ + KG engine). Bộ đó đã bị gỡ ngày 2026-09-02 (`.claude/agents/`, `.claude/scripts/` dọn sạch), chỉ còn lại 9 skill gốc. Ngày 2026-09-03 thêm `usecase-diagram` copy riêng lẻ kèm 7 rule + 1 template nó cần. Ngày 2026-09-18 thêm lại `user-flow`/`wireframe-ascii`/`figma` (xem mục "13 skill đang dùng" ở trên) kèm 3 rule + 1 agent + 1 script + 2 template — đây là phần **duy nhất** trong bộ cũ được khôi phục lại có chủ đích; `kg` engine, `wireframe-html`, `prototype-html`, `brainstorm`, `srs-baket` và các skill vẽ sơ đồ khác (`sequence`/`activity`/`bpmn`/`erd`...) **vẫn KHÔNG có** trong workspace.
+Workspace này từng chạy một bộ skill lớn hơn nhiều (BA-Kit: `brainstorm`/`srs-baket`/`user-flow`/`wireframe-ascii` + hơn chục skill vẽ sơ đồ + KG engine). Bộ đó đã bị gỡ ngày 2026-09-02 (`.claude/agents/`, `.claude/scripts/` dọn sạch), chỉ còn lại 9 skill gốc. Ngày 2026-09-03 thêm `usecase-diagram` copy riêng lẻ kèm 7 rule + 1 template nó cần. Ngày 2026-09-18 thêm lại `user-flow`/`wireframe-ascii`/`figma` (xem mục "14 skill đang dùng" ở trên) kèm 3 rule + 1 agent + 1 script + 2 template. Ngày 2026-09-23 thêm `erd` (không kèm gì mới ngoài SKILL.md/1 reference/1 template — dependency đã có sẵn). Đây là phần **duy nhất** trong bộ cũ được khôi phục lại có chủ đích; `kg` engine, `wireframe-html`, `prototype-html`, `brainstorm`, `srs-baket` và các skill vẽ sơ đồ khác (`sequence`/`activity`/`bpmn`/`d2-erd`/`dbdiagram`...) **vẫn KHÔNG có** trong workspace.
 
 Còn lại chưa dọn:
 

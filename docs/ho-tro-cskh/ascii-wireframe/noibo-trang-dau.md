@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: noibo-tai-khoan-ca-nhan → noibo-tong-quan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Vào từ màn đăng nhập chung `dang-nhap` (màn `noibo-dang-nhap` đã gộp vào đó, OQ-32). Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** Họ tên/SĐT sửa được, nút hành động chính theo vai trò — xác nhận đúng như bản vẽ; **bổ sung mới**: đổi mật khẩu (nội bộ) bắt buộc đăng xuất toàn bộ session khác, cụ thể hóa OQ-5.
 
 ---
 
@@ -33,8 +35,8 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Họ tên | Textbox | Text | • [GIẢ ĐỊNH] sửa được (UC57: "thông tin cần sửa"); **bắt buộc**. |
-| 2 | Số điện thoại | Textbox | Text | • [GIẢ ĐỊNH] sửa được, không bắt buộc. |
+| 1 | Họ tên | Textbox | Text | • Sửa được (UC57: "thông tin cần sửa"); **bắt buộc** (đã chốt 23/09/2026). |
+| 2 | Số điện thoại | Textbox | Text | • Sửa được, không bắt buộc (đã chốt 23/09/2026). |
 | 3 | Email | Label | ReadOnly | • Chỉ đọc vì là định danh đăng nhập; đổi do quản trị viên. |
 | 4 | Vai trò | Label | ReadOnly | • Hiển thị vai trò hiện có (Agent tỉnh / Agent trung tâm / Biên tập nội dung / Quản trị viên / Chủ quản dịch vụ). Chỉ Quản trị viên đổi được (`qt-phan-quyen`, UC56). |
 | 5 | Team | Label | ReadOnly | • Team được gán (trung tâm hoặc tỉnh/thành cụ thể) — quyết định phạm vi ticket agent thấy; chỉ Quản trị viên đổi (`qt-tao-tai-khoan-noibo`). |
@@ -42,7 +44,7 @@
 | 7 | Mật khẩu hiện tại | Textbox (password) | Text | • **Bắt buộc** khi đổi mật khẩu; hệ thống xác thực trước khi cập nhật (UC57). Sai → báo "Mật khẩu hiện tại không đúng" (wording tạm). |
 | 8 | Mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**; quy tắc độ mạnh: đã chốt (OQ-5). |
 | 9 | Nhập lại mật khẩu mới | Textbox (password) | Text | • **Bắt buộc**, phải khớp [8]. |
-| 10 | Đổi mật khẩu | Button | Click | • **Disabled** tới khi [7][8][9] hợp lệ; thành công → báo "Đã đổi mật khẩu"; có buộc đăng nhập lại/đăng xuất phiên khác không: OQ-5. Việc đổi mật khẩu không ghi vào nhật ký thao tác nhạy cảm [GIẢ ĐỊNH — nguồn chỉ liệt kê đổi quyền, xóa tài liệu, đổi định tuyến]. |
+| 10 | Đổi mật khẩu | Button | Click | • **Disabled** tới khi [7][8][9] hợp lệ; thành công → **bắt buộc đăng xuất toàn bộ session khác** (kể cả thiết bị/tab khác), báo "Đã đổi mật khẩu" và yêu cầu đăng nhập lại (đã chốt 23/09/2026, cụ thể hóa OQ-5). Việc đổi mật khẩu KHÔNG ghi vào nhật ký thao tác nhạy cảm — nguồn chỉ liệt kê đổi quyền, xóa tài liệu, đổi định tuyến (đã chốt 23/09/2026). |
 
 - Header nội bộ dùng chung (không đánh số): menu Ticket / Nội dung / Người dùng / Cấu hình / Báo cáo **chỉ hiện mục đúng quyền** của vai trò (agent chỉ thấy Ticket + Báo cáo cơ bản team mình; chủ quản dịch vụ chỉ thấy Báo cáo).
 
@@ -77,7 +79,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Nút hành động chính | Button | Click | • Theo vai trò [GIẢ ĐỊNH]: Agent/Quản trị viên → "Xem hàng đợi ticket" (`agent-hang-doi`); Chủ quản dịch vụ → "Xem báo cáo" (`baocao-tong-quan`); Biên tập nội dung → "Xem chờ duyệt" (`kb-cho-duyet`). |
+| 1 | Nút hành động chính | Button | Click | • Theo vai trò (đã chốt 23/09/2026): Agent/Quản trị viên → "Xem hàng đợi ticket" (`agent-hang-doi`); Chủ quản dịch vụ → "Xem báo cáo" (`baocao-tong-quan`); Biên tập nội dung → "Xem chờ duyệt" (`kb-cho-duyet`). |
 | 2 | Thẻ Ticket mới cho tôi | Stat card | Click | • Số ticket mới được giao cho tài khoản (kèm số khẩn cấp); bấm → `agent-hang-doi` lọc "của tôi". Chỉ vai trò xử lý ticket (Agent, Quản trị viên). |
 | 3 | Thẻ Sắp quá hạn SLA | Stat card | Click | • Số ticket còn dưới ngưỡng cảnh báo SLA (cấu hình ở `cauhinh-sla`); bấm → `agent-canh-bao-sla`. Chỉ Agent/Quản trị viên phụ trách. |
 | 4 | Thẻ Khách vừa phản hồi | Stat card | Click | • Số ticket khách hàng vừa phản hồi cần trả lời; bấm → `agent-hang-doi` lọc trạng thái tương ứng. |

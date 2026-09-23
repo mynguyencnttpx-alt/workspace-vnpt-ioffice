@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: ticket-tao-moi → ticket-goi-y-faq → ticket-danh-sach-kh → ticket-chi-tiet-kh → ticket-xac-nhan → ticket-da-dong. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** phần "mở lại ticket đã đóng trong 7 ngày" ở OQ-16 (bảng cuối file) bị **thay bằng quy tắc mới** — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp (dù khách hàng tự xác nhận hay hệ thống tự động đóng); vấn đề chưa hết hẳn thì khách hàng tạo ticket mới có tham chiếu. Xem `ticket-da-dong` [5] đã sửa theo quyết định này.
 
 ---
 
@@ -208,7 +210,7 @@
 | 5 | Mốc thời gian | Label | ReadOnly | • Tạo, phản hồi, đóng, mở lại — toàn bộ mốc được lưu trong lịch sử ticket (Đề xuất — Gửi yêu cầu hỗ trợ). Mốc chưa xảy ra hiện "-". |
 | 6 | Banner chờ xác nhận | Label | ReadOnly | • Chỉ hiện khi trạng thái = Chờ khách hàng xác nhận; nhắc thời hạn tự đóng nếu không phản hồi (thời gian cấu hình: OQ-1). |
 | 7 | Xác nhận kết quả | Button | Click | • Chỉ hiện khi trạng thái = Chờ khách hàng xác nhận → `ticket-xac-nhan`. |
-| 8 | Ô nhập phản hồi | Textbox (multi-line) | Text | • Khách hàng bổ sung thông tin/đính kèm cho đội hỗ trợ; hiển thị khi ticket chưa đóng (đặc biệt lúc "Chờ khách hàng"). Ticket đã đóng → ẩn, chuyển sang `ticket-da-dong` (mở lại).<br>• Khách hàng nhắn thêm khi đang "Chờ khách hàng xác nhận" thì trạng thái đổi thế nào: đã chốt (OQ-17).<br>• Tệp chọn qua [11] hiện thành dòng "Đính kèm:" phía trên ô nhập, mỗi tệp có (x) để gỡ (xem Trạng thái phụ — soạn phản hồi kèm tệp) |
+| 8 | Ô nhập phản hồi | Textbox (multi-line) | Text | • Khách hàng bổ sung thông tin/đính kèm cho đội hỗ trợ; hiển thị khi ticket chưa đóng (đặc biệt lúc "Chờ khách hàng"). Ticket đã đóng → ẩn, chuyển sang `ticket-da-dong` (KHÔNG mở lại được — xem [5] tại đó, cập nhật 23/09/2026).<br>• Khách hàng nhắn thêm khi đang "Chờ khách hàng xác nhận" thì trạng thái đổi thế nào: đã chốt (OQ-17).<br>• Tệp chọn qua [11] hiện thành dòng "Đính kèm:" phía trên ô nhập, mỗi tệp có (x) để gỡ (xem Trạng thái phụ — soạn phản hồi kèm tệp) |
 | 9 | Gửi | Button | Click | • **Disabled** khi [8] rỗng; gửi → thêm vào lịch sử trao đổi, báo agent phụ trách; trạng thái "Chờ khách hàng" chuyển về "Đang xử lý" [GIẢ ĐỊNH]. |
 | 10 | Tệp đính kèm trong lịch sử | Ảnh xem trước / File chip | Click | • Tệp/ảnh kèm theo từng tin của khách hàng và của đội hỗ trợ. Ảnh hiện hình xem trước nhỏ + tên; bấm ảnh → hộp xem ảnh [12]. Tệp khác (PDF...) hiện tên + dung lượng + (dl); bấm → tải xuống.<br>• Chỉ hiện tệp thuộc phản hồi công khai. |
 | 11 | Đính kèm | Button | Click | • Mở hộp chọn tệp cho phản hồi đang soạn; chỉ hiện khi ticket chưa đóng (cùng điều kiện với [8]). Định dạng/dung lượng/số tệp như `ticket-tao-moi` [5] (OQ-16). Tệp lỗi → báo ngay tại dòng tệp, không gửi kèm. |
@@ -342,9 +344,9 @@
 │              [ IMG: anh-loi-403.png ]  [PDF] bao-cao-loi.pdf (dl)    │
 │ 17/09 10:30  Hỗ trợ: Đã cấp quyền ký, bạn thử lại giúp.              │
 │              [PDF] huong-dan-cap-quyen.pdf 240 KB (dl)     [6]       │
-│ Mốc: Tạo 17/09 08:02 | Đóng 17/09 10:45 | Mở lại -  [4]              │
+│ Mốc: Tạo 17/09 08:02 | Đóng 17/09 10:45  [4]                          │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [5] Vấn đề chưa hết hẳn?  [ Mở lại ticket ]                          │
+│ [5] Vấn đề chưa hết hẳn?  [ Tạo yêu cầu mới ]                        │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -356,8 +358,8 @@
 | 1 | Trạng thái Đã đóng | Label (badge) | ReadOnly | • Ticket đã đóng chính thức, không nhắn thêm được (ô phản hồi ẩn). |
 | 2 | Lý do đóng | Label | ReadOnly | • Phân biệt 2 lý do để khách hàng hiểu: **"Bạn đã xác nhận đã giải quyết xong (ngày giờ)"** hoặc **"Tự động đóng do không phản hồi sau thời gian quy định"** (UC35). Cùng bố cục, chỉ khác dòng chữ này (không tách màn). |
 | 3 | Đánh giá hài lòng | Label | ReadOnly | • Hiện mức đã đánh giá; nếu khách hàng bỏ qua hoặc ticket tự đóng thì hiện "Chưa đánh giá" [GIẢ ĐỊNH]; sau khi đóng có cho đánh giá bổ sung không: OQ-3. |
-| 4 | Mốc thời gian | Label | ReadOnly | • Tạo, đóng, mở lại — lưu đầy đủ trong lịch sử ticket; mỗi lần mở lại/đóng lại thêm 1 mốc. |
-| 5 | Mở lại ticket | Button | Click | • Mở lại ngay ticket đã đóng khi vấn đề chưa hết, **không cần tạo ticket mới**; hệ thống khôi phục trạng thái xử lý (UC4), ghi mốc "mở lại", báo agent phụ trách, sang `ticket-chi-tiet-kh`.<br>• Giới hạn thời hạn cho phép mở lại / số lần mở lại: đã chốt (OQ-16).<br>• Chỉ người gửi ticket hoặc đầu mối đơn vị mở lại được [GIẢ ĐỊNH]. |
+| 4 | Mốc thời gian | Label | ReadOnly | • Tạo, đóng — lưu đầy đủ trong lịch sử ticket. KHÔNG còn mốc "mở lại" (đã bỏ nút Mở lại ticket, cập nhật 23/09/2026). |
+| 5 | Tạo yêu cầu mới | Button | Click | • **KHÔNG có nút "Mở lại ticket"** — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp, dù đóng do khách hàng tự xác nhận hay hệ thống tự động đóng (cập nhật 23/09/2026, thay cho phần "mở lại trong 7 ngày" ở OQ-16 gốc). Bấm nút này → mở `ticket-tao-moi`, tự động tham chiếu ticket này trong mô tả. |
 | 6 | Tệp đính kèm trong lịch sử | Ảnh xem trước / File chip | Click | • Như `ticket-chi-tiet-kh` [10] nhưng chỉ đọc: ảnh/tệp trong lịch sử vẫn xem và tải xuống được sau khi ticket đóng; không thêm tệp mới (ô phản hồi ẩn). |
 
 - Bổ sung 21/09/2026: từ màn này có lối "Đánh giá / sửa đánh giá" quay về `ticket-xac-nhan` trong 7 ngày sau khi đóng (kể cả ticket tự đóng do quá hạn) — userflow Mục 3.5.
@@ -372,5 +374,6 @@
 | OQ-1 | Thời gian tự đóng ticket | 3 ngày làm việc kể từ "Chờ khách hàng xác nhận", nhắc 1 lần trước 1 ngày; khách nhắn thêm thì về "Đang xử lý". Cấu hình ở màn Cấu hình SLA. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-2 | Ngưỡng SLA | Khẩn cấp: phản hồi 30 phút, xử lý 4 giờ; Cao: 2 giờ, 1 ngày làm việc; Bình thường: 4 giờ, 3 ngày làm việc (giờ làm việc T2-T6 08:00-17:00, tạm dừng khi chờ khách hàng). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-3 | Thang đánh giá hài lòng | 5 sao + nhận xét tùy chọn (≤500 ký tự); không bắt buộc; sửa/bổ sung trong 7 ngày sau khi đóng; ticket mở lại thì tính lần đóng cuối. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
-| OQ-16 | Tệp đính kèm; mở lại ticket | png, jpg, pdf, docx, xlsx, txt; ≤5 tệp/lần, ≤10 MB/tệp, tổng ≤25 MB; chặn tệp thực thi/nén. Mở lại trong 7 ngày sau khi đóng, không giới hạn số lần; quá 7 ngày tạo ticket mới tham chiếu ticket cũ. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-16 | Tệp đính kèm; mở lại ticket | png, jpg, pdf, docx, xlsx, txt; ≤5 tệp/lần, ≤10 MB/tệp, tổng ≤25 MB; chặn tệp thực thi/nén. ~~Mở lại trong 7 ngày sau khi đóng, không giới hạn số lần; quá 7 ngày tạo ticket mới tham chiếu ticket cũ.~~ **Cập nhật 23/09/2026:** bỏ hẳn "mở lại" — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp; vấn đề chưa hết hẳn thì luôn tạo ticket mới có tham chiếu (xem `ticket-da-dong` [5]). | Đã chốt (khách hàng xác nhận, 21/09/2026; phần mở lại **đã sửa lại** 23/09/2026) |
 | OQ-17 | Quyền xem, cách hiển thị, khách nhắn thêm | Thành viên chỉ thấy ticket mình gửi, đầu mối thấy (và phản hồi) mọi ticket của đơn vị/site; hiện "Đội hỗ trợ – tên agent"; nhãn "Phản hồi tự động" hiển thị cho khách; mã phiếu OneBSS chỉ nội bộ; khách nhắn thêm khi chờ xác nhận thì ticket về "Đang xử lý". | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-16b | Dọn dẹp tệp đính kèm/dữ liệu ticket | Hệ thống KHÔNG tự động dọn dẹp/xóa theo định kỳ; dữ liệu lưu vô thời hạn, chỉ mất khi có hành động xóa chủ động từ người dùng. Chưa thiết kế màn cho khách hàng tự xóa tệp/ticket đã gửi — cân nhắc bổ sung ở giai đoạn sau. | Đã chốt (khách hàng xác nhận, 23/09/2026) |
