@@ -21,6 +21,8 @@ erDiagram
     TAI_KHOAN ||--o{ PHAM_VI_PHU_TRACH : "được gán phạm vi"
     DICH_VU |o--o{ PHAM_VI_PHU_TRACH : "dòng theo dịch vụ"
     DIA_BAN |o--o{ PHAM_VI_PHU_TRACH : "đối tượng là địa bàn"
+    TAI_KHOAN ||--o{ DICH_VU_DUOC_GAN : "Biên tập được gán dịch vụ"
+    DICH_VU ||--o{ DICH_VU_DUOC_GAN : "dịch vụ được gán"
     KHACH_HANG |o--o{ PHAM_VI_PHU_TRACH : "đối tượng là khách hàng"
     TAI_KHOAN ||--o{ DANH_TINH_SITE : "có danh tính trên site"
     SITE ||--o{ DANH_TINH_SITE : "người dùng vào từ site"
@@ -121,6 +123,12 @@ erDiagram
         string loai_doi_tuong "Tất cả | Địa bàn | Khách hàng"
         string dia_ban_id FK "khi loại đối tượng = Địa bàn"
         string khach_hang_id FK "khi loại đối tượng = Khách hàng"
+    }
+
+    DICH_VU_DUOC_GAN {
+        string id PK
+        string tai_khoan_id FK "tài khoản Biên tập nội dung"
+        string dich_vu_id FK "dịch vụ được phép soạn/sửa/ẩn bài"
     }
 
     DANH_TINH_SITE {
@@ -385,6 +393,7 @@ erDiagram
 | DIA_BAN | Danh mục địa bàn do Quản trị viên quản lý (Tỉnh/TP + Trung ương) — dữ liệu gốc định tuyến ticket | tên, loại, trạng thái |
 | SITE_KHACH_HANG | Bảng trung gian site ↔ khách hàng, giữ mã đơn vị của khách hàng trên site | site, khách hàng, mã đơn vị |
 | PHAM_VI_PHU_TRACH | Các dòng Dịch vụ × Đối tượng gán cho nhân viên hỗ trợ — giới hạn cứng với Agent tỉnh, bộ lọc mặc định với vai trò khác | tài khoản, dịch vụ, đối tượng |
+| DICH_VU_DUOC_GAN | Các Dịch vụ được gán cho tài khoản Biên tập nội dung — giới hạn cứng phạm vi soạn/sửa/ẩn bài KB (≥1 dịch vụ) | tài khoản, dịch vụ |
 | DANH_TINH_SITE | Danh tính của 1 người trên 1 site dịch vụ (site + mã người dùng + mã đơn vị), dùng khi vào CSKH từ iOffice/iStorage | tài khoản, site, mã người dùng, mã đơn vị |
 | LOI_MOI | Liên kết kích hoạt/đặt lại mật khẩu, có hạn dùng | loại, hết hạn lúc, đã dùng |
 | NHAT_KY_TT | Nhật ký thao tác nhạy cảm, chỉ Quản trị viên xem, giữ 12 tháng | hành động, đối tượng, chi tiết |

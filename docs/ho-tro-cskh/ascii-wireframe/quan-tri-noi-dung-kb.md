@@ -49,7 +49,7 @@
 | 8 | Lưu nháp | Button | Click | • Lưu bản nháp (UC11), chưa hiển thị cho ai khác; ở lại màn, báo "Đã lưu nháp" (wording tạm). Chưa cần điền đủ trường bắt buộc [GIẢ ĐỊNH]. |
 | 9 | Gửi duyệt | Button | Click | • **Disabled** tới khi đủ trường bắt buộc [1]-[6]. Bấm → chuyển trạng thái **chờ duyệt**, **báo Quản trị viên** (UC11), sang `kb-cho-duyet`. Quy trình biên soạn 2 bước: Soạn thảo → Duyệt & xuất bản. |
 | 10 | Hủy | Button | Click | • Có thay đổi chưa lưu → hỏi xác nhận; về màn trước, không lưu. |
-| 11 | Đối tượng xem | Radio group | Check | • **Bắt buộc**, mặc định "Khách hàng + Agent". "Chỉ nội bộ": bài chỉ Agent/Quản trị viên/Biên tập thấy, **ẩn khỏi khách hàng** ở tra cứu và trích dẫn AI cho khách (OQ-21c). Tách khỏi cờ [7] để nội dung nội bộ vẫn dùng được cho AI hỗ trợ soạn của agent. |
+| 11 | Đối tượng xem | Radio group | Check | • **Bắt buộc**, mặc định "Khách hàng + Agent". "Chỉ nội bộ": bài chỉ nhân viên hỗ trợ/Quản trị viên/Biên tập thấy, **ẩn khỏi khách hàng** ở tra cứu và trích dẫn AI cho khách (OQ-21c). Tách khỏi cờ [7] để nội dung nội bộ vẫn dùng được cho AI hỗ trợ soạn của agent. |
 
 - Header nội bộ dùng chung (không đánh số); Flow 8 là khu vực menu quản trị nội dung — các màn vào độc lập, không phải wizard.
 
@@ -220,7 +220,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | + Soạn bài mới | Button | Click | • Navigate → `kb-soan-thao`. Biên tập nội dung, Agent và Quản trị viên soạn được (UC11). |
+| 1 | + Soạn bài mới | Button | Click | • Navigate → `kb-soan-thao`. Biên tập nội dung (trong Dịch vụ được gán), nhân viên hỗ trợ (Agent tỉnh, Agent helpdesk, Triển khai của Line) và Quản trị viên soạn được (UC11). |
 | 2 | Import UM/SRS | Link | Click | • → `kb-import-um`. |
 | 3 | Đồng bộ Drive | Link | Click | • → `kb-cau-hinh-dong-bo-drive` (chỉ Quản trị viên, UC15). |
 | 4 | Ticket thành FAQ | Link | Click | • → `kb-tu-ticket-thanh-faq`. |
