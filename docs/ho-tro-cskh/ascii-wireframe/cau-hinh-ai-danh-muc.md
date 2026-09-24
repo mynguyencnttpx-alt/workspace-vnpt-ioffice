@@ -595,7 +595,7 @@
 | 4 | Kết quả kiểm tra | Alert | ReadOnly | • Thành công: thời gian phản hồi + thời điểm kiểm tra. Thất bại: nguyên nhân chung (không phản hồi sau 30 giây, kiểm tra địa chỉ/mã client), **không lộ chi tiết kỹ thuật hay secret**. |
 | 5 | Kiểm tra kết nối | Button | Click | • Gọi thử OneBSS bằng cấu hình đang nhập; khóa khi đang kiểm tra. Lỗi → giữ màn, cho sửa và thử lại. |
 | 6 | Lưu cấu hình | Button | Click | • **Disabled** khi chưa đổi gì hoặc thiếu [1]/[2]; áp dụng cho lần gửi phiếu sau; ghi nhật ký thao tác. |
-| 7 | Dữ liệu đẩy sang OneBSS | List | ReadOnly | • Khách hàng/site, mô tả + mức ưu tiên, lịch sử trao đổi liên quan, người tạo (Đề xuất — Tích hợp OneBSS mục 2). Agent tỉnh gửi trực tiếp; Agent trung tâm có bước xác nhận (UC6, UC8); lý do chuyển: lỗi hệ thống / cần đội dự án. |
+| 7 | Dữ liệu đẩy sang OneBSS | List | ReadOnly | • Khách hàng/site, mô tả + mức ưu tiên, lịch sử trao đổi liên quan, người tạo (Đề xuất — Tích hợp OneBSS mục 2). Người có quyền xử lý ticket tầng Tỉnh/Helpdesk gửi thẳng, không qua bước xác nhận (UC6; bỏ bước xác nhận của Agent trung tâm từ v1.1, 24/09/2026); lý do chuyển: lỗi hệ thống / cần đội dự án. |
 | 8 | Nhật ký gửi phiếu gần đây | Table | ReadOnly | • Thời gian, ticket, mã phiếu OneBSS, kết quả (Thành công / Lỗi). Chứa dữ liệu khách hàng nên **chỉ Quản trị viên xem**; dòng lỗi chưa có mã phiếu. |
 
 - **Đề xuất bổ sung theo thiết kế Figma (21/09/2026), đã chốt (OQ-29).** Trước khi Thử lại ở `agent-tao-phieu-onebss` phải kiểm tra ticket đã có mã phiếu chưa. Vào từ `cauhinh-hub`.

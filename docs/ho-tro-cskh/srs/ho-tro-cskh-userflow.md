@@ -1,11 +1,11 @@
 ---
 type: srs-userflow
 feature: ho-tro-cskh
-updated: 2026-09-21
+updated: 2026-09-24
 primary_device: desktop          # desktop (1024) — khối màn khách hàng thiết kế responsive-friendly, không tách flow riêng
 stage: flow-approved
-flow_approved_at: 2026-09-21
-flow_hash: "9fc1cfd9"
+flow_approved_at: 2026-09-24
+flow_hash: "2970eea5"
 ---
 
 # Hệ thống Hỗ trợ & Chăm sóc Khách hàng — User Flow
@@ -35,6 +35,10 @@ flowchart TD
     f1n4["[4] Danh sách thành viên<br/>đơn vị (chỉ đầu mối)"]
     f1n5["[5] Mời thêm<br/>người dùng (chỉ đầu mối)"]
     f1n6["[6] Tài khoản cá nhân"]
+    f1site0["Site dịch vụ iOffice/iStorage:<br/>bấm Hỗ trợ khách hàng"]
+    f1site["[71] Vào từ site dịch vụ<br/>(đổi mã, xác định tài khoản)"]
+    f1siteerr["[72] Không vào được<br/>từ site dịch vụ"]
+    f1noKH["Mã đơn vị chưa khớp khách hàng:<br/>xem tài liệu + hỏi AI,<br/>chưa gửi được ticket"]
 
     f1n2 -->|"đặt mật khẩu thành công"| f1n1
     f1n2 -->|"link hết hạn/đã dùng"| f1n7
@@ -61,14 +65,21 @@ flowchart TD
     f1n4 -->|"mời thêm"| f1n5
     f1n5 -->|"gửi lời mời"| f1n4
     f1home -->|"mọi khách hàng"| f1n6
+    f1site0 -->|"mã một lần"| f1site
+    f1site -->|"tài khoản khách hàng, khách hàng xác định được"| f1home
+    f1site -->|"mã đơn vị chưa khớp khách hàng nào"| f1noKH
+    f1noKH -.->|"Quản trị viên bổ sung mã đơn vị"| f1home
+    f1site -->|"mã hết hạn / site lỗi / email trùng tài khoản nội bộ / danh tính trỏ khách hàng khác / tài khoản bị khóa"| f1siteerr
+    f1siteerr -.->|"đăng nhập bằng email"| f1n1
+    f1siteerr -.->|"thử lại (chỉ lỗi kết nối)"| f1site
 
     classDef happy fill:#d4edda,stroke:#28a745
     classDef error fill:#f8d7da,stroke:#dc3545
     classDef edge fill:#fff3cd,stroke:#ffc107
 
-    class f1n1,f1n2,f1n3,f1home,f1n4,f1n5,f1n6,f1int happy
+    class f1n1,f1n2,f1n3,f1home,f1n4,f1n5,f1n6,f1int,f1site0,f1site happy
     class f1err1 error
-    class f1n7,f1edge1,f1edge2,f1lock edge
+    class f1n7,f1edge1,f1edge2,f1lock,f1noKH,f1siteerr edge
 ```
 
 ### Flow: tra-cuu-kb — Tra cứu HDSD + FAQ lỗi
@@ -199,7 +210,7 @@ flowchart TD
     f5home -->|"mở mục Tổng quan"| f5n3
     f5n3 --> f5n2
     f5n3 -->|"về trang chủ theo vai trò"| f5home
-    f5n3 -->|"thẻ ticket của tôi"| f5q
+    f5n3 -->|"thẻ ticket trong phạm vi của tôi"| f5q
     f5n3 -->|"thẻ sắp quá hạn"| f5sla
     f5n3 -->|"thẻ bài chờ duyệt"| f5kb
     f5n3 -->|"thẻ báo cáo (Chủ quản dịch vụ)"| f5rep
@@ -216,12 +227,13 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    f6n1["[22] Bảng tiếp nhận<br/>ticket (theo team)"]
+    f6n1["[22] Bảng tiếp nhận<br/>ticket (theo tầng +<br/>phạm vi phụ trách)"]
     f6n2["[23] Xử lý ticket<br/>(gồm panel mẫu trả lời<br/>+ AI hỗ trợ soạn)"]
-    f6n3["[24] Phân công /<br/>chuyển cấp"]
-    f6n4["[25] Tạo phiếu OneBSS<br/>(agent tỉnh — trực tiếp)"]
-    f6n5["[26] Xác nhận tạo phiếu<br/>OneBSS (agent trung tâm)"]
+    f6n3["[24] Phân công"]
+    f6n4["[25] Tạo phiếu OneBSS<br/>(tầng Tỉnh/Helpdesk — gửi thẳng)"]
     f6n6["[27] Cảnh báo quá hạn<br/>SLA"]
+    f6jira["Jira (ngoài MVP)"]
+    f6hdv["Hỗ trợ dịch vụ:<br/>chỉ xem + ghi chú nội bộ"]
     f6err1["Gửi OneBSS lỗi hoặc<br/>chưa rõ đã tạo phiếu"]
     f6ai["AI tắt hoặc lỗi:<br/>agent soạn tay"]
     f6faq["Sang Flow 8:<br/>Chuyển ticket thành FAQ [41]"]
@@ -229,36 +241,37 @@ flowchart TD
 
     f6n1 -->|"nhận ticket từ hàng đợi"| f6n2
     f6n2 -->|"phản hồi + cập nhật trạng thái"| f6n1
-    f6n2 -->|"vượt khả năng (agent tỉnh)"| f6n4
-    f6n2 -->|"vượt khả năng (agent trung tâm)"| f6n5
+    f6n2 -->|"vượt khả năng (ticket tầng Tỉnh/Helpdesk)"| f6n4
+    f6n2 -.->|"ticket tầng Hỗ trợ trung tâm vượt khả năng: chuyển Jira (giai đoạn sau)"| f6jira
     f6n4 -->|"gửi trực tiếp, nhận mã phiếu"| f6n2
-    f6n5 -->|"xác nhận, gửi, nhận mã phiếu"| f6n2
     f6n4 -->|"OneBSS không phản hồi"| f6err1
-    f6n5 -->|"OneBSS không phản hồi"| f6err1
     f6err1 -.->|"kiểm tra đã có mã phiếu chưa, rồi thử lại"| f6n4
     f6err1 -.->|"hủy, về ticket"| f6n2
     f6n2 -->|"cần đổi người xử lý"| f6n3
-    f6n3 -->|"escalate tỉnh lên trung tâm"| f6n1
-    f6n6 -.->|"cảnh báo tới agent/QT phụ trách"| f6n1
+    f6n3 -->|"phân công xong"| f6n1
+    f6n6 -.->|"cảnh báo tới người xử lý / Quản trị viên (Hỗ trợ dịch vụ không nhận)"| f6n1
     f6n2 -.->|"chế độ AI tắt hoặc AI lỗi"| f6ai
     f6ai -.->|"soạn phản hồi thủ công"| f6n2
     f6n2 -.->|"tạo FAQ từ ticket đã giải quyết"| f6faq
     f6n1 -->|"menu: Hỏi đáp AI (khi AI bật)"| f6ask
+    f6n1 -->|"Hỗ trợ dịch vụ mở ticket"| f6hdv
+    f6hdv -.->|"thêm ghi chú nội bộ"| f6n1
     f6n2 -->|"cần tra cứu nghiệp vụ: bấm Hỏi AI (site của ticket chọn sẵn)"| f6ask
 
     classDef happy fill:#d4edda,stroke:#28a745
     classDef error fill:#f8d7da,stroke:#dc3545
     classDef edge fill:#fff3cd,stroke:#ffc107
 
-    class f6n1,f6n2,f6n3,f6n4,f6n5,f6ask happy
+    class f6n1,f6n2,f6n3,f6n4,f6ask,f6hdv happy
     class f6err1 error
-    class f6n6,f6ai,f6faq edge
+    class f6n6,f6ai,f6faq,f6jira edge
 ```
 
 ### Flow: quan-tri-nguoi-dung — Quản trị người dùng & phân quyền
 
 ```mermaid
 flowchart TD
+    f7n0["[73] Danh mục<br/>Địa bàn"]
     f7n1["[28] Danh mục<br/>khách hàng/site"]
     f7n8["[57] Thêm<br/>khách hàng/site"]
     f7n2["[29] Khởi tạo đầu mối<br/>+ gửi lời mời"]
@@ -271,8 +284,10 @@ flowchart TD
     f7edge1["Vô hiệu hóa nhầm<br/>tài khoản đang hoạt động"]
     f7edge2["Mã site trùng"]
     f7edge3["Bỏ dở tại [29]:<br/>đã tạo khách hàng<br/>nhưng chưa có đầu mối"]
-    f7edge4["Đổi loại khách hàng<br/>(xác nhận + ghi nhật ký)"]
+    f7edge4["Đổi địa bàn / hình thức hỗ trợ<br/>(đổi tầng tiếp nhận:<br/>xác nhận + ghi nhật ký)"]
 
+    f7n0 -->|"tab Khách hàng"| f7n1
+    f7n1 -->|"tab Địa bàn"| f7n0
     f7n1 -->|"thêm KH/site mới"| f7n8
     f7n8 -->|"lưu, tiếp tục mời đầu mối"| f7n2
     f7n8 -.->|"hủy"| f7n1
@@ -281,13 +296,13 @@ flowchart TD
     f7n2 -->|"gửi lời mời đầu mối"| f7n1
     f7n2 -.->|"bỏ dở"| f7edge3
     f7edge3 -.->|"mời đầu mối sau"| f7n1
-    f7n1 -->|"sửa tại dòng, đổi loại KH"| f7edge4
+    f7n1 -->|"sửa tại dòng, đổi địa bàn/hình thức hỗ trợ"| f7edge4
     f7edge4 -.->|"xác nhận, ghi nhật ký"| f7n7
     f7n3 -->|"chọn 1 tài khoản"| f7n4
     f7n4 -->|"vô hiệu hóa"| f7edge1
     f7edge1 -.->|"kích hoạt lại"| f7n4
     f7n3 -->|"tạo tài khoản nội bộ mới"| f7n5
-    f7n5 -->|"gán team xong"| f7n3
+    f7n5 -->|"gán vai trò, địa bàn, phạm vi phụ trách xong"| f7n3
     f7n4 -->|"gán/đổi vai trò"| f7n6
     f7n6 -->|"áp dụng ngay"| f7n4
     f7n6 -->|"xem bảng quyền tổng quan"| f7n9
@@ -301,7 +316,7 @@ flowchart TD
     classDef error fill:#f8d7da,stroke:#dc3545
     classDef edge fill:#fff3cd,stroke:#ffc107
 
-    class f7n1,f7n2,f7n3,f7n4,f7n5,f7n6,f7n7,f7n8,f7n9 happy
+    class f7n0,f7n1,f7n2,f7n3,f7n4,f7n5,f7n6,f7n7,f7n8,f7n9 happy
     class f7edge1,f7edge2,f7edge3,f7edge4 edge
 ```
 
@@ -521,11 +536,11 @@ flowchart TD
 
 | [#] | Slug | Màn hình | Mục đích | Thuộc flow |
 |-----|------|----------|----------|------------|
-| 1 | dang-nhap | Đăng nhập (dùng chung mọi vai trò) | Khách hàng và nhân viên đăng nhập bằng tài khoản do đơn vị/quản trị viên cấp hoặc mời; sau khi đăng nhập đúng hệ thống chuyển tới trang đầu theo loại tài khoản và vai trò (khách hàng [7]; Agent/Quản trị viên [22]; Chủ quản dịch vụ [48]; Biên tập nội dung [36]); tài khoản bị vô hiệu hóa hiện thông báo tại màn [đề xuất bổ sung, OQ-32, OQ-33] | dang-nhap-kich-hoat-kh (màn dùng chung) |
+| 1 | dang-nhap | Đăng nhập (dùng chung mọi vai trò) | Khách hàng và nhân viên đăng nhập bằng tài khoản do đơn vị/quản trị viên cấp hoặc mời; sau khi đăng nhập đúng hệ thống chuyển tới trang đầu theo loại tài khoản và vai trò (khách hàng [7]; Agent tỉnh/Agent helpdesk/Hỗ trợ trung tâm/Hỗ trợ dịch vụ/Quản trị viên [22]; Chủ quản dịch vụ [48]; Biên tập nội dung [36]); tài khoản bị vô hiệu hóa hiện thông báo tại màn [đề xuất bổ sung, OQ-32, OQ-33] | dang-nhap-kich-hoat-kh (màn dùng chung) |
 | 2 | kh-kich-hoat-tk | Đặt mật khẩu kích hoạt | Người được mời (khách hàng hoặc nhân viên) đặt mật khẩu lần đầu để kích hoạt tài khoản; cũng dùng để đặt mật khẩu mới khi mở link đặt lại từ [3] (tiêu đề đổi thành "Đặt lại mật khẩu", OQ-40) | dang-nhap-kich-hoat-kh |
 | 3 | kh-quen-mat-khau | Quên mật khẩu / đặt lại | Người dùng (khách hàng hoặc nhân viên) tự reset mật khẩu qua email; không tồn tại email trong danh mục tài khoản thì báo trung lập (anti-enumeration) | dang-nhap-kich-hoat-kh |
 | 4 | kh-danh-sach-thanh-vien | Danh sách thành viên đơn vị | Chỉ tài khoản đầu mối xem được danh sách người dùng khác trong cùng đơn vị/site | dang-nhap-kich-hoat-kh |
-| 5 | kh-moi-thanh-vien | Mời thêm người dùng | Đầu mối nhập thông tin người dùng cần mời; người được mời tự động gắn cố định vào site của đầu mối | dang-nhap-kich-hoat-kh |
+| 5 | kh-moi-thanh-vien | Mời thêm người dùng | Đầu mối nhập thông tin người dùng cần mời; người được mời tự động gắn cố định vào khách hàng của đầu mối | dang-nhap-kich-hoat-kh |
 | 6 | kh-tai-khoan-ca-nhan | Tài khoản cá nhân | Đổi mật khẩu/thông tin cá nhân; xem danh sách tài liệu đã lưu | dang-nhap-kich-hoat-kh |
 | 7 | kb-trang-chu | Trang chủ tra cứu | Tìm kiếm theo từ khóa hoặc duyệt theo cây danh mục chức năng Bản chính: hiện phạm vi nội dung (dịch vụ + site), cây danh mục mở nhánh, lỗi thường gặp, thẻ Hỏi đáp AI (ẩn khi tắt AI theo site); là trang chủ khách hàng, nối tới [4] (đầu mối), [6], [11], [14], [16]. | tra-cuu-kb |
 | 8 | kb-ket-qua-tim-kiem | Kết quả tìm kiếm | Hiển thị kết quả đã lọc cứng theo đúng dịch vụ + site khách hàng đang đăng nhập Có thẻ gợi ý Hỏi đáp AI (ẩn khi tắt AI theo site) và tạo yêu cầu hỗ trợ. Không có kết quả → [65]. | tra-cuu-kb |
@@ -542,19 +557,19 @@ flowchart TD
 | 19 | ticket-da-dong | Ticket đã đóng | Phân biệt lý do đóng (khách xác nhận / tự động do quá hạn); có nút mở lại nếu vấn đề chưa hết | gui-theo-doi-ticket |
 | 20 | — | Đăng nhập nội bộ — đã gộp vào Đăng nhập chung [1] | Không còn màn riêng; số thứ tự [20] giữ lại để không lệch đối chiếu với tài liệu và Figma [đề xuất bổ sung, OQ-32] | dang-nhap-kich-hoat-kh |
 | 21 | noibo-tai-khoan-ca-nhan | Tài khoản cá nhân (nội bộ) | Agent/Quản trị viên đổi mật khẩu/thông tin cá nhân | noibo-trang-dau |
-| 22 | agent-hang-doi | Bảng tiếp nhận ticket | Hàng đợi riêng theo team (tỉnh/trung tâm), lọc trạng thái/ưu tiên/dịch vụ; lọc riêng "AI đã tự trả lời - cần review"; Quản trị viên xem được toàn bộ không giới hạn team | xu-ly-ticket-agent |
+| 22 | agent-hang-doi | Bảng tiếp nhận ticket | Hàng đợi theo tầng tiếp nhận (Tỉnh X / Helpdesk công ty / Hỗ trợ trung tâm) và phạm vi phụ trách; công tắc "Chỉ phạm vi của tôi", lọc trạng thái/ưu tiên/dịch vụ/địa bàn/khách hàng; lọc riêng "AI đã tự trả lời - cần review"; Hỗ trợ trung tâm, Hỗ trợ dịch vụ, Quản trị viên xem được nhiều tầng | xu-ly-ticket-agent |
 | 23 | agent-chi-tiet-ticket | Xử lý ticket | Phản hồi công khai + ghi chú nội bộ; gồm panel chọn mẫu trả lời dựng sẵn và panel AI hỗ trợ soạn phản hồi; hiển thị nhãn "Đã trả lời tự động bởi AI" kèm nút can thiệp khi áp dụng Panel AI soạn phản hồi hiển thị khi chế độ AI bật; AI tắt hoặc lỗi/quá thời gian → agent soạn tay. | xu-ly-ticket-agent |
-| 24 | agent-phan-cong | Phân công / chuyển cấp | Phân công thủ công cho agent trong team hoặc escalate tỉnh lên trung tâm; Quản trị viên gán được mọi team, Agent chỉ gán trong team mình | xu-ly-ticket-agent |
-| 25 | agent-tao-phieu-onebss | Tạo phiếu OneBSS (agent tỉnh) | Agent tỉnh tự quyết định và gửi thẳng, không qua bước xác nhận trung gian; form bắt buộc chọn lý do (Lỗi hệ thống / Cần đội dự án / Khác) + ghi chú gửi kèm (OQ-19c) Có trạng thái phụ Đang gửi / Gửi lỗi (Thử lại): kiểm tra ticket đã có mã phiếu chưa trước khi gửi lại để không tạo trùng phiếu; có lối Hủy về [23]. [26] áp dụng tương tự. | xu-ly-ticket-agent |
-| 26 | agent-xac-nhan-phieu-onebss | Xác nhận tạo phiếu OneBSS (agent trung tâm) | Agent trung tâm xem form xác nhận thông tin trước khi gửi sang OneBSS; bắt buộc chọn lý do (3 lựa chọn) + ghi chú gửi kèm (OQ-19c) | xu-ly-ticket-agent |
+| 24 | agent-phan-cong | Phân công ticket | Phân công thủ công hoặc tự gán theo khối lượng việc, chỉ chọn nhân viên cùng tầng có phạm vi phụ trách bao ticket; không còn chuyển cấp (bỏ từ v1.1); Hỗ trợ trung tâm và Quản trị viên phân công lại được ticket đang do người khác xử lý | xu-ly-ticket-agent |
+| 25 | agent-tao-phieu-onebss | Tạo phiếu OneBSS (tầng Tỉnh/Helpdesk) | Người có quyền xử lý ticket tầng Tỉnh/Helpdesk (Agent tỉnh, Agent helpdesk, Hỗ trợ trung tâm, Quản trị viên) tự quyết định và gửi thẳng, không qua bước xác nhận trung gian; form bắt buộc chọn lý do (Lỗi hệ thống / Cần đội dự án / Khác) + ghi chú gửi kèm (OQ-19c) Có trạng thái phụ Đang gửi / Gửi lỗi (Thử lại): kiểm tra ticket đã có mã phiếu chưa trước khi gửi lại để không tạo trùng phiếu; có lối Hủy về [23]. | xu-ly-ticket-agent |
+| 26 | — | Xác nhận tạo phiếu OneBSS — đã bỏ từ v1.1 | Không còn màn riêng (gửi thẳng, không qua bước xác nhận trung gian); số thứ tự [26] giữ lại để không lệch đối chiếu với tài liệu và Figma | xu-ly-ticket-agent |
 | 27 | agent-canh-bao-sla | Cảnh báo quá hạn SLA | Cảnh báo ticket sắp/đã quá hạn SLA cho agent và Quản trị viên phụ trách | xu-ly-ticket-agent |
 | 28 | qt-danh-muc-khach-hang | Danh mục khách hàng/site | Thêm/sửa đơn vị, dịch vụ dùng, site/tenant, đầu mối liên hệ (gồm sửa/chi tiết inline) Sửa và đổi loại khách hàng tại chỗ (có xác nhận, ghi [34]); thêm mới qua [57]. | quan-tri-nguoi-dung |
 | 29 | qt-moi-dau-moi | Khởi tạo đầu mối + gửi lời mời | Khởi tạo tài khoản đầu mối đầu tiên cho đơn vị/site, gửi lời mời kích hoạt Điền sẵn đầu mối đã lưu ở [57]/danh mục (không nhập lại); xác nhận kênh gửi và tạo tài khoản chờ kích hoạt (UC9). | quan-tri-nguoi-dung |
 | 30 | qt-danh-sach-tai-khoan | Danh sách tài khoản | Xem danh sách tài khoản (nội bộ + khách hàng) trong phạm vi quản lý Có lối xem bảng quyền tổng quan [58]. | quan-tri-nguoi-dung |
 | 31 | qt-chi-tiet-tai-khoan | Chi tiết tài khoản | Thông tin chi tiết, vai trò/site gắn kèm; vô hiệu hóa tài khoản | quan-tri-nguoi-dung |
-| 32 | qt-tao-tai-khoan-noibo | Tạo tài khoản nội bộ | Gán vai trò và team (trung tâm hoặc tỉnh/thành cụ thể) cho tài khoản agent/admin mới; vô hiệu hóa làm ở chi tiết tài khoản | quan-tri-nguoi-dung |
+| 32 | qt-tao-tai-khoan-noibo | Tạo tài khoản nội bộ | Gán vai trò (7 vai trò nội bộ), địa bàn (Agent tỉnh) và phạm vi phụ trách (Dịch vụ × Đối tượng) hoặc dịch vụ được gán (Biên tập nội dung); vô hiệu hóa làm ở chi tiết tài khoản | quan-tri-nguoi-dung |
 | 33 | qt-phan-quyen | Phân quyền theo vai trò (RBAC) | Gán/đổi vai trò cho tài khoản, áp dụng quyền tương ứng ngay Có link xem bảng quyền tổng quan [58]. Quyền "Xem nghiệp vụ toàn bộ khách hàng trong Hỏi đáp AI" gắn cố định theo vai trò (xem [58]); tại đây Quản trị viên chỉ gán vai trò cho tài khoản, chỉnh quyền theo vai trò ngoài MVP (OQ-34) [đề xuất bổ sung]. | quan-tri-nguoi-dung |
-| 34 | qt-nhat-ky-thao-tac | Nhật ký thao tác (audit log) | Lọc nhật ký theo hành động/người/thời gian cho các thao tác quản trị nhạy cảm (đổi quyền, xóa tài liệu, đổi định tuyến khách hàng) | quan-tri-nguoi-dung |
+| 34 | qt-nhat-ky-thao-tac | Nhật ký thao tác (audit log) | Lọc nhật ký theo hành động/người/thời gian cho các thao tác quản trị nhạy cảm (đổi quyền, đổi phạm vi phụ trách, xóa tài liệu, đổi định tuyến khách hàng, gỡ danh tính site) | quan-tri-nguoi-dung |
 | 35 | kb-soan-thao | Soạn thảo bài viết | Biên tập viên nhập nội dung, gắn phạm vi dịch vụ/site hoặc "dùng chung" | quan-tri-noi-dung-kb |
 | 36 | kb-cho-duyet | Danh sách chờ duyệt | Nội dung chờ duyệt (thủ công, import UM/SRS, đồng bộ Drive, hoặc từ ticket); gắn nhãn nguồn khi đến từ đồng bộ Drive | quan-tri-noi-dung-kb |
 | 37 | kb-duyet-xuat-ban | Duyệt & xuất bản / từ chối | Phê duyệt & xuất bản (tái lập chỉ mục AI) hoặc từ chối kèm ghi chú — phạm vi vai trò được duyệt: xem OQ-4 | quan-tri-noi-dung-kb |
@@ -568,8 +583,8 @@ flowchart TD
 | 45 | cauhinh-nhat-ky-ai | Nhật ký hội thoại AI + chi phí | Lưu câu hỏi & câu trả lời AI để kiểm tra chất lượng; theo dõi số lượt gọi và chi phí ước tính | cau-hinh-ai-danh-muc |
 | 46 | danhmuc-dich-vu-loai-van-de | Danh mục dùng chung | Thêm/sửa/xóa dịch vụ, loại vấn đề ticket, mức ưu tiên, loại nội dung tài liệu, mẫu trả lời dựng sẵn Mỗi danh mục 1 tab (5 tab). | cau-hinh-ai-danh-muc |
 | 47 | cauhinh-kenh-thongbao | Cấu hình kênh thông báo | Bật/tắt kênh Email/SMS, cấu hình brandname SMS, kênh nhận mặc định theo khách hàng/loại thông báo Chỉnh mẫu nội dung Email/SMS qua [64]. | cau-hinh-ai-danh-muc |
-| 48 | baocao-tong-quan | Báo cáo tổng quan | Số ticket theo trạng thái/team/dịch vụ/khách hàng, backlog; landing mặc định cho Chủ quản dịch vụ | bao-cao-thong-ke |
-| 49 | baocao-hieusuat-sla | Báo cáo hiệu suất & SLA | Thời gian xử lý trung bình, tỷ lệ đúng/quá hạn SLA theo team/tỉnh/agent, số ticket escalate/đẩy OneBSS | bao-cao-thong-ke |
+| 48 | baocao-tong-quan | Báo cáo tổng quan | Số ticket theo trạng thái/tầng tiếp nhận/dịch vụ/khách hàng, backlog; landing mặc định cho Chủ quản dịch vụ | bao-cao-thong-ke |
+| 49 | baocao-hieusuat-sla | Báo cáo hiệu suất & SLA | Thời gian xử lý trung bình, tỷ lệ đúng/quá hạn SLA theo tầng/tỉnh/agent, số phiếu đẩy OneBSS | bao-cao-thong-ke |
 | 50 | baocao-chatluong | Báo cáo chất lượng & nội dung | CSAT, AI deflection rate, bài viết KB hữu ích nhiều/ít nhất | bao-cao-thong-ke |
 | 51 | baocao-xuat | Xuất báo cáo | 2 chế độ: xuất ngay (Excel/PDF) hoặc cấu hình lịch gửi tự động định kỳ kèm danh sách người nhận | bao-cao-thong-ke |
 | 52 | cauhinh-sla | Cấu hình SLA | Quản trị viên cấu hình thời gian phản hồi/xử lý theo mức ưu tiên, giờ làm việc, ngưỡng cảnh báo và thời gian tự đóng ticket | cau-hinh-ai-danh-muc |
@@ -577,13 +592,13 @@ flowchart TD
 | 54 | cauhinh-hub | Trung tâm cấu hình | Mở từ mục "Cấu hình" trên menu bên trái; cửa vào các mục cấu hình (tích hợp AI, tham số, thử nghiệm, nhật ký AI, chỉ mục AI, danh mục, kênh và mẫu thông báo, SLA, kết nối OneBSS), hiện trạng thái từng mục; mục hiển thị theo vai trò [đề xuất bổ sung] | cau-hinh-ai-danh-muc |
 | 55 | cauhinh-onebss | Kết nối OneBSS | Nhập địa chỉ dịch vụ, mã client, bí mật client (che, chỉ nhập lại để thay); kiểm tra kết nối (có nhánh lỗi); xem dữ liệu đẩy sang và nhật ký gửi phiếu gần đây; chỉ Quản trị viên [đề xuất bổ sung, OQ-29] | cau-hinh-ai-danh-muc |
 | 56 | kb-chi-muc-ai | Chỉ mục AI | Xem số bài đã lập / cần tái lập / loại khỏi AI, trạng thái từng bài (đang xử lý, lỗi), tái lập chỉ mục có xác nhận khi hàng loạt [đề xuất bổ sung, OQ-27] | quan-tri-noi-dung-kb |
-| 57 | qt-form-khach-hang | Thêm khách hàng/site | Tạo đơn vị: tên, loại khách hàng (quyết định team tiếp nhận), dịch vụ, mã site duy nhất, đầu mối liên hệ chính thức (tên, email, SĐT — OQ-20b); lưu xong sang [29] để tạo tài khoản đầu mối + mời (điền sẵn đầu mối vừa nhập). Sửa và đổi loại vẫn làm tại [28] | quan-tri-nguoi-dung |
+| 57 | qt-form-khach-hang | Thêm khách hàng/site | Tạo đơn vị: tên, loại khách hàng (chỉ phân loại), địa bàn, hình thức hỗ trợ (khi Trung ương), tầng tiếp nhận tự tính, site sử dụng kèm mã đơn vị trên site, đầu mối liên hệ chính thức (tên, email, SĐT — OQ-20b); lưu xong sang [29] để tạo tài khoản đầu mối + mời (điền sẵn đầu mối vừa nhập). Sửa và đổi địa bàn/hình thức hỗ trợ vẫn làm tại [28] | quan-tri-nguoi-dung |
 | 58 | qt-ma-tran-phan-quyen | Bảng quyền theo vai trò (chỉ xem) | Xem tổng quan vai trò × chức năng; nhãn tham khảo, khách hàng đã xác nhận; có dòng quyền Hỏi đáp AI nội bộ và xem nghiệp vụ toàn bộ khách hàng [đề xuất bổ sung, OQ-28, OQ-34] | quan-tri-nguoi-dung |
 | 59 | thong-bao | Thông báo | Trung tâm thông báo trong ứng dụng cho tài khoản nội bộ, lọc tất cả/chưa đọc/ticket/hệ thống; từng thông báo dẫn tới [23]/[27]/[36]; có trạng thái rỗng [đề xuất bổ sung, có điều kiện OQ-24] | thong-bao-loi-chung |
 | 60 | loi-403 | Không có quyền truy cập | Dành cho người dùng nội bộ vào chức năng có thật nhưng vai trò không được phép; khách hàng không thấy trang này | thong-bao-loi-chung (màn dùng chung) |
 | 61 | loi-404 | Không tìm thấy nội dung | Link cũ hoặc tài nguyên (ticket, tài khoản...) ngoài phạm vi của khách hàng; lời lẽ trung lập, không xác nhận tài nguyên có tồn tại | thong-bao-loi-chung (màn dùng chung) |
 | 62 | phien-het-han | Phiên đăng nhập hết hạn | Yêu cầu đăng nhập lại; sau đăng nhập quay lại đúng màn cũ; hành động đang gửi dở xử lý theo OQ-31 | thong-bao-loi-chung (màn dùng chung) |
-| 63 | noibo-tong-quan | Tổng quan nội bộ | Việc cần làm theo vai trò (ticket của tôi, sắp quá hạn SLA, bài chờ duyệt cho Quản trị viên, báo cáo cho Chủ quản dịch vụ) và hoạt động gần đây; không thay landing mặc định [đề xuất bổ sung, OQ-25] | noibo-trang-dau |
+| 63 | noibo-tong-quan | Tổng quan nội bộ | Việc cần làm theo vai trò (ticket trong phạm vi của tôi, sắp quá hạn SLA, bài chờ duyệt cho Quản trị viên, báo cáo cho Chủ quản dịch vụ; Hỗ trợ dịch vụ chỉ nút hành động + hoạt động gần đây) và hoạt động gần đây; không thay landing mặc định [đề xuất bổ sung, OQ-25] | noibo-trang-dau |
 | 64 | cauhinh-mau-thong-bao | Mẫu nội dung thông báo Email/SMS | Chọn loại thông báo, sửa tiêu đề/nội dung, chèn biến, xem trước, đếm độ dài SMS, khôi phục mẫu mặc định; không cho lưu khi thiếu biến bắt buộc (link kích hoạt/đặt lại) [đề xuất bổ sung, OQ-26] | cau-hinh-ai-danh-muc |
 | 65 | kb-khong-co-ket-qua | Không có kết quả tìm kiếm | Trạng thái không có kết quả (kể cả do ngoài phạm vi site — không tiết lộ bài site khác); gợi ý đổi từ khóa, hỏi AI (khi AI bật), tạo yêu cầu hỗ trợ | tra-cuu-kb |
 | 66 | kb-bai-viet-khong-con | Bài viết không còn hoặc không có quyền xem | Thông báo gộp cho bài đã ẩn/hủy hoặc ngoài phạm vi (không phân biệt hai trường hợp); nút về trang tra cứu | tra-cuu-kb |
@@ -591,6 +606,9 @@ flowchart TD
 | 68 | noibo-ai-tra-loi | AI trả lời kèm trích dẫn (nội bộ) | Câu trả lời kèm trích dẫn nguồn; nút Sao chép và "Chèn vào phản hồi" (khi mở từ ticket); trạng thái phụ không đủ tự tin: báo rõ, gợi ý đổi cách hỏi hoặc site, KHÔNG đề xuất tạo ticket; bấm trích dẫn mở xem trước bài viết chỉ đọc tại chỗ, bài đã ẩn báo "bài không còn" (OQ-39) [đề xuất bổ sung, UC20] | noibo-hoi-dap-ai |
 | 69 | ai-lich-su | Lịch sử hỏi đáp AI (khách hàng) | Danh sách hội thoại của chính mình (tiêu đề = câu hỏi đầu tiên, thời gian, dịch vụ/site, số lượt), tìm theo từ khóa, mở lại để hỏi tiếp, xóa từng hội thoại có xác nhận; tự xóa sau 90 ngày; có trạng thái rỗng [đề xuất bổ sung, UC34, OQ-36] | hoi-dap-ai |
 | 70 | noibo-ai-lich-su | Lịch sử hỏi đáp AI (nội bộ) | Như [69] cho tài khoản nội bộ; chỉ thấy hội thoại của chính mình, Quản trị viên không xem lịch sử cá nhân của người khác [đề xuất bổ sung, UC34, OQ-36] | noibo-hoi-dap-ai |
+| 71 | vao-tu-site | Vào từ site dịch vụ (màn chuyển tiếp) | Người dùng đang đăng nhập iOffice/iStorage bấm Hỗ trợ khách hàng: CSKH đổi mã một lần với site dịch vụ, xác định hoặc tạo tài khoản (mỗi người 1 tài khoản, nhiều danh tính site), xác định khách hàng theo mã site + mã đơn vị rồi vào thẳng trang đầu, không cần đăng nhập lại; mã đơn vị chưa khớp → vào được nhưng chưa gửi ticket (banner) [v1.1, dang-nhap-kich-hoat Chức năng 5] | dang-nhap-kich-hoat-kh |
+| 72 | vao-tu-site-loi | Không vào được từ site dịch vụ | Mã hết hạn/không hợp lệ, site không phản hồi (Thử lại), email trùng tài khoản nội bộ, danh tính trỏ khách hàng khác, tài khoản bị khóa, site chưa đăng ký; có lối Đăng nhập bằng email [v1.1] | dang-nhap-kich-hoat-kh |
+| 73 | qt-danh-muc-dia-ban | Danh mục Địa bàn | Tab mới của Quản trị người dùng: quản lý địa bàn (Tỉnh/TP + dòng hệ thống Trung ương), ngừng dùng bị chặn khi còn khách hàng hoạt động [v1.1, quan-tri-nguoi-dung Chức năng 1] | quan-tri-nguoi-dung |
 
 ## 3. Danh sách flow
 
@@ -598,13 +616,13 @@ flowchart TD
 
 | Flow-slug | Tên flow | Màn hình gồm | Cases phủ |
 |-----------|----------|--------------|-----------|
-| dang-nhap-kich-hoat-kh | Đăng nhập chung & kích hoạt tài khoản | dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan | happy (đăng nhập chung rồi rẽ theo loại tài khoản, kích hoạt qua lời mời), error (sai mật khẩu, link mời hết hạn → màn riêng), edge (quên mật khẩu, email không có trong danh mục tài khoản, tài khoản bị vô hiệu hóa) |
+| dang-nhap-kich-hoat-kh | Đăng nhập chung & kích hoạt tài khoản | dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan → vao-tu-site → vao-tu-site-loi | happy (đăng nhập chung rồi rẽ theo loại tài khoản, kích hoạt qua lời mời), error (sai mật khẩu, link mời hết hạn → màn riêng), edge (quên mật khẩu, email không có trong danh mục tài khoản, tài khoản bị vô hiệu hóa) |
 | tra-cuu-kb | Tra cứu HDSD + FAQ lỗi | kb-trang-chu → kb-ket-qua-tim-kiem → kb-khong-co-ket-qua → kb-chi-tiet-bai-viet → kb-bai-viet-khong-con → kb-danh-muc-loi | happy (tìm/duyệt danh mục, xem chi tiết), error (không có kết quả), edge (lọc theo site/dịch vụ, bài viết đã ẩn còn link cũ, CTA tạo ticket); màn riêng cho không có kết quả và bài không còn/không có quyền xem; ẩn thẻ AI khi tắt AI theo site |
 | hoi-dap-ai | Hỏi đáp AI | ai-khung-chat → ai-tra-loi → ai-de-xuat-tao-ticket → ai-lich-su | happy (hỏi & AI trả lời kèm trích dẫn), edge (AI không đủ tự tin → đề xuất tạo ticket, lọc theo site/dịch vụ); lịch sử hỏi đáp lưu 90 ngày, mở lại hội thoại cũ, xóa từng hội thoại, trạng thái rỗng (OQ-36) |
 | gui-theo-doi-ticket | Khách hàng gửi & theo dõi ticket | ticket-tao-moi → ticket-goi-y-faq → ticket-danh-sach-kh → ticket-chi-tiet-kh → ticket-xac-nhan → ticket-da-dong | happy (tạo → theo dõi → xác nhận xong → đóng), error (thiếu trường bắt buộc), edge (không phản hồi → tự đóng, mở lại ticket đã đóng); đánh giá/sửa đánh giá trong 7 ngày sau khi đóng (từ ticket-da-dong) |
 | noibo-trang-dau | Trang đầu & tổng quan nội bộ theo vai trò | noibo-tai-khoan-ca-nhan → noibo-tong-quan (vào từ Đăng nhập chung [1]; màn noibo-dang-nhap [20] đã gộp vào [1]) | happy (đăng nhập → trang đầu theo vai trò), edge (tổng quan nội bộ theo vai trò, không thay landing OQ-18) |
-| xu-ly-ticket-agent | Agent xử lý ticket | agent-hang-doi → agent-chi-tiet-ticket → agent-phan-cong → agent-tao-phieu-onebss → agent-xac-nhan-phieu-onebss → agent-canh-bao-sla | happy (nhận → phản hồi → đóng), error (vượt khả năng xử lý), edge (cảnh báo SLA, escalate tỉnh→trung tâm, OneBSS 1-bước/2-bước theo loại agent, AI tự động phản hồi cần review); gửi OneBSS lỗi/chưa rõ đã tạo phiếu → kiểm tra mã phiếu trước khi thử lại, AI tắt/lỗi → soạn tay |
-| quan-tri-nguoi-dung | Quản trị người dùng & phân quyền | qt-danh-muc-khach-hang → qt-form-khach-hang → qt-moi-dau-moi → qt-danh-sach-tai-khoan → qt-chi-tiet-tai-khoan → qt-tao-tai-khoan-noibo → qt-phan-quyen → qt-ma-tran-phan-quyen → qt-nhat-ky-thao-tac | happy (thêm KH/site → mời đầu mối → gán vai trò), error (vô hiệu hóa nhầm tài khoản đang hoạt động), edge (audit log thao tác nhạy cảm); thêm KH/site → mời đầu mối, mã site trùng, bỏ dở giữa chừng, đổi loại KH có xác nhận và ghi nhật ký |
+| xu-ly-ticket-agent | Agent xử lý ticket | agent-hang-doi → agent-chi-tiet-ticket → agent-phan-cong → agent-tao-phieu-onebss → agent-canh-bao-sla | happy (nhận → phản hồi → đóng), error (vượt khả năng xử lý), edge (cảnh báo SLA, escalate tỉnh→trung tâm, OneBSS 1-bước/2-bước theo loại agent, AI tự động phản hồi cần review); gửi OneBSS lỗi/chưa rõ đã tạo phiếu → kiểm tra mã phiếu trước khi thử lại, AI tắt/lỗi → soạn tay |
+| quan-tri-nguoi-dung | Quản trị người dùng & phân quyền | qt-danh-muc-dia-ban → qt-danh-muc-khach-hang → qt-form-khach-hang → qt-moi-dau-moi → qt-danh-sach-tai-khoan → qt-chi-tiet-tai-khoan → qt-tao-tai-khoan-noibo → qt-phan-quyen → qt-ma-tran-phan-quyen → qt-nhat-ky-thao-tac | happy (thêm KH/site → mời đầu mối → gán vai trò), error (vô hiệu hóa nhầm tài khoản đang hoạt động), edge (audit log thao tác nhạy cảm); thêm KH/site → mời đầu mối, mã site trùng, bỏ dở giữa chừng, đổi loại KH có xác nhận và ghi nhật ký |
 | quan-tri-noi-dung-kb | Quản trị nội dung tri thức | kb-soan-thao → kb-cho-duyet → kb-duyet-xuat-ban → kb-danh-sach-noi-dung → kb-chi-muc-ai → kb-import-um → kb-cau-hinh-dong-bo-drive → kb-tu-ticket-thanh-faq | happy (soạn → duyệt → xuất bản → tái lập chỉ mục AI), error (bị từ chối duyệt kèm ghi chú), edge (đồng bộ Drive định kỳ, import UM/SRS, ticket→FAQ nháp); chỉ mục AI (đang tái lập/lỗi), import lỗi từng phần |
 | cau-hinh-ai-danh-muc | Cấu hình AI + danh mục hệ thống | cauhinh-hub → cauhinh-tich-hop-ai → cauhinh-tham-so-ai → cauhinh-thu-nghiem-ai → cauhinh-nhat-ky-ai → danhmuc-dich-vu-loai-van-de → cauhinh-kenh-thongbao → cauhinh-mau-thong-bao → cauhinh-sla → cauhinh-onebss | happy (cấu hình → thử nghiệm → bật rộng rãi), error (kết nối AI provider lỗi), edge (ticket khẩn cấp luôn cần agent duyệt trước khi AI gửi thẳng; cấu hình SLA); kết nối OneBSS lỗi, mẫu thông báo thiếu biến bắt buộc |
 | bao-cao-thong-ke | Báo cáo & thống kê vận hành | baocao-tong-quan → baocao-hieusuat-sla → baocao-chatluong → baocao-xuat | happy (chọn bộ lọc → xem dashboard → xuất file), edge (không có dữ liệu trong khoảng lọc, Chủ quản dịch vụ chỉ thấy phạm vi phụ trách) |
@@ -620,6 +638,11 @@ flowchart TD
 | Từ màn | Đến màn | Trigger | Điều kiện |
 |--------|---------|---------|-----------|
 | Đặt mật khẩu kích hoạt [2] | Đăng nhập chung [1] | Đặt mật khẩu thành công | Kích hoạt hợp lệ |
+| Vào từ site dịch vụ [71] | Trang chủ tra cứu [7] | Đổi mã thành công | Mã một lần còn hiệu lực; tài khoản khách hàng hoạt động, khách hàng xác định được |
+| Vào từ site dịch vụ [71] | Trang chủ tra cứu [7] | Đổi mã thành công, mã đơn vị chưa khớp | Vẫn vào; banner "chưa gắn khách hàng", chưa gửi được ticket, báo Quản trị viên |
+| Vào từ site dịch vụ [71] | Không vào được từ site dịch vụ [72] | Mã hết hạn / site lỗi / email trùng tài khoản nội bộ / danh tính trỏ khách hàng khác / tài khoản bị khóa / site chưa đăng ký | Thông báo chung, không tiết lộ thông tin tài khoản |
+| Không vào được từ site dịch vụ [72] | Đăng nhập chung [1] | Bấm "Đăng nhập bằng email" | — |
+| Không vào được từ site dịch vụ [72] | Vào từ site dịch vụ [71] | Bấm "Thử lại" | Chỉ khi lỗi kết nối site dịch vụ |
 | Đặt mật khẩu kích hoạt [2] | Liên kết mời hết hạn [53] | Mở link mời | Link đã hết hạn hoặc đã dùng → không hiện form, sang màn thông báo |
 | Liên kết mời hết hạn [53] | Đặt mật khẩu kích hoạt [2] | Đầu mối/QT gửi lại lời mời | Người dùng mở link mới trong email/SMS |
 | Đăng nhập chung [1] | Trang chủ tra cứu [7] | Submit đăng nhập | Đúng tài khoản/mật khẩu; tài khoản khách hàng |
@@ -714,22 +737,19 @@ flowchart TD
 
 | Từ màn | Đến màn | Trigger | Điều kiện |
 |--------|---------|---------|-----------|
-| Bảng tiếp nhận ticket [22] | Xử lý ticket [23] | Nhận ticket từ hàng đợi | Hàng đợi có lọc riêng "AI đã tự trả lời — cần review"; Quản trị viên xem được mọi team |
+| Bảng tiếp nhận ticket [22] | Xử lý ticket [23] | Nhận ticket từ hàng đợi | Hàng đợi có lọc riêng "AI đã tự trả lời — cần review"; theo tầng + phạm vi phụ trách của vai trò (Hỗ trợ trung tâm, Hỗ trợ dịch vụ, Quản trị viên xem được nhiều tầng) |
 | Xử lý ticket [23] | Bảng tiếp nhận ticket [22] | Phản hồi + cập nhật trạng thái | — |
 | Bảng tiếp nhận ticket [22] | Khung chat hỏi đáp AI nội bộ [67] | Bấm menu "Hỏi đáp AI" | Hỏi đáp AI đang bật; vai trò được dùng (OQ-34) |
 | Xử lý ticket [23] | Khung chat hỏi đáp AI nội bộ [67] | Bấm "Hỏi AI" | Dịch vụ/site của ticket được chọn sẵn |
-| Xử lý ticket [23] | Tạo phiếu OneBSS (agent tỉnh) [25] | Bấm "Chuyển OneBSS" | Agent tỉnh, vượt khả năng xử lý |
-| Xử lý ticket [23] | Xác nhận tạo phiếu OneBSS (agent trung tâm) [26] | Bấm "Chuyển OneBSS" | Agent trung tâm, vượt khả năng xử lý |
-| Tạo phiếu OneBSS (agent tỉnh) [25] | Xử lý ticket [23] | Bấm "Gửi sang OneBSS" | Đã chọn lý do; gửi trực tiếp, không qua bước xác nhận trung gian, nhận mã phiếu |
-| Tạo phiếu OneBSS (agent tỉnh) [25] | (giữ nguyên) [25] | Bấm "Gửi sang OneBSS" | Chưa chọn lý do → báo lỗi tại ô, không gửi |
-| Xác nhận tạo phiếu OneBSS (agent trung tâm) [26] | Xử lý ticket [23] | Xác nhận & gửi | Đã chọn lý do (Lỗi hệ thống / Cần đội dự án / Khác); nhận mã phiếu, lưu liên kết |
-| Xử lý ticket [23] | Phân công / chuyển cấp [24] | Cần đổi người xử lý | Phân công thủ công hoặc escalate |
-| Phân công / chuyển cấp [24] | Bảng tiếp nhận ticket [22] | Escalate tỉnh lên trung tâm | — |
+| Xử lý ticket [23] | Tạo phiếu OneBSS (tầng Tỉnh/Helpdesk) [25] | Bấm "Chuyển OneBSS" | Ticket tầng Tỉnh/Helpdesk, vượt khả năng xử lý; người có quyền xử lý ticket đó (Agent tỉnh, Agent helpdesk, Hỗ trợ trung tâm, Quản trị viên) |
+| Tạo phiếu OneBSS (tầng Tỉnh/Helpdesk) [25] | Xử lý ticket [23] | Bấm "Gửi sang OneBSS" | Đã chọn lý do; gửi trực tiếp, không qua bước xác nhận trung gian, nhận mã phiếu |
+| Tạo phiếu OneBSS (tầng Tỉnh/Helpdesk) [25] | (giữ nguyên) [25] | Bấm "Gửi sang OneBSS" | Chưa chọn lý do → báo lỗi tại ô, không gửi |
+| Xử lý ticket [23] | Phân công [24] | Cần đổi người xử lý | Phân công thủ công hoặc tự gán; chỉ người có quyền xử lý ticket; không còn chuyển cấp |
+| Phân công [24] | Bảng tiếp nhận ticket [22] | Xác nhận phân công | Cập nhật người phụ trách, báo nhân viên được gán |
 | Xử lý ticket [23] | Chuyển ticket thành FAQ nháp [41] | Bấm "Tạo FAQ từ ticket này" | Ticket đã giải quyết; chỉ Agent/Quản trị viên |
-| Cảnh báo quá hạn SLA [27] | Bảng tiếp nhận ticket [22] | Cảnh báo tự động | Ticket sắp/đã quá hạn SLA, báo agent và Quản trị viên phụ trách |
-| Tạo phiếu OneBSS (agent tỉnh) [25] | (giữ nguyên) [25] | Gửi trực tiếp | OneBSS không phản hồi → báo lỗi, ticket giữ nguyên, chưa lưu liên kết; trước khi Thử lại phải kiểm tra ticket đã có mã phiếu chưa (tránh tạo trùng) |
-| Xác nhận tạo phiếu OneBSS (agent trung tâm) [26] | (giữ nguyên) [26] | Xác nhận & gửi | OneBSS không phản hồi → báo lỗi + thử lại, cùng quy tắc kiểm tra mã phiếu |
-| Tạo phiếu OneBSS (agent tỉnh) [25] | Xử lý ticket [23] | Bấm "Hủy, về ticket" | Khi gửi lỗi hoặc chưa rõ đã tạo phiếu |
+| Cảnh báo quá hạn SLA [27] | Bảng tiếp nhận ticket [22] | Cảnh báo tự động | Ticket sắp/đã quá hạn SLA, báo người xử lý và Quản trị viên (Hỗ trợ dịch vụ không nhận cảnh báo) |
+| Tạo phiếu OneBSS (tầng Tỉnh/Helpdesk) [25] | (giữ nguyên) [25] | Gửi trực tiếp | OneBSS không phản hồi → báo lỗi, ticket giữ nguyên, chưa lưu liên kết; trước khi Thử lại phải kiểm tra ticket đã có mã phiếu chưa (tránh tạo trùng) |
+| Tạo phiếu OneBSS (tầng Tỉnh/Helpdesk) [25] | Xử lý ticket [23] | Bấm "Hủy, về ticket" | Khi gửi lỗi hoặc chưa rõ đã tạo phiếu |
 | Xử lý ticket [23] | (giữ nguyên) [23] | Soạn phản hồi | Chế độ AI tắt hoặc AI lỗi/quá thời gian → panel AI ẩn/báo lỗi, agent soạn tay |
 
 **Flow: quan-tri-nguoi-dung**
@@ -742,11 +762,11 @@ flowchart TD
 | Thêm khách hàng/site [57] | (giữ nguyên) [57] | Bấm "Lưu và tiếp tục mời đầu mối" | Mã site đã tồn tại → báo lỗi ngay tại ô (OQ-20b) |
 | Khởi tạo đầu mối + gửi lời mời [29] | Danh mục khách hàng/site [28] | Gửi lời mời đầu mối | — |
 | Khởi tạo đầu mối + gửi lời mời [29] | Danh mục khách hàng/site [28] | Bỏ dở / quay lại | Khách hàng đã tạo nhưng chưa có đầu mối → [28] hiện nhãn "chưa có đầu mối", mời sau |
-| Danh mục khách hàng/site [28] | (giữ nguyên) [28] | Sửa tại dòng, đổi loại khách hàng | Hộp xác nhận; ghi Nhật ký thao tác [34]; ticket đang mở giữ team cũ (OQ-20c) |
+| Danh mục khách hàng/site [28] | (giữ nguyên) [28] | Sửa tại dòng, đổi địa bàn/hình thức hỗ trợ | Hộp xác nhận; ghi Nhật ký thao tác [34]; ticket đang mở giữ tầng cũ (OQ-20c) |
 | Danh sách tài khoản [30] | Chi tiết tài khoản [31] | Chọn 1 tài khoản | — |
 | Chi tiết tài khoản [31] | (giữ nguyên) [31] | Vô hiệu hóa | Cảnh báo nếu tài khoản đang hoạt động, cho phép kích hoạt lại |
 | Danh sách tài khoản [30] | Tạo tài khoản nội bộ [32] | Bấm "Tạo tài khoản nội bộ" | — |
-| Tạo tài khoản nội bộ [32] | Danh sách tài khoản [30] | Gán team xong | — |
+| Tạo tài khoản nội bộ [32] | Danh sách tài khoản [30] | Tạo xong | Đã gán vai trò, địa bàn, phạm vi phụ trách |
 | Chi tiết tài khoản [31] | Phân quyền theo vai trò (RBAC) [33] | Bấm "Phân quyền" | — |
 | Phân quyền theo vai trò (RBAC) [33] | Chi tiết tài khoản [31] | Gán/đổi vai trò | Áp dụng quyền tương ứng ngay |
 | Phân quyền theo vai trò (RBAC) [33] | Bảng quyền theo vai trò [58] | Bấm "Xem bảng quyền tổng quan" | Chỉ xem; nhãn tham khảo, đã chốt (OQ-28) |
@@ -868,7 +888,7 @@ flowchart TD
 - `quan-tri-noi-dung-kb`: thêm [56]; [39] dạng 4 bước, lỗi từng phần.
 
 **Điều chỉnh luồng đã áp dụng ngày 21/09/2026 (lần 2, theo yêu cầu BA):**
-- `dang-nhap-kich-hoat-kh`: [1] thành màn đăng nhập chung cho mọi vai trò; sau đăng nhập rẽ theo loại tài khoản và vai trò (khách hàng [7]; Agent/Quản trị viên [22]; Chủ quản dịch vụ [48]; Biên tập nội dung [36]). Màn [20] gộp vào [1], giữ số thứ tự; flow `noibo-trang-dau` chỉ còn [21], [63]; [3] và [62] dùng chung.
+- `dang-nhap-kich-hoat-kh`: [1] thành màn đăng nhập chung cho mọi vai trò; sau đăng nhập rẽ theo loại tài khoản và vai trò (khách hàng [7]; Agent tỉnh/Agent helpdesk/Hỗ trợ trung tâm/Hỗ trợ dịch vụ/Quản trị viên [22]; Chủ quản dịch vụ [48]; Biên tập nội dung [36]). Màn [20] gộp vào [1], giữ số thứ tự; flow `noibo-trang-dau` chỉ còn [21], [63]; [3] và [62] dùng chung.
 - Thêm flow thứ 12 `noibo-hoi-dap-ai` với [67], [68], [70] (UC20, UC34): nhân viên hỏi đáp AI theo dịch vụ/site đang chọn và quyền xem; chèn câu trả lời vào phản hồi ticket; không có màn Tra cứu bài viết cho nhân viên (OQ-35).
 - `hoi-dap-ai`: thêm [69] Lịch sử hỏi đáp AI cho khách hàng (UC34); lưu 90 ngày, chỉ chủ tài khoản xem.
 - `quan-tri-nguoi-dung`: [33]/[58] thêm quyền "Xem nghiệp vụ toàn bộ khách hàng trong Hỏi đáp AI" (OQ-34).

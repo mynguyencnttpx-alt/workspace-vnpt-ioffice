@@ -1,21 +1,30 @@
 ---
 type: srs-erd
 feature: ho-tro-cskh
-updated: 2026-09-23
+updated: 2026-09-24
 ---
 
 # ho-tro-cskh — Entity Relationship Diagram
 
-> Scope: feature ho-tro-cskh (Hệ thống Hỗ trợ & Chăm sóc Khách hàng) — tổng hợp từ 12 module SRS đã duyệt (`dang-nhap-kich-hoat`, `quan-tri-nguoi-dung`, `tra-cuu-kb`, `hoi-dap-ai`, `cau-hinh-ai`, `quan-tri-noi-dung-kb`, `gui-yeu-cau-ho-tro`, `xu-ly-ticket-agent`, `hoi-dap-ai-noibo`, `trang-dau-noibo`, `thong-bao-trang-thai`, `danh-muc-thongbao-sla-onebss`). **Cập nhật 23/09/2026 (2)** — tách `KHACH_HANG_SITE` cũ thành `SITE` (thực thể kỹ thuật, khớp tenant/source code) và `KHACH_HANG` (thực thể nghiệp vụ) sau khi khách hàng làm rõ: 1 site có thể phục vụ nhiều khách hàng nhỏ lẻ dùng chung, không phải luôn 1:1. Xem Notes & Assumptions.
+> Scope: feature ho-tro-cskh (Hệ thống Hỗ trợ & Chăm sóc Khách hàng) — tổng hợp từ 12 module SRS đã duyệt (`dang-nhap-kich-hoat`, `quan-tri-nguoi-dung`, `tra-cuu-kb`, `hoi-dap-ai`, `cau-hinh-ai`, `quan-tri-noi-dung-kb`, `gui-yeu-cau-ho-tro`, `xu-ly-ticket-agent`, `hoi-dap-ai-noibo`, `trang-dau-noibo`, `thong-bao-trang-thai`, `danh-muc-thongbao-sla-onebss`). **Cập nhật 23/09/2026 (2)** — tách `KHACH_HANG_SITE` cũ thành `SITE` (thực thể kỹ thuật, khớp tenant/source code) và `KHACH_HANG` (thực thể nghiệp vụ) sau khi khách hàng làm rõ: 1 site có thể phục vụ nhiều khách hàng nhỏ lẻ dùng chung, không phải luôn 1:1. **Cập nhật 24/09/2026** — đồng bộ `quan-tri-nguoi-dung` v1.2, `dang-nhap-kich-hoat` v1.1 và mô hình hỗ trợ & định tuyến theo địa bàn (bỏ `TEAM`, thêm `DIA_BAN`, `PHAM_VI_PHU_TRACH`, `SITE_KHACH_HANG`, `DANH_TINH_SITE`). Xem Notes & Assumptions.
 
 ## Diagram
 
 ```mermaid
 erDiagram
     DICH_VU ||--o{ SITE : "site thuộc dịch vụ"
-    SITE }o--o{ KHACH_HANG : "phục vụ khách hàng"
+    SITE ||--o{ SITE_KHACH_HANG : "được dùng bởi"
+    KHACH_HANG ||--o{ SITE_KHACH_HANG : "dùng site"
+    DIA_BAN ||--o{ KHACH_HANG : "khách hàng thuộc địa bàn"
+    DIA_BAN |o--o{ TAI_KHOAN : "Agent tỉnh thuộc địa bàn"
     KHACH_HANG ||--o{ TAI_KHOAN : "có account"
-    TEAM ||--o{ TAI_KHOAN : "gồm nhân viên"
+    TAI_KHOAN ||--o{ PHAM_VI_PHU_TRACH : "được gán phạm vi"
+    DICH_VU |o--o{ PHAM_VI_PHU_TRACH : "dòng theo dịch vụ"
+    DIA_BAN |o--o{ PHAM_VI_PHU_TRACH : "đối tượng là địa bàn"
+    KHACH_HANG |o--o{ PHAM_VI_PHU_TRACH : "đối tượng là khách hàng"
+    TAI_KHOAN ||--o{ DANH_TINH_SITE : "có danh tính trên site"
+    SITE ||--o{ DANH_TINH_SITE : "người dùng vào từ site"
+    KHACH_HANG |o--o{ DANH_TINH_SITE : "khách hàng xác định được"
     TAI_KHOAN ||--o{ LOI_MOI : "nhận lời mời"
     TAI_KHOAN ||--o{ NHAT_KY_TT : "thực hiện thao tác"
     TAI_KHOAN ||--o{ BAI_VIET_KB : "soạn bài"
@@ -42,7 +51,8 @@ erDiagram
     SITE ||--o{ TICKET : "định tuyến theo site"
     DANH_MUC_CHUNG ||--o{ TICKET : "loại vấn đề"
     DANH_MUC_CHUNG ||--o{ TICKET : "mức ưu tiên"
-    TEAM ||--o{ TICKET : "định tuyến team"
+    DIA_BAN |o--o{ TICKET : "tầng Tỉnh lúc tạo"
+    KHACH_HANG ||--o{ TICKET : "của khách hàng"
     TAI_KHOAN ||--o{ TICKET : "xử lý"
     TICKET ||--o{ TICKET : "tạo ticket tham chiếu"
     TICKET ||--o{ TICKET_TIN_NHAN : "trao đổi"
@@ -56,7 +66,7 @@ erDiagram
 
     SITE {
         string id PK
-        string ten "mã/tên site, khớp tenant trong source code — dùng để định tuyến/tra nội dung"
+        string ten "mã/tên site, khớp tenant trong source code — dùng để phân vùng tài liệu, KHÔNG quyết định tầng tiếp nhận ticket"
         string dich_vu_id FK "1 site luôn thuộc đúng 1 dịch vụ"
         string mo_ta "vd site riêng 1 khách hàng lớn (UBND tỉnh), hoặc site dùng chung cho nhiều khách hàng nhỏ lẻ"
     }
@@ -64,7 +74,10 @@ erDiagram
     KHACH_HANG {
         string id PK
         string ten_don_vi "tên đơn vị/khách hàng"
-        string loai_khach_hang "UBND tỉnh/thành | Doanh nghiệp | Trung ương"
+        string loai_khach_hang "UBND tỉnh/thành | Doanh nghiệp | Trung ương — chỉ để phân loại/báo cáo, không định tuyến"
+        string dia_ban_id FK "địa bàn của khách hàng (Tỉnh/TP hoặc Trung ương)"
+        string hinh_thuc_ho_tro "chỉ khi địa bàn = Trung ương: Helpdesk công ty | Hỗ trợ trung tâm, rỗng với địa bàn tỉnh"
+        string tang_tiep_nhan "suy ra từ địa bàn + hình thức: Tỉnh X | Helpdesk công ty | Hỗ trợ trung tâm"
         string dau_moi_ten "tên đầu mối, 1-3 đầu mối/đơn vị"
         string dau_moi_email "định danh đăng nhập của đầu mối"
         string dau_moi_sdt "số điện thoại đầu mối"
@@ -77,19 +90,47 @@ erDiagram
         string ho_ten "họ tên"
         string email "định danh đăng nhập, duy nhất toàn hệ thống"
         string sdt "số điện thoại, có thể rỗng"
-        string mat_khau_hash "mật khẩu đã băm"
+        string mat_khau_hash "mật khẩu đã băm, rỗng nếu tài khoản tạo từ site dịch vụ chưa tự đặt mật khẩu"
         string loai "Nội bộ | Khách hàng"
-        string vai_tro "Khách hàng | Đầu mối | Agent tỉnh | Agent trung tâm | Biên tập nội dung | Quản trị viên | Chủ quản dịch vụ"
+        string vai_tro "Khách hàng | Agent tỉnh | Agent helpdesk | Hỗ trợ trung tâm | Hỗ trợ dịch vụ | Biên tập nội dung | Quản trị viên | Chủ quản dịch vụ (8 vai trò cố định)"
+        boolean la_dau_moi "cờ đầu mối, chỉ với vai trò Khách hàng — không phải vai trò riêng"
         string trang_thai "Hoạt động | Chờ kích hoạt | Vô hiệu hóa"
-        string khach_hang_id FK "rỗng nếu là account nội bộ"
-        string team_id FK "chỉ áp dụng vai trò Agent"
+        string khach_hang_id FK "rỗng nếu là account nội bộ, hoặc khách hàng vào từ site nhưng mã đơn vị chưa khớp"
+        string dia_ban_id FK "chỉ Agent tỉnh: đúng 1 địa bàn"
         date created_at "ngày tạo"
     }
 
-    TEAM {
+    DIA_BAN {
         string id PK
-        string ten "tên team"
-        string loai "Tỉnh | Trung tâm"
+        string ten "tên tỉnh/TP, duy nhất; dòng Trung ương là mục hệ thống có sẵn"
+        string loai "Tỉnh/TP | Trung ương"
+        string trang_thai "Đang dùng | Ngừng dùng"
+    }
+
+    SITE_KHACH_HANG {
+        string id PK
+        string site_id FK "site khách hàng dùng, mỗi dịch vụ tối đa 1 site/khách hàng"
+        string khach_hang_id FK "khách hàng dùng site"
+        string ma_don_vi "mã đơn vị của khách hàng trên site; bắt buộc với site dùng chung từ 2 khách hàng, duy nhất trong site"
+    }
+
+    PHAM_VI_PHU_TRACH {
+        string id PK
+        string tai_khoan_id FK "nhân viên hỗ trợ được gán"
+        string dich_vu_id FK "rỗng = Tất cả dịch vụ"
+        string loai_doi_tuong "Tất cả | Địa bàn | Khách hàng"
+        string dia_ban_id FK "khi loại đối tượng = Địa bàn"
+        string khach_hang_id FK "khi loại đối tượng = Khách hàng"
+    }
+
+    DANH_TINH_SITE {
+        string id PK
+        string tai_khoan_id FK "1 người = 1 tài khoản, có thể nhiều danh tính site"
+        string site_id FK "site dịch vụ người dùng vào từ đó"
+        string ma_nguoi_dung "mã người dùng trên site dịch vụ"
+        string ma_don_vi "mã đơn vị trên site dịch vụ"
+        string khach_hang_id FK "khách hàng khớp theo site + mã đơn vị, rỗng nếu chưa khớp"
+        date created_at "ngày tạo danh tính lần vào đầu tiên"
     }
 
     LOI_MOI {
@@ -105,7 +146,7 @@ erDiagram
         string id PK
         string tai_khoan_id FK "người thực hiện"
         datetime thoi_gian "thời điểm thao tác"
-        string hanh_dong "đổi quyền | xóa tài liệu | đổi định tuyến khách hàng | ..."
+        string hanh_dong "đổi quyền | đổi phạm vi phụ trách | xóa tài liệu | đổi định tuyến khách hàng | gỡ danh tính site | ..."
         string doi_tuong "đối tượng bị tác động"
         string chi_tiet "giá trị trước → sau"
     }
@@ -238,7 +279,9 @@ erDiagram
         string loai_van_de_id FK "theo danh mục dùng chung"
         string muc_uu_tien_id FK "quyết định SLA áp dụng"
         string mo_ta "mô tả vấn đề"
-        string team_id FK "định tuyến theo loại khách hàng"
+        string khach_hang_id FK "khách hàng lúc tạo — dữ liệu ticket chặn theo khách hàng, không theo site"
+        string tang_tiep_nhan "Tỉnh X | Helpdesk công ty | Hỗ trợ trung tâm — ghi cố định lúc tạo, đổi định tuyến sau không ảnh hưởng ticket đang mở"
+        string dia_ban_id FK "địa bàn tỉnh lúc tạo, rỗng nếu tầng Helpdesk/Hỗ trợ trung tâm"
         string nguoi_xu_ly_id FK "agent đang xử lý, rỗng nếu chưa phân công"
         string trang_thai "Mới | Đang xử lý | Chờ khách hàng | Chờ khách hàng xác nhận | Đã đóng"
         string ly_do_dong "khách hàng xác nhận xong | tự động đóng do không phản hồi"
@@ -269,7 +312,7 @@ erDiagram
     PHIEU_ONEBSS {
         string id PK
         string ticket_id FK "ticket được chuyển"
-        string ma_phieu "mã phiếu phía OneBSS"
+        string ma_phieu "mã phiếu phía OneBSS — chỉ ticket tầng Tỉnh/Helpdesk được chuyển"
         string ly_do_chuyen "Lỗi hệ thống | Cần đội dự án | Khác"
         string ghi_chu "ghi chú gửi kèm"
         string ket_qua_gui "Thành công | Thất bại"
@@ -336,10 +379,13 @@ erDiagram
 
 | Entity | Purpose | Key attributes |
 |--------|---------|----------------|
-| SITE | Tenant kỹ thuật khớp source code, 1 site thuộc đúng 1 dịch vụ — 1 site có thể phục vụ 1 khách hàng lớn riêng hoặc nhiều khách hàng nhỏ dùng chung | tên/mã, dịch vụ |
-| KHACH_HANG | Đơn vị/khách hàng ở tầng nghiệp vụ (CRM) — 1 khách hàng dùng ≥2 dịch vụ thì gắn với ≥2 site (mỗi site 1 dịch vụ) | tên đơn vị, loại KH, đầu mối |
-| TAI_KHOAN | Account dùng chung khách hàng + nội bộ, 1 vai trò cố định/lúc | email (duy nhất), vai trò, trạng thái |
-| TEAM | Phạm vi tổ chức của Agent — tỉnh hoặc trung tâm | tên, loại |
+| SITE | Tenant kỹ thuật khớp source code, 1 site thuộc đúng 1 dịch vụ — 1 site có thể phục vụ 1 khách hàng lớn riêng hoặc nhiều khách hàng nhỏ dùng chung; không quyết định tầng tiếp nhận ticket | tên/mã, dịch vụ |
+| KHACH_HANG | Đơn vị/khách hàng ở tầng nghiệp vụ — gắn ≥1 site qua `SITE_KHACH_HANG`; địa bàn + hình thức hỗ trợ quyết định tầng tiếp nhận ticket | tên đơn vị, loại KH, địa bàn, hình thức hỗ trợ |
+| TAI_KHOAN | Account dùng chung khách hàng + nội bộ, 1 vai trò cố định (trong 8 vai trò) mỗi lúc; tài khoản khách hàng có thể tạo tự động khi vào từ site dịch vụ | email (duy nhất), vai trò, trạng thái |
+| DIA_BAN | Danh mục địa bàn do Quản trị viên quản lý (Tỉnh/TP + Trung ương) — dữ liệu gốc định tuyến ticket | tên, loại, trạng thái |
+| SITE_KHACH_HANG | Bảng trung gian site ↔ khách hàng, giữ mã đơn vị của khách hàng trên site | site, khách hàng, mã đơn vị |
+| PHAM_VI_PHU_TRACH | Các dòng Dịch vụ × Đối tượng gán cho nhân viên hỗ trợ — giới hạn cứng với Agent tỉnh, bộ lọc mặc định với vai trò khác | tài khoản, dịch vụ, đối tượng |
+| DANH_TINH_SITE | Danh tính của 1 người trên 1 site dịch vụ (site + mã người dùng + mã đơn vị), dùng khi vào CSKH từ iOffice/iStorage | tài khoản, site, mã người dùng, mã đơn vị |
 | LOI_MOI | Liên kết kích hoạt/đặt lại mật khẩu, có hạn dùng | loại, hết hạn lúc, đã dùng |
 | NHAT_KY_TT | Nhật ký thao tác nhạy cảm, chỉ Quản trị viên xem, giữ 12 tháng | hành động, đối tượng, chi tiết |
 | DICH_VU | Sản phẩm khách hàng dùng — iOffice / iStorage | tên |
@@ -369,7 +415,7 @@ erDiagram
 ## Notes & Assumptions
 
 * **Tách `SITE` (kỹ thuật) và `KHACH_HANG` (nghiệp vụ) — cập nhật 23/09/2026, theo xác nhận trực tiếp của khách hàng.** Bản đầu gộp chung 1 entity `KHACH_HANG_SITE`, ngầm định 1 khách hàng = 1 site. Thực tế: khách hàng lớn (UBND tỉnh) có site riêng, nhưng khách hàng nhỏ lẻ dùng CHUNG 1 site theo dịch vụ.
-* **`SITE` ↔ `KHACH_HANG` là N:N, không phải N:1** (xác nhận lần 2, 23/09/2026) — vì field gốc "Dịch vụ đang dùng" ở `quan-tri-nguoi-dung/SRS.md` cho chọn ≥1 (iOffice, iStorage) là có thật: 1 khách hàng dùng đồng thời 2 dịch vụ sẽ gắn với 2 site khác nhau (mỗi site chỉ thuộc 1 dịch vụ). Khớp với `tra-cuu-kb/SRS.md` BR-03 đã có sẵn: "chọn dịch vụ đang xem chỉ hiện khi khách hàng dùng từ 2 dịch vụ trở lên" — hành vi multi-dịch-vụ này đã được tính tới ở tầng khách hàng-facing từ trước, ERD chỉ đang khớp lại đúng model đó ở tầng dữ liệu. Cảnh báo "N:N trực tiếp nên tách junction" của `mermaid-verify.mjs` là hợp lệ ở tầng ERD nghiệp vụ (Mermaid có ký hiệu N:N native); bảng trung gian vật lý (`KHACH_HANG_SITE` mapping) là việc của `/dbdiagram` khi bàn giao schema thật.
+* **`SITE` ↔ `KHACH_HANG` là N:N, tách bằng bảng trung gian `SITE_KHACH_HANG`** (cập nhật 24/09/2026, thay quan hệ N:N trực tiếp của bản 23/09) — vì 1 khách hàng dùng 2 dịch vụ gắn 2 site khác nhau và 1 site dùng chung nhiều khách hàng; bảng trung gian còn mang `ma_don_vi` (mã đơn vị khách hàng trên site, `quan-tri-nguoi-dung/SRS.md` Chức năng 1 BR-08) để khớp khách hàng khi người dùng vào từ site dịch vụ. Khớp `tra-cuu-kb/SRS.md` BR-03 (chọn dịch vụ chỉ hiện khi khách hàng dùng từ 2 dịch vụ).
 * **Nội dung/tri thức/cấu hình AI scope theo SITE, không theo KHACH_HANG** (khách hàng xác nhận 23/09/2026) — các khách hàng nhỏ dùng chung 1 site sẽ thấy CHUNG 1 bộ nội dung/tri thức của site đó, không tách riêng theo từng khách hàng. Do đó `BAI_VIET_KB`, `DANH_MUC_KB`, `THU_MUC_DRIVE`, `HOI_THOAI_AI`, `AI_THAM_SO` đều tham chiếu `site_id` (không phải `khach_hang_id`).
 * **TICKET gắn trực tiếp `site_id`** (khách hàng xác nhận 23/09/2026, để định tuyến/tra nội dung nhanh theo site — khớp source code — không cần join qua khách hàng). Điều này KHÔNG giới hạn việc chia sẻ kiến thức giữa các site: khi 1 vấn đề chung xảy ra ở nhiều site, Agent chuyển ticket thành FAQ với phạm vi "Dùng chung" (`quan-tri-noi-dung-kb/SRS.md` Chức năng 6 BR-03) — khi đó bài viết áp dụng cho MỌI site của dịch vụ, không riêng site phát sinh ticket gốc. `TICKET.site_id` chỉ ghi nhận site phát sinh, không phải phạm vi hưởng lợi từ giải pháp.
 * **Dịch vụ của khách hàng suy ra qua SITE, không cần quan hệ N:N trực tiếp `KHACH_HANG ↔ DỊCH_VỤ`** — vì `SITE` luôn thuộc đúng 1 dịch vụ (`quan-tri-nguoi-dung/SRS.md`: "Site/tenant... trong phạm vi 1 dịch vụ"). 1 khách hàng dùng 2 dịch vụ (iOffice + iStorage) vẫn là **1 bản ghi `KHACH_HANG` duy nhất** (cùng tên đơn vị, cùng đầu mối), chỉ gắn thêm với `SITE` thứ 2 (mỗi site 1 dịch vụ) qua quan hệ N:N `SITE ↔ KHACH_HANG` — KHÔNG tạo khách hàng trùng lặp theo dịch vụ.
@@ -381,7 +427,10 @@ erDiagram
 * **API key / Client secret không lưu dạng đọc được** — `AI_TICH_HOP.api_key_masked` và `CAU_HINH_ONEBSS.client_secret_masked` chỉ đại diện giá trị đã che; nghiệp vụ chốt "sau khi lưu không hiển thị lại nguyên văn" (`cau-hinh-ai/SRS.md` BR-01, `danh-muc-thongbao-sla-onebss/SRS.md` BR-01 Chức năng 4).
 * **6 entity không có quan hệ vẽ ra** (`AI_TICH_HOP`, `CAU_HINH_ONEBSS`, `CAU_HINH_SLA`, `NGAY_NGHI_LE`, `CH_THONG_BAO`, `MAU_THONG_BAO`) — đều là cấu hình singleton/toàn hệ thống do Quản trị viên quản lý, không có FK tự nhiên tới entity nghiệp vụ khác trong phạm vi MVP.
 * **TICKET_DINH_KEM gắn vào TICKET_TIN_NHAN, không gắn trực tiếp TICKET** — giả định mô tả ban đầu khi tạo ticket được lưu như tin nhắn đầu tiên của ticket đó, nên tệp đính kèm lúc tạo ticket cũng là đính kèm của tin nhắn đầu tiên.
-* **Vai trò (TAI_KHOAN.vai_tro) là enum cố định, không tách entity riêng** — `quan-tri-nguoi-dung/SRS.md` BR-01 nói rõ RBAC 6 vai trò cố định, "không tạo được vai trò tùy chỉnh hoặc chỉnh tay từng quyền" trong MVP, nên không cần bảng ROLE/PERMISSION độc lập.
-* **Loại khách hàng quyết định TEAM khi định tuyến ticket** (`quan-tri-nguoi-dung/SRS.md` BR-01: UBND tỉnh/thành → team tỉnh; Doanh nghiệp/Trung ương → team trung tâm) — không mô hình hoá thành bảng mapping riêng, quy tắc suy ra từ `KHACH_HANG.loai_khach_hang` tại thời điểm tạo ticket.
+* **Vai trò (TAI_KHOAN.vai_tro) là enum cố định 8 giá trị, không tách entity riêng** — `quan-tri-nguoi-dung/SRS.md` v1.1 BR-01: mỗi tài khoản đúng 1 vai trò, không tạo vai trò tùy chỉnh trong MVP. **Đầu mối không phải vai trò** mà là cờ `la_dau_moi` trên tài khoản khách hàng (bản trước liệt kê nhầm "Đầu mối" vào enum vai trò). Phạm vi dữ liệu theo vai trò do `PHAM_VI_PHU_TRACH` + địa bàn quyết định.
+* **Tầng tiếp nhận suy ra từ Địa bàn + Hình thức hỗ trợ của khách hàng** (`quan-tri-nguoi-dung/SRS.md` v1.1 Chức năng 1 BR-01, thay quy tắc "loại khách hàng → team" và bỏ entity `TEAM`): địa bàn tỉnh X → Tỉnh X; Trung ương + Helpdesk công ty → Helpdesk công ty; Trung ương + Hỗ trợ trung tâm → Hỗ trợ trung tâm. Loại khách hàng và site KHÔNG tham gia định tuyến. `KHACH_HANG.tang_tiep_nhan` là giá trị suy ra (lưu để lọc nhanh), `TICKET.tang_tiep_nhan` ghi cố định lúc tạo — đổi định tuyến sau chỉ ảnh hưởng ticket mới (BR-03).
+* **`PHAM_VI_PHU_TRACH` tách khỏi `TAI_KHOAN`** vì 1 nhân viên có nhiều dòng Dịch vụ × Đối tượng cộng dồn (`quan-tri-nguoi-dung/SRS.md` Chức năng 4 BR-08); mỗi dòng chỉ trỏ 1 đối tượng (địa bàn HOẶC khách hàng), chọn nhiều đối tượng thì sinh nhiều dòng.
+* **`DANH_TINH_SITE` — mỗi người 1 tài khoản, nhiều danh tính site** (`dang-nhap-kich-hoat/SRS.md` v1.1 Chức năng 5): tài khoản khách hàng tạo tự động ở lần vào đầu tiên từ site dịch vụ, gộp theo email khi trùng; `khach_hang_id` rỗng nghĩa là mã đơn vị chưa khớp (tài khoản chưa gửi được ticket). Chỉ số tài khoản = số người thực sự dùng CSKH; kho tri thức không nhân bản theo tài khoản.
+* **`TICKET.khach_hang_id`** thêm mới 24/09/2026: dữ liệu ticket chặn theo khách hàng, không theo site (`quan-tri-nguoi-dung/SRS.md` Chức năng 1 BR-07), vì 1 site dùng chung có thể chứa khách hàng của nhiều địa bàn.
 * **Phạm vi MVP** — chưa mô hình hoá: import job (UM/SRS) như 1 entity riêng (coi là quy trình tạo hàng loạt `BAI_VIET_KB` nháp, không giữ lại bản ghi "lần import"); chọn kênh thông báo riêng theo từng khách hàng (để giai đoạn sau, OQ-22e); phân quyền chi tiết theo từng tài khoản (OQ-34, để giai đoạn sau).
 * **Cảnh báo "không thấy cột FK tương ứng" từ `mermaid-verify.mjs` đã soát tay — false positive do quy ước tên cột nghiệp vụ (không lặp lại y nguyên tên entity), KHÔNG phải quan hệ thừa:** `TAI_KHOAN→BAI_VIET_KB` ("soạn bài") = cột `nguoi_soan_id`; `DANH_MUC_KB→DANH_MUC_KB` ("danh mục con") = cột `cha_id`; `TAI_KHOAN→TICKET` ("tạo ticket"/"xử lý") = cột `nguoi_tao_id`/`nguoi_xu_ly_id`; `DANH_MUC_CHUNG→TICKET` ("loại vấn đề"/"mức ưu tiên") = cột `loai_van_de_id`/`muc_uu_tien_id`.

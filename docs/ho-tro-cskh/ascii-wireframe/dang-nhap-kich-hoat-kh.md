@@ -1,8 +1,10 @@
 # Flow: Đăng nhập chung & kích hoạt tài khoản
 
-> Màn hình thuộc flow này: dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
+> Màn hình thuộc flow này: dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan → vao-tu-site → vao-tu-site-loi. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** thêm 2 màn **vào từ site dịch vụ** (`vao-tu-site`, `vao-tu-site-loi`) — người dùng iOffice/iStorage vào thẳng CSKH bằng mã một lần, không cần đăng nhập lại (không phải SSO); mỗi người 1 tài khoản, tạo tự động ở lần vào đầu tiên; đồng bộ 8 vai trò ở trang đầu sau đăng nhập. Nguồn: `SRS/dang-nhap-kich-hoat/SRS.md` v1.1 Chức năng 5.
 
 ---
 
@@ -42,9 +44,9 @@
 | 1 | Email đăng nhập | Textbox | Text | • **Bắt buộc**. Định danh tài khoản do đơn vị cấp / đầu mối mời (khách hàng) hoặc do quản trị viên tạo (nhân viên) — không có đăng ký công khai (Đề xuất, mục Quản trị hệ thống 2).<br>• [GIẢ ĐỊNH] email làm tên đăng nhập, **duy nhất toàn hệ thống**; một email có thể có cả quyền khách hàng lẫn vai trò nội bộ (OQ-33). Màn dùng chung cho mọi vai trò, không có màn đăng nhập nội bộ riêng (OQ-32).<br>• States: default / focus / lỗi. |
 | 2 | Mật khẩu | Textbox (password) | Text | • **Bắt buộc**. Che ký tự mặc định.<br>• Đăng nhập chỉ so khớp mật khẩu; quy tắc độ mạnh mật khẩu áp ở màn đặt mật khẩu [2] — đã chốt (OQ-5). |
 | 3 | Hiện/ẩn mật khẩu | Icon button (eye) | Click | • Bật/tắt hiển thị ký tự mật khẩu, không đổi giá trị đã nhập. |
-| 4 | Đăng nhập | Button | Click | • **Disabled** tới khi [1] và [2] đều có giá trị; trạng thái submitting: khóa nút, chống double-submit.<br>• Đúng → chuyển tới trang đầu theo loại tài khoản và vai trò: khách hàng → `kb-trang-chu`; Agent, Quản trị viên → `agent-hang-doi`; Chủ quản dịch vụ → `baocao-tong-quan`; Biên tập nội dung → `kb-cho-duyet` (OQ-18). Người có cả tài khoản khách hàng lẫn vai trò nội bộ vào giao diện nội bộ trước, chuyển giao diện ở menu tài khoản (OQ-33). Nhiều vai trò → trang đầu của vai trò cao nhất; chưa có vai trò → `loi-403` (OQ-37).<br>• Sai → giữ nguyên màn, báo chung "Sai email hoặc mật khẩu" (không phân biệt email không tồn tại; wording tạm, chưa có mã E-…), xóa ô mật khẩu, cho thử lại.<br>• Sai 5 lần liên tiếp → tạm khóa 15 phút, báo còn bao lâu được thử lại (UC59, OQ-5).<br>• Tài khoản bị vô hiệu hóa (UC54/UC55): chỉ báo **sau khi mật khẩu đúng**, hướng dẫn liên hệ đầu mối/quản trị viên [wording chưa có nguồn].<br>• Tài khoản chờ kích hoạt: báo dùng link mời trong email (link hết hạn xem `kh-kich-hoat-tk-het-han`). |
+| 4 | Đăng nhập | Button | Click | • **Disabled** tới khi [1] và [2] đều có giá trị; trạng thái submitting: khóa nút, chống double-submit.<br>• Đúng → chuyển tới trang đầu theo loại tài khoản và vai trò: khách hàng → `kb-trang-chu`; Agent tỉnh, Agent helpdesk, Hỗ trợ trung tâm, Hỗ trợ dịch vụ, Quản trị viên → `agent-hang-doi`; Chủ quản dịch vụ → `baocao-tong-quan`; Biên tập nội dung → `kb-cho-duyet` (OQ-18). Người có cả tài khoản khách hàng lẫn vai trò nội bộ vào giao diện nội bộ trước, chuyển giao diện ở menu tài khoản (OQ-33). Nhiều vai trò → trang đầu của vai trò cao nhất; chưa có vai trò → `loi-403` (OQ-37).<br>• Sai → giữ nguyên màn, báo chung "Sai email hoặc mật khẩu" (không phân biệt email không tồn tại; wording tạm, chưa có mã E-…), xóa ô mật khẩu, cho thử lại.<br>• Sai 5 lần liên tiếp → tạm khóa 15 phút, báo còn bao lâu được thử lại (UC59, OQ-5).<br>• Tài khoản bị vô hiệu hóa (UC54/UC55): chỉ báo **sau khi mật khẩu đúng**, hướng dẫn liên hệ đầu mối/quản trị viên [wording chưa có nguồn].<br>• Tài khoản chờ kích hoạt: báo dùng link mời trong email (link hết hạn xem `kh-kich-hoat-tk-het-han`). |
 | 5 | Quên mật khẩu | Link | Click | • Navigate → `kh-quen-mat-khau`.<br>• Dùng chung cho cả khách hàng và nhân viên (OQ-18, OQ-32). |
-| 6 | Ghi chú cấp tài khoản | Label | ReadOnly | • Nhắc: khách hàng — tài khoản chỉ tạo qua lời mời của đầu mối/agent/quản trị viên; nhân viên — do quản trị viên cấp (UC54); không tự đăng ký (tự đăng ký không xác minh được người đăng ký là khách hàng thật).<br>• MVP chưa SSO; thiết kế cho phép bổ sung nút SSO sau mà không đổi bố cục. |
+| 6 | Ghi chú cấp tài khoản | Label | ReadOnly | • Nhắc: khách hàng — tài khoản chỉ tạo qua lời mời của đầu mối/agent/quản trị viên; nhân viên — do quản trị viên cấp (UC54); không tự đăng ký (tự đăng ký không xác minh được người đăng ký là khách hàng thật).<br>• MVP chưa SSO; thiết kế cho phép bổ sung nút SSO sau mà không đổi bố cục.<br>• Riêng người đang dùng iOffice/iStorage vào thẳng từ site dịch vụ bằng mã một lần (không qua màn này, không phải SSO) — xem `vao-tu-site`. |
 
 - Menu tài khoản ở mọi màn sau đăng nhập có "Đăng xuất" → quay về màn này; người có cả hai loại tài khoản có thêm "Chuyển giao diện khách hàng / nội bộ" (OQ-33). Màn đăng nhập nội bộ riêng (`noibo-dang-nhap`, số thứ tự [20]) đã gộp vào màn này.
 
@@ -344,6 +346,94 @@
 
 ---
 
+## Screen: vao-tu-site — Vào từ site dịch vụ (màn chuyển tiếp)
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│            ┌────────────────────────────────────────────┐            │
+│            │ Đang đưa bạn vào hệ thống hỗ trợ [1]       │            │
+│            │                                            │            │
+│            │ Đang xác nhận thông tin từ site dịch vụ..  │            │
+│            │ Vui lòng chờ, không đóng trang.            │            │
+│            └────────────────────────────────────────────┘            │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Thông báo đang xử lý | Label + loading | ReadOnly | • Hiện "Đang đưa bạn vào hệ thống hỗ trợ" trong lúc CSKH đổi mã với site dịch vụ; không có trường nhập. Người dùng đến đây khi bấm nút "Hỗ trợ khách hàng" trên iOffice/iStorage — site chuyển sang CSKH kèm **mã dùng một lần** (hiệu lực 60 giây, chỉ dùng 1 lần; không phải SSO).<br>• CSKH đổi mã lấy thông tin người dùng (mã người dùng, họ tên, email, mã site, mã đơn vị), xác định tài khoản rồi vào thẳng trang đầu (`kb-trang-chu`), không hiện màn `dang-nhap`. |
+| 2 | Banner Tài khoản chưa gắn khách hàng | Banner | ReadOnly | • Chỉ hiện ở trang đầu khi **mã đơn vị chưa khớp khách hàng nào** (EX-04, đã chốt 24/09/2026): người dùng vẫn vào được, xem tài liệu và hỏi AI trong phạm vi site vừa vào, nhưng nút Gửi yêu cầu hỗ trợ disabled kèm giải thích; Quản trị viên được báo để bổ sung khách hàng/mã đơn vị. |
+
+- **Xác định tài khoản (mỗi người 1 tài khoản):** đã có danh tính site khớp (cùng site + mã người dùng) → dùng tài khoản đó; chưa có nhưng email trùng 1 tài khoản khách hàng → gắn thêm danh tính site vào tài khoản đó; chưa có gì → tạo tài khoản khách hàng mới (Hoạt động, chưa có mật khẩu, vai trò Khách hàng — không tự thành đầu mối; muốn đăng nhập trực tiếp thì dùng `kh-quen-mat-khau`). Không đồng bộ hàng loạt: số tài khoản chỉ bằng số người thực sự dùng CSKH; kho tri thức dùng chung, không nhân bản theo tài khoản.
+- Không bao giờ gắn vào tài khoản nội bộ dù email trùng (xem `vao-tu-site-loi`). Gộp theo email chỉ an toàn khi site dịch vụ đảm bảo email đã xác thực — yêu cầu với đội iOffice/iStorage (cùng yêu cầu sinh mã và cung cấp cách xác minh mã, cần đội site xác nhận khả thi).
+
+#### Trạng thái phụ — mã đơn vị chưa khớp khách hàng (banner ở trang đầu)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH  Trang chủ tra cứu                              (o) C v         │
+├──────────────────────────────────────────────────────────────────────┤
+│ (!) Tài khoản của bạn chưa gắn với khách hàng nào [2]                │
+│     Bạn xem được tài liệu và hỏi AI trong phạm vi site vừa vào.      │
+│     Chưa gửi được yêu cầu hỗ trợ; Quản trị viên đã được báo.         │
+├──────────────────────────────────────────────────────────────────────┤
+│ [Tìm kiếm tài liệu..._____________________________________]          │
+│ [ Gửi yêu cầu hỗ trợ ] (mờ)                                          │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: [2] banner hiện ở đầu trang chủ tra cứu; nút tạo yêu cầu hỗ trợ mờ cho tới khi Quản trị viên bổ sung khách hàng/mã đơn vị.
+
+
+---
+
+## Screen: vao-tu-site-loi — Không vào được từ site dịch vụ
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│           ┌──────────────────────────────────────────────┐           │
+│           │ Không vào được từ site dịch vụ               │           │
+│           │                                              │           │
+│           │ Phiên vào đã hết hạn hoặc không hợp lệ. [1]  │           │
+│           │                                              │           │
+│           │ Vui lòng quay lại site dịch vụ và bấm lại    │           │
+│           │ Hỗ trợ khách hàng. [2]                       │           │
+│           ├──────────────────────────────────────────────┤           │
+│           │ [3] [ Thử lại ] (chỉ khi lỗi kết nối)        │           │
+│           │ [4] < Đăng nhập bằng email >                 │           │
+│           └──────────────────────────────────────────────┘           │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Thông báo lỗi | Label | ReadOnly | • Theo tình huống, không tiết lộ thông tin tài khoản/đơn vị [wording tạm, chưa có mã E-…]: **mã hết hạn/đã dùng/không hợp lệ** → "Phiên vào đã hết hạn hoặc không hợp lệ"; **site dịch vụ không phản hồi** → "Chưa kết nối được site dịch vụ, vui lòng thử lại"; **email trùng tài khoản nội bộ / danh tính trỏ khách hàng khác / site chưa đăng ký** → "Không thể vào tự động, vui lòng liên hệ Quản trị viên" (thông báo chung, chống dò tài khoản; đồng thời báo Quản trị viên); **tài khoản bị vô hiệu hóa** → như đăng nhập thường (`dang-nhap`). |
+| 2 | Hướng dẫn quay lại site | Label | ReadOnly | • Hướng dẫn quay lại site dịch vụ và bấm lại "Hỗ trợ khách hàng" (áp dụng khi mã hết hạn/không hợp lệ). |
+| 3 | Thử lại | Button | Click | • Chỉ hiện khi site dịch vụ không phản hồi; bấm → `vao-tu-site` đổi mã lại. Mã hết hạn trong lúc chờ → chuyển sang thông báo mã hết hạn. |
+| 4 | Đăng nhập bằng email | Link | Click | • Luôn hiện → `dang-nhap` (người dùng có tài khoản có mật khẩu vẫn đăng nhập bình thường). |
+
+- Mỗi lần vào (thành công hoặc thất bại) ghi nhật ký: thời gian, site, mã người dùng, kết quả kèm mã lỗi; KHÔNG ghi IP/thiết bị (thống nhất với `dang-nhap`).
+
+
+---
+
 ## Đề xuất đã cập nhật (đã chốt với khách hàng 21/09/2026)
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
@@ -354,5 +444,5 @@
 | OQ-8 | Cách lưu/theo dõi tài liệu | Nút "Lưu bài viết" ở chi tiết bài; danh sách "Bài viết đã lưu" trong Tài khoản cá nhân; chưa làm "theo dõi cập nhật" ở MVP. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-32 | Đường truy cập đăng nhập (bổ sung OQ-18) | Một địa chỉ duy nhất, một màn đăng nhập; hệ thống nhận biết loại tài khoản và chuyển tới trang đầu tương ứng, không tách hai cổng. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-33 | Người có cả tài khoản khách hàng và nội bộ | Email duy nhất toàn hệ thống; đăng nhập vào giao diện nội bộ trước, có nút chuyển giao diện ở menu tài khoản của cả hai giao diện. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
-| OQ-37 | Nhiều vai trò hoặc chưa có vai trò sau đăng nhập (bổ sung OQ-18) | Nhiều vai trò: trang đầu của vai trò cao nhất (Quản trị viên, Chủ quản dịch vụ, Agent, Biên tập nội dung); chưa có vai trò hoặc chưa có team: `loi-403`. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-37 | Nhiều vai trò hoặc chưa có vai trò sau đăng nhập (bổ sung OQ-18) | Nhiều vai trò: trang đầu của vai trò cao nhất (Quản trị viên, Chủ quản dịch vụ, Agent, Biên tập nội dung); chưa có vai trò, hoặc Agent tỉnh chưa được gán Địa bàn/phạm vi phụ trách: `loi-403` (cập nhật 24/09/2026). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-40 | Đặt lại mật khẩu (bổ sung OQ-6, OQ-18) | Dùng chung màn `kh-kich-hoat-tk`, tiêu đề "Đặt lại mật khẩu"; link hiệu lực 30 phút, hết hạn hoặc đã dùng sang `kh-kich-hoat-tk-het-han`; áp dụng cả nhân viên. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
