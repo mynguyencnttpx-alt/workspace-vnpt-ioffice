@@ -84,9 +84,11 @@ links:
 | 68 | [noibo-ai-tra-loi](noibo-hoi-dap-ai.md#noibo-ai-tra-loi) | noibo-hoi-dap-ai | draft | UC20 | [68 · noibo-ai-tra-loi (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-7162) | — | — | 2026-09-24 |
 | 69 | [ai-lich-su](hoi-dap-ai.md#ai-lich-su) | hoi-dap-ai | draft | UC34 | [69 · ai-lich-su (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-8624) | — | — | 2026-09-21 |
 | 70 | [noibo-ai-lich-su](noibo-hoi-dap-ai.md#noibo-ai-lich-su) | noibo-hoi-dap-ai | draft | UC34 | [70 · noibo-ai-lich-su (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-7833) | — | — | 2026-09-21 |
-| 71 | [vao-tu-site](dang-nhap-kich-hoat-kh.md#vao-tu-site) | dang-nhap-kich-hoat-kh | draft | UC59 | [71 · vao-tu-site (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=154-3320) | — | — | 2026-09-24 |
-| 72 | [vao-tu-site-loi](dang-nhap-kich-hoat-kh.md#vao-tu-site-loi) | dang-nhap-kich-hoat-kh | draft | UC59 | [72 · vao-tu-site-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=154-3263) | — | — | 2026-09-24 |
-| 73 | [qt-danh-muc-dia-ban](quan-tri-nguoi-dung.md#qt-danh-muc-dia-ban) | quan-tri-nguoi-dung | draft | UC1 | [73 · qt-danh-muc-dia-ban](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=154-1857) | — | — | 2026-09-24 |
+| 71 | [vao-tu-site](dang-nhap-kich-hoat-kh.md#vao-tu-site) | dang-nhap-kich-hoat-kh | draft | UC59 | [71 · vao-tu-site (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9578) | — | — | 2026-09-24 |
+| 72 | [vao-tu-site-loi](dang-nhap-kich-hoat-kh.md#vao-tu-site-loi) | dang-nhap-kich-hoat-kh | draft | UC59 | [72 · vao-tu-site-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9521) | — | — | 2026-09-24 |
+| 73 | [qt-danh-muc-dia-ban](quan-tri-nguoi-dung.md#qt-danh-muc-dia-ban) | quan-tri-nguoi-dung | draft | UC1 | [73 · qt-danh-muc-dia-ban](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9256) | — | — | 2026-09-24 |
+
+**Figma — cập nhật 24/09/2026 (gộp vai trò, 7 vai trò):** biến thể mới trong vùng "v1.1/v1.2" của trang Web: [22b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-8836) (hàng đợi Triển khai Line, nhiều tầng + bộ lọc Địa bàn), [24b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9831) (không có nhân viên phù hợp), [31b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10008) (tài khoản khách hàng vào từ site), [57b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10195) (2 site cùng dịch vụ), [57c](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10416) (Trung ương thiếu mã đơn vị), [71b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9635) (banner chưa gắn khách hàng). Bản gốc trước khi sửa được sao lưu ở y=60000 (tiền tố [BACKUP]).
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
 
@@ -163,7 +165,7 @@ Ticket đã đóng (do khách xác nhận hoặc tự đóng quá hạn); nút m
 Người dùng nội bộ đổi mật khẩu/thông tin cá nhân; xem vai trò, tầng/địa bàn và phạm vi phụ trách (chỉ đọc).
 
 ### agent-hang-doi
-Hàng đợi ticket theo tầng tiếp nhận + phạm vi phụ trách, công tắc "Chỉ phạm vi của tôi", lọc trạng thái/ưu tiên/dịch vụ/địa bàn và ticket AI đã tự trả lời; Hỗ trợ trung tâm, Hỗ trợ dịch vụ, Quản trị viên xem được nhiều tầng.
+Hàng đợi ticket theo tầng tiếp nhận + phạm vi phụ trách, công tắc "Chỉ phạm vi của tôi", lọc trạng thái/ưu tiên/dịch vụ/địa bàn và ticket AI đã tự trả lời; Triển khai của Line, Quản trị viên xem được nhiều tầng.
 
 ### agent-chi-tiet-ticket
 Xử lý ticket: phản hồi công khai/ghi chú nội bộ, chọn mẫu trả lời, AI gợi ý, cập nhật trạng thái, nhãn AI tự trả lời.
@@ -178,7 +180,7 @@ Agent tỉnh chuyển ticket sang OneBSS trực tiếp, không qua xác nhận; 
 Đã bỏ từ v1.1 (24/09/2026): gửi phiếu OneBSS thẳng từ `agent-tao-phieu-onebss`, không qua bước xác nhận trung gian.
 
 ### agent-canh-bao-sla
-Danh sách ticket sắp/đã quá hạn SLA cho người đang xử lý và Quản trị viên (Hỗ trợ dịch vụ không nhận); chỉ cảnh báo, không tự phân công lại.
+Danh sách ticket sắp/đã quá hạn SLA cho người đang xử lý và Quản trị viên; chỉ cảnh báo, không tự phân công lại.
 
 ### qt-danh-muc-khach-hang
 Quản trị viên quản lý danh mục khách hàng (dữ liệu gốc để định tuyến ticket và phân vùng tài liệu), sửa tại dòng; mỗi khách hàng gắn với ≥1 site đã có trong `qt-danh-muc-site` (cập nhật 23/09/2026).

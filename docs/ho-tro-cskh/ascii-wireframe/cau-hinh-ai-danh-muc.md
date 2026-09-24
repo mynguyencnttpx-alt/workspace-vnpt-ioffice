@@ -576,7 +576,7 @@
 │ [5] [ Kiểm tra kết nối ]   [6] [ Lưu cấu hình ]                      │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Dữ liệu đẩy sang OneBSS [7]: KH/site, mô tả + ưu tiên, lịch sử,      │
-│ người tạo. Agent tỉnh gửi trực tiếp; Agent TT có bước xác nhận.      │
+│ người tạo. Mọi agent gửi trực tiếp, không có bước xác nhận.          │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Nhật ký gửi phiếu gần đây [8]                                        │
 │ 21/09 09:05  #T-0123  OB-2026-0456         Thành công                │
@@ -616,7 +616,7 @@
 │ [5] [ Kiểm tra kết nối ]   [6] [ Lưu cấu hình ]                      │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Dữ liệu đẩy sang OneBSS [7]: KH/site, mô tả + ưu tiên, lịch sử,      │
-│ người tạo. Agent tỉnh gửi trực tiếp; Agent TT có bước xác nhận.      │
+│ người tạo. Mọi agent gửi trực tiếp, không có bước xác nhận.          │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Nhật ký gửi phiếu gần đây [8]                                        │
 │ 21/09 09:05  #T-0123  OB-2026-0456         Thành công                │

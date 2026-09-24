@@ -4,7 +4,7 @@
 >
 > Toàn bộ flow này là **đề xuất bổ sung ngày 21/09/2026 (UC20, UC34), đã được khách hàng xác nhận**. Các mục ghi "(OQ-n)" có đề xuất ở bảng cuối file.
 >
-> **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** bỏ khái niệm "team"/"Agent trung tâm": phạm vi site (và dịch vụ của Agent tỉnh) theo **vai trò + phạm vi phụ trách**; thêm Agent helpdesk, Hỗ trợ trung tâm, Hỗ trợ dịch vụ; nút "Chèn vào phản hồi" ẩn với người không có quyền phản hồi công khai. Nguồn: `SRS/hoi-dap-ai-noibo/SRS.md` v1.1.
+> **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** bỏ khái niệm "team"/"Agent trung tâm": phạm vi site (và dịch vụ của Agent tỉnh) theo **vai trò + phạm vi phụ trách**; thêm Agent helpdesk, Triển khai của Line; nút "Chèn vào phản hồi" ẩn với người không có quyền phản hồi công khai. Nguồn: `SRS/hoi-dap-ai-noibo/SRS.md` v1.1.
 >
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** các `[GIẢ ĐỊNH]` trong file này (phạm vi site theo vai trò, gợi ý câu hỏi tự điền+gửi, câu hỏi không sửa/xóa, có nút Sao chép, nhóm hội thoại theo ngày) đã được xác nhận đúng như bản vẽ, không đổi nội dung; đồng thời chốt thêm: hội thoại vẫn gắn ticket bình thường dù ticket đổi trạng thái giữa lúc chat.
 >
@@ -43,14 +43,14 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Dịch vụ | Dropdown | Select | • Danh sách dịch vụ mà tài khoản có quyền xem (Agent tỉnh: chỉ dịch vụ nằm trong phạm vi phụ trách, đi cặp với site đã chọn); mặc định dịch vụ dùng gần nhất. Mở từ ticket (`agent-chi-tiet-ticket`) → dịch vụ của ticket chọn sẵn (vẫn đổi được). Đổi dịch vụ hoặc site → bắt đầu hội thoại mới, không trộn ngữ cảnh. |
-| 2 | Site | Dropdown (có tìm) | Select | • Site theo quyền xem (OQ-34): Hỗ trợ trung tâm, Hỗ trợ dịch vụ, Quản trị viên, Chủ quản dịch vụ thấy mọi site; Agent helpdesk: site của khách hàng tầng Helpdesk công ty; Agent tỉnh: chỉ site + dịch vụ khớp ít nhất 1 dòng phạm vi phụ trách (site dùng chung: hỏi được khi ≥1 khách hàng của site nằm trong phạm vi) — đã chốt 24/09/2026, thay quy tắc "team" của 23/09/2026.<br>• AI lọc cứng theo dịch vụ + site đang chọn (nội dung dùng chung của dịch vụ + riêng của site), không trộn nhiều site trong một câu trả lời; bài đánh dấu "không dùng cho AI" không bao giờ được dùng. |
+| 2 | Site | Dropdown (có tìm) | Select | • Site theo quyền xem (OQ-34): Triển khai của Line, Quản trị viên, Chủ quản dịch vụ thấy mọi site; Agent helpdesk: site của khách hàng tầng Helpdesk công ty; Agent tỉnh: chỉ site + dịch vụ khớp ít nhất 1 dòng phạm vi phụ trách (site dùng chung: hỏi được khi ≥1 khách hàng của site nằm trong phạm vi) — đã chốt 24/09/2026, thay quy tắc "team" của 23/09/2026.<br>• AI lọc cứng theo dịch vụ + site đang chọn (nội dung dùng chung của dịch vụ + riêng của site), không trộn nhiều site trong một câu trả lời; bài đánh dấu "không dùng cho AI" không bao giờ được dùng. |
 | 3 | Lịch sử | Link | Click | • Navigate → `noibo-ai-lich-su`. Vẫn hiện khi AI tắt hoặc lỗi. |
 | 4 | Gợi ý câu hỏi | Link list | Click | • Câu hỏi mẫu, bấm → điền vào [5] và gửi luôn (đã chốt 23/09/2026, như `ai-khung-chat`). |
 | 5 | Ô nhập câu hỏi | Textbox (multi-line) | Text | • Như `ai-khung-chat`: Enter gửi, Shift+Enter xuống dòng; rỗng → [6] disabled; câu hỏi ≤1.000 ký tự, tối đa 30 câu/giờ/người (OQ-13); khóa ô nhập khi AI đang trả lời. |
 | 6 | Gửi | Button | Click | • **Disabled** khi [5] rỗng hoặc AI đang xử lý (chống gửi trùng); gửi → `noibo-ai-tra-loi`.<br>• Câu hỏi + trả lời lưu vào lịch sử cá nhân (OQ-36) và nhật ký hội thoại AI của quản trị (`cauhinh-nhat-ky-ai`) gắn nhãn "Nội bộ" (UC46).<br>• Hỏi đáp AI tắt theo dịch vụ/site → ẩn menu; vào bằng link → trạng thái phụ. AI lỗi/quá thời gian → trạng thái phụ. |
 | 7 | Quay lại ticket | Link | Click | • Chỉ hiện khi mở từ `agent-chi-tiet-ticket`; navigate về ticket đó, không mất nội dung phản hồi đang soạn. |
 
-- Dùng cho nhân viên tra cứu nghiệp vụ để hỗ trợ khách hàng. Menu "Hỏi đáp AI" thuộc khung nội bộ dùng chung: hiện với Agent tỉnh, Agent helpdesk, Hỗ trợ trung tâm, Hỗ trợ dịch vụ, Quản trị viên, Chủ quản dịch vụ; Biên tập nội dung không dùng → `loi-403` khi vào bằng link (OQ-34). Nhân viên KHÔNG có màn Tra cứu bài viết (OQ-35).
+- Dùng cho nhân viên tra cứu nghiệp vụ để hỗ trợ khách hàng. Menu "Hỏi đáp AI" thuộc khung nội bộ dùng chung: hiện với Agent tỉnh, Agent helpdesk, Triển khai của Line, Quản trị viên, Chủ quản dịch vụ; Biên tập nội dung không dùng → `loi-403` khi vào bằng link (OQ-34). Nhân viên KHÔNG có màn Tra cứu bài viết (OQ-35).
 
 #### Trạng thái phụ — AI chưa khả dụng hoặc lỗi
 
@@ -112,7 +112,7 @@
 | 2 | Câu trả lời của AI | Chat bubble | ReadOnly | • Tổng hợp từ tài liệu trong phạm vi dịch vụ + site đang chọn (RAG, lọc cứng); chỉ hiện khi độ liên quan đạt ngưỡng tin cậy (`cauhinh-tham-so-ai`), dưới ngưỡng → trạng thái phụ "không đủ tự tin".<br>• Trạng thái: đang soạn / đã trả lời. AI nhớ 5 lượt gần nhất trong hội thoại (OQ-13). |
 | 3 | Nguồn trích dẫn | Link list | Click | • Kèm trích dẫn nguồn bài viết gốc; bấm tên bài → **xem trước bài viết tại chỗ** (trạng thái phụ, chỉ đọc), không có màn Tra cứu cho nhân viên (OQ-35, OQ-39).<br>• Bài đã ẩn/hủy: báo "Bài không còn hiển thị". Chỉ trích bài trong phạm vi quyền xem của người hỏi. |
 | 4 | Sao chép | Button | Click | • Sao chép nội dung câu trả lời (kèm tên nguồn) để dùng ở nơi khác (đã chốt 23/09/2026 — có). |
-| 5 | Chèn vào phản hồi | Button | Click | • **Chỉ hiện khi hội thoại mở từ `agent-chi-tiet-ticket` và người dùng có quyền phản hồi công khai ticket đó (ẩn với Hỗ trợ dịch vụ — chỉ xem + ghi chú nội bộ)**: đưa câu trả lời vào ô soạn phản hồi của ticket đó, agent xem/sửa rồi mới gửi — không tự gửi cho khách hàng. Hội thoại mở lại từ lịch sử nhưng không thuộc ticket hiện tại → ẩn nút. |
+| 5 | Chèn vào phản hồi | Button | Click | • **Chỉ hiện khi hội thoại mở từ `agent-chi-tiet-ticket` và người dùng có quyền phản hồi công khai ticket đó**: đưa câu trả lời vào ô soạn phản hồi của ticket đó, agent xem/sửa rồi mới gửi — không tự gửi cho khách hàng. Hội thoại mở lại từ lịch sử nhưng không thuộc ticket hiện tại → ẩn nút. |
 | 6 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `noibo-ai-khung-chat`; hỏi tiếp trong cùng hội thoại. |
 | 7 | Gửi | Button | Click | • Disabled khi [6] rỗng hoặc AI đang xử lý; gửi → thêm cặp hỏi-đáp mới, cuộn xuống cuối. |
 

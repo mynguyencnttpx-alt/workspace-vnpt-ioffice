@@ -4,7 +4,7 @@
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
-> **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** đổi "Team" thành **Tầng tiếp nhận** (Tỉnh X / Helpdesk công ty / Hỗ trợ trung tâm); bỏ chỉ số "escalate tỉnh lên trung tâm" và ghi chú "không tự chuyển cấp" vì bỏ Chuyển cấp. Chưa có SRS riêng cho báo cáo — các thay đổi chỉ đồng bộ thuật ngữ, phạm vi báo cáo theo vai trò mới cần rà khi có SRS.
+> **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** đổi "Team" thành **Tầng tiếp nhận** (Tỉnh X / Helpdesk công ty / Triển khai Line); bỏ chỉ số "escalate tỉnh lên trung tâm" và ghi chú "không tự chuyển cấp" vì bỏ Chuyển cấp. Chưa có SRS riêng cho báo cáo — các thay đổi chỉ đồng bộ thuật ngữ, phạm vi báo cáo theo vai trò mới cần rà khi có SRS.
 
 ---
 
@@ -29,7 +29,7 @@
 │ Đã đóng      ################  69                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tầng           Đã tạo   Đang xử lý   Đã đóng    Tồn [6]              │
-│ Hỗ trợ TT      45       12           30         8                    │
+│ Triển khai      45       12           30         8                   │
 │ Tỉnh Bình Định 38       14           20         6                    │
 │ Tỉnh Đà Nẵng   45       12           19         4                    │
 │ Helpdesk CT    12       3            8          1                    │
@@ -42,7 +42,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Tab báo cáo | Tabs | Click | • 4 tab: Tổng quan (đang xem) / Hiệu suất & SLA / Chất lượng & nội dung / Xuất báo cáo → `baocao-hieusuat-sla` / `baocao-chatluong` / `baocao-xuat` (giữ nguyên bộ lọc kỳ/tầng/dịch vụ khi chuyển tab [GIẢ ĐỊNH]).<br>• **Phạm vi theo vai trò** (Đề xuất — Phân quyền xem báo cáo): Quản trị viên xem mọi tầng/tỉnh/dịch vụ; **Chủ quản dịch vụ** (chỉ xem) chỉ thấy phạm vi dịch vụ mình phụ trách, đây là màn landing mặc định sau đăng nhập; **Agent** chỉ xem báo cáo cơ bản trong phạm vi/tầng mình. Màn này không có nút sửa danh mục/quyền/nội dung. |
 | 2 | Kỳ báo cáo + so sánh | Dropdown + Checkbox | Select / Check | • Kỳ: ngày / tuần / tháng / khoảng tùy chọn (Đề xuất — Tổng quan hoạt động hỗ trợ). Checkbox **So kỳ trước** hiện tỷ lệ tăng/giảm ở [4]; cách xác định kỳ trước: OQ-23. |
-| 3 | Lọc tầng / địa bàn / dịch vụ / khách hàng | Dropdown | Select | • Tầng tiếp nhận (Tỉnh X, Helpdesk công ty, Hỗ trợ trung tâm), địa bàn, dịch vụ (iOffice/iStorage), khách hàng — chỉ liệt kê giá trị **trong phạm vi được xem**. Đổi bộ lọc → tải lại số liệu; đang tải hiện trạng thái chờ. |
+| 3 | Lọc tầng / địa bàn / dịch vụ / khách hàng | Dropdown | Select | • Tầng tiếp nhận (Tỉnh X, Helpdesk công ty, Triển khai Line), địa bàn, dịch vụ (iOffice/iStorage), khách hàng — chỉ liệt kê giá trị **trong phạm vi được xem**. Đổi bộ lọc → tải lại số liệu; đang tải hiện trạng thái chờ. |
 | 4 | Số liệu chính | Label (KPI) | ReadOnly | • Số phiếu **đã tạo / đã xử lý / đang tồn đọng (backlog)** trong kỳ (UC50), kèm % so kỳ trước. Định nghĩa "đã xử lý"/"tồn đọng" theo trạng thái nào: OQ-23.<br>• **Không có dữ liệu trong khoảng lọc** → thay số liệu và biểu đồ bằng "Không có dữ liệu trong khoảng đã chọn" + gợi ý đổi bộ lọc. |
 | 5 | Biểu đồ theo trạng thái | Chart | ReadOnly | • Số ticket theo trạng thái (Mới / Đang xử lý / Chờ khách hàng / Chờ xác nhận / Đã đóng); vẽ dạng cột ngang đơn giản. Có thể xem theo ngày/tuần/tháng. |
 | 6 | Bảng theo tầng | Table | ReadOnly | • Số ticket theo tầng tiếp nhận, dịch vụ, khách hàng theo bộ lọc; bấm dòng để lọc sâu hơn [GIẢ ĐỊNH]. Chủ quản dịch vụ chỉ thấy các dòng thuộc dịch vụ mình. |
@@ -71,7 +71,7 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tầng / Tỉnh / Agent TB phản hồi  TB xử lý     Đúng hạn   Quá hạn [6] │
 │ --------------------------------------------------------------       │
-│ Hỗ trợ TT          1h05         7h10         88%        12%          │
+│ Triển khai Line    1h05         7h10         88%        12%          │
 │ Tỉnh Bình Định     1h30         5h40         93%        7%           │
 │ Tỉnh Đà Nẵng       1h25         6h00         92%        8%           │
 │                                                                      │
