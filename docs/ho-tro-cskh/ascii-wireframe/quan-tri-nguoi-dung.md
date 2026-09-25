@@ -166,11 +166,11 @@
 │    │ Hình thức hỗ trợ [4] (chỉ hiện khi Địa bàn = Trung ương)   │    │
 │    │ Tầng tiếp nhận [5]: Tỉnh Bình Định (tự tính, chỉ đọc)      │    │
 │    ├────────────────────────────────────────────────────────────┤    │
-│    │ Site sử dụng [6]               Mã đơn vị trên site [7]     │    │
-│    │   [x] site-bd (iOffice)        [BD-UBND__________]         │    │
-│    │   [ ] site-nho-le (iOffice)    [_________________]         │    │
-│    │   [ ] site-bnv-is (iStorage)   [_________________]         │    │
-│    │   [8] [ + Tạo Site mới ]                                   │    │
+│    │ Site sử dụng [6]   (mỗi dịch vụ tối đa 1 site)             │    │
+│    │   site-bd [iOffice]      Mã ĐV [7] [BD-UBND_______] [x]    │    │
+│    │   site-bd-is [iStorage]  Mã ĐV [7] [______________] [x]    │    │
+│    │ (o) Tìm và thêm site theo tên hoặc dịch vụ…            [v] │    │
+│    │ Đã chọn 2 site                    [8] [ + Tạo Site mới ]   │    │
 │    ├────────────────────────────────────────────────────────────┤    │
 │    │ Đầu mối liên hệ chính thức (từ hợp đồng/bàn giao)          │    │
 │    │ Họ tên [9] [Nguyễn Văn A__________________]                │    │
@@ -192,9 +192,9 @@
 | 3 | Địa bàn | Dropdown (có tìm) | Select | • **Bắt buộc**: chọn 1 địa bàn "Đang dùng" trong `qt-danh-muc-dia-ban` (tỉnh/TP hoặc Trung ương). |
 | 4 | Hình thức hỗ trợ | Radio group | Select | • **Chỉ hiện và bắt buộc khi Địa bàn = Trung ương**: Helpdesk công ty / Triển khai Line; không có giá trị mặc định (xem Trạng thái phụ Trung ương). Địa bàn tỉnh/TP → ẩn. |
 | 5 | Tầng tiếp nhận | Label | ReadOnly | • Chỉ đọc, tự tính ngay khi đổi [3]/[4]: địa bàn tỉnh X → "Tỉnh X"; Trung ương + Helpdesk công ty → "Helpdesk công ty"; Trung ương + Triển khai Line → "Triển khai Line". Ticket mới của khách hàng vào đúng tầng này (`SRS` Chức năng 1 BR-01). |
-| 6 | Site sử dụng | Checkbox group (đa chọn, có tìm) | Check | • **Chọn ≥1** từ danh mục Site đã có (`qt-danh-muc-site`); mỗi ô hiện kèm dịch vụ. **Mỗi dịch vụ chỉ chọn tối đa 1 site** — chọn 2 site cùng dịch vụ → báo lỗi tại nhóm (đã chốt 23/09/2026, xem Trạng thái phụ). Site quyết định khách hàng thấy nội dung/tri thức của site nào; site **không** quyết định tầng tiếp nhận ticket. |
-| 7 | Mã đơn vị trên site | Textbox (mỗi site đã chọn 1 ô) | Text | • **Bắt buộc với site đang dùng chung từ 2 khách hàng trở lên**, tùy chọn với site chỉ 1 khách hàng; duy nhất trong cùng 1 site (trùng → báo lỗi tại ô "Mã đơn vị này đã gán cho khách hàng khác trên site này." [wording tạm]).<br>• Là mã đơn vị của khách hàng trên chính site dịch vụ; cùng mã site dùng để xác định khách hàng khi người dùng vào CSKH từ iOffice/iStorage (`dang-nhap-kich-hoat` Chức năng 5). Đổi mã không tự đổi khách hàng của danh tính đã tạo. |
-| 8 | + Tạo Site mới | Link/Button | Click | • Mở nhanh modal con (Tên Site + Dịch vụ) ngay trong form — không cần rời sang `qt-danh-muc-site` (đã chốt 23/09/2026). Tạo xong, site mới tự chọn sẵn ở [6]. |
+| 6 | Site sử dụng | Danh sách site đã chọn + ô tìm (combobox đa chọn) | Select | • **Chọn ≥1** từ danh mục Site đã có (`qt-danh-muc-site`); **mỗi dịch vụ chỉ chọn tối đa 1 site** (đã chốt 23/09/2026, xem Trạng thái phụ). Site quyết định khách hàng thấy nội dung/tri thức của site nào; site **không** quyết định tầng tiếp nhận ticket.<br>• **Không bày sẵn cả danh mục** (cập nhật 25/09/2026): mặc định chỉ hiện các site **đã chọn**, mỗi site 1 dòng (tên site, nhãn dịch vụ, nhãn "Dùng chung n khách hàng" nếu có, ô Mã đơn vị [7], nút X để bỏ). Chưa chọn site nào → "Chưa chọn site nào.".<br>• **Thêm site:** bấm/gõ vào ô "Tìm và thêm site theo tên hoặc dịch vụ…" → khung gợi ý mở ngay dưới ô (xem Trạng thái phụ — mở khung gợi ý): nhóm theo dịch vụ, lọc theo tên site hoặc tên dịch vụ (không phân biệt hoa/thường, dấu), cao tối đa ~6 dòng rồi cuộn, dòng cuối ghi "Hiện n / tổng site khớp". Site cùng dịch vụ với site đã chọn bị **làm mờ** kèm lý do "Không chọn được — iOffice đã có site-bd"; site "Ngừng dùng" không gợi ý. Chọn xong site chuyển thành dòng ở trên, ô nhập được làm trống. Phím ↑/↓ chọn, Enter thêm, Esc đóng.<br>• Dưới ô: "Đã chọn n site · mỗi dịch vụ tối đa 1 site". |
+| 7 | Mã đơn vị trên site | Textbox (nằm ngay trên dòng của mỗi site đã chọn) | Text | • **Bắt buộc với site đang dùng chung từ 2 khách hàng trở lên** (dòng hiện nhãn "Dùng chung n khách hàng" + "Mã đơn vị (bắt buộc)"), tùy chọn với site chỉ 1 khách hàng; duy nhất trong cùng 1 site (trùng → báo lỗi tại ô "Mã đơn vị này đã gán cho khách hàng khác trên site này." [wording tạm]).<br>• Là mã đơn vị của khách hàng trên chính site dịch vụ; cùng mã site dùng để xác định khách hàng khi người dùng vào CSKH từ iOffice/iStorage (`dang-nhap-kich-hoat` Chức năng 5). Đổi mã không tự đổi khách hàng của danh tính đã tạo. |
+| 8 | + Tạo Site mới | Link/Button | Click | • Có ở 2 chỗ: dòng cuối khung gợi ý và cạnh dòng "Đã chọn n site". Mở nhanh modal con (Tên Site + Dịch vụ) ngay trong form — không cần rời sang `qt-danh-muc-site` (đã chốt 23/09/2026). Tạo xong, site mới tự chọn sẵn ở [6]. |
 | 9 | Họ tên đầu mối | Textbox | Text | • **Bắt buộc** (OQ-20b). Đầu mối liên hệ chính thức, lấy từ hợp đồng/biên bản bàn giao (UC1). Mỗi khách hàng có 1–3 đầu mối do Quản trị viên chỉ định (OQ-20a, đầu mối gắn theo khách hàng, không theo site) — màn này nhập đầu mối đầu tiên. |
 | 10 | Email đầu mối | Textbox | Text | • **Bắt buộc**, đúng định dạng; là nơi gửi lời mời kích hoạt ở `qt-moi-dau-moi` và là định danh đăng nhập [GIẢ ĐỊNH]. |
 | 11 | SĐT đầu mối | Textbox | Text | • **Bắt buộc** (OQ-20b), định dạng số VN; dùng khi gửi lời mời qua SMS. |
@@ -215,9 +215,9 @@
 │    │ Thêm khách hàng                                            │    │
 │    │                                                            │    │
 │    │ Tên đơn vị [1] [UBND tỉnh Bình Định_______________]        │    │
-│    │ Site sử dụng [6]               Mã đơn vị trên site [7]     │    │
-│    │   [x] site-bd (iOffice)        [BD-UBND__________]         │    │
-│    │   [x] site-nho-le (iOffice)    [_________________]         │    │
+│    │ Site sử dụng [6]                                           │    │
+│    │   site-bd [iOffice]       Mã ĐV [7] [BD-UBND_______] [x]   │    │
+│    │   site-nho-le [iOffice]   Mã ĐV [7] [______________] [x]   │    │
 │    │   (!) Khách hàng đã có site cho dịch vụ này (iOffice),     │    │
 │    │       không chọn thêm site khác cùng dịch vụ.              │    │
 │    ├────────────────────────────────────────────────────────────┤    │
@@ -227,7 +227,7 @@
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Khác màn gốc: chọn 2 site cùng dịch vụ (vd site-bd và site-nho-le đều iOffice) → cảnh báo ngay dưới nhóm [6] (wording tạm, chưa có mã E-…); [12] mờ tới khi bỏ chọn 1 trong 2.
+- Khác màn gốc: chọn 2 site cùng dịch vụ (vd site-bd và site-nho-le đều iOffice; chỉ xảy ra với dữ liệu cũ hoặc khi server báo lỗi — khung gợi ý đã làm mờ site cùng dịch vụ) → 2 dòng tô đỏ, cảnh báo ngay dưới danh sách [6] (wording tạm, chưa có mã E-…); [12] mờ tới khi bỏ 1 trong 2 dòng.
 
 #### Trạng thái phụ — địa bàn Trung ương, site dùng chung thiếu mã đơn vị
 
@@ -244,10 +244,11 @@
 │    │   ( ) Helpdesk công ty   (*) Triển khai Line               │    │
 │    │ Tầng tiếp nhận [5]: Triển khai Line (tự tính, chỉ đọc)     │    │
 │    ├────────────────────────────────────────────────────────────┤    │
-│    │ Site sử dụng [6]               Mã đơn vị trên site [7]     │    │
-│    │   [x] site-nho-le (iOffice)    [ ! chưa nhập ]             │    │
-│    │   (!) Site dùng chung nhiều khách hàng: bắt buộc nhập      │    │
-│    │       mã đơn vị.                                           │    │
+│    │ Site sử dụng [6]                                           │    │
+│    │   dn-dung-chung-ioffice [iOffice] [Dùng chung 4 KH]        │    │
+│    │     Mã đơn vị (bắt buộc) [7] [ ! chưa nhập ]         [x]   │    │
+│    │     (!) Site dùng chung nhiều khách hàng: bắt buộc nhập    │    │
+│    │         mã đơn vị.                                         │    │
 │    ├────────────────────────────────────────────────────────────┤    │
 │    │ [12] [ Lưu và tiếp tục mời đầu mối ] (mờ)  [13] [ Hủy ]    │    │
 │    └────────────────────────────────────────────────────────────┘    │
@@ -256,6 +257,38 @@
 ```
 
 - Khác màn gốc: Địa bàn = Trung ương → hiện [4] Hình thức hỗ trợ (bắt buộc chọn 1) và [5] cập nhật theo lựa chọn; site dùng chung nhiều khách hàng mà chưa nhập [7] → cảnh báo tại ô, [12] mờ.
+
+#### Trạng thái phụ — mở khung gợi ý chọn site (cập nhật 25/09/2026)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│    ┌────────────────────────────────────────────────────────────┐    │
+│    │ Thêm khách hàng                                            │    │
+│    │                                                            │    │
+│    │ Tầng tiếp nhận [5]: Tỉnh Bình Định (tự tính, chỉ đọc)      │    │
+│    ├────────────────────────────────────────────────────────────┤    │
+│    │ Site sử dụng [6]                                           │    │
+│    │   site-bd [iOffice]       Mã ĐV [7] [BD-UBND_______] [x]   │    │
+│    │ (o) bnv_______________________________________________ [v] │    │
+│    │ ┌────────────────────────────────────────────────────────┐ │    │
+│    │ │ iStorage                                               │ │    │
+│    │ │ > site-bnv-is            1 khách hàng đang dùng        │ │    │
+│    │ │ iOffice - đã chọn site-bd cho dịch vụ này              │ │    │
+│    │ │   site-bnv (mờ)   Không chọn được - iOffice đã có site │ │    │
+│    │ │ Hiện 2 / 23 site khớp "bnv"      [8] + Tạo Site mới    │ │    │
+│    │ └────────────────────────────────────────────────────────┘ │    │
+│    ├────────────────────────────────────────────────────────────┤    │
+│    │ [12] [ Lưu và tiếp tục mời đầu mối ]  [13] [ Hủy ]         │    │
+│    └────────────────────────────────────────────────────────────┘    │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- Khác màn gốc: đang gõ "bnv" ở ô tìm → khung gợi ý mở đè lên phần bên dưới (không đẩy layout), nhóm theo dịch vụ; dòng "site-bnv-is" (iStorage) chọn được; "site-bnv" (iOffice) bị làm mờ vì iOffice đã có site-bd. Chỉ hiện các site khớp, tối đa ~6 dòng rồi cuộn — danh mục Site dài đến đâu giao diện cũng không vỡ. Chọn 1 dòng → thành dòng "site đã chọn" kèm ô [7]. Áp dụng cho cả modal "Sửa thông tin đơn vị" của `qt-danh-muc-khach-hang` (bố cục gọn: ô Mã đơn vị nằm dưới tên site).
+- **Cập nhật 25/09/2026:** ô [6] đổi từ danh sách checkbox bày hết danh mục sang "site đã chọn + ô tìm/gợi ý" (Figma 57, 57b, 57c, 57d và modal 28b). Trong hình ASCII "Mã ĐV" viết tắt của "Mã đơn vị" cho vừa khung.
 
 
 ---
