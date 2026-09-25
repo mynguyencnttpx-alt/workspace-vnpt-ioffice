@@ -3,6 +3,8 @@
 > Màn hình thuộc flow này: kb-trang-chu → kb-ket-qua-tim-kiem → kb-khong-co-ket-qua → kb-chi-tiet-bai-viet → kb-bai-viet-khong-con → kb-danh-muc-loi. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Header khách hàng: thanh điều hướng + chip dịch vụ/site đang xem (bản Figma dùng thanh xanh).
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; số kết quả nằm cùng hàng ở cột bên phải. Đồng bộ với frame Figma.
 
 ---
 
@@ -89,7 +91,8 @@
 │ [1] [ký số_________________________________] [ Tìm ]                 │
 │     Phạm vi nội dung: iOffice - UBND Bình Định                       │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Loại nội dung [v: Tất cả] [2]  Danh mục [v: Tất cả] [3]              │
+│ Loại nội dung[2] Danh mục [3]                                        │
+│ [v: Tất cả     ] [v: Tất cả     ]                                    │
 │ [4] Tìm thấy 3 kết quả cho "ký số"                                   │
 │ [5] < Hướng dẫn ký số văn bản đi >           | [7] Hỏi đáp AI        │
 │     Hướng dẫn sử dụng | Hữu ích 18/20        | [ Hỏi AI về ký số ]   │
@@ -134,7 +137,8 @@
 │ [1] [abcxyz________________________________] [ Tìm ]                 │
 │     Phạm vi nội dung: iOffice - UBND Bình Định                       │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Loại nội dung [v: Tất cả]  Danh mục [v: Tất cả]  Không có kết quả    │
+│ Loại nội dung    Danh mục                                            │
+│ [v: Tất cả     ] [v: Tất cả     ] Không có kết quả                   │
 │                                                                      │
 │                 [ Biểu tượng tìm kiếm không có kết quả ]             │
 │                     Không tìm thấy kết quả [2]                       │
@@ -263,7 +267,8 @@
 │            Lỗi và tình huống thường gặp                              │
 │ [1] [403 - Không có quyền ký số____] [ Tìm ]                         │
 │     Phạm vi nội dung: iOffice - UBND Bình Định                       │
-│ Module [v: Tất cả] [2]   Tình huống [v: Tất cả] [3]   3 lỗi phù hợp  │
+│ Module [2]       Tình huống [3]                                      │
+│ [v: Tất cả     ] [v: Tất cả     ] 3 lỗi phù hợp                      │
 ├──────────────────────────────────────────────────────────────────────┤
 │ [4] Mã / thông báo lỗi           Module          Tình huống          │
 │ -------------------------------------------------------------------  │
