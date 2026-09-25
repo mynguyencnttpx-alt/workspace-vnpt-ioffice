@@ -5,6 +5,8 @@
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
 > **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** đổi "Team" thành **Tầng tiếp nhận** (Tỉnh X / Helpdesk công ty / Triển khai Line); bỏ chỉ số "escalate tỉnh lên trung tâm" và ghi chú "không tự chuyển cấp" vì bỏ Chuyển cấp. Chưa có SRS riêng cho báo cáo — các thay đổi chỉ đồng bộ thuật ngữ, phạm vi báo cáo theo vai trò mới cần rà khi có SRS.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -64,7 +66,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ [Tổng quan] [*Hiệu suất & SLA*] [Chất lượng] [Xuất báo cáo] [1]      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Kỳ [v: 09/2026][2]  Xem theo [v: Tầng][3]  Phạm vi [v: Tất cả]       │
+│ Kỳ [2]           Xem theo [3]     Phạm vi                            │
+│ [v: 09/2026    ] [v: Tầng       ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ TB phản hồi: 1h20 | TB xử lý: 6h15 | Đúng hạn 91%  Quá hạn 9% [4]    │
 │ Phiếu đã chuyển sang OneBSS: 9 (tầng Tỉnh/Helpdesk) [5]              │
@@ -107,7 +110,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ [Tổng quan] [Hiệu suất & SLA] [*Chất lượng*] [Xuất báo cáo] [1]      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Kỳ [v: 09/2026][2]  Dịch vụ [v: Tất cả][3]  Tỉnh [v: Tất cả]         │
+│ Kỳ [2]           Dịch vụ [3]      Tỉnh                               │
+│ [v: 09/2026    ] [v: Tất cả     ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ CSAT trung bình: 4.5/5  |  AI deflection rate: 62%  [4]              │
 ├──────────────────────────────────────────────────────────────────────┤

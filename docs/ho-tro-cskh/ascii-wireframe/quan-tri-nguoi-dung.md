@@ -9,6 +9,8 @@
 > **Cập nhật 23/09/2026 (2) — tách Site khỏi khách hàng:** thiết kế gốc gộp "khách hàng" và "site/tenant" thành 1 khái niệm (1 site = 1 khách hàng). Khách hàng xác nhận thực tế khác: khách hàng lớn (UBND tỉnh) có site riêng, nhưng khách hàng nhỏ lẻ dùng CHUNG 1 site theo dịch vụ; 1 khách hàng dùng ≥2 dịch vụ (iOffice + iStorage) thì gắn ≥2 site khác nhau. Đã tách thành 2 tab trong `qt-danh-muc-khach-hang`: tab "Site" (mới, quản lý danh mục site) + tab "Danh mục khách hàng" (sửa, chọn ≥1 site có sẵn thay vì tự khai site/tenant mới). Xem chi tiết ở từng màn dưới + `docs/ho-tro-cskh/srs/ho-tro-cskh-erd.md` entity `SITE`/`KHACH_HANG`.
 >
 > **Cập nhật 24/09/2026 (v1.1/v1.2 — mô hình hỗ trợ & định tuyến theo địa bàn, vào từ site dịch vụ; khách hàng xác nhận):** thêm tab **Danh mục Địa bàn** (`qt-danh-muc-dia-ban`); khách hàng có **Địa bàn + Hình thức hỗ trợ → Tầng tiếp nhận** (thay quy tắc "loại khách hàng quyết định team"); mỗi site khách hàng dùng có **Mã đơn vị trên site**; 6 vai trò nội bộ (thêm Agent helpdesk; "Agent trung tâm" và "Hỗ trợ dịch vụ" gộp thành Triển khai của Line), bỏ ô Team, thêm **Địa bàn + Phạm vi phụ trách**; Chi tiết tài khoản hiện **Danh tính site**; bảng quyền 8 vai trò. Nguồn: `SRS/quan-tri-nguoi-dung/SRS.md` v1.2.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -63,7 +65,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ < Địa bàn | Khách hàng | [T] Site >         [1] [ + Thêm Site ]      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Tìm [2] [site-bd______] Dịch vụ [3] [v: Tất cả]                      │
+│ Tìm [2]          Dịch vụ [3]                                         │
+│ [site-bd_______] [v: Tất cả     ]                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tên Site         Dịch vụ    Số KH đang dùng   Trạng thái             │
 │ ---------------------------------------------------------------------│
@@ -104,8 +107,10 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Địa bàn | [T] Khách hàng | Site            [1] [ + Thêm khách hàng ] │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Tìm [2] [Bình Định___] Loại KH [v: Tất cả] Địa bàn [v: Tất cả] [3]   │
-│ Site [v: Tất cả]  Tầng tiếp nhận [v: Tất cả]                         │
+│ Tìm [2]          Loại KH          Địa bàn [3]      Site              │
+│ [Bình Định_____] [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ]  │
+│ Tầng tiếp nhận                                                       │
+│ [v: Tất cả     ]                                                     │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Đơn vị            Địa bàn    Tầng tiếp nhận  Site đang dùng  Đầu mối │
 │ -------------------------------------------------------------------- │
@@ -311,7 +316,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Danh sách tài khoản                   [1] [ + Tạo tài khoản nội bộ ] │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Tìm [2] [nguyen______] Loại [v: Tất cả] [3] Vai trò [v: Tất cả] [4]  │
+│ Tìm [2]          Loại [3]         Vai trò [4]                        │
+│ [nguyen________] [v: Tất cả     ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Họ tên        Email            Vai trò      Đơn vị/Tầng    Trạng thái│
 │ [5] ---------------------------------------------------------------- │
@@ -561,7 +567,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Nhật ký thao tác (audit log)                                         │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Hành động [v: Tất cả][1] Người [______][2] Từ [__/__] Đến [__/__][3] │
+│ Hành động [1]    Người [2]        Từ               Đến [3]           │
+│ [v: Tất cả     ] [______________] [__/__/____    ] [__/__/____    ]  │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Thời gian   Người    Hành động      Đối tượng      Chi tiết          │
 │ -------------------------------------------------------------------- │

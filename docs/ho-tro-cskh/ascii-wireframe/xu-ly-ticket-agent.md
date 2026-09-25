@@ -7,6 +7,8 @@
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** ticket "Đã đóng" KHÔNG mở lại được trong mọi trường hợp — cả khách hàng và agent (đồng bộ với `gui-theo-doi-ticket.md`); bấm dòng ở Cảnh báo SLA mở thẳng màn Xử lý ticket; job cảnh báo SLA chỉ tính ticket còn đang mở tại thời điểm quét.
 >
 > **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn, khách hàng xác nhận):** hàng đợi theo **tầng tiếp nhận** (Tỉnh X / Helpdesk công ty / Triển khai Line) + phạm vi phụ trách, thay "team"; **bỏ Chuyển cấp** ở màn Phân công; **bỏ màn Xác nhận tạo phiếu OneBSS** (gửi thẳng, chỉ ticket tầng Tỉnh/Helpdesk; tầng Triển khai Line chuyển Jira ở giai đoạn sau); thêm vai trò Agent helpdesk; "Hỗ trợ trung tâm" và "Hỗ trợ dịch vụ" gộp thành Triển khai của Line (24/09/2026); Triển khai của Line xử lý đầy đủ ticket mọi tầng; ghi chú nội bộ không phát sinh thông báo. Nguồn: `SRS/xu-ly-ticket-agent/SRS.md` v1.1.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -20,9 +22,11 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Hàng đợi - Tầng [v: Triển khai Line] [1]    [2] [ ! 3 cảnh báo SLA ] │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Trạng thái [v: Tất cả] Ưu tiên [v: Tất cả] Dịch vụ [v: Tất cả] [3]   │
-│ Địa bàn [v: Tất cả] [8]   Khách hàng [______________] [4]            │
-│ [x] Chỉ phạm vi của tôi [7]      [x] Chỉ ticket AI đã tự trả lời     │
+│ Trạng thái [3]   Ưu tiên          Dịch vụ          Khách hàng [4]    │
+│ [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ] [______________]  │
+│ Địa bàn [8]                                                          │
+│ [v: Tất cả     ] [ ] Chỉ ticket AI đã tự trả lời                     │
+│ [x] Chỉ phạm vi của tôi [7]                                          │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Mã      Khách hàng   Vấn đề            Ưu tiên   Trạng thái   SLA [5]│
 │ -------------------------------------------------------------------- │
@@ -297,7 +301,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Cảnh báo quá hạn SLA - Tầng Tỉnh Bình Định       [1] < Về hàng đợi > │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Hiển thị [v: Tất cả] [2]   Ưu tiên [v: Tất cả]                       │
+│ Hiển thị [2]     Ưu tiên                                             │
+│ [v: Tất cả     ] [v: Tất cả     ]                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Mã      Vấn đề           Ưu tiên  Hạn xử lý   Tình trạng  Xử lý [3]  │
 │ -------------------------------------------------------------------- │

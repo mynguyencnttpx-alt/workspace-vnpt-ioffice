@@ -5,6 +5,8 @@
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** phần "mở lại ticket đã đóng trong 7 ngày" ở OQ-16 (bảng cuối file) bị **thay bằng quy tắc mới** — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp (dù khách hàng tự xác nhận hay hệ thống tự động đóng); vấn đề chưa hết hẳn thì khách hàng tạo ticket mới có tham chiếu. Xem `ticket-da-dong` [5] đã sửa theo quyết định này.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -141,7 +143,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Ticket của tôi                             [1] [ + Tạo yêu cầu mới ] │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Trạng thái [v: Tất cả][2] Ưu tiên [v: Tất cả][3] Dịch vụ [v: Tất cả] │
+│ Trạng thái [2]   Ưu tiên [3]      Dịch vụ                            │
+│ [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Mã       Vấn đề                  Ưu tiên     Trạng thái       Ngày   │
 │ [4] ---------------------------------------------------------------  │

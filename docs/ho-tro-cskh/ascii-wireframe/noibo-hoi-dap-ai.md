@@ -9,6 +9,8 @@
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** các `[GIẢ ĐỊNH]` trong file này (phạm vi site theo vai trò, gợi ý câu hỏi tự điền+gửi, câu hỏi không sửa/xóa, có nút Sao chép, nhóm hội thoại theo ngày) đã được xác nhận đúng như bản vẽ, không đổi nội dung; đồng thời chốt thêm: hội thoại vẫn gắn ticket bình thường dù ticket đổi trạng thái giữa lúc chat.
 >
 > **Rà soát đồng bộ Figma 23/09/2026:** đối chiếu với Hỏi đáp AI khách hàng (`hoi-dap-ai.md`) — xác nhận cấu trúc đồng nhất, khác biệt đúng như wireframe này đã vẽ: dropdown [1] "Dịch vụ" + [2] "Site" (thay cho pill "Phạm vi" cố định của khách hàng) cho phép nhân viên chọn đúng phạm vi bất kỳ khách hàng nào, vì nội bộ quản lý tất cả khách hàng (Site = tên đơn vị/khách hàng, theo quyền xem OQ-34). Không cần sửa nội dung file này.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -22,7 +24,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Hỏi đáp AI nội bộ                          < Quay lại ticket > [7]   │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Dịch vụ [1] [v: iOffice ] Site [2] [v: UBND B.Định] [3] < Lịch sử >  │
+│                  Dịch vụ [1]      Site [2]                           │
+│ Đang hỗ trợ:     [v: iOffice    ] [v: UBND B.Định] [3] < Lịch sử >   │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │ AI: Hỏi về nghiệp vụ để hỗ trợ khách hàng. Tôi chỉ trả lời dựa trên  │

@@ -5,6 +5,8 @@
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** Mẫu trả lời dùng chung mọi dịch vụ (bỏ trường "dịch vụ áp dụng"); trùng tên danh mục so sánh không phân biệt hoa/thường + cắt khoảng trắng đầu-cuối; đổi tên danh mục → ticket/bài viết cũ hiển thị theo tên mới; ngưỡng cảnh báo SLA 1-90%, tắt cả 2 kênh thông báo, SLA mới chỉ áp dụng ticket sau khi lưu — xác nhận đúng bản vẽ. **Bổ sung mới:** màn `danhmuc-dich-vu-loai-van-de` có thêm modal "Thêm mục mới"/"Sửa mục" (trước đây chỉ có màn xác nhận xóa); màn `cauhinh-sla` có thêm khối "Danh sách ngày nghỉ lễ"; mức ưu tiên mới chưa cấu hình SLA bị chặn dùng ở form tạo ticket — đã vẽ bổ sung trên Figma cùng ngày.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -187,7 +189,8 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Khu vực thử nghiệm AI                          [1] < Về tham số AI > │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Thử theo phạm vi [2]: Dịch vụ [v: iOffice] Site [v: UBND Bình Định]  │
+│ [2]              Dịch vụ          Site                               │
+│ Thử theo phạm vi [v: iOffice    ] [v: UBND Bình Đ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ [3] [Nhập câu hỏi thử...___________________________] [4] [ Hỏi thử ] │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -255,7 +258,8 @@
 │ Tháng [v: 09/2026][1]  Lượt gọi: 1.240  Chi phí ước tính: 320.000 d  │
 │ Theo dịch vụ [2]: iOffice 980 lượt (250.000 d) | iStorage 260 lượt   │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Chế độ [v: Tất cả] [3]  Kết quả [v: Tất cả] [4]  Tìm [__________]    │
+│ Chế độ [3]       Kết quả [4]      Tìm                                │
+│ [v: Tất cả     ] [v: Tất cả     ] [______________]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Thời gian   Người     Chế độ   Câu hỏi                  Kết quả      │
 │ [5] ---------------------------------------------------------------  │

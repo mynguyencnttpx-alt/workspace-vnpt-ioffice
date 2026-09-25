@@ -5,6 +5,8 @@
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
 > **Cập nhật 23/09/2026:** rà soát phát hiện `kb-cau-hinh-dong-bo-drive` chưa có hình minh họa cho nút "+ Thêm thư mục" — đã vẽ bổ sung modal "Thêm thư mục đồng bộ" trên Figma. Xem [3] ở màn đó.
+>
+> **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
 
@@ -84,8 +86,8 @@
 ┌──────────────────────────────────────────────────────────────────────┐
 │ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Nội dung chờ duyệt                             [1] Nguồn [v: Tất cả] │
-│ Loại [v: Tất cả] [2]   Phạm vi [v: Tất cả] [3]                       │
+│ Nguồn [1]        Loại [2]         Phạm vi [3]                        │
+│ [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tiêu đề                      Loại      Phạm vi  Nguồn     Ngày       │
 │ [4] ---------------------------------------------------------------  │
@@ -203,7 +205,8 @@
 │ Nội dung đã xuất bản                          [1] [ + Soạn bài mới ] │
 │ [2] < Import UM/SRS > [3] < Đồng bộ Drive > [4] < Ticket thành FAQ > │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Loại [v: Tất cả] Dịch vụ [v: Tất cả] Phạm vi [v: Tất cả] [5]         │
+│ Loại             Dịch vụ          Phạm vi [5]                        │
+│ [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tiêu đề                    Loại     Phạm vi  Cập nhật  Hữu ích       │
 │ -------------------------------------------------------------------- │
