@@ -4,6 +4,8 @@
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
+> **Rà soát đồng bộ Figma 26/09/2026:** đối chiếu Figma với OQ-14 — màn `ai-tra-loi` thiếu nút "Hữu ích / Không hữu ích"; đã bổ sung vào wireframe này (mục [4]), Figma cần vẽ thêm cho khớp.
+>
 > **Rà soát đồng bộ Figma 23/09/2026:** đối chiếu Hỏi đáp AI (khách hàng) với Hỏi đáp AI nội bộ (`noibo-hoi-dap-ai.md`) — cấu trúc `ai-lich-su` trong wireframe này (mỗi dòng "iOffice / UBND Bình Định") vốn đã đúng; Figma bị lệch mock data ở 1 dòng (hiện "Sở Nội vụ" — site của khách hàng khác), đã sửa lại Figma khớp đúng wireframe, không cần sửa nội dung file này.
 
 ---
@@ -90,8 +92,10 @@
 │ Nguồn [3]:                                                           │
 │   < Lỗi 403 khi ký số >     < Hướng dẫn ký số văn bản đi >           │
 │                                                                      │
+│ Câu trả lời có hữu ích không? [4] [ Hữu ích ] [ Không hữu ích ]      │
+│                                                                      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [4] [Nhập câu hỏi tiếp...________________________] [5] [ Gửi ]       │
+│ [5] [Nhập câu hỏi tiếp...________________________] [6] [ Gửi ]       │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -103,8 +107,9 @@
 | 1 | Câu hỏi của khách hàng | Chat bubble | ReadOnly | • Hiển thị nguyên văn câu đã gửi, căn phải; không sửa/xóa được sau khi gửi [GIẢ ĐỊNH]. |
 | 2 | Câu trả lời của AI | Chat bubble | ReadOnly | • AI tổng hợp từ các đoạn tài liệu tìm được trong phạm vi dịch vụ + site (RAG: chunk → lọc metadata → semantic search top-k → tổng hợp).<br>• Chỉ hiện khi **độ liên quan đạt ngưỡng tin cậy** do quản trị viên cấu hình; dưới ngưỡng → chuyển sang `ai-de-xuat-tao-ticket` thay vì trả lời liều.<br>• Trạng thái: đang soạn (hiệu ứng chờ) / đã trả lời. Thời gian chờ tối đa: chưa có nguồn.<br>• Câu trả lời do AI tạo, không có nhãn "phản hồi tự động" (nhãn đó chỉ dùng cho ticket ở luồng agent). |
 | 3 | Nguồn trích dẫn | Link list | Click | • Mỗi câu trả lời **kèm trích dẫn nguồn bài viết gốc** để khách hàng tự kiểm chứng; bấm tên bài → `kb-chi-tiet-bai-viet`.<br>• Chỉ trích bài khách hàng có quyền xem (cùng phạm vi dịch vụ + site).<br>• Số nguồn tối đa hiển thị: chưa có nguồn.<br>• Bài đã ẩn/hủy hoặc ngoài phạm vi (kể cả khi mở lại hội thoại cũ từ `ai-lich-su`) → `kb-bai-viet-khong-con`, không phân biệt hai trường hợp. |
-| 4 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `ai-khung-chat`; hỏi tiếp trong cùng phiên hội thoại. AI có nhớ ngữ cảnh các câu trước hay mỗi câu độc lập: đã chốt (OQ-13). |
-| 5 | Gửi | Button | Click | • Disabled khi [4] rỗng hoặc AI đang xử lý; gửi → thêm cặp hỏi-đáp mới vào khung, cuộn xuống cuối. |
+| 4 | Đánh giá câu trả lời | Button group | Click | • Dưới **mỗi** câu trả lời của AI có 2 nút "Hữu ích" / "Không hữu ích" (OQ-14); chọn → nút chuyển trạng thái đã chọn.<br>• Đổi ý được: chọn lại thì ghi đè đánh giá cũ.<br>• Kết quả lưu cùng câu trả lời, hiện ở panel chi tiết của nhật ký hội thoại AI (`cauhinh-nhat-ky-ai`) và đưa vào báo cáo chất lượng.<br>• Không hiện ở câu trả lời "không đủ tự tin" (`ai-de-xuat-tao-ticket`) vì đó không phải câu trả lời nội dung. |
+| 5 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `ai-khung-chat`; hỏi tiếp trong cùng phiên hội thoại. AI có nhớ ngữ cảnh các câu trước hay mỗi câu độc lập: đã chốt (OQ-13). |
+| 6 | Gửi | Button | Click | • Disabled khi [5] rỗng hoặc AI đang xử lý; gửi → thêm cặp hỏi-đáp mới vào khung, cuộn xuống cuối. |
 
 - Nội dung hỏi-đáp là dữ liệu mẫu chỉ minh họa; không phải câu trả lời thật.
 

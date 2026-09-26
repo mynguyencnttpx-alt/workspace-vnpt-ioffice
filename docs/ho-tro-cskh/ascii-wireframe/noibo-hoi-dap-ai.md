@@ -10,6 +10,8 @@
 >
 > **Rà soát đồng bộ Figma 23/09/2026:** đối chiếu với Hỏi đáp AI khách hàng (`hoi-dap-ai.md`) — xác nhận cấu trúc đồng nhất, khác biệt đúng như wireframe này đã vẽ: dropdown [1] "Dịch vụ" + [2] "Site" (thay cho pill "Phạm vi" cố định của khách hàng) cho phép nhân viên chọn đúng phạm vi bất kỳ khách hàng nào, vì nội bộ quản lý tất cả khách hàng (Site = tên đơn vị/khách hàng, theo quyền xem OQ-34). Không cần sửa nội dung file này.
 >
+> **Rà soát đồng bộ Figma 26/09/2026:** màn `noibo-ai-tra-loi` thiếu nút đánh giá "Hữu ích / Không hữu ích" (OQ-14); đã bổ sung mục [6] vào wireframe này, đánh dấu [GIẢ ĐỊNH] chờ khách hàng xác nhận áp cho nhân viên. Figma cần vẽ thêm cho khớp.
+>
 > **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
 
 ---
@@ -101,8 +103,10 @@
 │                                                                      │
 │ [4] [ Sao chép ]   [5] [ Chèn vào phản hồi ]                         │
 │                                                                      │
+│ Câu trả lời có hữu ích không? [6] [ Hữu ích ] [ Không hữu ích ]      │
+│                                                                      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [6] [Nhập câu hỏi tiếp...______________________] [7] [ Gửi ]         │
+│ [7] [Nhập câu hỏi tiếp...______________________] [8] [ Gửi ]         │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -116,8 +120,9 @@
 | 3 | Nguồn trích dẫn | Link list | Click | • Kèm trích dẫn nguồn bài viết gốc; bấm tên bài → **xem trước bài viết tại chỗ** (trạng thái phụ, chỉ đọc), không có màn Tra cứu cho nhân viên (OQ-35, OQ-39).<br>• Bài đã ẩn/hủy: báo "Bài không còn hiển thị". Chỉ trích bài trong phạm vi quyền xem của người hỏi. |
 | 4 | Sao chép | Button | Click | • Sao chép nội dung câu trả lời (kèm tên nguồn) để dùng ở nơi khác (đã chốt 23/09/2026 — có). |
 | 5 | Chèn vào phản hồi | Button | Click | • **Chỉ hiện khi hội thoại mở từ `agent-chi-tiet-ticket` và người dùng có quyền phản hồi công khai ticket đó**: đưa câu trả lời vào ô soạn phản hồi của ticket đó, agent xem/sửa rồi mới gửi — không tự gửi cho khách hàng. Hội thoại mở lại từ lịch sử nhưng không thuộc ticket hiện tại → ẩn nút. |
-| 6 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `noibo-ai-khung-chat`; hỏi tiếp trong cùng hội thoại. |
-| 7 | Gửi | Button | Click | • Disabled khi [6] rỗng hoặc AI đang xử lý; gửi → thêm cặp hỏi-đáp mới, cuộn xuống cuối. |
+| 6 | Đánh giá câu trả lời | Button group | Click | • 2 nút "Hữu ích" / "Không hữu ích" dưới mỗi câu trả lời của AI, cùng cách hoạt động như `ai-tra-loi` phía khách hàng (OQ-14): đổi ý được, chọn lại thì ghi đè.<br>• Kết quả vào nhật ký hội thoại AI (`cauhinh-nhat-ky-ai`, nhãn "Nội bộ") và báo cáo chất lượng [GIẢ ĐỊNH — OQ-14 nói chung "mỗi câu trả lời AI" nên áp cho cả nhân viên; chờ khách hàng xác nhận].<br>• Không hiện ở trạng thái phụ "không đủ tự tin". |
+| 7 | Ô nhập câu hỏi tiếp | Textbox (multi-line) | Text | • Như `noibo-ai-khung-chat`; hỏi tiếp trong cùng hội thoại. |
+| 8 | Gửi | Button | Click | • Disabled khi [7] rỗng hoặc AI đang xử lý; gửi → thêm cặp hỏi-đáp mới, cuộn xuống cuối. |
 
 - Nội dung hỏi-đáp là dữ liệu mẫu chỉ minh họa.
 

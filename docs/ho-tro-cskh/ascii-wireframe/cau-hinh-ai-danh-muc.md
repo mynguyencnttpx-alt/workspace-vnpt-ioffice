@@ -266,6 +266,7 @@
 │ 17/09 10:20 KH BĐ     Hỏi đáp  Ký số báo lỗi 403...     Trả lời      │
 │ 17/09 09:40 KH ABC    Hỏi đáp  Cách đối soát tệp ký...  Chuyển ticket│
 │ 17/09 09:15 Agent B   AI soạn  Gợi ý trả lời #T-0123    Đã dùng      │
+│ 17/09 08:50 Agent B   Nội bộ   Cách gán quyền ký...     Trả lời      │
 │                                                                      │
 │ Bấm 1 dòng để xem đầy đủ câu hỏi, câu trả lời và nguồn [6]           │
 │                                                                      │
@@ -278,12 +279,13 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Kỳ báo cáo | Dropdown | Select | • Chọn tháng theo dõi mức sử dụng: **số lượt gọi AI** và **chi phí ước tính** theo tháng (Đề xuất — Theo dõi mức sử dụng). Cách ước tính chi phí (đơn giá): đã chốt (OQ-22). |
 | 2 | Theo dịch vụ | Label | ReadOnly | • Tách lượt gọi/chi phí theo dịch vụ ("chi phí ước tính theo tháng/theo dịch vụ"). Theo site có cần không: chưa có nguồn. |
-| 3 | Lọc chế độ | Dropdown | Select | • Hỏi đáp AI (khách hàng) / AI hỗ trợ soạn (agent) / AI tự động phản hồi. |
+| 3 | Lọc chế độ | Dropdown | Select | • Tất cả / Hỏi đáp AI (khách hàng) / Hỏi đáp AI nội bộ (nhân viên, hiện nhãn "Nội bộ" ở cột Chế độ) / AI hỗ trợ soạn (agent) / AI tự động phản hồi / Thử nghiệm (OQ-22b). Khớp `NHAT_KY_AI.che_do` trong ERD. |
 | 4 | Lọc kết quả | Dropdown | Select | • Trả lời / Chuyển ticket (không đủ tự tin) / Lỗi / Đã dùng (agent dùng gợi ý). |
-| 5 | Bảng nhật ký | Table | Select | • Lưu **câu hỏi & câu trả lời AI đã đưa ra** cho cả khách hàng và agent, để Quản trị viên kiểm tra chất lượng, phát hiện trả lời sai (Đề xuất — Nhật ký hội thoại AI). Chỉ Quản trị viên xem; chỉ đọc.<br>• Chứa nội dung khách hàng gõ nên **không xuất/hiển thị ngoài phạm vi quản trị**; thời gian lưu giữ: OQ-22. Empty: "Chưa có hội thoại nào". |
-| 6 | Xem chi tiết hội thoại | Panel | ReadOnly | • Mở panel bên phải: câu hỏi, câu trả lời, nguồn trích dẫn, độ liên quan; quản trị viên dựa vào đó sửa bài KB hoặc chỉnh ngưỡng ở `cauhinh-tham-so-ai`. |
+| 5 | Bảng nhật ký | Table | Select | • Lưu **câu hỏi & câu trả lời AI đã đưa ra** cho cả khách hàng và agent, để Quản trị viên kiểm tra chất lượng, phát hiện trả lời sai (Đề xuất — Nhật ký hội thoại AI). Chỉ Quản trị viên xem; chỉ đọc.<br>• Chứa nội dung khách hàng gõ nên **không xuất/hiển thị ngoài phạm vi quản trị**; nhật ký giữ 12 tháng (OQ-22c), độc lập với lịch sử hội thoại của người dùng (xóa hội thoại không xóa nhật ký). Empty: "Chưa có hội thoại nào". |
+| 6 | Xem chi tiết hội thoại | Panel | ReadOnly | • Mở panel bên phải: câu hỏi, câu trả lời, nguồn trích dẫn, độ liên quan, và **đánh giá "Hữu ích / Không hữu ích"** của người hỏi (OQ-14) — chỉ hiện dòng này khi người dùng đã đánh giá, chưa đánh giá thì ẩn; quản trị viên dựa vào đó sửa bài KB hoặc chỉnh ngưỡng ở `cauhinh-tham-so-ai`. |
 
 - Dữ liệu và số liệu mẫu chỉ minh họa; chi phí ghi "d" (đồng) để không lệch cột.
+- Tên gọi (thống nhất 26/09/2026): mục menu ở thanh bên nội bộ (nhóm "Tri thức & AI", cạnh "Chỉ mục AI") ghi **"Nhật ký hội thoại AI"**; tiêu đề trang ghi **"Nhật ký hội thoại AI & chi phí"**. Cùng một màn, chỉ Quản trị viên thấy. Không dùng tên "Hội thoại AI" cho menu này để tránh nhầm với lịch sử hỏi đáp AI cá nhân của người dùng (`ai-lich-su`, `noibo-ai-lich-su`).
 
 #### Trạng thái phụ — xem chi tiết một dòng
 
