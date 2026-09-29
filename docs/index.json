@@ -17,5 +17,59 @@
     "last_updated": "2026-09-04",
     "jira_ticket": "IOFFICE-107467",
     "jira_url": "https://cntt.vnpt.vn/browse/IOFFICE-107467"
+  },
+  "Xóa thông tin nhận việc (Web)": {
+    "current_approved": "xoa-thong-tin-nhan-viec-web/SRS.md",
+    "status": "dev-ready",
+    "function_ids": [
+      "FC-001"
+    ],
+    "lineage": [
+      "xoa-thong-tin-nhan-viec-web"
+    ],
+    "last_updated": "2026-09-26",
+    "jira_ticket": null,
+    "jira_url": null
+  },
+  "Xóa thông tin nhận việc (Mobile)": {
+    "current_approved": "xoa-thong-tin-nhan-viec-mobile/SRS.md",
+    "status": "dev-ready",
+    "function_ids": [
+      "FC-001"
+    ],
+    "lineage": [
+      "xoa-thong-tin-nhan-viec-mobile"
+    ],
+    "last_updated": "2026-09-26",
+    "jira_ticket": null,
+    "jira_url": null
+  },
+  "Đôn đốc công việc (Web)": {
+    "current_approved": "don-doc-cong-viec-web/SRS.md",
+    "status": "dev-ready",
+    "function_ids": [
+      "FC-001",
+      "FC-002"
+    ],
+    "lineage": [
+      "don-doc-cong-viec-web"
+    ],
+    "last_updated": "2026-09-26",
+    "jira_ticket": null,
+    "jira_url": null
+  },
+  "Đôn đốc công việc (Mobile)": {
+    "current_approved": "don-doc-cong-viec-mobile/SRS.md",
+    "status": "dev-ready",
+    "function_ids": [
+      "FC-001",
+      "FC-002"
+    ],
+    "lineage": [
+      "don-doc-cong-viec-mobile"
+    ],
+    "last_updated": "2026-09-26",
+    "jira_ticket": null,
+    "jira_url": null
   }
 }

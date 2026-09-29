@@ -2,6 +2,7 @@
 
 > Cập nhật 2026-09-01: file này trước đây hướng dẫn cài Mermaid/PlantUML/D2/BPMN/DBML cho gói **11 skill vẽ sơ đồ** (`/sequence /activity /bpmn /erd ...`) — gói đó đã bị gỡ khỏi `.claude/skills/`, nội dung cũ không còn áp dụng. Nội dung dưới đây thay bằng đúng nhu cầu cài đặt của **9 skill đang có** (xem danh sách trong `START-HERE.md` / `HUONG-DAN-SU-DUNG-SKILL.md`).
 > Cập nhật 2026-09-18: thêm Mục 4 (`mmdc` cho `/user-flow`) và Mục 5 (MCP `reqwise-figma` cho `/figma`) sau khi copy lại 3 skill `user-flow`/`wireframe-ascii`/`figma`.
+> Cập nhật 2026-09-29: server `reqwise-figma` nâng cấp lên bản 1.0.1 — bộ tool tăng từ 5 lên **8 tool** (thêm `figma_diagram`, `figma_record`, `figma_design_system`). Mục 5 viết lại theo bộ tool mới + thêm hướng dẫn nâng cấp khi có bản mới.
 
 ## Có cần cài gì không?
 
@@ -65,14 +66,37 @@ Chưa cài `mmdc` → `/user-flow` vẫn ghi được `userflow.md`, nhưng bư�
 
 ## 5. `/figma` — MCP server `reqwise-figma` (cài + kết nối riêng, ngoài phạm vi Node/Python ở trên)
 
-`/figma` vẽ thẳng lên Figma qua MCP server tên `reqwise-figma` (5 tool: `figma_status`/`figma_read`/`figma_write`/`figma_rules`/`figma_docs`) — server này **không nằm trong workspace** và không cài được bằng `npm install`/`pip install` đơn giản như 2 mục trên. Cần:
+`/figma` vẽ thẳng lên Figma qua MCP server tên `reqwise-figma` — server này **không nằm trong workspace** và không cài được bằng `npm install`/`pip install` đơn giản như 2 mục trên. Từ bản **1.0.1** server có **8 tool**: `figma_status` / `figma_read` / `figma_write` / `figma_diagram` / `figma_rules` / `figma_docs` / `figma_record` / `figma_design_system` (bản 1.0.0 trước đó chỉ có 5 tool — thiếu `figma_diagram`, `figma_record`, `figma_design_system`).
+
+### Cài lần đầu
 
 1. Cài **Figma Desktop app** (không phải bản web) — tải tại [figma.com/downloads](https://figma.com/downloads).
-2. Có sẵn source code MCP server `reqwise-figma-mcp` (repo riêng, không nằm trong workspace này) — hỏi người quản lý bộ skill nếu chưa có, rồi cài/chạy theo hướng dẫn của repo đó (thường là 1 Node server chạy nền + 1 plugin import vào Figma Desktop qua menu Plugins → Development).
-3. Mở 1 file Figma → Plugins → Development → chạy plugin "Reqwise Figma MCP" → giữ plugin chạy suốt phiên làm việc.
-4. Trong Claude Code, MCP server `reqwise-figma` phải được đăng ký (thường qua `.mcp.json` hoặc `claude mcp add`) để tool `mcp__reqwise-figma__*` xuất hiện trong phiên.
+2. Có sẵn source code MCP server `reqwise-figma-mcp` (repo riêng, không nằm trong workspace này) — hỏi người quản lý bộ skill nếu chưa có. Build trong thư mục đó:
+   ```powershell
+   npm install
+   npm run build
+   ```
+   `npm install` tự chạy `npm run build` (script `prepare`) — sinh `dist/server/index.js` (server) + `plugin/code.js` (plugin).
+3. Đăng ký MCP server trong Claude Code — có lệnh `claude` trong PATH thì dùng:
+   ```powershell
+   claude mcp add reqwise-figma -s user -- node "<đường-dẫn-repo>\dist\server\index.js"
+   ```
+   Không có lệnh `claude` (vd chỉ dùng app desktop) → sửa trực tiếp mục `mcpServers.reqwise-figma` trong `%USERPROFILE%\.claude.json`, trỏ `args` vào đúng `dist\server\index.js` của bản đang dùng. Sao lưu file này trước khi sửa tay.
+4. Trong Figma Desktop: Plugins → Development → Import plugin from manifest… → chọn `plugin/manifest.json` trong repo đó. Mở 1 file Figma → Plugins → Development → chạy plugin "Reqwise Figma MCP" → giữ plugin chạy suốt phiên làm việc.
+5. Khởi động lại Claude Code/Desktop để nạp MCP config mới.
 
-Chưa hoàn tất cả 4 bước → gọi `/figma` sẽ dừng ngay ở Phase 0 (HARD GATE kết nối) và tự in lại đúng hướng dẫn kết nối này. `user-flow` và `wireframe-ascii` không phụ thuộc bước này, dùng được ngay.
+Chưa hoàn tất cả 5 bước → gọi `/figma` sẽ dừng ngay ở Phase 0 (HARD GATE kết nối) và tự in lại đúng hướng dẫn kết nối này. `user-flow` và `wireframe-ascii` không phụ thuộc bước này, dùng được ngay.
+
+### Nâng cấp lên bản mới (vd 1.0.0 → 1.0.1)
+
+Copy bản mới về thư mục riêng (không ghi đè bản cũ — dễ rollback), rồi lặp lại bước 2-5 ở trên cho thư mục mới: build lại, trỏ MCP config sang `dist/server/index.js` của thư mục mới, import lại plugin từ `manifest.json` mới, khởi động lại Claude.
+
+Kiểm tra đã nâng cấp đúng qua tool `figma_status`:
+- `serverVersion` = version bản mới.
+- `pluginBundleBuild` phải **khớp** `serverBuild` — lệch nhau nghĩa là quên import lại plugin (đang chạy code plugin cũ với server mới).
+- `pluginConnected: true`, `mode: leader` (hoặc `follower` nếu có nhiều cửa sổ IDE khác đang mở cùng lúc — bình thường).
+
+Nếu vẫn thấy bản cũ (ít tool hơn / version cũ) sau khi khởi động lại → có thể còn tiến trình `node` của server cũ giữ cổng, tắt hết tiến trình đó rồi mở lại Claude.
 
 ## Kiểm tra nhanh sau khi cài
 
