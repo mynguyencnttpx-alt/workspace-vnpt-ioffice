@@ -2,9 +2,10 @@
 type: screen-index
 feature: ho-tro-cskh
 status: draft
-updated: 2026-09-25
+updated: 2026-09-29
 links:
   - docs/ho-tro-cskh/srs/ho-tro-cskh-userflow.md
+  - docs/ho-tro-cskh/srs/ho-tro-cskh-userflow-portal.md
 ---
 
 # Hệ thống Hỗ trợ & Chăm sóc Khách hàng — Screens Index
@@ -87,12 +88,22 @@ links:
 | 71 | [vao-tu-site](dang-nhap-kich-hoat-kh.md#vao-tu-site) | dang-nhap-kich-hoat-kh | draft | UC59 | [71 · vao-tu-site (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9578) | — | — | 2026-09-24 |
 | 72 | [vao-tu-site-loi](dang-nhap-kich-hoat-kh.md#vao-tu-site-loi) | dang-nhap-kich-hoat-kh | draft | UC59 | [72 · vao-tu-site-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9521) | — | — | 2026-09-24 |
 | 73 | [qt-danh-muc-dia-ban](quan-tri-nguoi-dung.md#qt-danh-muc-dia-ban) | quan-tri-nguoi-dung | draft | UC1 | [73 · qt-danh-muc-dia-ban](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9256) | — | — | 2026-09-24 |
+| 74 | [portal-trang-chu](portal-gioi-thieu.md#portal-trang-chu) | portal-gioi-thieu | draft | — | [74 · portal-trang-chu (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3175) | — | — | 2026-09-29 |
+| 75 | [portal-giai-phap-qlvb](portal-gioi-thieu.md#portal-giai-phap-qlvb) | portal-gioi-thieu | draft | — | [75 · portal-giai-phap-qlvb (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3887) | — | — | 2026-09-29 |
+| 76 | [portal-giai-phap-luu-tru](portal-gioi-thieu.md#portal-giai-phap-luu-tru) | portal-gioi-thieu | draft | — | [76 · portal-giai-phap-luu-tru (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-4219) | — | — | 2026-09-29 |
+| 77 | [portal-bang-gia](portal-gioi-thieu.md#portal-bang-gia) | portal-gioi-thieu | draft | — | [77 · portal-bang-gia](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-1383) | — | — | 2026-09-28 |
+| 78 | [portal-lien-he](portal-lien-he.md#portal-lien-he) | portal-lien-he | draft | — | [78 · portal-lien-he (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-1522) | — | — | 2026-09-28 |
+| 79 | [portal-lien-he-thanh-cong](portal-lien-he.md#portal-lien-he-thanh-cong) | portal-lien-he | draft | — | [79 · portal-lien-he-thanh-cong](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-1749) | — | — | 2026-09-28 |
+| 80 | [tv-danh-sach-lien-he](quan-ly-lien-he-tu-van.md#tv-danh-sach-lien-he) | quan-ly-lien-he-tu-van | draft | — | [80 · tv-danh-sach-lien-he (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-1912) | — | — | 2026-09-28 |
+| 81 | [tv-chi-tiet-lien-he](quan-ly-lien-he-tu-van.md#tv-chi-tiet-lien-he) | quan-ly-lien-he-tu-van | draft | — | [81 · tv-chi-tiet-lien-he (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-2527) | — | — | 2026-09-28 |
 
 **Figma — cập nhật 24/09/2026 (gộp vai trò, 7 vai trò):** biến thể mới trong vùng "v1.1/v1.2" của trang Web: [22b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-8836) (hàng đợi Triển khai Line, nhiều tầng + bộ lọc Địa bàn), [24b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9831) (không có nhân viên phù hợp), [31b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10008) (tài khoản khách hàng vào từ site), [57b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10195) (2 site cùng dịch vụ), [57c](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10416) (Trung ương thiếu mã đơn vị), [71b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9635) (banner chưa gắn khách hàng). Các bản sao lưu tạm ([BACKUP]) đã xóa ngày 24/09/2026 sau khi rà xong.
 
 **Bố cục tiêu chí tìm kiếm — cập nhật 25/09/2026:** thanh lọc ở mọi màn danh sách (ticket, hàng đợi, cảnh báo SLA, danh mục khách hàng/site/địa bàn, tài khoản, nhật ký thao tác, chờ duyệt, nội dung đã xuất bản, thử nghiệm/nhật ký AI, báo cáo, chọn dịch vụ/site của Hỏi đáp AI nội bộ, kết quả tìm kiếm và danh mục lỗi của KB) xếp theo **lưới 4 cột cố định** thay vì nối tiếp theo độ dài trường: nhãn nằm trên ô nhập, các ô cùng chiều rộng (170px với màn có sidebar, 228px với màn khách hàng), quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột. Chip lọc nhanh (báo cáo tổng quan, trung tâm thông báo) giữ nguyên. Đã đồng bộ frame Figma và file wireframe ASCII của các màn tương ứng.
 
 **Ô "Site sử dụng" ở form khách hàng — cập nhật 25/09/2026:** không còn bày sẵn cả danh mục site. Mặc định chỉ hiện các site đã chọn (mỗi dịch vụ tối đa 1 site nên luôn ngắn), mỗi site 1 dòng kèm ô Mã đơn vị; thêm site qua ô "Tìm và thêm site…" mở khung gợi ý nhóm theo dịch vụ, tối đa ~6 dòng rồi cuộn, site cùng dịch vụ với site đã chọn bị làm mờ. Áp dụng cho [57](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=29-18610), [57b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10195), [57c](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-10416), [57d — mở khung gợi ý (mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=185-1120) và modal Sửa thông tin đơn vị [28b](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=105-1613). Khung cũ 53:5807 (57b trước v1.1) đã lỗi thời, chờ xóa.
+
+**Portal công khai và quản lý liên hệ tư vấn — cập nhật 28-29/09/2026:** thêm 8 màn [74]-[81] thuộc 3 flow mới (`portal-gioi-thieu`, `portal-lien-he`, `quan-ly-lien-he-tu-van`) theo `srs/ho-tro-cskh-userflow-portal.md` (file bổ sung, chưa gộp vào `ho-tro-cskh-userflow.md`). Đã vẽ Figma 29/09/2026 (nhóm 17-18 trang Web): [74] và 2 trang giải pháp [75]/[76] vẽ lại theo phong cách sáng, nhiều hình/màu (tham khảo smartca.vnpt.vn) — [74] có khối "Về VNPT" (ảnh trụ sở, CC BY-SA 4.0, Wikimedia) + "Khách hàng tiêu biểu" (8 ô, logo do khách hàng cung cấp: Vietnam Airlines, ACV, Agribank, Vinacomin, VNR, DIV; Bộ KH&CN dùng huy hiệu Public domain; UBND tỉnh/TP chưa có logo cụ thể); [75] có khối "Tích hợp AI" đặt ngay sau Hero, huy hiệu đỏ-cam "TÍNH NĂNG MỚI" nổi bật + minh hoạ chatbot; [77]-[81] chỉ đổi header/footer cho đồng bộ. Chưa gắn UC. Chưa cập nhật menu nội bộ (mục "Tư vấn"), [34] (loại hành động mới), [58] (quyền "Xem và xử lý đề nghị tư vấn") và biến thể [61] khách chưa đăng nhập ở `thong-bao-loi-chung.md`. Bản ASCII (`portal-gioi-thieu.md`) và mô tả màn [74]-[76] trong `srs/ho-tro-cskh-userflow-portal.md` chưa cập nhật theo giao diện Figma mới.
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
 
@@ -330,3 +341,27 @@ Tab mới của Quản trị người dùng: Quản trị viên quản lý đị
 
 ### noibo-ai-lich-su
 Nhân viên xem, tìm, mở lại và xóa lịch sử hỏi đáp AI của chính mình; Quản trị viên không xem lịch sử cá nhân của người khác.
+
+### portal-trang-chu
+Trang chủ công khai của portal Line Văn phòng số (chưa đăng nhập): giới thiệu tổng quan dịch vụ, 2 giải pháp, bảng giá, liên hệ tư vấn và đăng nhập; người đã có phiên thấy nút "Vào khu vực của tôi"; địa chỉ gốc của hệ thống mở màn này (mới 28/09/2026).
+
+### portal-giai-phap-qlvb
+Giới thiệu chi tiết Hệ thống Quản lý văn bản và điều hành: tổng quan, tính năng nổi bật, lợi ích; nút Liên hệ tư vấn chọn sẵn giải pháp này (mới 28/09/2026).
+
+### portal-giai-phap-luu-tru
+Giới thiệu chi tiết Hệ thống Lưu trữ điện tử: tổng quan, tính năng nổi bật, lợi ích; nút Liên hệ tư vấn chọn sẵn giải pháp này (mới 28/09/2026).
+
+### portal-bang-gia
+Bảng giá các giải pháp trên một trang, chia khối theo giải pháp; nút Liên hệ tư vấn ở từng khối chọn sẵn giải pháp tương ứng; số liệu giá chờ Line cung cấp (mới 28/09/2026).
+
+### portal-lien-he
+Khách chưa đăng nhập gửi thông tin đề nghị tư vấn: họ tên, email, số điện thoại, địa bàn (34 tỉnh/TP và "Bộ, ban, ngành"), giải pháp quan tâm, nội dung quan tâm; không gửi email, không chống spam (mới 28/09/2026).
+
+### portal-lien-he-thanh-cong
+Xác nhận đã nhận đề nghị, ghi "Line sẽ liên hệ lại trong khoảng 3 ngày làm việc"; Back/F5 không gửi lại (mới 28/09/2026).
+
+### tv-danh-sach-lien-he
+Nhân viên (Quản trị viên, Triển khai của Line toàn bộ; Agent tỉnh theo địa bàn) xem danh sách khách hàng đề nghị tư vấn, lọc theo trạng thái, giải pháp, địa bàn, người tư vấn (mới 28/09/2026).
+
+### tv-chi-tiet-lien-he
+Xem thông tin khách nhập (chỉ đọc), chọn người tư vấn, đánh dấu Đã tư vấn hoặc đưa về Chưa tư vấn (xác nhận, ghi nhật ký); mỗi khách một người tư vấn (mới 28/09/2026).

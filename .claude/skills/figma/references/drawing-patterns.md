@@ -323,13 +323,27 @@ await figma.modify(clonedBtnId, { /* fills disabled, characters "Đang xử lý.
 
 ## Prototyping — nối frame clickable
 
-⚠️ **reqwise-figma MCP hiện CHƯA có op prototype/reaction.** Danh sách write op thật (`plugin/code.js`, xác minh bằng grep khi nghi ngờ): create/modify/delete/clone/move/resize/group/ungroup/flatten/batch/find_component/find_or_create_component/instantiate/create_variants/arrange_component_set/set_component_description/componentize/setup_tokens/apply_variable/create_variable/update_variable/rename_variable/delete_variable/import_tokens/set_text/load_icon/load_image/create_page/set_current_page/create_overlay/set_selection/zoom_to_fit/get_instance_overrides/set_instance_overrides/detach_instance/reset_instance_overrides/set_selection_colors/set_gradient/set_effects. **KHÔNG có `set_reactions`/`setReactions`** — đó là API tưởng tượng từ figma-ui-mcp cũ.
+`figma.setReactions` **có sẵn** trong reqwise MCP (đã xác minh có trong bản 1.0.0 và 1.0.1). Nó **thay thế** toàn bộ reaction của node (không cộng dồn); `[]` là xoá. `destinationId` phải là node có thật (thường frame top-level) — id/trigger/navigation sai sẽ throw `INVALID_PARAMS` chứ không im lặng bỏ qua.
 
-→ Muốn bản Figma bấm-chạy-được thì **KHÔNG hứa với user rồi mới phát hiện không làm được**. 2 lối:
-- Chuyển sang `/prototype-html {feature}` (HTML prototype clickable thật, chạy như app).
-- Hoặc thêm op `set_reactions` vào MCP reqwise trước (repo reqwise-figma-mcp trên máy cài MCP) rồi mới nối — đây là việc mở rộng MCP, không phải chạy được ngay trong skill.
+```js
+// Nút Đăng nhập → màn Dashboard (Smart Animate mặc định; transition: null = tức thì)
+await figma.setReactions(loginBtn.id, [{
+  trigger: { type: "ON_CLICK" },
+  action: { type: "NODE", navigation: "NAVIGATE", destinationId: dashboardFrame.id,
+            transition: { type: "SMART_ANIMATE", easing: { type: "EASE_IN_AND_OUT" }, duration: 0.3 } },
+}]);
+// Đóng dialog/overlay từ nút Huỷ
+await figma.setReactions(cancelBtn.id, [{ trigger: { type: "ON_CLICK" }, action: { type: "CLOSE" } }]);
+```
 
-> Quy tắc chung: TRƯỚC khi hứa 1 khả năng (prototype, attachment, transition...), **kiểm op có thật trong `plugin/code.js`/`figma_docs(section:"api")`** — capability discovery, đừng bám recipe cũ.
+**Nút bắt đầu flow** (tab Prototype → *Flow starting point*, thứ Present chạy) — không còn phải nhờ user bấm tay:
+* `figma.setFlowStartingPoints([{ nodeId: frame.id, name: "Đăng nhập" }])` — `nodeId` phải là frame top-level (trên page hoặc trong section); frame đã là điểm bắt đầu thì đổi tên, không thêm trùng; `{ replace: true }` để danh sách đúng bằng đây.
+* `figma.setFlowStartingPoints({ fromUserflow: true, dryRun: true })` — suy điểm bắt đầu từ userflow đã vẽ bằng `figma_diagram`; `dryRun` chỉ lập kế hoạch.
+* `figma.getFlowStartingPoints()` đọc danh sách, `figma.renameFlow(tênHoặcFrameId, tênMới)` đổi tên flow.
+
+Chỉ nối prototype khi user yêu cầu; muốn app chạy như thật (form, validate, state) vẫn route `/prototype-html {feature}`.
+
+> Quy tắc chung: TRƯỚC khi hứa 1 khả năng khác (attachment, transition...), **kiểm `figma_docs(section:"api")`** — capability discovery, đừng bám recipe cũ. Đừng tin danh sách op cố định trong tài liệu này; MCP thêm op theo từng bản.
 
 ## Component reuse (chế độ Đầy đủ — bắt buộc trước mỗi element lặp)
 

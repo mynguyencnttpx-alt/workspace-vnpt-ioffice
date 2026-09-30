@@ -66,6 +66,7 @@ Chưa cài `mmdc` → `/user-flow` vẫn ghi được `userflow.md`, nhưng bư�
 
 ## 5. `/figma` — MCP server `reqwise-figma` (cài + kết nối riêng, ngoài phạm vi Node/Python ở trên)
 
+<<<<<<< Updated upstream
 `/figma` vẽ thẳng lên Figma qua MCP server tên `reqwise-figma` — server này **không nằm trong workspace** và không cài được bằng `npm install`/`pip install` đơn giản như 2 mục trên. Từ bản **1.0.1** server có **8 tool**: `figma_status` / `figma_read` / `figma_write` / `figma_diagram` / `figma_rules` / `figma_docs` / `figma_record` / `figma_design_system` (bản 1.0.0 trước đó chỉ có 5 tool — thiếu `figma_diagram`, `figma_record`, `figma_design_system`).
 
 ### Cài lần đầu
@@ -84,6 +85,14 @@ Chưa cài `mmdc` → `/user-flow` vẫn ghi được `userflow.md`, nhưng bư�
    Không có lệnh `claude` (vd chỉ dùng app desktop) → sửa trực tiếp mục `mcpServers.reqwise-figma` trong `%USERPROFILE%\.claude.json`, trỏ `args` vào đúng `dist\server\index.js` của bản đang dùng. Sao lưu file này trước khi sửa tay.
 4. Trong Figma Desktop: Plugins → Development → Import plugin from manifest… → chọn `plugin/manifest.json` trong repo đó. Mở 1 file Figma → Plugins → Development → chạy plugin "Reqwise Figma MCP" → giữ plugin chạy suốt phiên làm việc.
 5. Khởi động lại Claude Code/Desktop để nạp MCP config mới.
+=======
+`/figma` vẽ thẳng lên Figma qua MCP server tên `reqwise-figma` (8 tool từ bản 1.0.x: `figma_status`/`figma_read`/`figma_write`/`figma_rules`/`figma_docs` + `figma_diagram`/`figma_record`/`figma_design_system`; skill `/figma` chỉ dùng 5 tool đầu) — server này **không nằm trong workspace** và không cài được bằng `npm install`/`pip install` đơn giản như 2 mục trên. Cần:
+
+1. Cài **Figma Desktop app** (không phải bản web) — tải tại [figma.com/downloads](https://figma.com/downloads).
+2. Có sẵn source code MCP server `reqwise-figma-mcp` (repo riêng, không nằm trong workspace này) — hỏi người quản lý bộ skill nếu chưa có. Trên máy này bản đang dùng là `D:\Skill_AI\reqwise-figma-mcp-1.0.1` — cài + build 1 lần bằng `npm install && npm run build` (tạo `dist/server/index.js` và `plugin/code.js`), rồi import plugin vào Figma Desktop qua Plugins → Development → Import plugin from manifest… → chọn `plugin\manifest.json` của thư mục đó.
+3. Mở 1 file Figma → Plugins → Development → chạy plugin "Reqwise Figma MCP" → giữ plugin chạy suốt phiên làm việc.
+4. Trong Claude Code, MCP server `reqwise-figma` phải được đăng ký (máy này: `C:\Users\ADMIN\.claude.json`, scope user, chạy `node D:\Skill_AI\reqwise-figma-mcp-1.0.1\dist\server\index.js` — gọi `node` trực tiếp, không dùng `reqwise-mcp.sh` trên Windows; khi nâng bản thì đổi đường dẫn này và import lại plugin) để tool `mcp__reqwise-figma__*` xuất hiện trong phiên.
+>>>>>>> Stashed changes
 
 Chưa hoàn tất cả 5 bước → gọi `/figma` sẽ dừng ngay ở Phase 0 (HARD GATE kết nối) và tự in lại đúng hướng dẫn kết nối này. `user-flow` và `wireframe-ascii` không phụ thuộc bước này, dùng được ngay.
 

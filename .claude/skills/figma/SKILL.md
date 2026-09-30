@@ -12,7 +12,7 @@ argument-hint: "<feature> [<screen-slug> | --screens screen1,screen2]"
 
 > Vẽ thật lên Figma qua __reqwise-figma MCP__. Đọc `design.md` + `ascii-wireframe` (+ `html-wireframe` nếu có) → output frames đúng tokens/layout/iconography. Hỏi user muốn vẽ nhanh 1 vài màn hay vẽ đầy đủ cả feature (kèm state/error variant) — không cần nhớ flag.
 >
-> __Tool surface là superset của figma-ui-mcp__ — vẫn 5 tool cùng tên (`figma_status`/`figma_read`/`figma_write`/`figma_rules`/`figma_docs`), vẫn model chạy JS trên `figma.*` proxy. Khác biệt tận dụng: **`state` persist qua các call** (setup token 1 lần), **`layout_audit`__ (verify bằng dữ liệu thay vì đoán qua screenshot), __`figma.overlay()`** (scrim đúng lớp), __full modern ES__ (dùng `?.`/`??`/spread thoải mái), __batch không cap cứng__, **`inset`/`align`/`insertAt`__ (khỏi tự tính x/y), __`findOrCreateComponent`/`clone` có childMap**.
+> __Tool surface là superset của figma-ui-mcp__ — vẫn 5 tool cùng tên (`figma_status`/`figma_read`/`figma_write`/`figma_rules`/`figma_docs`) — bản MCP hiện tại (1.0.1) còn thêm `figma_diagram`/`figma_record`/`figma_design_system` nhưng skill này chỉ cần 5 tool đầu (vẽ sơ đồ dùng các skill `figma-*` riêng), vẫn model chạy JS trên `figma.*` proxy. Khác biệt tận dụng: **`state` persist qua các call** (setup token 1 lần), **`layout_audit`__ (verify bằng dữ liệu thay vì đoán qua screenshot), __`figma.overlay()`** (scrim đúng lớp), __full modern ES__ (dùng `?.`/`??`/spread thoải mái), __batch không cap cứng__, **`inset`/`align`/`insertAt`__ (khỏi tự tính x/y), __`findOrCreateComponent`/`clone` có childMap**.
 
 ## Goal‍​‌‌‌‌‌​​‌​​​‌​​‌‌​​‌​‌‌‌‌‌​‌​​‌​​‌​‌‌​​‌​​‌​‌​‌‌​​​‌​‌‌​‌‌‌‌‌​​‌​​‌​​​‌​​‌​‌‌‌‌​​‌‌​‌​‌​‌‌‌‌​‌‌​‌‌‌​​‌‌​‌‌​‌‌​​‌‌‌​​‌‌‌‌‌​​‌​‌​‌‍
 
@@ -27,7 +27,7 @@ Convert ASCII wireframe spec thành Figma frames hoàn chỉnh với đúng desi
 
 ### Hard rules — never violate‍​‌‌‌‌‌​​‌​​​‌​​‌‌​​‌​‌‌‌‌‌​‌​​‌​​‌​‌‌​​‌​​‌​‌​‌‌​​​‌​‌‌​‌‌‌‌‌​​‌​​‌​​​‌​​‌​‌‌‌‌​​‌‌​‌​‌​‌‌‌‌​‌‌​‌‌‌​​‌‌​‌‌​‌‌​​‌‌‌​​‌‌‌‌‌​​‌​‌​‌‍
 
-* __HARD GATE kết nối__: phải xác nhận đường ghi tới Figma thông trước khi làm bất kỳ việc gì khác (xem Phase 0). Lưu ý `figma_status.pluginConnected` CHỈ đáng tin khi `mode: "leader"` — ở `mode: "follower"` nó luôn `false` bất kể plugin có chạy hay không (xem Phase 0 bước 3). KHÔNG tự ý thử workaround khác.
+* __HARD GATE kết nối__: phải xác nhận đường ghi tới Figma thông trước khi làm bất kỳ việc gì khác (xem Phase 0). Đọc `statusSource` trước `pluginConnected`: `local`/`leader` = số đo thật; `unknown` (kèm `pluginConnected: null`) = không hỏi được leader, KHÔNG phải mất kết nối (xem Phase 0 bước 3). KHÔNG tự ý thử workaround khác.
 * **Feature chưa tồn tại HOẶC chưa có `ascii-wireframe/` nào → REFUSE + route `/user-flow` + `/wireframe-ascii`** (per `feature-bootstrap.md` nhóm B) — không có ASCII screen thật thì không có gì để vẽ, tự bịa layout sẽ sai. KHÔNG tự tạo feature. Chi tiết + wording refuse: Phase 1 bước 1.
 * __HARD GATE ASCII__: mỗi screen định vẽ phải có block ASCII thật — thiếu thì skip screen đó + warn (chi tiết Phase 1 bước 4).
 * __HARD GATE DEVICE__: phải chốt device size với user trước khi vẽ (per `ba-conventions.md` Mục 7) — KHÔNG tự suy rồi vẽ luôn. Frame size + mọi toạ độ element dẫn xuất từ device này, KHÔNG hardcode 390.
@@ -50,7 +50,7 @@ Convert ASCII wireframe spec thành Figma frames hoàn chỉnh với đúng desi
 
 * **Critical Bugs to Avoid trong `references/drawing-patterns.md`** — đọc trước khi vẽ, đừng lặp lại lỗi cũ (absolute x/y trong screen, quên applyVariable, modal tràn, overlay che content, counterAxis STRETCH throw, icon sai tên...).
 * __2 lỗi nặng nhất hay mắc__: (1) đặt con bằng `x/y` trong screen thay vì auto-layout STRETCH → vỡ layout; (2) dừng ở `create(hex)` không `applyVariable` → màu hardcode, rebrand chết. Sequence Phase 5 bước F+G ép làm đúng.
-* **`pluginConnected: false` ở `mode: "follower"` là BÁO SAI, không phải lỗi kết nối** — hằng số cứng trong `diagnostics()` (`src/server/index.ts`), không đo gì cả. Triệu chứng nhận ra ngay: `lastHeartbeatMs: -1` + `channels: []` + `sessions: []` cùng lúc, và __không đổi sau khi user restart plugin__. Đối chiếu bằng `lsof -nP -iTCP:38470` (thấy Figma ESTABLISHED = đã nối) rồi probe ghi-xoá. Đừng bắt user bật plugin ba lần như bug này từng gây ra.
+* **`pluginConnected: null` + `statusSource: "unknown"` là "chưa biết", KHÔNG phải mất kết nối** — process này là follower và không hỏi được leader (leader bận/đang khởi động lại). Bản MCP cũ từng trả hằng số `false` ở follower nên bắt user bật plugin nhiều lần; từ 1.0.0 follower đọc trạng thái thật của leader qua `/rpc` (`statusSource: "leader"`), nhưng nếu gặp `lastHeartbeatMs: -1` + `channels: []` + `sessions: []` không đổi sau khi restart plugin thì vẫn nghi bản MCP cũ. Đừng bảo user cài lại plugin — gọi lại `figma_status` cách vài giây, hoặc probe ghi-xoá.
 * **Xoá node là `figma.delete(id)`** — proxy KHÔNG có `node.remove()` (official Plugin API mới có). `getNode()` trả snapshot phẳng, không phải live node: sửa qua `modify()`, đừng gán thuộc tính trực tiếp.
 * **`figma_docs` + `figma_rules` là nguồn sự thật cuối** — `drawing-patterns.md` là bản rút gọn map sang token/device vault. Nghi ngờ API (tên method, param, op enum) → load lại `figma_docs` section tương ứng, đừng đoán. reqwise cũng dạy qua lỗi: mọi error là `{code, message, hint}`, đọc `hint` — nó nói bước tiếp theo.
 * __Full modern ES — KHÔNG còn workaround sandbox cũ__: dùng `?.`/`??`/spread/destructuring/async-await thoải mái (reqwise chạy Node `vm`). Chỉ cấm `require`/`process`/`fetch`/`setTimeout`/`eval`. Đừng bê nguyên các "né optional-chaining" của figma-ui-mcp.
@@ -87,9 +87,9 @@ design.md: !`test -f docs/design.md && echo "EXISTS" || echo "MISSING"`
 
 1) Gọi `figma_status`. Đọc **`mode`** TRƯỚC `pluginConnected` — `mode` quyết định con số kia có nghĩa hay không.
 2) `mode: "leader"` + `pluginConnected: true` → tiếp Phase 1.
-3) `mode: "follower"` → **`pluginConnected`/`lastHeartbeatMs`/`channels`/`sessions` VÔ NGHĨA, KHÔNG được dùng làm căn cứ.** Nhánh follower của MCP trả hằng số cứng (`pluginConnected: false`, `lastHeartbeatMs: -1`, mảng rỗng) chứ không hỏi leader — xem `src/server/index.ts` hàm `diagnostics()`, comment *"Follower: it does not hold plugin state"*. Plugin vẫn có thể đang chạy và ghi được bình thường; follower có `forward()` đẩy op qua `/rpc` tới leader.
-
-   **KHÔNG bắt user đi bật/restart plugin dựa trên `pluginConnected: false` ở mode này** — đó là đuổi theo triệu chứng giả, user bật lại bao nhiêu lần status vẫn `false`. Thay vào đó __probe đường ghi__ (hỏi user trước vì có đụng file Figma):
+3) `mode: "follower"` (thường do mở 2 cửa sổ IDE — bình thường): follower đọc trạng thái THẬT của leader qua `/rpc` và ghi vào `statusSource`.
+   * `statusSource: "leader"` → tin `pluginConnected` như ở mode leader.
+   * `statusSource: "unknown"` (kèm `pluginConnected: null`, có `statusError`) → **chưa biết, không phải mất kết nối.** KHÔNG bắt user bật/restart/cài lại plugin. Gọi lại `figma_status` cách vài giây (leader có thể đang bận hoặc bầu lại); vẫn `unknown` thì __probe đường ghi__ (hỏi user trước vì có đụng file Figma):
    ```js
    // 1) ghi thử
    const probe = await figma.create({ type: "FRAME", name: "__reqwise-probe", width: 100, height: 100 });
@@ -205,7 +205,7 @@ I. [Chế độ Đầy đủ] Note box error-grouping nếu áp dụng
 J. layout_audit(frame.id) → đọc summary.issues, fix trước khi sang frame kế (screenshot chỉ cho user xem cuối)
 ```
 
-__[Prototype clickable — CHƯA hỗ trợ trong reqwise MCP]:__ reqwise-figma **KHÔNG có op `set_reactions`/prototype** (danh sách op thật + lối thay thế: `references/drawing-patterns.md` § Prototyping). KHÔNG hứa "nối Figma bấm-chạy-được" rồi mới phát hiện bất khả thi — muốn prototype thật thì route `/prototype-html {feature}` (HTML chạy như app), hoặc mở rộng MCP thêm op trước. TRƯỚC khi hứa 1 khả năng, kiểm op có thật trong `plugin/code.js`/`figma_docs(section:"api")`.
+__[Prototype clickable — CÓ hỗ trợ từ reqwise MCP 1.0.0]:__ `figma.setReactions(nodeId, reactions)` nối click → điều hướng, `figma.setFlowStartingPoints(...)` đặt nút bắt đầu flow (cú pháp + lưu ý: `references/drawing-patterns.md` § Prototyping). Chỉ nối khi user yêu cầu prototype Figma; muốn app chạy như thật thì vẫn route `/prototype-html {feature}`. TRƯỚC khi hứa 1 khả năng khác, kiểm `figma_docs(section:"api")`.
 
 Xem `references/drawing-patterns.md` cho: 2 nguyên tắc bất di bất dịch (auto-layout + token-first), batch, token/textStyle setup, screen frame, mọi element pattern (input/button/divider/modal/banner/icon-circle/OAuth), layer order, sandbox rules, state-variant, error-grouping note box, component reuse + property binding, prototyping, icon names, grid convention, và bảng bug + cách fix.
 
@@ -239,7 +239,7 @@ Update `docs/{feature}/ascii-wireframe/{feature}-wireframe-index.md` cột Figma
 Figma page: "{page name}" trong file "{file name}"
 Khung: {device} {frameW}×{frameH} — {N_flows} flows, {N_screens} screens tổng
    [Đầy đủ] Component reused: {list tên component đã instantiate thay vì vẽ lại}
-   (prototype clickable: reqwise chưa hỗ trợ — route /prototype-html nếu user muốn app chạy được)
+   (prototype clickable trên Figma: nối bằng setReactions nếu user yêu cầu — /prototype-html nếu user muốn app chạy được)
 
 Recommended next:
   - /prototype-html {feature}   — build clickable HTML prototype
