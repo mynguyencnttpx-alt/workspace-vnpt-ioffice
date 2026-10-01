@@ -4,6 +4,10 @@
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
+> **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket" ở sidebar nội bộ có huy hiệu ĐỎ số ticket chưa đóng — vẽ "(12)" ở mọi wireframe header nội bộ. Đếm theo phạm vi MẶC ĐỊNH của Bảng tiếp nhận (Triển khai của Line: tầng Triển khai Line; Agent helpdesk/Triển khai: trong phạm vi phụ trách; Agent tỉnh: phạm vi được xem; Quản trị viên: tất cả) `[GIẢ ĐỊNH — không phải chỉ ticket gán cho riêng tôi]`. Số chỉ mang tính minh họa.
+>
+> **Cập nhật 01/10/2026 (luồng chuyền lượt):** màn Xử lý ticket **bỏ dropdown Trạng thái**; thay bằng thanh tiến trình [15] + khối "lượt" [16] + nút (đặt trên thanh trên cùng, dính khi cuộn, cùng hàng "Chuyển OneBSS") "Tiếp nhận" [17] / "Chuyển cho khách hàng" [18] / "Đóng ticket" [19]; gửi phản hồi không đổi trạng thái, khách hàng chỉ được báo khi bấm [18]; bỏ trạng thái "Chờ khách hàng xác nhận". Xem `xu-ly-ticket-agent/SRS.md` v1.2.
+>
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** ticket "Đã đóng" KHÔNG mở lại được trong mọi trường hợp — cả khách hàng và agent (đồng bộ với `gui-theo-doi-ticket.md`); bấm dòng ở Cảnh báo SLA mở thẳng màn Xử lý ticket; job cảnh báo SLA chỉ tính ticket còn đang mở tại thời điểm quét.
 >
 > **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn, khách hàng xác nhận):** hàng đợi theo **tầng tiếp nhận** (Tỉnh X / Helpdesk công ty / Triển khai Line) + phạm vi phụ trách, thay "team"; **bỏ Chuyển cấp** ở màn Phân công; **bỏ màn Xác nhận tạo phiếu OneBSS** (gửi thẳng, chỉ ticket tầng Tỉnh/Helpdesk; tầng Triển khai Line chuyển Jira ở giai đoạn sau); thêm vai trò Agent helpdesk; "Hỗ trợ trung tâm" và "Hỗ trợ dịch vụ" gộp thành Triển khai của Line (24/09/2026); Triển khai của Line xử lý đầy đủ ticket mọi tầng; ghi chú nội bộ không phát sinh thông báo. Nguồn: `SRS/xu-ly-ticket-agent/SRS.md` v1.1.
@@ -18,7 +22,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Hàng đợi - Tầng [v: Triển khai Line] [1]    [2] [ ! 3 cảnh báo SLA ] │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -45,7 +49,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Tầng đang xem | Label / Dropdown | Select | • Agent tỉnh, Agent helpdesk: nhãn cố định tầng của mình (vd "Tỉnh Bình Định", "Helpdesk công ty"), không đổi.<br>• Triển khai của Line, Quản trị viên: dropdown "Tất cả tầng" / từng tầng; mặc định Triển khai của Line → tầng Triển khai của Line và Quản trị viên → Tất cả tầng. Xem "Tất cả tầng" thì bảng thêm cột **Tầng**.<br>• Tầng của ticket ghi cố định lúc tạo theo Địa bàn + Hình thức hỗ trợ của khách hàng (`quan-tri-nguoi-dung` Chức năng 1 BR-01); đổi định tuyến sau chỉ ảnh hưởng ticket mới. Hình vẽ ở góc nhìn Triển khai của Line. |
 | 2 | Cảnh báo SLA | Button (badge) | Click | • Hiện số ticket sắp/đã quá hạn SLA trong phạm vi xem của người dùng; bấm → `agent-canh-bao-sla`. Ẩn khi không có cảnh báo [GIẢ ĐỊNH]. |
-| 3 | Bộ lọc trạng thái / ưu tiên / dịch vụ | Dropdown | Select | • Trạng thái: Mới / Đang xử lý / Chờ khách hàng / Chờ khách hàng xác nhận / Đã đóng. Ưu tiên: Khẩn cấp / Cao / Bình thường. Dịch vụ: iOffice/iStorage… Kết hợp được nhiều bộ lọc; đổi giá trị → lọc lại ngay. |
+| 3 | Bộ lọc trạng thái / ưu tiên / dịch vụ | Dropdown | Select | • Trạng thái: Mới / Đang xử lý / Chờ khách hàng / Đã đóng. Ưu tiên: Khẩn cấp / Cao / Bình thường. Dịch vụ: iOffice/iStorage… Kết hợp được nhiều bộ lọc; đổi giá trị → lọc lại ngay. |
 | 4 | Lọc khách hàng + AI đã tự trả lời | Textbox + Checkbox | Text / Check | • Ô khách hàng: tìm theo tên đơn vị/site. Checkbox **"Chỉ ticket AI đã tự trả lời"** lọc các ticket AI đã gửi phản hồi tự động (UC36) để agent review/can thiệp — chỉ có ý nghĩa khi chế độ AI tự động phản hồi được bật (`cauhinh-tham-so-ai`). |
 | 5 | Bảng ticket | Table | Select | • Cột: Mã, Khách hàng, Vấn đề, Ưu tiên, Trạng thái, SLA (Còn …/Sắp hết/Quá hạn). Bấm 1 dòng → `agent-chi-tiet-ticket` (nhận xử lý). Đuôi "(AI)" = đã được AI tự trả lời.<br>• Sắp xếp mặc định: ưu tiên/hạn SLA gần nhất trước [GIẢ ĐỊNH].<br>• Ticket mới do định tuyến tự động; quá hạn SLA **chỉ cảnh báo, không tự động phân công lại** (MVP).<br>• Empty: "Không có ticket nào phù hợp". |
 | 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
@@ -63,26 +67,27 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [1] < Về hàng đợi >                                                  │
+│ [1] < Về hàng đợi > [17][Tiếp nhận][18][Chuyển cho KH ->][19][Đóng]  │
+│                      [7][Chuyển OneBSS] [14][Tạo FAQ từ ticket này]  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ #T-0123  Không ký số được  [Khẩn cấp] [2] Trạng thái [v: Đang xử lý] │
+│ #T-0123  Không ký số được  [Khẩn cấp] [2] Trạng thái: Đang xử lý     │
 │ Khách hàng: UBND Q.1 | Tầng: Tỉnh BĐ | iOffice | Loại: Lỗi ký số     │
-│ Người xử lý: Trần Thị B [3] [ Phân công ]          SLA: còn 3h [4]   │
+│ Người xử lý: Trần Thị B [3][Phân công]  OneBSS: chưa có  SLA [4]     │
 │ [5] Đã trả lời tự động bởi AI - cần review      [ Can thiệp ]        │
+│ [15] (Mới) -> [Đang xử lý] <=> (Chờ khách hàng) -> (Đã đóng)         │
+│ [16] Lượt của đội hỗ trợ: gửi phản hồi rồi chuyển cho khách hàng.    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Trao đổi [6]                                                         │
 │ 17/09 08:02  KH: Ký số báo lỗi 403 khi ký văn bản đi.                │
 │ 17/09 08:03  AI (tự động): Bạn kiểm tra vai trò ký của tài khoản...  │
 │ 17/09 09:20  [Ghi chú nội bộ] Đã kiểm tra, cần cấp lại quyền ký.     │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Phiếu OneBSS: chưa có                 [7] [ Chuyển OneBSS ]          │
-│ [14] < Tạo FAQ từ ticket này >   (khi ticket đã giải quyết)          │
-├──────────────────────────────────────────────────────────────────────┤
 │ [8] (*) Phản hồi công khai  ( ) Ghi chú nội bộ                       │
 │ [9] [Nhập nội dung phản hồi...______________________________________]│
-│ [10] [ Mẫu trả lời ] [11] [ AI gợi ý ] [12] [ Đính kèm ] [13] [ Gửi ]│
+│ [10]Mẫu trả lời [11]AI gợi ý [20]Hỏi AI nghiệp vụ [12]+ Đính kèm     │
+│                                                          [13] [ Gửi ]│
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -92,19 +97,25 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Về hàng đợi | Link | Click | • Navigate → `agent-hang-doi`. |
-| 2 | Trạng thái ticket | Dropdown | Select | • Người có quyền xử lý ticket cập nhật: Mới / Đang xử lý / Chờ khách hàng / Chờ khách hàng xác nhận / Đã đóng (Đề xuất — Xử lý ticket, UC5). Đổi → lưu, ghi mốc thời gian, **báo khách hàng qua Email/SMS** (theo kênh đã bật).<br>• Chọn "Chờ khách hàng xác nhận" → khách hàng thấy màn `ticket-xac-nhan`; hết thời gian cấu hình không phản hồi → hệ thống tự đóng (UC35, OQ-1).<br>• Ticket "Đã đóng" (dù khách hàng tự xác nhận hay hệ thống tự động đóng) KHÔNG mở lại được trong mọi trường hợp — cả khách hàng và agent đều không có lối mở lại (cập nhật 23/09/2026, xem `gui-theo-doi-ticket.md`). |
-| 3 | Phân công | Button | Click | • Click → `agent-phan-cong` (phân công lại). Chỉ người có quyền xử lý ticket thấy nút (Agent tỉnh/Agent helpdesk cùng tầng, Triển khai của Line, Quản trị viên). Người xử lý là agent đã nhận ticket; chưa có người → hiện nút "Nhận xử lý" thay cho tên [GIẢ ĐỊNH]. |
+| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Một trong: Mới / Đang xử lý / Chờ khách hàng / Đã đóng. **Không còn dropdown** (v1.2) — trạng thái chỉ đổi qua nút [17][18][19] hoặc khi khách hàng bấm "Chuyển cho hỗ trợ" / "Đóng ticket".<br>• Hết thời gian cấu hình ở "Chờ khách hàng" mà không phản hồi → hệ thống tự đóng (UC35, OQ-1).<br>• Ticket "Đã đóng" (khách hàng đóng, nhân viên đóng hay tự động đóng) KHÔNG mở lại được trong mọi trường hợp (xem `gui-theo-doi-ticket.md`). |
+| 3 | Phân công | Button | Click | • Click → `agent-phan-cong` (phân công lại). Chỉ người có quyền xử lý ticket thấy nút (Agent tỉnh/Agent helpdesk cùng tầng, Triển khai của Line, Quản trị viên). Người xử lý là agent đã nhận ticket; chưa có người → hiện nút "Nhận xử lý" thay cho tên [GIẢ ĐỊNH]; với ticket "Mới" dùng nút "Tiếp nhận" [17]. |
 | 4 | SLA còn lại | Label | ReadOnly | • Thời gian còn lại theo mức ưu tiên (khẩn cấp/cao/bình thường); đổi màu khi sắp/đã quá hạn. Ngưỡng cụ thể: OQ-2; màn cấu hình SLA: OQ-19. |
 | 5 | Nhãn phản hồi tự động của AI | Banner + Button | Click | • **Chỉ hiện khi** ticket đã được AI tự soạn & gửi phản hồi (UC36, chế độ tự động bật). Gắn nhãn "phản hồi tự động" để agent theo dõi và **can thiệp** nếu cần (Đề xuất — AI tự động phản hồi).<br>• [ Can thiệp ] → agent nhận ticket, soạn phản hồi bổ sung/thay thế (khách hàng vẫn thấy phản hồi AI trước đó — chưa có nguồn về việc thu hồi).<br>• Ticket khẩn cấp luôn cần agent duyệt trước khi AI gửi (cấu hình ở `cauhinh-tham-so-ai`) nên không có nhãn này. |
 | 6 | Trao đổi | Timeline | ReadOnly | • Toàn bộ trao đổi theo thời gian: **phản hồi công khai** (khách hàng thấy) và **ghi chú nội bộ** (chỉ agent thấy, có nhãn [Ghi chú nội bộ] và nền khác).<br>• Hiện kèm tệp đính kèm khách hàng gửi. Mỗi lần đóng thêm 1 mốc; KHÔNG còn mốc "mở lại" (ticket đã đóng không mở lại được, cập nhật 23/09/2026). |
-| 7 | Chuyển OneBSS | Button | Click | • Dùng khi ticket **vượt khả năng xử lý** (lỗi hệ thống, cần đội dự án). Chỉ hiện với ticket **tầng Tỉnh hoặc Helpdesk công ty** và người có quyền xử lý ticket đó (Agent tỉnh, Agent helpdesk, Triển khai của Line, Quản trị viên) → `agent-tao-phieu-onebss` (gửi thẳng, không qua bước xác nhận trung gian; bỏ màn xác nhận từ v1.1).<br>• Ticket tầng Triển khai Line: **không** có nút OneBSS — vượt khả năng thì chuyển Jira (giai đoạn sau, ngoài MVP).<br>• **Khách hàng không có quyền** tự tạo phiếu OneBSS. Đã có phiếu → hiện mã phiếu + liên kết, ẩn nút. |
+| 7 | Chuyển OneBSS | Button | Click | • **Thanh trên cùng (dính khi cuộn), cùng hàng với [17][18][19]**, nút viền xám trung tính cỡ nhỏ (cao 28px). Dùng khi ticket **vượt khả năng xử lý** (lỗi hệ thống, cần đội dự án). Chỉ hiện với ticket **tầng Tỉnh hoặc Helpdesk công ty** và người có quyền xử lý ticket đó (Agent tỉnh, Agent helpdesk, Triển khai của Line, Quản trị viên) → `agent-tao-phieu-onebss` (gửi thẳng, không qua bước xác nhận trung gian; bỏ màn xác nhận từ v1.1).<br>• Ticket tầng Triển khai Line: **không** có nút OneBSS — vượt khả năng thì chuyển Jira (giai đoạn sau, ngoài MVP).<br>• **Khách hàng không có quyền** tự tạo phiếu OneBSS. Đã có phiếu → hiện mã phiếu + liên kết, ẩn nút. |
 | 8 | Loại nội dung gửi | Radio group | Check | • Phản hồi công khai (mặc định) hoặc Ghi chú nội bộ — quyết định ai thấy nội dung ở [6]. Ghi chú nội bộ **không gửi thông báo cho khách hàng** và không phát sinh thông báo nào (đã chốt 24/09/2026). |
 | 9 | Nội dung | Textbox (multi-line) | Text | • **Bắt buộc** khi gửi. Có thể chèn từ mẫu trả lời [10] hoặc gợi ý AI [11] rồi chỉnh sửa. Giới hạn độ dài: chưa có nguồn. |
-| 10 | Mẫu trả lời | Button → Panel | Click | • Mở **panel bên phải** liệt kê thư viện mẫu trả lời dựng sẵn (do quản trị viên quản lý ở `danhmuc-dich-vu-loai-van-de`), có tìm kiếm; chọn 1 mẫu → chèn vào [9] để agent **tùy chỉnh trước khi gửi**. Cũng gắn/tham chiếu được bài KB có sẵn để trả lời nhanh (Đề xuất — Xử lý ticket). |
-| 11 | AI gợi ý | Button → Panel | Click | • Agent yêu cầu AI soạn gợi ý dựa trên kho tài liệu + ticket tương tự đã xử lý (UC7). Panel hiện nội dung gợi ý kèm nguồn; agent **xem, chỉnh sửa rồi mới gửi** — không gửi tự động.<br>• Khi gửi phản hồi có dùng gợi ý AI → hệ thống lưu và **gắn nhãn "có hỗ trợ AI"**.<br>• Chế độ "AI hỗ trợ soạn" tắt (theo dịch vụ/site) → ẩn/vô hiệu nút. Lỗi kết nối AI → báo, agent soạn tay [wording chưa có, chưa có mã E-…]. Ẩn với Hỗ trợ dịch vụ (không dùng AI gợi ý phản hồi). |
+| 10 | Mẫu trả lời | Text link → Panel | Click | • **Đổi từ nút sang text link xanh (01/10/2026), cùng kiểu "+ Đính kèm".** Mở **panel bên phải** liệt kê thư viện mẫu trả lời dựng sẵn (do quản trị viên quản lý ở `danhmuc-dich-vu-loai-van-de`), có tìm kiếm; chọn 1 mẫu → chèn vào [9] để agent **tùy chỉnh trước khi gửi**. Cũng gắn/tham chiếu được bài KB có sẵn để trả lời nhanh (Đề xuất — Xử lý ticket). |
+| 11 | AI gợi ý | Text link → Panel | Click | • **Text link xanh (như [10]).** Agent yêu cầu AI soạn gợi ý dựa trên kho tài liệu + ticket tương tự đã xử lý (UC7). Panel hiện nội dung gợi ý kèm nguồn; agent **xem, chỉnh sửa rồi mới gửi** — không gửi tự động.<br>• Khi gửi phản hồi có dùng gợi ý AI → hệ thống lưu và **gắn nhãn "có hỗ trợ AI"**.<br>• Chế độ "AI hỗ trợ soạn" tắt (theo dịch vụ/site) → ẩn/vô hiệu nút. Lỗi kết nối AI → báo, agent soạn tay [wording chưa có, chưa có mã E-…]. Ẩn với Hỗ trợ dịch vụ (không dùng AI gợi ý phản hồi). |
 | 12 | Đính kèm | File upload | Select | • Đính kèm ảnh/file vào phản hồi; định dạng/dung lượng: OQ-16. |
-| 13 | Gửi | Button | Click | • **Disabled** khi [9] rỗng; khóa khi submitting. Gửi phản hồi công khai → lưu lịch sử, thông báo khách hàng qua Email/SMS; trạng thái "Mới" tự chuyển "Đang xử lý" [GIẢ ĐỊNH]. Sau khi gửi về `agent-hang-doi` hoặc ở lại màn [GIẢ ĐỊNH — userflow: quay về hàng đợi]. |
-| 14 | Tạo FAQ từ ticket này | Link | Click | • Chỉ hiện với **ticket đã giải quyết** (trạng thái Chờ khách hàng xác nhận hoặc Đã đóng), dành cho Agent/Quản trị viên. Click → `kb-tu-ticket-thanh-faq` với ticket này đã chọn sẵn; bản nháp FAQ phải ẩn danh dữ liệu khách hàng và vẫn qua duyệt (OQ-21e). |
+| 13 | Gửi | Button | Click | • **Disabled** khi [9] rỗng; khóa khi submitting. Gửi phản hồi công khai → lưu lịch sử, **không đổi trạng thái và chưa báo khách hàng** (khách hàng chỉ được báo khi bấm [18]); phản hồi công khai đầu tiên trên ticket "Mới" vẫn ngầm tiếp nhận ("Mới" → "Đang xử lý") [GIẢ ĐỊNH]. Sau khi gửi về `agent-hang-doi` hoặc ở lại màn [GIẢ ĐỊNH — userflow: quay về hàng đợi]. |
+| 14 | Tạo FAQ từ ticket này | Button | Click | • **Đổi từ link sang nút viền xám cỡ nhỏ (01/10/2026), đặt thanh trên cùng cạnh [7]** cho đồng bộ họ nút. Chỉ hiện với ticket **đã có phản hồi công khai của đội hỗ trợ** (trạng thái Chờ khách hàng hoặc Đã đóng), dành cho Agent/Quản trị viên. Click → `kb-tu-ticket-thanh-faq` với ticket này đã chọn sẵn; bản nháp FAQ phải ẩn danh dữ liệu khách hàng và vẫn qua duyệt (OQ-21e). |
+| 20 | Hỏi AI nghiệp vụ | Text link | Click | • Text link xanh (01/10/2026, trước là nút) cạnh [11]; mở `noibo-hoi-dap-ai` kèm ticket đang xử lý (xem `noibo-hoi-dap-ai.md`). |
+| 15 | Thanh tiến trình | Stepper | ReadOnly | • 4 bước Mới → Đang xử lý ⇄ Chờ khách hàng → Đã đóng; bước hiện tại nổi bật, bước đã qua có ✓; mũi tên hai chiều giữa "Đang xử lý" và "Chờ khách hàng". |
+| 16 | Khối "lượt" | Banner | ReadOnly | • "Lượt của đội hỗ trợ" (Mới / Đang xử lý) kèm gợi ý bước tiếp theo; "Đang chờ khách hàng" (Chờ khách hàng) kèm số ngày làm việc tự đóng; hiện thời điểm + người chuyển lượt gần nhất; ẩn khi đã đóng. |
+| 17 | Tiếp nhận | Button | Click | • **Thanh trên cùng, dính khi cuộn**; nút viền + chữ xanh, cao 28px. Là nơi duy nhất để nhận ticket (không còn nút Nhận cạnh tên người xử lý hay trong dải cảnh báo). Chỉ hiện với ticket "Mới" chưa có người xử lý và người có quyền xử lý. Bấm → ghi người nhận, chuyển "Đang xử lý", ghi nhật ký "tiếp nhận ticket". |
+| 18 | Chuyển cho khách hàng | Button | Click | • **Thanh trên cùng, dính khi cuộn**; nút xanh đặc cỡ nhỏ kèm mũi tên (việc chính của lượt). Hiện khi ticket "Đang xử lý". **Disabled** (kèm tooltip) nếu từ lần chuyển lượt/tạo ticket gần nhất chưa có phản hồi công khai nào của đội hỗ trợ — vi phạm → E-XL-003 "Chưa có phản hồi để chuyển" `[GIẢ ĐỊNH — guard + wording chờ duyệt]`.<br>• Bấm → "Chờ khách hàng", tạm dừng đồng hồ SLA, báo khách hàng Email/SMS "Ticket #X đang chờ bạn phản hồi", bắt đầu đếm thời gian tự đóng. Khóa nút khi submitting; ticket đã đổi ở nơi khác → báo + tải lại. |
+| 19 | Đóng ticket | Button | Click | • **Thanh trên cùng, dính khi cuộn**; viền + chữ đỏ, nền trắng. Hộp xác nhận có nút "Đóng ticket" nền đỏ đặc. Hiện khi ticket chưa đóng và người có quyền xử lý; có hộp xác nhận (đóng rồi không mở lại), ghi chú nội bộ tùy chọn; lý do đóng "Nhân viên đóng ticket", báo khách hàng. |
 
 - Vẽ ở trạng thái có nhãn AI tự trả lời [5] (chỉ hiện khi áp dụng). Panel "Mẫu trả lời" [10] và "AI gợi ý" [11] mở dạng panel bên phải trong cùng màn, không phải màn riêng (đúng userflow đã duyệt). Quản trị viên xem cùng màn với phạm vi toàn hệ thống (UC22).
 
@@ -119,7 +130,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │       ┌──────────────────────────────────────────────────────┐       │
@@ -154,7 +165,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │       ┌──────────────────────────────────────────────────────┐       │
@@ -297,7 +308,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Cảnh báo quá hạn SLA - Tầng Tỉnh Bình Định       [1] < Về hàng đợi > │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -334,7 +345,7 @@
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
 | OQ-19a | Màn cấu hình SLA | Đã bổ sung màn `cauhinh-sla` [52] ở Flow 9 (cùng Giai đoạn 2). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
-| OQ-19b | Nhận/phân công ticket; khối lượng việc | Nhân viên tự nhận ticket chưa gán trong tầng mình, chuyển được cho đồng nghiệp cùng tầng có phạm vi phụ trách bao ticket; chỉ Quản trị viên và Triển khai của Line phân công lại ticket đang do người khác xử lý (cập nhật 24/09/2026). Tự gán: chọn agent có ít ticket đang mở nhất (Mới, Đang xử lý, Chờ khách hàng), bằng nhau thì luân phiên. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-19b | Nhận/phân công ticket; khối lượng việc | Nhân viên tự tiếp nhận ticket chưa gán trong tầng mình, chuyển được cho đồng nghiệp cùng tầng có phạm vi phụ trách bao ticket; chỉ Quản trị viên và Triển khai của Line phân công lại ticket đang do người khác xử lý (cập nhật 24/09/2026). Tự gán: chọn agent có ít ticket đang mở nhất (Mới, Đang xử lý, Chờ khách hàng), bằng nhau thì luân phiên. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-19c | Lý do chuyển OneBSS | Bắt buộc chọn (Lỗi hệ thống / Cần đội dự án / Khác) và gửi kèm ghi chú. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-19d | Kênh cảnh báo SLA | Trong hệ thống (huy hiệu + màn Cảnh báo) và Email cho agent phụ trách + Quản trị viên; SMS chỉ khi ticket Khẩn cấp quá hạn; cảnh báo khi còn 20% thời gian. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-29 | OneBSS: cấu hình kết nối và chống tạo trùng phiếu (bổ sung OQ-22a) | Cấu hình tại `cauhinh-onebss`, chỉ Quản trị viên; trước khi Thử lại kiểm tra ticket đã có mã phiếu; hủy được về ticket. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

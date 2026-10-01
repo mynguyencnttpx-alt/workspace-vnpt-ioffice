@@ -62,7 +62,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Cấu hình tích hợp AI                      Kết nối: Chưa kiểm tra [1] │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -125,7 +125,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tham số & chế độ AI                                                  │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -185,7 +185,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Khu vực thử nghiệm AI                          [1] < Về tham số AI > │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -251,7 +251,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Nhật ký hội thoại AI & chi phí                                       │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -316,7 +316,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Danh mục dùng chung                                                  │
 │ [1] [Dịch vụ] [*Loại vấn đề*] [Ưu tiên] [Loại nội dung] [Mẫu trả lời]│
@@ -378,7 +378,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Cấu hình kênh thông báo                                              │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -389,7 +389,7 @@
 │ -------------------------------------------------------------------- │
 │ Ticket có phản hồi mới             [x]      [x]                      │
 │ Ticket đổi trạng thái              [x]      [ ]                      │
-│ Chờ khách hàng xác nhận / tự đóng  [x]      [x]                      │
+│ Chờ khách hàng phản hồi / tự đóng  [x]      [x]                      │
 │ Lời mời kích hoạt tài khoản        [x]      [x]                      │
 │ Cảnh báo SLA (nội bộ)              [x]      [ ]                      │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -462,7 +462,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Kênh | Tab/Radio | Select | • Email hoặc SMS; SMS không có ô tiêu đề. Chỉ hiện kênh đang bật ở `cauhinh-kenh-thongbao`. |
-| 2 | Loại thông báo | Radio list | Select | • 5 loại như ở `cauhinh-kenh-thongbao`: ticket có phản hồi mới, đổi trạng thái, chờ khách hàng xác nhận/tự đóng, lời mời kích hoạt, cảnh báo SLA (nội bộ). |
+| 2 | Loại thông báo | Radio list | Select | • 5 loại như ở `cauhinh-kenh-thongbao`: ticket có phản hồi mới, đổi trạng thái / chuyển lượt, chờ khách hàng phản hồi / tự đóng, lời mời kích hoạt, cảnh báo SLA (nội bộ). |
 | 3 | Tiêu đề (Email) | Textbox | Text | • Bắt buộc với Email; cho chèn biến. |
 | 4 | Nội dung | Textarea | Text | • Bắt buộc; **phải giữ biến bắt buộc** của loại đó (vd lời mời kích hoạt/đặt lại phải có biến liên kết kích hoạt/đặt lại) — thiếu → không lưu được (xem Trạng thái phụ). SMS: đếm độ dài, cảnh báo khi vượt 1 tin theo nhà mạng. |
 | 5 | Biến chèn | Chip list | Click | • {tên_khách_hàng}, {mã_ticket}, {tiêu_đề}, {trạng_thái}, {liên_kết…}; bấm để chèn vào vị trí con trỏ. |
@@ -504,7 +504,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Cấu hình SLA                                       Chỉ Quản trị viên │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -521,8 +521,8 @@
 │ Bình thường      [4 giờ_____]     [3 ngày LV_]                       │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Cảnh báo sắp quá hạn khi còn [20__] % thời gian [4]                  │
-│ Tạm dừng đồng hồ: [x] Chờ khách hàng  [x] Chờ KH xác nhận [5]        │
-│ Tự đóng ticket sau [3__] ngày làm việc kể từ "Chờ KH xác nhận" [6]   │
+│ Tạm dừng đồng hồ: [x] Chờ khách hàng [5]                             │
+│ Tự đóng ticket sau [3__] ngày làm việc kể từ "Chờ khách hàng" [6]    │
 │ [7] [ Lưu ]                                                          │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
@@ -536,8 +536,8 @@
 | 2 | Danh sách ngày nghỉ lễ | Table (date list) + nút Thêm/Xóa | Text | • **Bổ sung mới 23/09/2026, cụ thể hóa OQ-19a.** Quản trị viên tự thêm/sửa/xóa từng ngày nghỉ lễ theo năm (ngày nghỉ lễ đổi hàng năm nên KHÔNG hard-code trong hệ thống); đồng hồ SLA loại trừ các ngày này giống ngoài giờ làm việc. Thêm ngày đã có trong danh sách → báo trùng, không thêm lần 2 [wording tạm]. |
 | 3 | Bảng SLA theo mức ưu tiên | Table (Textbox) | Text | • Mỗi mức ưu tiên (lấy từ danh mục **Mức ưu tiên** ở `danhmuc-dich-vu-loai-van-de`) có thời gian **phản hồi** và **xử lý**. Đề xuất mặc định: Khẩn cấp 30 phút / 4 giờ; Cao 2 giờ / 1 ngày làm việc; Bình thường 4 giờ / 3 ngày làm việc (OQ-2). Nhập số + đơn vị (phút/giờ/ngày làm việc); xử lý phải ≥ phản hồi. Thêm mức ưu tiên mới ở danh mục thì hiện dòng **trống** ở đây; ticket KHÔNG chọn được mức đó cho tới khi Quản trị viên điền đủ 2 giá trị (đã chốt 23/09/2026 — mức ưu tiên mới bị chặn dùng ở form tạo ticket cho tới khi cấu hình xong SLA). |
 | 4 | Ngưỡng cảnh báo | Textbox (số %) | Text | • Cảnh báo "sắp quá hạn" khi còn ngần này % thời gian (đề xuất 20%); dùng cho màn `agent-canh-bao-sla`. Khoảng hợp lệ 1-90 (đã chốt 23/09/2026). |
-| 5 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA (đề xuất: Chờ khách hàng, Chờ khách hàng xác nhận) vì đang chờ phía khách hàng. |
-| 6 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket ở "Chờ khách hàng xác nhận" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
+| 5 | Tạm dừng đồng hồ | Checkbox group | Check | • Trạng thái ticket làm **tạm dừng** đồng hồ SLA — từ 01/10/2026 chỉ còn **Chờ khách hàng** (lượt của khách hàng; đã bỏ "Chờ khách hàng xác nhận") vì đang chờ phía khách hàng; chạy lại khi khách hàng bấm "Chuyển cho hỗ trợ". |
+| 6 | Thời gian tự đóng | Textbox (số) | Text | • Số ngày làm việc từ lúc ticket vào "Chờ khách hàng" tới khi **tự đóng** nếu khách hàng không phản hồi (đề xuất 3 ngày — OQ-1); hệ thống nhắc khách hàng trước 1 ngày. |
 | 7 | Lưu | Button | Click | • **Disabled** khi chưa đổi gì hoặc có giá trị không hợp lệ; áp dụng cho ticket **tạo/cập nhật từ sau khi lưu** — ticket đang mở giữ SLA cũ (đã chốt 23/09/2026); báo "Đã lưu" (wording tạm). Ghi nhật ký thao tác cấu hình [GIẢ ĐỊNH]. Chỉ Quản trị viên (UC45, nhóm danh mục đầu vào). |
 
 - Màn mới bổ sung ngày 19/09/2026 (userflow [52], UC45). Dữ liệu là giá trị đề xuất, đã được khách hàng xác nhận (21/09/2026). **Cập nhật 23/09/2026:** thêm khối "Danh sách ngày nghỉ lễ" (mục [2]) — đã vẽ bổ sung trên Figma cùng ngày.

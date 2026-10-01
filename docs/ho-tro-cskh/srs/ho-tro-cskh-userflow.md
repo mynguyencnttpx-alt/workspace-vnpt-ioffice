@@ -168,7 +168,7 @@ flowchart TD
     f4err1["Thiếu trường<br/>bắt buộc"]
     f4n3["[16] Danh sách<br/>ticket của tôi"]
     f4n4["[17] Chi tiết<br/>ticket"]
-    f4n5["[18] Xác nhận đã xong<br/>+ đánh giá hài lòng"]
+    f4n5["[18] Đóng ticket<br/>+ đánh giá hài lòng"]
     f4n6["[19] Ticket<br/>đã đóng"]
 
     f4n1 -->|"gửi, có bài gợi ý liên quan"| f4n2
@@ -178,10 +178,12 @@ flowchart TD
     f4n1 -->|"thiếu trường bắt buộc"| f4err1
     f4err1 -.->|"bổ sung"| f4n1
     f4n3 -->|"chọn 1 ticket"| f4n4
-    f4n4 -->|"agent chuyển \"Chờ khách hàng xác nhận\""| f4n5
-    f4n5 -->|"khách hàng xác nhận xong"| f4n6
-    f4n5 -.->|"không phản hồi, quá hạn cấu hình"| f4n6
-    f4n6 -->|"mở lại (vấn đề chưa hết)"| f4n4
+    f4n4 -.->|"chuyền lượt: Chuyển cho khách hàng / Chuyển cho hỗ trợ"| f4n4
+    f4n4 -->|"khách hàng bấm Đóng ticket (bất cứ lúc nào chưa đóng)"| f4n5
+    f4n5 -->|"bấm Đóng ticket"| f4n6
+    f4n5 -.->|"quay lại chi tiết"| f4n4
+    f4n4 -.->|"Chờ khách hàng quá hạn cấu hình (tự đóng) / nhân viên đóng"| f4n6
+    f4n6 -->|"tạo yêu cầu mới (tham chiếu ticket cũ)"| f4n1
     f4n6 -.->|"đánh giá/sửa đánh giá trong 7 ngày sau khi đóng"| f4n5
 
     classDef happy fill:#d4edda,stroke:#28a745
@@ -550,7 +552,7 @@ flowchart TD
 | 15 | ticket-goi-y-faq | Gợi ý FAQ liên quan | Gợi ý bài viết/FAQ liên quan trước khi cho gửi, giảm ticket trùng lặp nội dung đã có | gui-theo-doi-ticket |
 | 16 | ticket-danh-sach-kh | Danh sách ticket của tôi | Khách hàng xem danh sách ticket đã gửi, lọc theo trạng thái | gui-theo-doi-ticket |
 | 17 | ticket-chi-tiet-kh | Chi tiết ticket | Lịch sử trao đổi, mốc thời gian (tạo/phản hồi/đóng/mở lại) | gui-theo-doi-ticket |
-| 18 | ticket-xac-nhan | Xác nhận đã xong + đánh giá hài lòng | Khách hàng xác nhận ticket đã giải quyết xong; đánh giá mức hài lòng đơn giản Đánh giá 5 sao + nhận xét tùy chọn ≤500 ký tự (OQ-3); thêm/sửa trong 7 ngày sau khi đóng, gồm cả ticket tự đóng — từ [19]. | gui-theo-doi-ticket |
+| 18 | ticket-xac-nhan | Đóng ticket + đánh giá hài lòng (hộp thoại) | Khách hàng đóng ticket (bất cứ lúc nào chưa đóng; v1.2); đánh giá mức hài lòng đơn giản Đánh giá 5 sao + nhận xét tùy chọn ≤500 ký tự (OQ-3); thêm/sửa trong 7 ngày sau khi đóng, gồm cả ticket tự đóng — từ [19]. | gui-theo-doi-ticket |
 | 19 | ticket-da-dong | Ticket đã đóng | Phân biệt lý do đóng (khách xác nhận / tự động do quá hạn); có nút mở lại nếu vấn đề chưa hết | gui-theo-doi-ticket |
 | 20 | — | Đăng nhập nội bộ — đã gộp vào Đăng nhập chung [1] | Không còn màn riêng; số thứ tự [20] giữ lại để không lệch đối chiếu với tài liệu và Figma [đề xuất bổ sung, OQ-32] | dang-nhap-kich-hoat-kh |
 | 21 | noibo-tai-khoan-ca-nhan | Tài khoản cá nhân (nội bộ) | Agent/Quản trị viên đổi mật khẩu/thông tin cá nhân | noibo-trang-dau |
@@ -711,11 +713,13 @@ flowchart TD
 | Form tạo ticket [14] | Danh sách ticket của tôi [16] | Bấm "Gửi yêu cầu" | Đủ trường bắt buộc, không có bài gợi ý → tạo ticket luôn |
 | Form tạo ticket [14] | (giữ nguyên) [14] | Submit ticket | Thiếu trường bắt buộc → báo lỗi |
 | Danh sách ticket của tôi [16] | Chi tiết ticket [17] | Chọn 1 ticket | — |
-| Chi tiết ticket [17] | Xác nhận đã xong + đánh giá hài lòng [18] | Agent chuyển trạng thái | "Chờ khách hàng xác nhận" |
-| Xác nhận đã xong + đánh giá hài lòng [18] | Ticket đã đóng [19] | Khách hàng xác nhận xong | Đóng chính thức + đánh giá hài lòng |
-| Xác nhận đã xong + đánh giá hài lòng [18] | Ticket đã đóng [19] | Không phản hồi | Quá thời gian cấu hình → hệ thống tự động đóng |
-| Ticket đã đóng [19] | Chi tiết ticket [17] | Bấm "Mở lại" | Vấn đề chưa hết hẳn, không cần tạo ticket mới |
-| Ticket đã đóng [19] | Xác nhận đã xong + đánh giá hài lòng [18] | Bấm "Đánh giá / sửa đánh giá" | Trong 7 ngày sau khi đóng, gồm cả ticket tự đóng do quá hạn (OQ-3) |
+| Chi tiết ticket [17] | (giữ nguyên) [17] | Bấm "Chuyển cho hỗ trợ" (khách hàng) / "Chuyển cho khách hàng" (nhân viên) | Chuyền lượt Đang xử lý ⇄ Chờ khách hàng; nhắn tin không đổi trạng thái |
+| Chi tiết ticket [17] | Đóng ticket + đánh giá hài lòng [18] | Khách hàng bấm "Đóng ticket" | Ticket chưa đóng, bất kể lượt của bên nào |
+| Đóng ticket + đánh giá hài lòng [18] | Ticket đã đóng [19] | Bấm "Đóng ticket" | Đóng chính thức + đánh giá hài lòng |
+| Đóng ticket + đánh giá hài lòng [18] | Chi tiết ticket [17] | Bấm "Quay lại chi tiết ticket" | Không đóng |
+| Chi tiết ticket [17] | Ticket đã đóng [19] | Hệ thống tự đóng / nhân viên đóng | "Chờ khách hàng" quá thời gian cấu hình không phản hồi; hoặc nhân viên bấm "Đóng ticket" |
+| Ticket đã đóng [19] | Form tạo ticket [14] | Bấm "Tạo yêu cầu mới" | Vấn đề chưa hết hẳn; tự tham chiếu ticket cũ; KHÔNG mở lại ticket đã đóng |
+| Ticket đã đóng [19] | Đóng ticket + đánh giá hài lòng [18] | Bấm "Đánh giá / sửa đánh giá" | Trong 7 ngày sau khi đóng, gồm cả ticket tự đóng do quá hạn (OQ-3) |
 
 **Flow: noibo-trang-dau**
 
@@ -867,7 +871,7 @@ flowchart TD
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-1 | Thời gian tự đóng ticket khi "chờ khách hàng xác nhận" | 3 ngày làm việc, nhắc 1 lần trước 1 ngày; khách nhắn thêm thì ticket về "Đang xử lý". Cấu hình được ở màn Cấu hình SLA | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-1 | Thời gian tự đóng ticket khi "Chờ khách hàng" | 3 ngày làm việc kể từ lúc vào "Chờ khách hàng", nhắc 1 lần trước 1 ngày; khách hàng bấm "Chuyển cho hỗ trợ" thì ticket về "Đang xử lý" (v1.2, 01/10/2026). Cấu hình được ở màn Cấu hình SLA | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-2 | Ngưỡng SLA theo mức ưu tiên | Giờ làm việc T2-T6 08:00-17:00. Khẩn cấp: phản hồi 30 phút, xử lý 4 giờ. Cao: 2 giờ, 1 ngày làm việc. Bình thường: 4 giờ, 3 ngày làm việc; tạm dừng khi "Chờ khách hàng"/"Chờ khách hàng xác nhận" | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-3 | Thang đánh giá hài lòng | 5 sao + nhận xét tùy chọn (≤500 ký tự), không bắt buộc, sửa/bổ sung trong 7 ngày sau khi đóng | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-4 | Ai được duyệt và xuất bản bài KB | Chỉ Quản trị viên duyệt; Biên tập nội dung soạn và gửi duyệt, không tự duyệt bài mình soạn (đã sửa bảng vai trò trong tài liệu đề xuất) | Đã chốt (khách hàng xác nhận, 21/09/2026) |

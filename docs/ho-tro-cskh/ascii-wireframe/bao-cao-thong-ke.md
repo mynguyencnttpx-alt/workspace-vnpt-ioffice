@@ -16,7 +16,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ [*Tổng quan*] [Hiệu suất & SLA] [Chất lượng] [Xuất báo cáo] [1]      │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -62,7 +62,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ [Tổng quan] [*Hiệu suất & SLA*] [Chất lượng] [Xuất báo cáo] [1]      │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -106,7 +106,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ [Tổng quan] [Hiệu suất & SLA] [*Chất lượng*] [Xuất báo cáo] [1]      │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -150,7 +150,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH-NB Ticket | Nội dung | Người dùng | Cấu hình | Báo cáo (o) B v  │
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
 ├──────────────────────────────────────────────────────────────────────┤
 │ [Tổng quan] [Hiệu suất & SLA] [Chất lượng] [*Xuất báo cáo*] [1]      │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -191,7 +191,7 @@
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-23a | Định nghĩa chỉ số | Đã xử lý = chuyển "Chờ KH xác nhận"/"Đã đóng" trong kỳ; Tồn đọng = chưa "Đã đóng" cuối kỳ; Phản hồi = từ tạo đến phản hồi công khai đầu tiên; Xử lý = từ tạo đến lần đầu "Chờ KH xác nhận" trừ thời gian chờ khách hàng, theo giờ làm việc; AI deflection = phiên hỏi đáp AI không phát sinh ticket / tổng phiên; Kỳ trước = kỳ liền trước cùng độ dài. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-23a | Định nghĩa chỉ số | Đã xử lý = lần đầu chuyển "Chờ khách hàng" hoặc "Đã đóng" trong kỳ (v1.2: ticket chuyền lượt nhiều lần chỉ tính lần đầu); Tồn đọng = chưa "Đã đóng" cuối kỳ; Phản hồi = từ tạo đến phản hồi công khai đầu tiên; Xử lý = từ tạo đến lần đầu "Chờ khách hàng" trừ thời gian chờ khách hàng, theo giờ làm việc; AI deflection = phiên hỏi đáp AI không phát sinh ticket / tổng phiên; Kỳ trước = kỳ liền trước cùng độ dài. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-23b | Báo cáo Agent, Chủ quản dịch vụ | Agent: số ticket theo trạng thái, ticket sắp/quá hạn trong phạm vi + của chính mình. Chủ quản dịch vụ xem theo tầng/tỉnh, không theo từng agent. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-23c | Top hỏi nhiều, xếp hạng KB | Top 10 nhóm câu hỏi (AI, từ khóa tìm kiếm, loại vấn đề ticket); chỉ xếp hạng bài có ≥10 lượt đánh giá. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-23d | Xuất báo cáo | Tối đa 12 tháng/lần, ≤50.000 dòng; Excel 1 sheet tổng hợp + sheet chi tiết, PDF bản tổng hợp; tên tệp {loại}_{từ}_{đến}. | Đã chốt (khách hàng xác nhận, 21/09/2026) |

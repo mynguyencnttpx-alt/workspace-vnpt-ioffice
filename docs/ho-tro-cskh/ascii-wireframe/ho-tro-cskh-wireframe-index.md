@@ -10,6 +10,9 @@ links:
 
 # Hệ thống Hỗ trợ & Chăm sóc Khách hàng — Screens Index
 
+- **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket của tôi" ở header khách hàng có huy hiệu ĐỎ số ticket chưa đóng (Mới + Đang xử lý + Chờ khách hàng; ẩn khi 0, "99+" khi quá 99) — vẽ "(5)" ở mọi wireframe header khách hàng. Đếm đúng phạm vi danh sách (thành viên: ticket mình tạo; đầu mối: cả đơn vị). Tải lại mỗi 60 giây và ngay khi tạo/đóng ticket.
+- **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket" ở sidebar nội bộ có huy hiệu ĐỎ số ticket chưa đóng — vẽ "(12)" ở mọi wireframe header nội bộ. Đếm theo phạm vi MẶC ĐỊNH của Bảng tiếp nhận (Triển khai của Line: tầng Triển khai Line; Agent helpdesk/Triển khai: trong phạm vi phụ trách; Agent tỉnh: phạm vi được xem; Quản trị viên: tất cả) `[GIẢ ĐỊNH — không phải chỉ ticket gán cho riêng tôi]`. Số chỉ mang tính minh họa.
+
 ## Screens
 
 | # | Slug | Thuộc flow | Status | Used by functions | Figma | HTML prototype | HTML wireframe | Updated |
@@ -89,7 +92,7 @@ links:
 | 72 | [vao-tu-site-loi](dang-nhap-kich-hoat-kh.md#vao-tu-site-loi) | dang-nhap-kich-hoat-kh | draft | UC59 | [72 · vao-tu-site-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9521) | — | — | 2026-09-24 |
 | 73 | [qt-danh-muc-dia-ban](quan-tri-nguoi-dung.md#qt-danh-muc-dia-ban) | quan-tri-nguoi-dung | draft | UC1 | [73 · qt-danh-muc-dia-ban](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9256) | — | — | 2026-09-24 |
 | 74 | [portal-trang-chu](portal-gioi-thieu.md#portal-trang-chu) | portal-gioi-thieu | draft | — | [74 · portal-trang-chu (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3175) | — | — | 2026-09-29 |
-| 75 | [portal-giai-phap-qlvb](portal-gioi-thieu.md#portal-giai-phap-qlvb) | portal-gioi-thieu | draft | — | [75 · portal-giai-phap-qlvb (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3887) | — | — | 2026-09-29 |
+| 75 | [portal-giai-phap-qlvb](portal-gioi-thieu.md#portal-giai-phap-qlvb) | portal-gioi-thieu | draft | — | [75 · portal-giai-phap-qlvb (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3887) | — | — | 2026-09-30 |
 | 76 | [portal-giai-phap-luu-tru](portal-gioi-thieu.md#portal-giai-phap-luu-tru) | portal-gioi-thieu | draft | — | [76 · portal-giai-phap-luu-tru (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-4219) | — | — | 2026-09-29 |
 | 77 | [portal-bang-gia](portal-gioi-thieu.md#portal-bang-gia) | portal-gioi-thieu | draft | — | [77 · portal-bang-gia](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-1383) | — | — | 2026-09-28 |
 | 78 | [portal-lien-he](portal-lien-he.md#portal-lien-he) | portal-lien-he | draft | — | [78 · portal-lien-he (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=269-1522) | — | — | 2026-09-28 |
@@ -165,10 +168,10 @@ Gợi ý bài KB/FAQ liên quan trước khi cho gửi ("Vẫn muốn gửi" g�
 Danh sách ticket của khách hàng, lọc theo trạng thái/ưu tiên/dịch vụ.
 
 ### ticket-chi-tiet-kh
-Lịch sử trao đổi công khai, mốc thời gian, phản hồi thêm và lối vào xác nhận kết quả.
+Thanh tiến trình 4 bước + khối "lượt" (v1.2, 01/10/2026), lịch sử trao đổi công khai, mốc thời gian, phản hồi thêm, nút "Chuyển cho hỗ trợ" và "Đóng ticket".
 
 ### ticket-xac-nhan
-Khách hàng xác nhận đã giải quyết xong khi ticket ở trạng thái Chờ khách hàng xác nhận, kèm đánh giá hài lòng đơn giản.
+Hộp thoại Đóng ticket (v1.2): khách hàng đóng ticket bất cứ lúc nào chưa đóng, kèm đánh giá hài lòng 1-5 sao + nhận xét tùy chọn; không mở lại.
 
 ### ticket-da-dong
 Ticket đã đóng (do khách xác nhận hoặc tự đóng quá hạn); nút mở lại nếu vấn đề chưa hết.
@@ -346,7 +349,7 @@ Nhân viên xem, tìm, mở lại và xóa lịch sử hỏi đáp AI của chí
 Trang chủ công khai của portal Line Văn phòng số (chưa đăng nhập): giới thiệu tổng quan dịch vụ, 2 giải pháp, bảng giá, liên hệ tư vấn và đăng nhập; người đã có phiên thấy nút "Vào khu vực của tôi"; địa chỉ gốc của hệ thống mở màn này (mới 28/09/2026).
 
 ### portal-giai-phap-qlvb
-Giới thiệu chi tiết Hệ thống Quản lý văn bản và điều hành: tổng quan, tính năng nổi bật, lợi ích; nút Liên hệ tư vấn chọn sẵn giải pháp này (mới 28/09/2026).
+Giới thiệu chi tiết Hệ thống Quản lý văn bản và điều hành theo Figma bản mới: Hero (nhãn, tiêu đề, 2 nút, hình minh họa + 3 thẻ nổi), khối Tích hợp AI (4 tính năng có icon, khung chat "Trợ lý AI" minh họa, 3 thẻ nổi), Vòng đời văn bản (2 làn), 6 phân hệ chức năng, Tuân thủ quy định, Lợi ích, dải kêu gọi liên hệ, chân trang; nút Liên hệ tư vấn chọn sẵn giải pháp này (mới 28/09/2026, đồng bộ Figma 30/09/2026).
 
 ### portal-giai-phap-luu-tru
 Giới thiệu chi tiết Hệ thống Lưu trữ điện tử: tổng quan, tính năng nổi bật, lợi ích; nút Liên hệ tư vấn chọn sẵn giải pháp này (mới 28/09/2026).

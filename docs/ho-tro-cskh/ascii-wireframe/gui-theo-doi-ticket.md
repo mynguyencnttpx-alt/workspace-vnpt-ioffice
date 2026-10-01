@@ -4,6 +4,10 @@
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
+> **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket của tôi" ở header khách hàng có huy hiệu ĐỎ số ticket chưa đóng (Mới + Đang xử lý + Chờ khách hàng; ẩn khi 0, "99+" khi quá 99) — vẽ "(5)" ở mọi wireframe header khách hàng. Đếm đúng phạm vi danh sách (thành viên: ticket mình tạo; đầu mối: cả đơn vị). Tải lại mỗi 60 giây và ngay khi tạo/đóng ticket.
+>
+> **Cập nhật 01/10/2026 (luồng chuyền lượt — yêu cầu trực tiếp của người dùng):** bỏ trạng thái "Chờ khách hàng xác nhận" và màn "Xác nhận kết quả" (slug `ticket-xac-nhan` giữ nguyên để không vỡ userflow, nay là hộp thoại **Đóng ticket**); Chi tiết ticket có thanh tiến trình 4 bước + khối "lượt" + nút "Chuyển cho hỗ trợ" / "Đóng ticket"; nhắn tin không còn tự đổi trạng thái. Xem `gui-yeu-cau-ho-tro/SRS.md` v1.2.
+>
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** phần "mở lại ticket đã đóng trong 7 ngày" ở OQ-16 (bảng cuối file) bị **thay bằng quy tắc mới** — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp (dù khách hàng tự xác nhận hay hệ thống tự động đóng); vấn đề chưa hết hẳn thì khách hàng tạo ticket mới có tham chiếu. Xem `ticket-da-dong` [5] đã sửa theo quyết định này.
 >
 > **Cập nhật 25/09/2026 (bố cục tiêu chí tìm kiếm):** thanh lọc ở các màn danh sách xếp theo **lưới 4 cột cố định** — nhãn nằm trên ô nhập, các ô cùng chiều rộng và thẳng cột; quá 4 tiêu chí thì xuống hàng theo lưới, checkbox chiếm 2 cột; không còn xếp nhãn + ô nhập nối tiếp theo độ dài trường. Đồng bộ với frame Figma.
@@ -16,7 +20,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │       ┌──────────────────────────────────────────────────────┐       │
@@ -62,7 +66,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │       ┌──────────────────────────────────────────────────────┐       │
@@ -102,7 +106,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Bài viết có thể giúp bạn trước khi gửi yêu cầu [1]                   │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -139,7 +143,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Ticket của tôi                             [1] [ + Tạo yêu cầu mới ] │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -148,7 +152,7 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Mã       Vấn đề                  Ưu tiên     Trạng thái       Ngày   │
 │ [4] ---------------------------------------------------------------  │
-│ #T-0123  Không ký số được (clip) Khẩn cấp    Chờ KH xác nhận  17/09  │
+│ #T-0123  Không ký số được (clip) Khẩn cấp    Chờ khách hàng   17/09  │
 │ #T-0121  Lỗi tải tệp (clip)      Bình thường Đang xử lý       16/09  │
 │ #T-0118  Hướng dẫn phân quyền    Cao         Chờ khách hàng   15/09  │
 │ #T-0110  Không gửi được VB đi    Cao         Đã đóng          10/09  │
@@ -163,9 +167,9 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | + Tạo yêu cầu mới | Button | Click | • Navigate → `ticket-tao-moi`. Luôn hiện với khách hàng đã đăng nhập. |
-| 2 | Lọc trạng thái | Dropdown | Select | • Giá trị: Tất cả / Mới / Đang xử lý / Chờ khách hàng / Chờ khách hàng xác nhận / Đã đóng (Đề xuất — Xử lý ticket). Đổi giá trị → lọc lại ngay. |
+| 2 | Lọc trạng thái | Dropdown | Select | • Giá trị: Tất cả / Mới / Đang xử lý / Chờ khách hàng / Đã đóng (v1.2: bỏ "Chờ khách hàng xác nhận"). Đổi giá trị → lọc lại ngay. |
 | 3 | Lọc ưu tiên / dịch vụ | Dropdown | Select | • Ưu tiên: Khẩn cấp / Cao / Bình thường; Dịch vụ: theo dịch vụ khách hàng dùng (UC21: bộ lọc trạng thái/ưu tiên/dịch vụ). Có thể kết hợp nhiều bộ lọc. |
-| 4 | Bảng ticket | Table | Select | • Cột: Mã, Vấn đề, Ưu tiên, Trạng thái, Ngày cập nhật. Bấm 1 dòng → `ticket-chi-tiet-kh` (UC22).<br>• **Phạm vi dữ liệu:** khách hàng chỉ thấy ticket của mình; đầu mối có thấy ticket của thành viên khác trong đơn vị không: đã chốt (OQ-17).<br>• Dòng "Chờ khách hàng xác nhận" nên nổi bật (cần hành động) [GIẢ ĐỊNH].<br>• Empty: "Bạn chưa có yêu cầu hỗ trợ nào" + nút [1]. Định dạng mã ticket: chưa có nguồn (dữ liệu mẫu). |
+| 4 | Bảng ticket | Table | Select | • Cột: Mã, Vấn đề, Ưu tiên, Trạng thái, Ngày cập nhật. Bấm 1 dòng → `ticket-chi-tiet-kh` (UC22).<br>• **Phạm vi dữ liệu:** khách hàng chỉ thấy ticket của mình; đầu mối có thấy ticket của thành viên khác trong đơn vị không: đã chốt (OQ-17).<br>• Dòng "Chờ khách hàng" (đến lượt khách hàng) nên nổi bật (cần hành động) [GIẢ ĐỊNH].<br>• Empty: "Bạn chưa có yêu cầu hỗ trợ nào" + nút [1]. Định dạng mã ticket: chưa có nguồn (dữ liệu mẫu). |
 | 5 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11); ẩn khi 1 trang. |
 | 6 | Biểu tượng tệp đính kèm | Icon (clip) | ReadOnly | • Hiện cạnh tiêu đề vấn đề khi ticket có ít nhất 1 tệp/ảnh đính kèm (lúc tạo hoặc trong trao đổi). Không bấm riêng — bấm dòng vẫn vào `ticket-chi-tiet-kh`; ticket không có tệp thì không hiện. |
 
@@ -180,12 +184,13 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [1] < Quay lại danh sách >                                           │
+│ [1] < Quay lại DS >  [7][Chuyển cho hỗ trợ ->] [16][Đóng ticket]     │
 ├──────────────────────────────────────────────────────────────────────┤
-│ #T-0123  Không ký số được                        [2] Chờ KH xác nhận │
+│ #T-0123  Không ký số được                        [2] Chờ khách hàng  │
 │ Dịch vụ: iOffice | Loại: Lỗi ký số | Ưu tiên: Khẩn cấp   [3]         │
+│ [15] (Mới) -> (Đang xử lý) <=> [Chờ khách hàng] -> (Đã đóng)         │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Lịch sử trao đổi [4]                                                 │
 │ 17/09 08:02  Bạn: Ký số báo lỗi 403 khi ký văn bản đi.               │
@@ -196,7 +201,7 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ [5] Mốc: Tạo 17/09 08:02 | Phản hồi 17/09 09:15 | Đóng - | Mở lại -  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [6] Yêu cầu của bạn chờ xác nhận kết quả  [7] [ Xác nhận kết quả ]   │
+│ [6] Đến lượt bạn: nhắn thêm rồi chuyển cho hỗ trợ, hoặc đóng ticket. │
 │ [8] [Nhập phản hồi...________] [11] [+ Đính kèm] [9] [ Gửi ]         │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
@@ -207,32 +212,35 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Quay lại danh sách | Link | Click | • Navigate → `ticket-danh-sach-kh`. |
-| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Một trong: Mới / Đang xử lý / Chờ khách hàng / Chờ khách hàng xác nhận / Đã đóng. Cập nhật khi agent đổi trạng thái; khách hàng nhận thông báo Email/SMS khi có phản hồi/đổi trạng thái (theo `cauhinh-kenh-thongbao`). |
+| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Một trong: Mới / Đang xử lý / Chờ khách hàng / Đã đóng. Đổi khi một bên bấm nút chuyển lượt hoặc đóng ticket (nhắn tin KHÔNG đổi trạng thái); khách hàng nhận thông báo Email/SMS khi đội hỗ trợ bấm "Chuyển cho khách hàng" hoặc đóng ticket (theo `cauhinh-kenh-thongbao`). |
 | 3 | Thông tin ticket | Label | ReadOnly | • Dịch vụ, loại vấn đề, mức ưu tiên khách hàng đã chọn; không sửa được sau khi gửi [GIẢ ĐỊNH]. Không hiển thị tầng/nhân viên nội bộ hay ghi chú nội bộ (chỉ nhân viên nội bộ thấy). |
 | 4 | Lịch sử trao đổi | Timeline | ReadOnly | • Chỉ hiện **phản hồi công khai** giữa khách hàng và đội hỗ trợ theo thứ tự thời gian, kèm tệp đính kèm; **ghi chú nội bộ của agent không bao giờ hiện**.<br>• Có hiển thị tên agent hay chỉ "Đội hỗ trợ": đã chốt (OQ-17).<br>• Phản hồi AI tự động (khi bật) hiển thị như phản hồi thường, có nhãn "phản hồi tự động" cho khách hàng hay không: đã chốt (OQ-17).<br>• Ticket đã chuyển OneBSS: mã phiếu OneBSS có hiện cho khách hàng không: đã chốt (OQ-17).<br>• Mỗi tin có thể kèm tệp/ảnh (xem [10]); ghi chú nội bộ và tệp nội bộ của agent không bao giờ hiện cho khách hàng |
 | 5 | Mốc thời gian | Label | ReadOnly | • Tạo, phản hồi, đóng, mở lại — toàn bộ mốc được lưu trong lịch sử ticket (Đề xuất — Gửi yêu cầu hỗ trợ). Mốc chưa xảy ra hiện "-". |
-| 6 | Banner chờ xác nhận | Label | ReadOnly | • Chỉ hiện khi trạng thái = Chờ khách hàng xác nhận; nhắc thời hạn tự đóng nếu không phản hồi (thời gian cấu hình: OQ-1). |
-| 7 | Xác nhận kết quả | Button | Click | • Chỉ hiện khi trạng thái = Chờ khách hàng xác nhận → `ticket-xac-nhan`. |
-| 8 | Ô nhập phản hồi | Textbox (multi-line) | Text | • Khách hàng bổ sung thông tin/đính kèm cho đội hỗ trợ; hiển thị khi ticket chưa đóng (đặc biệt lúc "Chờ khách hàng"). Ticket đã đóng → ẩn, chuyển sang `ticket-da-dong` (KHÔNG mở lại được — xem [5] tại đó, cập nhật 23/09/2026).<br>• Khách hàng nhắn thêm khi đang "Chờ khách hàng xác nhận" thì trạng thái đổi thế nào: đã chốt (OQ-17).<br>• Tệp chọn qua [11] hiện thành dòng "Đính kèm:" phía trên ô nhập, mỗi tệp có (x) để gỡ (xem Trạng thái phụ — soạn phản hồi kèm tệp) |
-| 9 | Gửi | Button | Click | • **Disabled** khi [8] rỗng; gửi → thêm vào lịch sử trao đổi, báo agent phụ trách; trạng thái "Chờ khách hàng" chuyển về "Đang xử lý" [GIẢ ĐỊNH]. |
+| 6 | Khối "lượt" | Banner | ReadOnly | • Nêu bên đang giữ lượt: **Chờ khách hàng** → "Đến lượt bạn" (xem phản hồi, nhắn thêm rồi "Chuyển cho hỗ trợ", hoặc "Đóng ticket"; nhắc tự đóng sau N ngày làm việc — OQ-1) kèm thời điểm + người chuyển lượt; **Mới / Đang xử lý** → "Đang chờ đội hỗ trợ" (vẫn nhắn bổ sung được; có thể đóng ticket); **Đã đóng** → ẩn.<br>• Màu nhấn khi đến lượt khách hàng. |
+| 7 | Chuyển cho hỗ trợ | Button | Click | • **Đặt ở thanh trên cùng (dính khi cuộn), bên phải "Quay lại danh sách"** — nút xanh đặc cỡ nhỏ (cao 28px, chữ 12px) kèm mũi tên. Chỉ hiện khi trạng thái = Chờ khách hàng. Bấm → "Đang xử lý" (giữ nguyên người xử lý cũ), chạy lại đồng hồ SLA, báo nhân viên phụ trách; ticket đổi sang "Đang chờ đội hỗ trợ". Khóa nút khi submitting. Lỗi → giữ màn, báo lỗi [wording chưa có, chưa có mã E-…]. |
+| 8 | Ô nhập phản hồi | Textbox (multi-line) | Text | • Khách hàng bổ sung thông tin/đính kèm cho đội hỗ trợ; hiển thị khi ticket chưa đóng (đặc biệt lúc "Chờ khách hàng"). Ticket đã đóng → ẩn, chuyển sang `ticket-da-dong` (KHÔNG mở lại được — xem [5] tại đó, cập nhật 23/09/2026).<br>• Gửi tin **không đổi trạng thái** (v1.2); chuyển lượt phải bấm [7].<br>• Tệp chọn qua [11] hiện thành dòng "Đính kèm:" phía trên ô nhập, mỗi tệp có (x) để gỡ (xem Trạng thái phụ — soạn phản hồi kèm tệp) |
+| 9 | Gửi | Button | Click | • **Disabled** khi [8] rỗng; gửi → thêm vào lịch sử trao đổi, **không đổi trạng thái**. Nếu ticket đang lượt đội hỗ trợ → báo agent phụ trách; nếu đang "Chờ khách hàng" → chưa báo cho tới khi bấm [7]. |
 | 10 | Tệp đính kèm trong lịch sử | Ảnh xem trước / File chip | Click | • Tệp/ảnh kèm theo từng tin của khách hàng và của đội hỗ trợ. Ảnh hiện hình xem trước nhỏ + tên; bấm ảnh → hộp xem ảnh [12]. Tệp khác (PDF...) hiện tên + dung lượng + (dl); bấm → tải xuống.<br>• Chỉ hiện tệp thuộc phản hồi công khai. |
 | 11 | Đính kèm | Button | Click | • Mở hộp chọn tệp cho phản hồi đang soạn; chỉ hiện khi ticket chưa đóng (cùng điều kiện với [8]). Định dạng/dung lượng/số tệp như `ticket-tao-moi` [5] (OQ-16). Tệp lỗi → báo ngay tại dòng tệp, không gửi kèm. |
 | 12 | Hộp xem ảnh | Modal | ReadOnly | • Mở khi bấm ảnh ở [10]; nền màn phía sau mờ đi. Hiện ảnh lớn, tên tệp, dung lượng, thời điểm gửi; chỉ xem, không sửa (xem Trạng thái phụ — xem ảnh đính kèm). |
 | 13 | Đóng hộp xem ảnh | Icon button (x) | Click | • Đóng hộp, quay về màn chi tiết ticket ở vị trí cũ. |
 | 14 | Tải xuống | Button | Click | • Tải ảnh gốc về máy khách hàng. |
+| 15 | Thanh tiến trình | Stepper | ReadOnly | • 4 bước Mới → Đang xử lý ⇄ Chờ khách hàng → Đã đóng; bước hiện tại nổi bật, bước đã qua có dấu ✓; mũi tên hai chiều giữa "Đang xử lý" và "Chờ khách hàng" thể hiện chuyền qua lại. |
+| 16 | Đóng ticket | Button | Click | • **Đặt ở thanh trên cùng (dính khi cuộn), cạnh [7]** — nút viền + chữ đỏ, nền trắng, cùng cỡ [7] (nhắc thao tác không hoàn tác). Hiện bất cứ lúc nào ticket chưa đóng (kể cả khi đang lượt đội hỗ trợ). Bấm → mở hộp thoại `ticket-xac-nhan` (Đóng ticket + đánh giá). |
 
-- Bố cục vẽ ở trạng thái "Chờ khách hàng xác nhận" (đủ cả banner [6] và nút [7]); các trạng thái khác ẩn [6][7] tương ứng.
+- Bố cục vẽ ở trạng thái "Chờ khách hàng" (đủ khối [6] và nút [7] trên thanh trên cùng); ở "Mới/Đang xử lý" khối [6] đổi thành "Đang chờ đội hỗ trợ", ẩn nút [7]; "Đã đóng" → sang `ticket-da-dong`. Nút [16] hiện ở mọi trạng thái chưa đóng.
 
 #### Trạng thái phụ — soạn phản hồi kèm tệp
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [1] < Quay lại danh sách >                                           │
+│ [1] < Quay lại DS >  [7][Chuyển cho hỗ trợ ->] [16][Đóng ticket]     │
 ├──────────────────────────────────────────────────────────────────────┤
-│ #T-0123  Không ký số được                        [2] Chờ KH xác nhận │
+│ #T-0123  Không ký số được                        [2] Chờ khách hàng  │
 │ Dịch vụ: iOffice | Loại: Lỗi ký số | Ưu tiên: Khẩn cấp   [3]         │
+│ [15] (Mới) -> (Đang xử lý) <=> [Chờ khách hàng] -> (Đã đóng)         │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Lịch sử trao đổi [4]                                                 │
 │ 17/09 08:02  Bạn: Ký số báo lỗi 403 khi ký văn bản đi.               │
@@ -243,7 +251,7 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ [5] Mốc: Tạo 17/09 08:02 | Phản hồi 17/09 09:15 | Đóng - | Mở lại -  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [6] Yêu cầu của bạn chờ xác nhận kết quả  [7] [ Xác nhận kết quả ]   │
+│ [6] Đến lượt bạn: nhắn thêm rồi chuyển cho hỗ trợ, hoặc đóng ticket. │
 │ Đính kèm: [IMG] anh-them.png 1.2 MB (x) [TXT] log-ky-so.txt 8 KB (x) │
 │ [8] [Đã thêm ảnh chụp màn hình mới, nhờ hỗ trợ kiểm tra._________]   │
 │ [11] [+ Đính kèm]                                       [9] [ Gửi ]  │
@@ -257,7 +265,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
 │ (nền mờ - màn Chi tiết ticket ở phía sau)                            │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -281,32 +289,33 @@
 
 ---
 
-## Screen: ticket-xac-nhan — Xác nhận đã xong + đánh giá hài lòng
+## Screen: ticket-xac-nhan — Đóng ticket + đánh giá hài lòng (hộp thoại)
 
 ### Wireframe (ASCII)
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi   [BĐ - iOffice] (o) A v │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5) [BĐ-iOffice](o) A v  │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │       ┌──────────────────────────────────────────────────────┐       │
-│       │ Xác nhận kết quả xử lý  #T-0123                      │       │
+│       │ Đóng ticket  #T-0123                                 │       │
 │       │                                                      │       │
 │       │ Phản hồi gần nhất của đội hỗ trợ:                    │       │
 │       │ [1] "Đã cấp quyền ký, bạn thử lại giúp."             │       │
 │       │     [PDF] huong-dan-cap-quyen.pdf 240 KB [6]         │       │
 │       │                                                      │       │
-│       │ Vấn đề đã được giải quyết chưa?                      │       │
-│       │ [2] [   Đã giải quyết xong   ]                       │       │
+│       │ Đóng rồi sẽ không mở lại được. Cần hỗ trợ thêm thì   │       │
+│       │ tạo ticket mới (có tham chiếu ticket này).           │       │
+│       │ [2] [      Đóng ticket      ]                        │       │
 │       ├──────────────────────────────────────────────────────┤       │
 │       │ Mức hài lòng (không bắt buộc) [3]                    │       │
 │       │     (*) (*) (*) (*) ( )   4/5 sao                    │       │
 │       │ Nhận xét [7] [Hỗ trợ nhanh, cảm ơn đội ngũ.____]     │       │
 │       │                                            29/500    │       │
 │       ├──────────────────────────────────────────────────────┤       │
-│       │ [4] Không phản hồi thì ticket sẽ tự                  │       │
-│       │     động đóng sau thời gian cấu hình.                │       │
+│       │ [4] Ticket ở "Chờ khách hàng" mà không phản hồi sẽ   │       │
+│       │     tự động đóng sau thời gian cấu hình.             │       │
 │       │ [5] < Quay lại chi tiết ticket >                     │       │
 │       └──────────────────────────────────────────────────────┘       │
 │                                                                      │
@@ -317,12 +326,12 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Phản hồi gần nhất | Label | ReadOnly | • Trích phản hồi công khai cuối cùng của agent làm cơ sở để khách hàng xác nhận. |
-| 2 | Đã giải quyết xong | Button | Click | • Click → xác nhận ticket đã giải quyết: hệ thống **đóng ticket chính thức**, ghi mốc đóng, sang `ticket-da-dong` (Flow: chỉ 2 kết cục — xác nhận xong, hoặc không phản hồi rồi tự đóng; **không có nút "Chưa xong"**).<br>• Khóa nút khi submitting. Lỗi lưu → giữ màn, báo lỗi, cho thử lại [wording chưa có, chưa có mã E-…]. |
+| 1 | Phản hồi gần nhất | Label | ReadOnly | • Trích phản hồi công khai cuối cùng của agent để khách hàng cân nhắc trước khi đóng; chưa có phản hồi nào của đội hỗ trợ thì ẩn. |
+| 2 | Đóng ticket | Button | Click | • Click → hệ thống **đóng ticket chính thức** (lý do "Khách hàng đã đóng ticket"), ghi mốc đóng, báo nhân viên phụ trách, sang `ticket-da-dong`. Mở từ nút [16] của `ticket-chi-tiet-kh` ở **mọi** trạng thái chưa đóng (v1.2); **không có nút "Chưa xong"** — muốn tiếp tục thì bấm Quay lại.<br>• Khóa nút khi submitting. Lỗi lưu → giữ màn, báo lỗi, cho thử lại [wording chưa có, chưa có mã E-…]. |
 | 3 | Mức hài lòng | Star rating (5 sao) | Select | • Đánh giá **đơn giản** khi đóng chính thức (Đề xuất — Gửi yêu cầu hỗ trợ), **không bắt buộc** [GIẢ ĐỊNH].<br>• [GIẢ ĐỊNH] thang 1-5 chỉ để minh họa; thang thật (sao/emoji/3 mức): OQ-3. Dữ liệu nuôi báo cáo CSAT (UC52).<br>• Bản mới: thang **5 sao** (chọn sao, có nhãn "n/5 sao") + ô nhận xét tùy chọn [7]; thêm/sửa trong 7 ngày sau khi đóng, kể cả ticket tự đóng (OQ-3). |
-| 4 | Nhắc tự động đóng | Label | ReadOnly | • Nhắc: không phản hồi sau khoảng thời gian cấu hình → hệ thống tự đóng ticket và báo khách hàng (UC35, trạng thái tự đóng xem `ticket-da-dong`). Thời gian cụ thể: OQ-1. |
-| 5 | Quay lại chi tiết ticket | Link | Click | • Navigate → `ticket-chi-tiet-kh` để nhắn thêm cho đội hỗ trợ nếu chưa hài lòng. |
-| 6 | Tệp kèm theo phản hồi | File chip | Click | • Nếu phản hồi gần nhất của đội hỗ trợ có tệp đính kèm thì hiện dòng tệp (tên + dung lượng; bấm để tải) ngay dưới trích dẫn [1] để khách hàng xem lại trước khi xác nhận; không có tệp thì ẩn. |
+| 4 | Nhắc tự động đóng | Label | ReadOnly | • Nhắc: ticket ở "Chờ khách hàng" mà không phản hồi sau khoảng thời gian cấu hình (tính từ lúc vào "Chờ khách hàng") → hệ thống tự đóng ticket và báo khách hàng (UC35, trạng thái tự đóng xem `ticket-da-dong`). Thời gian cụ thể: OQ-1. |
+| 5 | Quay lại chi tiết ticket | Link | Click | • Navigate → `ticket-chi-tiet-kh` (không đóng) để nhắn thêm hoặc chuyển cho hỗ trợ. |
+| 6 | Tệp kèm theo phản hồi | File chip | Click | • Nếu phản hồi gần nhất của đội hỗ trợ có tệp đính kèm thì hiện dòng tệp (tên + dung lượng; bấm để tải) ngay dưới trích dẫn [1] để khách hàng xem lại trước khi đóng; không có tệp thì ẩn. |
 | 7 | Nhận xét thêm | Textarea | Text | • Không bắt buộc, **≤500 ký tự**, có bộ đếm "n/500" (OQ-3); vượt giới hạn → chặn nhập thêm và báo ngay tại ô [wording tạm, chưa có mã E-…]. Nhận xét chỉ nội bộ đội hỗ trợ xem, không hiện công khai [GIẢ ĐỊNH]. |
 
 
@@ -334,12 +343,12 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi            (o) A v       │
+│ CSKH  Tra cứu | Hỏi đáp AI | Ticket của tôi (5)        (o) A v       │
 ├──────────────────────────────────────────────────────────────────────┤
 │ < Quay lại danh sách >                                               │
 ├──────────────────────────────────────────────────────────────────────┤
 │ #T-0123  Không ký số được                                [1] Đã đóng │
-│ [2] Lý do đóng: Bạn đã xác nhận đã giải quyết xong (17/09 10:45)     │
+│ [2] Lý do đóng: Bạn đã đóng ticket (17/09 10:45)                     │
 │ [3] Đánh giá của bạn: 5/5                                            │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Lịch sử trao đổi (chỉ đọc)                                           │
@@ -359,10 +368,10 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Trạng thái Đã đóng | Label (badge) | ReadOnly | • Ticket đã đóng chính thức, không nhắn thêm được (ô phản hồi ẩn). |
-| 2 | Lý do đóng | Label | ReadOnly | • Phân biệt 2 lý do để khách hàng hiểu: **"Bạn đã xác nhận đã giải quyết xong (ngày giờ)"** hoặc **"Tự động đóng do không phản hồi sau thời gian quy định"** (UC35). Cùng bố cục, chỉ khác dòng chữ này (không tách màn). |
+| 2 | Lý do đóng | Label | ReadOnly | • Phân biệt 2 lý do để khách hàng hiểu: **"Bạn đã đóng ticket (ngày giờ)"**, **"Nhân viên đã đóng ticket"** hoặc **"Tự động đóng do không phản hồi sau thời gian quy định"** (UC35). Cùng bố cục, chỉ khác dòng chữ này (không tách màn). |
 | 3 | Đánh giá hài lòng | Label | ReadOnly | • Hiện mức đã đánh giá; nếu khách hàng bỏ qua hoặc ticket tự đóng thì hiện "Chưa đánh giá" [GIẢ ĐỊNH]; sau khi đóng có cho đánh giá bổ sung không: OQ-3. |
 | 4 | Mốc thời gian | Label | ReadOnly | • Tạo, đóng — lưu đầy đủ trong lịch sử ticket. KHÔNG còn mốc "mở lại" (đã bỏ nút Mở lại ticket, cập nhật 23/09/2026). |
-| 5 | Tạo yêu cầu mới | Button | Click | • **KHÔNG có nút "Mở lại ticket"** — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp, dù đóng do khách hàng tự xác nhận hay hệ thống tự động đóng (cập nhật 23/09/2026, thay cho phần "mở lại trong 7 ngày" ở OQ-16 gốc). Bấm nút này → mở `ticket-tao-moi`, tự động tham chiếu ticket này trong mô tả. |
+| 5 | Tạo yêu cầu mới | Button | Click | • **KHÔNG có nút "Mở lại ticket"** — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp, dù khách hàng đóng, nhân viên đóng hay hệ thống tự động đóng (cập nhật 23/09/2026, thay cho phần "mở lại trong 7 ngày" ở OQ-16 gốc). Bấm nút này → mở `ticket-tao-moi`, tự động tham chiếu ticket này trong mô tả. |
 | 6 | Tệp đính kèm trong lịch sử | Ảnh xem trước / File chip | Click | • Như `ticket-chi-tiet-kh` [10] nhưng chỉ đọc: ảnh/tệp trong lịch sử vẫn xem và tải xuống được sau khi ticket đóng; không thêm tệp mới (ô phản hồi ẩn). |
 
 - Bổ sung 21/09/2026: từ màn này có lối "Đánh giá / sửa đánh giá" quay về `ticket-xac-nhan` trong 7 ngày sau khi đóng (kể cả ticket tự đóng do quá hạn) — userflow Mục 3.5.
@@ -374,9 +383,9 @@
 
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
-| OQ-1 | Thời gian tự đóng ticket | 3 ngày làm việc kể từ "Chờ khách hàng xác nhận", nhắc 1 lần trước 1 ngày; khách nhắn thêm thì về "Đang xử lý". Cấu hình ở màn Cấu hình SLA. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-1 | Thời gian tự đóng ticket | 3 ngày làm việc kể từ lúc vào "Chờ khách hàng", nhắc 1 lần trước 1 ngày; khách hàng bấm "Chuyển cho hỗ trợ" thì về "Đang xử lý" (v1.2, 01/10/2026). Cấu hình ở màn Cấu hình SLA. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-2 | Ngưỡng SLA | Khẩn cấp: phản hồi 30 phút, xử lý 4 giờ; Cao: 2 giờ, 1 ngày làm việc; Bình thường: 4 giờ, 3 ngày làm việc (giờ làm việc T2-T6 08:00-17:00, tạm dừng khi chờ khách hàng). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-3 | Thang đánh giá hài lòng | 5 sao + nhận xét tùy chọn (≤500 ký tự); không bắt buộc; sửa/bổ sung trong 7 ngày sau khi đóng; ticket mở lại thì tính lần đóng cuối. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-16 | Tệp đính kèm; mở lại ticket | png, jpg, pdf, docx, xlsx, txt; ≤5 tệp/lần, ≤10 MB/tệp, tổng ≤25 MB; chặn tệp thực thi/nén. ~~Mở lại trong 7 ngày sau khi đóng, không giới hạn số lần; quá 7 ngày tạo ticket mới tham chiếu ticket cũ.~~ **Cập nhật 23/09/2026:** bỏ hẳn "mở lại" — ticket đã đóng KHÔNG mở lại được trong mọi trường hợp; vấn đề chưa hết hẳn thì luôn tạo ticket mới có tham chiếu (xem `ticket-da-dong` [5]). | Đã chốt (khách hàng xác nhận, 21/09/2026; phần mở lại **đã sửa lại** 23/09/2026) |
-| OQ-17 | Quyền xem, cách hiển thị, khách nhắn thêm | Thành viên chỉ thấy ticket mình gửi, đầu mối thấy (và phản hồi) mọi ticket của đơn vị/khách hàng mình (đã chốt 23/09/2026 — theo khách hàng, không theo site, vì site có thể dùng chung nhiều khách hàng); hiện "Đội hỗ trợ – tên agent"; nhãn "Phản hồi tự động" hiển thị cho khách; mã phiếu OneBSS chỉ nội bộ; khách nhắn thêm khi chờ xác nhận thì ticket về "Đang xử lý". | Đã chốt (khách hàng xác nhận, 21/09/2026; cập nhật 23/09/2026) |
+| OQ-17 | Quyền xem, cách hiển thị, khách nhắn thêm | Thành viên chỉ thấy ticket mình gửi, đầu mối thấy (và phản hồi) mọi ticket của đơn vị/khách hàng mình (đã chốt 23/09/2026 — theo khách hàng, không theo site, vì site có thể dùng chung nhiều khách hàng); hiện "Đội hỗ trợ – tên agent"; nhãn "Phản hồi tự động" hiển thị cho khách; mã phiếu OneBSS chỉ nội bộ; chuyển lượt chỉ bằng nút (v1.2): khách hàng "Chuyển cho hỗ trợ" → "Đang xử lý". | Đã chốt (khách hàng xác nhận, 21/09/2026; cập nhật 23/09/2026) |
 | OQ-16b | Dọn dẹp tệp đính kèm/dữ liệu ticket | Hệ thống KHÔNG tự động dọn dẹp/xóa theo định kỳ; dữ liệu lưu vô thời hạn, chỉ mất khi có hành động xóa chủ động từ người dùng. Chưa thiết kế màn cho khách hàng tự xóa tệp/ticket đã gửi — cân nhắc bổ sung ở giai đoạn sau. | Đã chốt (khách hàng xác nhận, 23/09/2026) |
