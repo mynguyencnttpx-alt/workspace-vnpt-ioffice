@@ -56,7 +56,7 @@ links:
 | 36 | [kb-cho-duyet](quan-tri-noi-dung-kb.md#kb-cho-duyet) | quan-tri-noi-dung-kb | draft | UC12 | [36 · kb-cho-duyet (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3928) | — | — | 2026-09-25 |
 | 37 | [kb-duyet-xuat-ban](quan-tri-noi-dung-kb.md#kb-duyet-xuat-ban) | quan-tri-noi-dung-kb | draft | UC12 | [37 · kb-duyet-xuat-ban (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4086) | — | — | 2026-09-21 |
 | 38 | [kb-danh-sach-noi-dung](quan-tri-noi-dung-kb.md#kb-danh-sach-noi-dung) | quan-tri-noi-dung-kb | draft | UC23, UC27, UC29 | [38 · kb-danh-sach-noi-dung (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4238) | — | — | 2026-09-25 |
-| 39 | [kb-import-um](quan-tri-noi-dung-kb.md#kb-import-um) | quan-tri-noi-dung-kb | draft | UC18 | [39 · kb-import-um (+4 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=28-7408) | — | — | 2026-09-21 |
+| 39 | [kb-import-um](quan-tri-noi-dung-kb.md#kb-import-um) | quan-tri-noi-dung-kb | draft | UC18 | [39 · kb-import-um (+5 states: 39b, 39c, 39d, 39f, 39g)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=28-7408) | — | — | 2026-10-01 |
 | 40 | [kb-cau-hinh-dong-bo-drive](quan-tri-noi-dung-kb.md#kb-cau-hinh-dong-bo-drive) | quan-tri-noi-dung-kb | draft | UC15, UC38 | [40 · kb-cau-hinh-dong-bo-drive (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4588) | — | — | 2026-09-21 |
 | 41 | [kb-tu-ticket-thanh-faq](quan-tri-noi-dung-kb.md#kb-tu-ticket-thanh-faq) | quan-tri-noi-dung-kb | draft | UC19 | [41 · kb-tu-ticket-thanh-faq (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-4780) | — | — | 2026-09-21 |
 | 42 | [cauhinh-tich-hop-ai](cau-hinh-ai-danh-muc.md#cauhinh-tich-hop-ai) | cau-hinh-ai-danh-muc | draft | UC13 | [42 · cauhinh-tich-hop-ai (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-5063) | — | — | 2026-09-21 |
@@ -237,7 +237,7 @@ Xem trước nội dung, phê duyệt & xuất bản (tái lập chỉ mục AI)
 Danh sách nội dung đã xuất bản: sửa (gửi duyệt lại) hoặc ẩn; lối vào Import, đồng bộ Drive, ticket thành FAQ.
 
 ### kb-import-um
-Import tài liệu UM/SRS hiện có thành bản nháp hàng loạt vào hàng chờ duyệt.
+Import tài liệu UM/SRS hiện có theo lô trên 1 trang (chọn tài liệu + cấu hình): tách bài theo tiêu đề, bài xuất bản ngay trừ bài có cảnh báo nhạy cảm giữ chờ duyệt; có thể tạo danh mục (kể cả danh mục con) ngay tại màn để chọn làm danh mục đích (01/10/2026).
 
 ### kb-cau-hinh-dong-bo-drive
 Quản trị viên cấu hình thư mục Google Drive đồng bộ định kỳ, gắn dịch vụ/site; tài liệu mới vào hàng chờ duyệt.

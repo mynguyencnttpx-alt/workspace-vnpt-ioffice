@@ -193,7 +193,7 @@
 | 4 | Hình thức hỗ trợ | Radio group | Select | • **Chỉ hiện và bắt buộc khi Địa bàn = Trung ương**: Helpdesk công ty / Triển khai Line; không có giá trị mặc định (xem Trạng thái phụ Trung ương). Địa bàn tỉnh/TP → ẩn. |
 | 5 | Tầng tiếp nhận | Label | ReadOnly | • Chỉ đọc, tự tính ngay khi đổi [3]/[4]: địa bàn tỉnh X → "Tỉnh X"; Trung ương + Helpdesk công ty → "Helpdesk công ty"; Trung ương + Triển khai Line → "Triển khai Line". Ticket mới của khách hàng vào đúng tầng này (`SRS` Chức năng 1 BR-01). |
 | 6 | Site sử dụng | Danh sách site đã chọn + ô tìm (combobox đa chọn) | Select | • **Chọn ≥1** từ danh mục Site đã có (`qt-danh-muc-site`); **mỗi dịch vụ chỉ chọn tối đa 1 site** (đã chốt 23/09/2026, xem Trạng thái phụ). Site quyết định khách hàng thấy nội dung/tri thức của site nào; site **không** quyết định tầng tiếp nhận ticket.<br>• **Không bày sẵn cả danh mục** (cập nhật 25/09/2026): mặc định chỉ hiện các site **đã chọn**, mỗi site 1 dòng (tên site, nhãn dịch vụ, nhãn "Dùng chung n khách hàng" nếu có, ô Mã đơn vị [7], nút X để bỏ). Chưa chọn site nào → "Chưa chọn site nào.".<br>• **Thêm site:** bấm/gõ vào ô "Tìm và thêm site theo tên hoặc dịch vụ…" → khung gợi ý mở ngay dưới ô (xem Trạng thái phụ — mở khung gợi ý): nhóm theo dịch vụ, lọc theo tên site hoặc tên dịch vụ (không phân biệt hoa/thường, dấu), cao tối đa ~6 dòng rồi cuộn, dòng cuối ghi "Hiện n / tổng site khớp". Site cùng dịch vụ với site đã chọn bị **làm mờ** kèm lý do "Không chọn được — iOffice đã có site-bd"; site "Ngừng dùng" không gợi ý. Chọn xong site chuyển thành dòng ở trên, ô nhập được làm trống. Phím ↑/↓ chọn, Enter thêm, Esc đóng.<br>• Dưới ô: "Đã chọn n site · mỗi dịch vụ tối đa 1 site". |
-| 7 | Mã đơn vị trên site | Textbox (nằm ngay trên dòng của mỗi site đã chọn) | Text | • **Bắt buộc với site đang dùng chung từ 2 khách hàng trở lên** (dòng hiện nhãn "Dùng chung n khách hàng" + "Mã đơn vị (bắt buộc)"), tùy chọn với site chỉ 1 khách hàng; duy nhất trong cùng 1 site (trùng → báo lỗi tại ô "Mã đơn vị này đã gán cho khách hàng khác trên site này." [wording tạm]).<br>• Là mã đơn vị của khách hàng trên chính site dịch vụ; cùng mã site dùng để xác định khách hàng khi người dùng vào CSKH từ iOffice/iStorage (`dang-nhap-kich-hoat` Chức năng 5). Đổi mã không tự đổi khách hàng của danh tính đã tạo. |
+| 7 | Mã đơn vị trên site (tên schema) | Textbox (nằm ngay trên dòng của mỗi site đã chọn) | Text | • **Bắt buộc với MỌI site đã chọn (01/10/2026)** — nhãn "Mã đơn vị (tên schema) *", ô gợi ý "vd so.noivu — tên schema trên site, có thể có dấu chấm"; trước đó chỉ bắt buộc với site dùng chung ≥2 khách hàng. Duy nhất trong cùng 1 site (trùng → báo lỗi tại ô "Mã đơn vị này đã gán cho khách hàng khác trên site này." [wording tạm]).<br>• Là mã đơn vị của khách hàng trên chính site dịch vụ; cùng mã site dùng để xác định khách hàng khi người dùng vào CSKH từ iOffice/iStorage (`dang-nhap-kich-hoat` Chức năng 5). Đổi mã không tự đổi khách hàng của danh tính đã tạo. |
 | 8 | + Tạo Site mới | Link/Button | Click | • Có ở 2 chỗ: dòng cuối khung gợi ý và cạnh dòng "Đã chọn n site". Mở nhanh modal con (Tên Site + Dịch vụ) ngay trong form — không cần rời sang `qt-danh-muc-site` (đã chốt 23/09/2026). Tạo xong, site mới tự chọn sẵn ở [6]. |
 | 9 | Họ tên đầu mối | Textbox | Text | • **Bắt buộc** (OQ-20b). Đầu mối liên hệ chính thức, lấy từ hợp đồng/biên bản bàn giao (UC1). Mỗi khách hàng có 1–3 đầu mối do Quản trị viên chỉ định (OQ-20a, đầu mối gắn theo khách hàng, không theo site) — màn này nhập đầu mối đầu tiên. |
 | 10 | Email đầu mối | Textbox | Text | • **Bắt buộc**, đúng định dạng; là nơi gửi lời mời kích hoạt ở `qt-moi-dau-moi` và là định danh đăng nhập [GIẢ ĐỊNH]. |
@@ -246,9 +246,9 @@
 │    ├────────────────────────────────────────────────────────────┤    │
 │    │ Site sử dụng [6]                                           │    │
 │    │   dn-dung-chung-ioffice [iOffice] [Dùng chung 4 KH]        │    │
-│    │     Mã đơn vị (bắt buộc) [7] [ ! chưa nhập ]         [x]   │    │
-│    │     (!) Site dùng chung nhiều khách hàng: bắt buộc nhập    │    │
-│    │         mã đơn vị.                                         │    │
+│    │     Mã đơn vị - tên schema (*) [7] [ ! chưa nhập ]   [x]   │    │
+│    │     (!) Bắt buộc nhập mã đơn vị (tên schema, vd so.noivu,  │    │
+│    │         có thể có dấu chấm).                               │    │
 │    ├────────────────────────────────────────────────────────────┤    │
 │    │ [12] [ Lưu và tiếp tục mời đầu mối ] (mờ)  [13] [ Hủy ]    │    │
 │    └────────────────────────────────────────────────────────────┘    │
@@ -326,7 +326,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Khách hàng | Dropdown | Select | • **Bắt buộc**. Chọn từ danh mục khách hàng (tự chọn sẵn khi đi từ `qt-danh-muc-khach-hang`; đã chốt 23/09/2026 — đầu mối gắn theo khách hàng, không cần chọn thêm site ở đây). Không có trong danh mục thì không tạo được tài khoản (neo xác thực vào dữ liệu hợp đồng/dự án, Đề xuất — Cơ chế cấp tài khoản). |
+| 1 | Khách hàng | Ô tìm kiếm có gợi ý (combobox) | Select | • **Đổi từ dropdown sang ô tìm kiếm (01/10/2026)** — danh mục có thể tới hàng nghìn khách hàng nên KHÔNG nạp hết: gõ tên (không dấu, không phân biệt hoa thường) → gợi ý tối đa 20 đơn vị trong phạm vi của người thao tác; chọn xong hiện tên + địa bàn kèm nút "Đổi".<br>• **Bắt buộc**. Chọn từ danh mục khách hàng (tự chọn sẵn khi đi từ `qt-danh-muc-khach-hang`; đã chốt 23/09/2026 — đầu mối gắn theo khách hàng, không cần chọn thêm site ở đây). Không có trong danh mục thì không tạo được tài khoản (neo xác thực vào dữ liệu hợp đồng/dự án, Đề xuất — Cơ chế cấp tài khoản). |
 | 2 | Họ tên đầu mối | Textbox | Text | • **Bắt buộc**. Điền sẵn từ đầu mối đã lưu trong danh mục nếu có (tên/email/SĐT lấy từ hợp đồng/biên bản bàn giao); sửa ở đây thì cập nhật lại danh mục [GIẢ ĐỊNH]. |
 | 3 | Email | Textbox | Text | • **Bắt buộc**, đúng định dạng; là nơi gửi lời mời và là định danh đăng nhập [GIẢ ĐỊNH]. Đã có tài khoản → báo trùng. |
 | 4 | SĐT | Textbox | Text | • Bắt buộc khi chọn kênh SMS [GIẢ ĐỊNH]; định dạng số VN. |

@@ -347,17 +347,26 @@
 ┌──────────────────────────────────────────────────────────────────────┐
 │ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Import tài liệu UM/SRS hiện có                                       │
-│ (*) 1. Chọn tệp ( ) 2. Cấu hình ( ) 3. Xử lý ( ) 4. Kết quả          │
+│ Import UM/SRS                           < Về quản lý nội dung > [10] │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [1] ┌ Kéo thả tệp vào đây hoặc [ Chọn tệp ] ┐  docx, md, pdf         │
-│     └ tối đa 10 tệp/lần ┘                                            │
+│ 1. Chọn tài liệu                                                     │
+│ [1] ┌ Kéo thả tệp vào đây hoặc bấm để chọn ┐                         │
+│     └ .docx, .md, .pdf - tối đa 10 tệp, mỗi tệp <= 20.0 MB ┘         │
 │ Tệp đã chọn [2]                                                      │
-│   [DOC] UM-iOffice-v3.docx  2,4 MB  <Xóa>                            │
-│   [PDF] SRS-ky-so.pdf       1,1 MB  <Xóa>                            │
-│ [3] < Xem hướng dẫn chuẩn bị tệp (mẫu BM_UM_BM_AI) >                 │
+│   UM_iOffice_v2.docx (1.4 MB)                                   [x]  │
+│   UM_iStorage.docx (0.88 MB)                                    [x]  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [4] [ Hủy ]                                  [5] [ Tiếp tục ]        │
+│ 2. Cấu hình (áp cho cả lô)                                           │
+│ Dịch vụ [3] [v: iOffice      ]   Phạm vi [4] [v: Dùng chung ...]     │
+│ Loại nội dung [5] [v: Hướng dẫn sử dụng]                             │
+│ Danh mục đích [6] [v: Tự tạo theo tiêu đề cấp 1]                     │
+│                   [7] + Tạo danh mục mới                             │
+│ [ ] Không dùng cho AI [8]                                            │
+│ [9] [ Bắt đầu import ]                                               │
+├──────────────────────────────────────────────────────────────────────┤
+│ Lần import gần đây [11]                                              │
+│   01/10/2026 10:15 - iOffice        2 tệp · 14 bài đã xuất bản       │
+│   30/09/2026 16:40 - iStorage       1 tệp · 6 bài · 1 chờ duyệt      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -365,93 +374,142 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm [ Chọn tệp ]; nhận **docx, md, pdf**, tối đa **10 tệp/lần, 20 MB/tệp** (OQ-21a); tách bài theo tiêu đề cấp 1/2, phần không tách được gom vào 1 bản nháp "Chưa phân loại" để biên tập xử lý. Sai định dạng → báo lỗi ngay tại dòng tệp (xem Trạng thái phụ) [wording chưa có, chưa có mã E-…]. |
-| 2 | Tệp đã chọn | List | Select | • Mỗi dòng: loại tệp, tên, dung lượng, <Xóa>; tệp lỗi đánh (!) kèm lý do và không tính vào lượt import. |
-| 3 | Hướng dẫn chuẩn bị tệp | Link | Click | • Mở hướng dẫn tài liệu theo mẫu BM_UM_BM_AI (Đề xuất — Nhập liệu ban đầu). |
-| 4 | Hủy | Button | Click | • Về `kb-danh-sach-noi-dung`; đã chọn tệp → hỏi xác nhận bỏ. |
-| 5 | Tiếp tục | Button | Click | • **Disabled** tới khi có ≥1 tệp hợp lệ; sang bước 2 Cấu hình. |
+| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm vùng để chọn; nhận **.docx, .md, .pdf**, tối đa **10 tệp/lần, mỗi tệp ≤ 20 MB** (OQ-21a). Tách bài theo tiêu đề cấp 1/2; phần không tách được gom vào 1 bài "Chưa phân loại". Tệp sai định dạng/quá cỡ/rỗng/trùng tên-cỡ/quá số lượng → không nhận, báo ở khung cảnh báo [12] (xem Trạng thái phụ). |
+| 2 | Tệp đã chọn | List | Select | • Mỗi dòng: tên tệp (dung lượng) + nút xóa [x]; chưa chọn tệp nào thì ẩn danh sách. |
+| 3 | Dịch vụ | Dropdown | Select | • **Bắt buộc**, áp cho cả lô; mặc định dịch vụ đầu tiên. Đổi dịch vụ → bỏ chọn Phạm vi và Danh mục đích. |
+| 4 | Phạm vi | Dropdown | Select | • **Bắt buộc**: "Dùng chung mọi site của dịch vụ" (mặc định) hoặc "Site: ‹tên site›" của dịch vụ đã chọn; gắn nhãn khi chọn, không tự suy. Đổi phạm vi → bỏ chọn Danh mục đích. |
+| 5 | Loại nội dung | Dropdown | Select | • Mặc định **"Hướng dẫn sử dụng"** (UM); chọn "Tài liệu nghiệp vụ (SRS)" cho đặc tả nghiệp vụ. Dòng giải thích dưới ô: loại hiển thị cho khách hàng ("Khách hàng tra cứu và Hỏi đáp AI dùng được sau khi xuất bản") hay loại chỉ nhân viên ("Chỉ nhân viên xem: ẩn khỏi Tra cứu và Hỏi đáp AI của khách hàng"). |
+| 6 | Danh mục đích | Dropdown | Select | • Mặc định "Tự tạo theo tiêu đề cấp 1" (tiêu đề cấp 1 của tài liệu thành danh mục gốc, tìm đúng tên trong phạm vi hoặc tạo mới). Chọn 1 danh mục có sẵn → **cả lô vào đúng danh mục đó**, bỏ qua tiêu đề của tài liệu. Chỉ liệt kê danh mục trong **đúng phạm vi Dịch vụ/Site đã chọn**, hiển thị cả cây (danh mục con thụt lề "— "), danh mục con chọn làm đích được (BR-02). |
+| 7 | + Tạo danh mục mới | Link button | Click | • **Mới 01/10/2026**: mở hộp thoại tạo danh mục để chủ động phân loại ngay tại màn Import (xem Trạng thái phụ). Disabled khi chưa có Dịch vụ. Tạo trong đúng phạm vi đang chọn ở [3][4]. |
+| 8 | Không dùng cho AI | Checkbox | Check | • Áp cho cả lô (OQ-21c): bài tạo ra không được AI trích dẫn. |
+| 9 | Bắt đầu import | Button | Click | • **Disabled** khi chưa có tệp hợp lệ, chưa có Dịch vụ, hoặc đang tải lên. Bấm → tạo lô, tải từng tệp (hiện "Đang tải lên i/n: ‹tên tệp›"), rồi chuyển sang màn tiến độ (`?lo=...`). Lỗi toàn lô → khung "Không thể import". |
+| 10 | Về quản lý nội dung | Link button | Click | • Navigate → `kb-danh-sach-noi-dung`; ở góc phải tiêu đề. |
+| 11 | Lần import gần đây | List | Select | • Chỉ hiện khi đã có lô: ngày giờ + dịch vụ (bấm → mở tiến độ/kết quả của lô) và tóm tắt "n tệp · x bài đã xuất bản · y chờ duyệt · z lỗi · đang xử lý". |
 
-- Bản Figma (21/09/2026) chia **4 bước**: 1 Chọn tệp → 2 Cấu hình → 3 Xử lý → 4 Kết quả; thanh bước ở đầu màn. Đầu ra luôn là **bản nháp vào hàng chờ duyệt** (`kb-cho-duyet`, nhãn nguồn "Import") — không xuất bản thẳng, không vào chỉ mục AI cho tới khi được duyệt. Số thứ tự [n] của mỗi bước ở dưới tính riêng theo bước.
+- **Cập nhật 01/10/2026 (đồng bộ với code + Figma 39):** màn là **1 trang** gồm 2 khung "1. Chọn tài liệu" và "2. Cấu hình (áp cho cả lô)" — **không còn quy trình 4 bước** (bản Figma 21/09/2026 có thanh bước 1-4, nút Tiếp tục/Quay lại/Hủy, khung hướng dẫn mẫu BM_UM_BM_AI; code không làm các phần đó và Figma đã vẽ lại). Tiến độ và kết quả nằm ở cùng đường dẫn với `?lo=`. **Đầu ra theo code**: bài **xuất bản ngay** khi Quản trị viên import, **trừ bài có cảnh báo nhạy cảm** (mật khẩu, khóa bí mật, IP nội bộ…) được giữ lại ở `kb-cho-duyet` (nhãn nguồn "Import") chờ duyệt tay — thay cho "luôn vào chờ duyệt" của bản 21/09/2026.
 
-#### Trạng thái phụ — tệp sai định dạng (bước 1)
+#### Trạng thái phụ — tệp không được nhận
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
 │ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Import tài liệu UM/SRS hiện có                                       │
-│ (*) 1. Chọn tệp ( ) 2. Cấu hình ( ) 3. Xử lý ( ) 4. Kết quả          │
+│ Import UM/SRS                           < Về quản lý nội dung > [10] │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [1] ┌ Kéo thả tệp vào đây hoặc [ Chọn tệp ] ┐  docx, md, pdf         │
-│     └ tối đa 10 tệp/lần ┘                                            │
+│ 1. Chọn tài liệu                                                     │
+│ [1] ┌ Kéo thả tệp vào đây hoặc bấm để chọn ┐                         │
+│     └ .docx, .md, .pdf - tối đa 10 tệp, mỗi tệp <= 20.0 MB ┘         │
+│ (!) Một số tệp không được nhận [12]                                  │
+│     - ghi-chu-hop.txt: Định dạng không hỗ trợ (chỉ .docx, .md, .pdf).│
+│     - UM_tong_hop.pdf: Vượt 20.0 MB.                                 │
 │ Tệp đã chọn [2]                                                      │
-│   (!) [EXE] ghi-chu.exe  2,1 MB  <Xóa>                               │
-│       Sai định dạng. Chỉ nhận docx, md, pdf.                         │
+│   UM_iOffice_v2.docx (1.4 MB)                                   [x]  │
+│   UM_iStorage.docx (0.88 MB)                                    [x]  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [4] [ Hủy ]                              [5] [ Tiếp tục ] (mờ)       │
+│ 2. Cấu hình (áp cho cả lô)                                           │
+│ Dịch vụ [3] [v: iOffice      ]   Phạm vi [4] [v: Dùng chung ...]     │
+│ Loại nội dung [5] [v: Hướng dẫn sử dụng]                             │
+│ Danh mục đích [6] [v: Tự tạo theo tiêu đề cấp 1]                     │
+│                   [7] + Tạo danh mục mới                             │
+│ [ ] Không dùng cho AI [8]                                            │
+│ [9] [ Bắt đầu import ]                                               │
+├──────────────────────────────────────────────────────────────────────┤
+│ Lần import gần đây [11]                                              │
+│   01/10/2026 10:15 - iOffice        2 tệp · 14 bài đã xuất bản       │
+│   30/09/2026 16:40 - iStorage       1 tệp · 6 bài · 1 chờ duyệt      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- Khác màn gốc: dòng tệp (!) "Sai định dạng. Chỉ nhận docx, md, pdf."; [5] Tiếp tục mờ nếu không còn tệp hợp lệ.
+- Khác màn gốc: khung cảnh báo cam [12] "Một số tệp không được nhận" liệt kê từng tệp kèm lý do ("Định dạng không hỗ trợ (chỉ .docx, .md, .pdf).", "Vượt 20.0 MB.", "Tệp rỗng.", "đã chọn rồi.", "tối đa 10 tệp mỗi lần.") — tệp không được nhận **không vào danh sách tệp đã chọn** và không tính vào lượt import; các tệp hợp lệ vẫn giữ. Thông báo "Chưa phân loại"/wording lỗi `[wording chưa có, chưa có mã E-…]`.
 
-#### Trạng thái phụ — bước 2 — cấu hình
+#### Trạng thái phụ — hộp thoại Tạo danh mục mới (mới 01/10/2026)
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
 │ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Import tài liệu UM/SRS hiện có                                       │
-│ ( ) 1. Chọn tệp (*) 2. Cấu hình ( ) 3. Xử lý ( ) 4. Kết quả          │
+│ Import UM/SRS                           < Về quản lý nội dung >      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Dịch vụ [1]       [v: iOffice                 ]                      │
-│ Phạm vi [2]       (*) Dùng chung   ( ) Site: [v: chọn site]          │
-│ Danh mục đích [3] [v: Tự nhận theo mục        ]                      │
-│ [ ] Không dùng cho AI [4]                                            │
-├──────────────────────────────────────────────────────────────────────┤
-│ [5] [ Quay lại ]  [6] [ Hủy ]              [7] [ Bắt đầu import ]    │
+│ (nền mờ - trang Import phía sau)                                     │
+│   ┌────────────────────────────────────────────────────────┐         │
+│   │ Tạo danh mục mới                                       │         │
+│   │ Danh mục mới thuộc phạm vi đang chọn: iOffice · Dùng   │         │
+│   │ chung. Các bài import sẽ được đưa vào danh mục này.    │         │
+│   │ Tên danh mục (bắt buộc) [13]                           │         │
+│   │ [ Vd: Ký số & chứng thư__________________________ ]   │          │
+│   │ Danh mục cha (không bắt buộc) [14]                     │         │
+│   │ [v: Không có (tạo ở cấp gốc)                     ]     │         │
+│   │              [15] [ Hủy ]  [16] [ Tạo danh mục ]       │         │
+│   └────────────────────────────────────────────────────────┘         │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- [1] Dịch vụ (bắt buộc, áp cho cả lô); [2] Phạm vi (bắt buộc: Dùng chung hoặc 1 site — gắn nhãn khi nhập, không tự suy); [3] Danh mục đích (mặc định tự nhận theo cấu trúc mục của tài liệu; chọn tay đưa cả lô vào 1 nhóm [GIẢ ĐỊNH]); [4] cờ Không dùng cho AI áp cho cả lô (OQ-21c); [5] Quay lại (giữ tệp đã chọn); [6] Hủy; [7] Bắt đầu import (khóa tới khi đủ [1],[2]).
+- [13] Tên danh mục (**bắt buộc**, tối đa 100 ký tự; trùng tên ở cùng cấp trong cùng phạm vi → báo lỗi tại ô "Tên danh mục đã tồn tại ở cùng cấp."); [14] Danh mục cha (không bắt buộc, mặc định "Không có (tạo ở cấp gốc)"; chỉ liệt kê danh mục của đúng phạm vi đã chọn, hiển thị cây thụt lề); [15] Hủy (đóng, không tạo); [16] Tạo danh mục (disabled khi chưa nhập tên; Enter cũng tạo). Hộp thoại nền mờ phía sau; nhắc phạm vi đang chọn "‹Dịch vụ› · Dùng chung" hoặc "‹Dịch vụ› · Site ‹tên›".
 
-#### Trạng thái phụ — bước 3 — đang xử lý
+#### Trạng thái phụ — đã tạo, tự chọn làm danh mục đích
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
 │ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Import tài liệu UM/SRS hiện có                                       │
-│ ( ) 1. Chọn tệp ( ) 2. Cấu hình (*) 3. Xử lý ( ) 4. Kết quả          │
+│ Import UM/SRS                           < Về quản lý nội dung >      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Đang xử lý 2 tệp...  [#######-----]  60% [1]                         │
-│   UM-iOffice-v3.docx   Đang tách bài viết                            │
-│   SRS-ky-so.pdf        Chờ xử lý                                     │
-├──────────────────────────────────────────────────────────────────────┤
-│ Rời trang sẽ hỏi xác nhận; xử lý vẫn tiếp tục nền [2]                │
+│ 2. Cấu hình (áp cho cả lô)                                           │
+│ Dịch vụ [3] [v: iOffice      ]   Phạm vi [4] [v: Dùng chung ...]     │
+│ Loại nội dung [5] [v: Hướng dẫn sử dụng]                             │
+│ Danh mục đích [6] [v: Chứng thư số             ]  <- tự chọn [17]    │
+│                   [7] + Tạo danh mục mới                             │
+│ [ ] Không dùng cho AI [8]                                            │
+│ [9] [ Bắt đầu import ]                                               │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- [1] Tiến độ chung + trạng thái từng tệp (đang tách bài/chờ xử lý); [2] rời trang khi đang xử lý → hỏi xác nhận, việc xử lý vẫn tiếp tục nền. Bước này không có Quay lại.
+- [17] Tạo xong → đóng hộp thoại, danh mục mới **tự chọn làm Danh mục đích** (cả lô vào danh mục này); link [7] vẫn còn để tạo thêm. Đổi Dịch vụ/Phạm vi sau đó → bỏ chọn danh mục (không còn thuộc phạm vi).
 
-#### Trạng thái phụ — bước 4 — kết quả từng tệp
+#### Trạng thái phụ — đang xử lý (tiến độ theo từng tệp)
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
 │ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Import tài liệu UM/SRS hiện có                                       │
-│ ( ) 1. Chọn tệp ( ) 2. Cấu hình ( ) 3. Xử lý (*) 4. Kết quả          │
+│ Import UM/SRS                           < Về quản lý nội dung >      │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Kết quả [1]: 1 tệp thành công, 1 tệp lỗi                             │
-│   UM-iOffice-v3.docx   Thành công - 14 bản nháp                      │
-│   (!) SRS-ky-so.pdf    Lỗi - không đọc được nội dung  < Thử lại >    │
+│ iOffice - Dùng chung mọi site của dịch vụ         [Đang xử lý] [18]  │
+│ 1/2 tệp đã xử lý · 8 bài đã xuất bản [19]                            │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [2] [ Thử lại tệp lỗi ]        [3] [ Xem danh sách chờ duyệt ]       │
+│ UM_iOffice_v2.docx (1.4 MB)       [Đã xử lý · 8 đã xuất bản] [20]    │
+│ UM_iStorage.docx (0.88 MB)                       [Đang xử lý]        │
+├──────────────────────────────────────────────────────────────────────┤
+│ [21] [ Import tài liệu khác ]                                        │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- [1] Tổng kết: thành công/lỗi **từng tệp** (số bản nháp tạo được, lý do lỗi); [2] Thử lại tệp lỗi; [3] Xem danh sách chờ duyệt → `kb-cho-duyet` (chỉ phần tệp thành công). Import lỗi từng phần không làm mất phần đã thành công.
+- [18] Tiêu đề lô "‹dịch vụ› — ‹phạm vi›" + nhãn "Đang xử lý" / "Đã xử lý xong"; [19] tóm tắt "n/m tệp đã xử lý · x bài đã xuất bản" (kèm "· y bài giữ chờ duyệt", "· z tệp lỗi", "· danh mục: …", "· không dùng cho AI" khi có); [20] mỗi tệp 1 thẻ: tên (dung lượng) + nhãn trạng thái (Chờ xử lý / Đang xử lý / Hoàn tất / Lỗi, kèm số bài đã xuất bản/chờ duyệt khi xong); [21] Import tài liệu khác → về trang 1. Màn tự làm tươi mỗi 2 giây tới khi xong; **rời trang không dừng xử lý** (xử lý nền, EX-02). Không có nút "Hủy import".
 
+#### Trạng thái phụ — kết quả (có bài chờ duyệt và tệp lỗi)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB  Site: Toàn hệ thống | Vai trò: Quản trị viên   (o) B v      │
+├──────────────────────────────────────────────────────────────────────┤
+│ Import UM/SRS                           < Về quản lý nội dung >      │
+├──────────────────────────────────────────────────────────────────────┤
+│ iOffice - Dùng chung mọi site của dịch vụ        [Đã xử lý xong] [18]│
+│ 2/2 tệp đã xử lý · 8 bài đã xuất bản · 2 bài giữ chờ duyệt (có cảnh  │
+│ báo nhạy cảm) · 1 tệp lỗi · danh mục: Chứng thư số [19]              │
+│ [22] [ Xem 2 bài chờ duyệt ]  [23] [ Xem nội dung đã xuất bản ]      │
+├──────────────────────────────────────────────────────────────────────┤
+│ UM_iOffice_v2.docx (1.4 MB)  [Đã xử lý · 8 đã xuất bản, 2 chờ duyệt] │
+│   Bài "Cấu hình tài khoản" có thể chứa thông tin nhạy cảm [24]       │
+│ (!) UM_iStorage.docx (0.88 MB)                              [Lỗi]    │
+│   Không đọc được nội dung tệp (tệp bị hỏng hoặc có mật khẩu).   [25] │
+│   [26] [ Thử lại ]  [27] [ Xóa ]                                     │
+├──────────────────────────────────────────────────────────────────────┤
+│ [21] [ Import tài liệu khác ]                                        │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+- [22] **Xem n bài chờ duyệt** (chỉ khi xong và có bài giữ lại) → `kb-cho-duyet` lọc nguồn Import; [23] Xem nội dung đã xuất bản → `kb-danh-sach-noi-dung`; [24] cảnh báo nhạy cảm của tệp (bài bị giữ chờ duyệt) và cảnh báo trùng "Tệp giống hệt đã được import vào phạm vi này ngày …"; [25] lý do lỗi từng tệp; [26] **Thử lại** (chỉ khi nội dung tạm còn — tệp lỗi giữ tối đa **7 ngày**; quá hạn hiện "Nội dung tạm đã hết hạn sau 7 ngày — tải lại tệp ở lần import mới"); [27] Xóa tệp lỗi khỏi lô. Import lỗi từng phần không làm mất phần đã thành công.
 
 ---
 
