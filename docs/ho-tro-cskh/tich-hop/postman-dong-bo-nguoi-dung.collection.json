@@ -1,0 +1,127 @@
+{
+  "info": {
+    "name": "CSKH — API đồng bộ người dùng & đơn vị (iOffice/iStorage)",
+    "description": "Collection gồm đúng 2 API của luồng đồng bộ: (1) POST /api/v1/tich-hop/dong-bo-nguoi-dung, (2) GET dangNhapUrl (/vao?m=…). Hợp đồng: docs/ho-tro-cskh/tich-hop/api-dong-bo-nguoi-dung.md. Điền siteId + secret (khóa tích hợp) ở Environment; site phải đã bật tích hợp, khai domain + địa bàn ở màn Sửa Site. Mỗi request tự tính X-Timestamp, X-Nonce, X-Signature.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API 1 — Đồng bộ người dùng & đơn vị (iOffice/iStorage gọi)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Ký HMAC-SHA256 theo hợp đồng api-dong-bo-nguoi-dung.md mục 4. Chế độ thử: ok",
+              "const MODE = 'ok';",
+              "const secret = pm.variables.get('secret');",
+              "const siteId = pm.variables.get('siteId');",
+              "if (!secret || !siteId) { throw new Error('Thiếu biến siteId hoặc secret — điền ở Environment.'); }",
+              "// Băm đúng chuỗi body sẽ gửi đi (đã thay biến {{...}}), UTF-8.",
+              "const body = pm.variables.replaceIn(pm.request.body.raw);",
+              "let ts = String(Math.floor(Date.now() / 1000));",
+              "let nonce = pm.variables.replaceIn('{{$guid}}');",
+              "if (MODE === 'lech_gio') ts = String(Number(ts) - 120);",
+              "if (MODE === 'lap_nonce') nonce = pm.collectionVariables.get('nonceDaDung') || nonce;",
+              "const bodyHash = CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(body)).toString(CryptoJS.enc.Hex);",
+              "const canon = ['POST', '/api/v1/tich-hop/dong-bo-nguoi-dung', ts, nonce, bodyHash].join('\\n');",
+              "let sig = CryptoJS.HmacSHA256(canon, secret).toString(CryptoJS.enc.Hex);",
+              "if (MODE === 'sai_chu_ky') sig = sig.replace(/.$/, c => (c === '0' ? '1' : '0'));",
+              "pm.request.headers.upsert({ key: 'X-Site-Id', value: siteId });",
+              "pm.request.headers.upsert({ key: 'X-Timestamp', value: ts });",
+              "pm.request.headers.upsert({ key: 'X-Nonce', value: nonce });",
+              "if (MODE !== 'thieu_chu_ky') pm.request.headers.upsert({ key: 'X-Signature', value: sig }); else pm.request.headers.remove('X-Signature');",
+              "pm.collectionVariables.set('nonceVuaDung', nonce);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+              "const j = pm.response.json();",
+              "pm.test('Có khachHangId, taiKhoanId, dangNhapUrl; hetHanTrong = 60', () => {",
+              "  pm.expect(j.khachHangId).to.be.a('string'); pm.expect(j.taiKhoanId).to.be.a('string');",
+              "  pm.expect(j.dangNhapUrl).to.match(/\\/vao\\?m=/); pm.expect(j.hetHanTrong).to.eql(60);",
+              "});",
+              "pm.collectionVariables.set('dangNhapUrl', j.dangNhapUrl);",
+              "console.log('ketQua:', JSON.stringify(j.ketQua));",
+              "pm.collectionVariables.set('nonceDaDung', pm.collectionVariables.get('nonceVuaDung'));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json; charset=utf-8"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"domain\":\"{{domain}}\",\"maDonVi\":\"{{maDonVi}}\",\"tenDonVi\":\"{{tenDonVi}}\",\"maNguoiDung\":\"{{maNguoiDung}}\",\"hoTen\":\"{{hoTen}}\",\"email\":\"{{email}}\",\"sdt\":\"{{sdt}}\",\"trangThai\":\"hoat_dong\"}",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/tich-hop/dong-bo-nguoi-dung",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "tich-hop",
+            "dong-bo-nguoi-dung"
+          ]
+        },
+        "description": "Ký đúng, nội dung đủ. Trả 200 + dangNhapUrl (60 giây, dùng 1 lần). Chạy request này TRƯỚC các request thử lỗi (lưu nonce để thử lặp nonce)."
+      }
+    },
+    {
+      "name": "API 2 — Mở dangNhapUrl (trình duyệt vào CSKH, mã 60 giây dùng 1 lần)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Postman tự theo chuyển hướng tắt (Settings → Automatically follow redirects = OFF) để xem 303 + Set-Cookie.",
+              "pm.test('303 chuyển vào trang đầu', () => pm.expect(pm.response.code).to.be.oneOf([303, 200]));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{dangNhapUrl}}"
+        },
+        "description": "Chạy NGAY sau request 1 (mã hiệu lực 60 giây, dùng 1 lần). Chạy lại lần 2 → chuyển về /dang-nhap."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "nonceDaDung",
+      "value": ""
+    },
+    {
+      "key": "nonceVuaDung",
+      "value": ""
+    },
+    {
+      "key": "dangNhapUrl",
+      "value": ""
+    }
+  ]
+}

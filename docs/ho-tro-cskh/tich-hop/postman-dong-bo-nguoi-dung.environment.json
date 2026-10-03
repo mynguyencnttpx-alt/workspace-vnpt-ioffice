@@ -1,0 +1,98 @@
+{
+  "id": "cskh-dong-bo-env",
+  "name": "CSKH — đồng bộ người dùng (local)",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "enabled": true
+    },
+    {
+      "key": "siteId",
+      "value": "",
+      "enabled": true,
+      "description": "Mã site (X-Site-Id) — màn Sửa Site → Khóa tích hợp"
+    },
+    {
+      "key": "secret",
+      "value": "",
+      "type": "secret",
+      "enabled": true,
+      "description": "Khóa tích hợp cskh_sk_live_… (hiện 1 lần khi tạo)"
+    },
+    {
+      "key": "domain",
+      "value": "ioffice.tuyenquang.gov.vn",
+      "enabled": true,
+      "description": "Phải nằm trong danh sách domain của site"
+    },
+    {
+      "key": "maDonVi",
+      "value": "so.noivu",
+      "enabled": true
+    },
+    {
+      "key": "tenDonVi",
+      "value": "Sở Nội vụ",
+      "enabled": true
+    },
+    {
+      "key": "maNguoiDung",
+      "value": "u12345",
+      "enabled": true
+    },
+    {
+      "key": "hoTen",
+      "value": "Nguyễn Văn A",
+      "enabled": true
+    },
+    {
+      "key": "email",
+      "value": "a@tuyenquang.gov.vn",
+      "enabled": true
+    },
+    {
+      "key": "sdt",
+      "value": "0987654321",
+      "enabled": true
+    },
+    {
+      "key": "emailQuanTri",
+      "value": "",
+      "enabled": true,
+      "description": "Email tài khoản Quản trị viên CSKH"
+    },
+    {
+      "key": "matKhauQuanTri",
+      "value": "",
+      "type": "secret",
+      "enabled": true,
+      "description": "Mật khẩu Quản trị viên"
+    },
+    {
+      "key": "tenSite",
+      "value": "",
+      "enabled": true,
+      "description": "Tên site trong Danh mục Site (vd tinh-mau-a-ioffice)"
+    },
+    {
+      "key": "tenDiaBan",
+      "value": "",
+      "enabled": true,
+      "description": "Tên địa bàn của site (vd Tỉnh Mẫu A)"
+    },
+    {
+      "key": "domainSite",
+      "value": "ioffice.tuyenquang.gov.vn",
+      "enabled": true,
+      "description": "Domain iOffice của site — phải trùng 'domain' ở body API 1"
+    },
+    {
+      "key": "diaBanId",
+      "value": "",
+      "enabled": true,
+      "description": "Tự điền bởi request 2"
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

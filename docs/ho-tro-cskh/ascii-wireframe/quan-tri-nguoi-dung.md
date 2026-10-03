@@ -1,6 +1,6 @@
 # Flow: Quản trị người dùng & phân quyền
 
-> Màn hình thuộc flow này: qt-danh-muc-dia-ban (⇄ tab qt-danh-muc-khach-hang ⇄ tab qt-danh-muc-site) → qt-form-khach-hang → qt-moi-dau-moi → qt-danh-sach-tai-khoan → qt-chi-tiet-tai-khoan → qt-tao-tai-khoan-noibo → qt-phan-quyen → qt-ma-tran-phan-quyen → qt-nhat-ky-thao-tac. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
+> Màn hình thuộc flow này: qt-danh-muc-dia-ban (⇄ tab qt-danh-muc-khach-hang ⇄ tab qt-danh-muc-site; qt-danh-muc-site → qt-sua-site-dong-bo; qt-danh-muc-khach-hang → qt-gop-khach-hang) → qt-form-khach-hang → qt-moi-dau-moi → qt-danh-sach-tai-khoan → qt-chi-tiet-tai-khoan → qt-tao-tai-khoan-noibo → qt-phan-quyen → qt-ma-tran-phan-quyen → qt-nhat-ky-thao-tac. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1. Khung điều hướng nội bộ dùng chung: bản Figma là sidebar trái + thanh trên có chip Site/Vai trò; ASCII vẽ gọn thành 1 dòng đầu.
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
@@ -53,9 +53,11 @@
 - Cột "Số KH đang dùng" là số khách hàng đang thuộc địa bàn; bấm số → xem nhanh danh sách khách hàng `[GIẢ ĐỊNH — hợp lý về UX]`. Địa bàn + Hình thức hỗ trợ của khách hàng quyết định tầng tiếp nhận ticket (xem `qt-danh-muc-khach-hang`).
 
 
+> **Cập nhật 01/10/2026 (v1.4 — S43 API đồng bộ người dùng, Figma 28d–28i đã duyệt):** `qt-danh-muc-site` thêm cột **Đồng bộ người dùng** + liên kết **Cấu hình đồng bộ**; thêm màn **`qt-sua-site-dong-bo`** (cấu hình đồng bộ + khóa tích hợp hiện 1 lần); `qt-danh-muc-khach-hang` thêm nhãn **Chưa rà soát**, bộ lọc Rà soát, banner, **Đánh dấu đã rà soát** và **Gộp vào khách hàng khác**; thêm màn **`qt-gop-khach-hang`** (hộp thoại Gộp + trạng thái bị chặn). Nguồn: `SRS/quan-tri-nguoi-dung/SRS.md` v1.4.
+
 ---
 
-## Screen: qt-danh-muc-site — Danh mục Site (mới, 23/09/2026)
+## Screen: qt-danh-muc-site — Danh mục Site (mới 23/09/2026, cập nhật 01/10/2026)
 
 ### Wireframe (ASCII)
 
@@ -68,16 +70,15 @@
 │ Tìm [2]          Dịch vụ [3]                                         │
 │ [site-bd_______] [v: Tất cả     ]                                    │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Tên Site         Dịch vụ    Số KH đang dùng   Trạng thái             │
+│ Tên Site       Dịch vụ  Số KH  Đồng bộ người dùng  Trạng thái        │
 │ ---------------------------------------------------------------------│
-│ site-bd          iOffice    2                 Đang dùng              │
-│ site-snv         iOffice    1                 Đang dùng              │
-│ site-nho-le      iOffice    18                Đang dùng              │
-│ site-bnv         iOffice    1                 Đang dùng              │
-│ site-bnv-is      iStorage   1                 Đang dùng              │
+│ site-bd        iOffice  2      [Đang bật]          Đang dùng         │
+│ site-nho-le    iOffice  18     [Đang bật]          Đang dùng         │
+│ site-bnv       iOffice  1      [Tắt]               Đang dùng         │
+│ site-bnv-is    iStorage 1      [Tắt]               Đang dùng         │
 │                                                                      │
-│ Dòng chọn: site-nho-le [4] < Sửa >                                   │
-│ [5] Trang 1/1                                                        │
+│ Dòng chọn: site-nho-le [4] < Sửa > [5] < Cấu hình đồng bộ >          │
+│ [6] Trang 1/3                                                        │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -90,10 +91,87 @@
 | 2 | Tìm kiếm | Textbox | Text | • Tìm theo tên site; rỗng → hiện tất cả. |
 | 3 | Lọc dịch vụ | Dropdown | Select | • Tất cả / iOffice / iStorage. |
 | 4 | Sửa | Link | Click | • Sửa tên Site (dịch vụ không sửa được sau khi tạo, vì bài viết/hội thoại AI đã lập chỉ mục theo dịch vụ đó — đổi dịch vụ phải tạo Site mới `[GIẢ ĐỊNH]`). |
-| 5 | Phân trang | Pagination | Click | • 10 bản ghi/trang, đồng bộ chuẩn phân trang chung hệ thống (OQ-11). |
+| 5 | Cấu hình đồng bộ người dùng | Link | Click | • (mới 01/10/2026) Sang `qt-sua-site-dong-bo` của site đã chọn: domain, IP máy chủ, địa bàn, hạn mức, khóa tích hợp. Chỉ **Quản trị viên**. |
+| 6 | Cột Đồng bộ người dùng | Badge | Label | • (mới 01/10/2026) "Đang bật" (xanh) / "Tắt" (xám) theo công tắc Bật tích hợp của site. Site mới tạo mặc định "Tắt". |
+| 7 | Phân trang | Pagination | Click | • 10 bản ghi/trang, đồng bộ chuẩn phân trang chung hệ thống (OQ-11). |
 
 - Cột "Số KH đang dùng" > 1 nghĩa là site dùng chung (site-bd: UBND tỉnh Bình Định + Sở Nội vụ cùng dùng; site-nho-le: 18 khách hàng nhỏ lẻ dùng chung). Bấm số → xem nhanh danh sách khách hàng đang dùng site đó `[GIẢ ĐỊNH — chưa có nguồn, hợp lý về UX]`.
 - Không có nút xóa Site đang có khách hàng dùng — chỉ chuyển "Ngừng dùng" (đồng bộ quy tắc "không xóa cứng dữ liệu gốc" của khách hàng, OQ-20b).
+
+---
+
+## Screen: qt-sua-site-dong-bo — Sửa Site: cấu hình đồng bộ người dùng (mới, 01/10/2026)
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
+├──────────────────────────────────────────────────────────────────────┤
+│ Sửa Site · site-nho-le                       [1] < Về danh mục Site >│
+├──────────────────────────────────────────────────────────────────────┤
+│ Thông tin site (chỉ đọc) [2]                                         │
+│ Tên Site [site-nho-le]  Dịch vụ [iOffice]  KH đang dùng [18]         │
+├──────────────────────────────────────────────────────────────────────┤
+│ Đồng bộ người dùng từ site (iOffice/iStorage)                        │
+│ [x] Bật tích hợp [3]                                                 │
+│ Domain được phép (bắt buộc khi bật) [4]                              │
+│ (ioffice.tuyenquang.gov.vn x) (ioffice2.tuyenquang.gov.vn x)         │
+│ [vd ioffice.tinh.gov.vn___________]  [ + Thêm domain ]               │
+│ IP máy chủ site được phép (tùy chọn) [5]                             │
+│ (10.20.30.40 x)                                                      │
+│ [vd 10.20.30.41___________________]  [ + Thêm IP ]                   │
+│ Địa bàn của site [6]            Hình thức hỗ trợ [7]                 │
+│ [v: Tuyên Quang         ]       [v: (khóa — chỉ khi Trung ương)]     │
+│ Hạn mức lời gọi/phút [8]        KH tự tạo tối đa/ngày [9]            │
+│ [300____________________]       [100_______________________]         │
+├──────────────────────────────────────────────────────────────────────┤
+│ Khóa tích hợp (ký HMAC) [10]                                         │
+│ Mã site (X-Site-Id):  f3a9c1d2-7b4e-4c55-9a10-2d8e6b0a77c4           │
+│ Khóa hiện tại:        cskh_sk_••••••••••••3f2a · tạo 01/10/2026 10:15│
+│ [ Tạo khóa mới (xoay vòng) ]  < Sao chép mã site >                   │
+├──────────────────────────────────────────────────────────────────────┤
+│                                          [ Hủy ]  [ Lưu ] [11]       │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+Hộp thoại hiện khóa (sau khi bấm [10] Tạo khóa / Tạo khóa mới):
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ (nền mờ — màn Sửa Site phía sau)                                     │
+│                                                                      │
+│   ┌────────────────────────────────────────────────────────────┐     │
+│   │ Khóa tích hợp mới của site-nho-le                    [12] │      │
+│   │ ! Khóa chỉ hiển thị lúc này. Sao chép và gửi qua kênh     │      │
+│   │   an toàn. Đóng hộp thoại là không xem lại được.           │     │
+│   │ Khóa tích hợp                                              │     │
+│   │ [cskh_sk_live_9fA3kQ7xW2mZ5vB1nC8dE4hJ6pR0tY3u] [Sao chép] │     │
+│   │ Khóa cũ (…3f2a) còn hiệu lực đến 02/10/2026 10:15 [13]     │     │
+│   │ [ ] Tôi đã lưu khóa vào cấu hình máy chủ của site          │     │
+│   │                                        [ Đóng (khóa) ] [14]│     │
+│   └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Về danh mục Site | Link | Click | • Quay lại `qt-danh-muc-site`. Màn chỉ mở được bằng liên kết "Cấu hình đồng bộ người dùng" ở dòng site; chỉ **Quản trị viên**. |
+| 2 | Thông tin site | Textbox ×3 | Chỉ đọc | • Tên Site, Dịch vụ (không đổi sau khi tạo), Khách hàng đang dùng. |
+| 3 | Bật tích hợp | Checkbox | Boolean | • Bật → nhận lời gọi hợp lệ của site (`api-dong-bo-nguoi-dung.md`). Tắt → mọi lời gọi bị từ chối (E-TH-004), người đang đăng nhập không bị ảnh hưởng. Bật thì bắt buộc có ≥1 domain và địa bàn. |
+| 4 | Domain được phép | Chip + Textbox + Button | Text | • Nhập 1 domain rồi Enter hoặc bấm "+ Thêm domain"; chuẩn hóa chữ thường, bỏ trùng, tối đa 20; sai định dạng → "Domain không đúng định dạng (vd ioffice.tinh.gov.vn)."; trùng site khác → "Domain này đã thuộc site {tên site}." (báo tại ô, không lưu) [wording tạm]. Bấm × trên chip để bỏ. |
+| 5 | IP máy chủ được phép | Chip + Textbox + Button | Text | • Tùy chọn; IPv4/IPv6 từng địa chỉ (chưa hỗ trợ dải `[GIẢ ĐỊNH]`); sai → "Địa chỉ IP không đúng định dạng.". Để trống = không kiểm IP (chữ ký HMAC vẫn bắt buộc). |
+| 6 | Địa bàn của site | Dropdown | Select | • Bắt buộc khi bật. Khách hàng tự tạo từ site thuộc địa bàn này, tầng tiếp nhận suy theo địa bàn (tỉnh/TP → tầng tỉnh). Chỉ liệt kê địa bàn "Đang dùng" (giữ địa bàn hiện tại nếu đã ngừng dùng). |
+| 7 | Hình thức hỗ trợ | Dropdown | Select | • Chỉ chọn được và bắt buộc khi địa bàn là Trung ương: Helpdesk công ty / Triển khai Line. Địa bàn tỉnh/TP thì ô bị khóa và không lưu giá trị. |
+| 8 | Hạn mức lời gọi mỗi phút | Textbox | Number | • Số nguyên 1–100.000, mặc định 300 `[GIẢ ĐỊNH]`; vượt → site nhận lỗi 429 (E-TH-009). |
+| 9 | Khách hàng tự tạo tối đa mỗi ngày | Textbox | Number | • Số nguyên 1–100.000, mặc định 100 `[GIẢ ĐỊNH]`; chặn site gửi sai mã đơn vị làm tràn danh mục. |
+| 10 | Khóa tích hợp | Label + Button + Link | Click | • Hiện mã site (X-Site-Id) và khóa hiện tại ở dạng che (`cskh_sk_••••` + 4 ký tự cuối, ngày giờ tạo). "Tạo khóa" (chưa có khóa) / "Tạo khóa mới (xoay vòng)" → mở hộp thoại hiện khóa. "Sao chép mã site" chép X-Site-Id. Khóa không xem lại được vì CSKH chỉ lưu bản mã hóa; nhật ký không ghi khóa. |
+| 11 | Hủy / Lưu | Button ×2 | Click | • Lưu → thông báo "Đã lưu cấu hình đồng bộ", ghi nhật ký (trước → sau) chỉ khi có thay đổi thật; lỗi báo tại ô. Hủy → về `qt-danh-muc-site`. |
+| 12 | Hộp thoại Khóa tích hợp mới | Modal | Click | • Nền mờ, giữa màn; **không đóng bằng Esc/bấm nền**. Cảnh báo: gửi qua kênh an toàn (không email thường, không đưa vào mã nguồn), đóng là không xem lại được. |
+| 13 | Khóa + Sao chép + ghi chú khóa cũ | Label + Button | Click | • Khóa đầy đủ dạng `cskh_sk_live_…` chỉ hiện ở đây; "Sao chép" đổi thành "Đã chép". Xoay vòng: "Khóa cũ (…xxxx) còn hiệu lực đến {ngày giờ}" `[GIẢ ĐỊNH 24 giờ]`. |
+| 14 | Tôi đã lưu khóa… / Đóng | Checkbox + Button | Click | • Chưa tích thì nút Đóng bị khóa; tích rồi mới Đóng được. |
 
 ---
 
@@ -109,20 +187,20 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tìm [2]          Loại KH          Địa bàn [3]      Site              │
 │ [Bình Định_____] [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ]  │
-│ Tầng tiếp nhận                                                       │
-│ [v: Tất cả     ]                                                     │
+│ Tầng tiếp nhận   Rà soát [7]                                         │
+│ [v: Tất cả     ] [v: Tất cả / Chưa rà soát]                          │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Đơn vị            Địa bàn    Tầng tiếp nhận  Site đang dùng  Đầu mối │
+│ ! 2 KH do site tự tạo đang chờ rà soát. Chỉ xem các KH này [8]       │
+│ Đơn vị             Địa bàn    Tầng tiếp nhận  Site đang dùng  Đầu mối│
 │ -------------------------------------------------------------------- │
-│ UBND tỉnh BĐ      Bình Định  Tỉnh Bình Định  site-bd         N.Văn A │
-│ Sở Nội vụ         Bình Định  Tỉnh Bình Định  site-bd         (trống) │
-│ Cty ABC           Đà Nẵng    Tỉnh Đà Nẵng    site-nho-le     L.Văn C │
-│ Bộ Nội vụ         Trung ương Triển khai Line site-bnv +1     P.Thị D │
-│ Cty XYZ           Trung ương Helpdesk CT     site-nho-le     T.Văn E │
+│ UBND tỉnh BĐ       Bình Định  Tỉnh Bình Định  site-bd         N.Văn A│
+│ Sở Nội vụ [9]      Bình Định  Tỉnh Bình Định  site-bd         (trống)│
+│ Cty ABC [9]        Đà Nẵng    Tỉnh Đà Nẵng    site-nho-le     L.Văn C│
+│ Bộ Nội vụ          Trung ương Triển khai Line site-bnv +1     P.Thị D│
 │                                                                      │
-│ Dòng chọn: UBND tỉnh BĐ [4] < Sửa > [5] < Khởi tạo đầu mối >         │
+│ Dòng chọn: Sở Nội vụ [4] < Sửa > [5] < Khởi tạo đầu mối >            │
+│            [10] < Đánh dấu đã rà soát > [11] < Gộp vào KH khác >     │
 │ [6] Trang 1/3                                                        │
-│                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -136,6 +214,11 @@
 | 4 | Sửa | Link | Click | • Mở **modal "Sửa thông tin đơn vị"** giữa màn (nền mờ phía sau) — không mở màn chi tiết riêng (UC28). Trường sửa được: Tên đơn vị, Loại khách hàng, **Địa bàn, Hình thức hỗ trợ**, đầu mối liên hệ, **Site sử dụng** (thêm/bớt site, sửa Mã đơn vị trên site). Lưu → áp dụng cho định tuyến & phân vùng tài liệu từ đó về sau; bớt 1 site chỉ gỡ liên kết của khách hàng này, KHÔNG ảnh hưởng khách hàng khác dùng chung site đó.<br>• **Đổi Địa bàn hoặc Hình thức hỗ trợ (làm đổi tầng tiếp nhận)** là thao tác nhạy cảm: cảnh báo ngay tại field, hỏi xác nhận trước khi lưu, ghi `qt-nhat-ky-thao-tac` (đổi định tuyến khách hàng); ticket đang mở **giữ tầng cũ đến khi đóng**, ticket mới theo tầng mới (OQ-20c). Đổi riêng Loại khách hàng không đổi tầng nên không cần cảnh báo.<br>• Xóa khách hàng: nguồn không nêu — không có nút xóa [GIẢ ĐỊNH]. |
 | 5 | Khởi tạo đầu mối | Link | Click | • Sang `qt-moi-dau-moi` với khách hàng của dòng đã chọn. Dòng "(chưa có)" đầu mối cần làm bước này trước khi khách hàng dùng được hệ thống. |
 | 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
+| 7 | Lọc Rà soát | Dropdown | Select | • (mới 01/10/2026) Tất cả / Chưa rà soát. Kết hợp được với các bộ lọc khác. |
+| 8 | Banner chờ rà soát | Alert | Click | • (mới 01/10/2026) Hiện khi còn khách hàng "Chưa rà soát": "N khách hàng do site tự tạo (tên, loại, địa bàn lấy theo site) đang chờ rà soát" + liên kết "Chỉ xem các khách hàng này" (đặt bộ lọc Rà soát). N đếm toàn bộ, không theo bộ lọc đang chọn. |
+| 9 | Nhãn Chưa rà soát | Badge | Label | • (mới 01/10/2026) Cạnh tên đơn vị của khách hàng do site tự tạo (xem `dang-nhap-kich-hoat` Chức năng 5). Loại khách hàng tự gán theo địa bàn của site: tỉnh/TP → UBND tỉnh/thành, Trung ương → Trung ương `[GIẢ ĐỊNH]`; chưa có đầu mối liên hệ. |
+| 10 | Đánh dấu đã rà soát | Link | Click | • (mới 01/10/2026) Chỉ hiện với khách hàng "Chưa rà soát"; bấm → bỏ nhãn ngay (không hỏi xác nhận), ghi nhật ký; bấm lặp không lỗi. Dùng sau khi đã kiểm tra/sửa tên, loại, đầu mối. |
+| 11 | Gộp vào khách hàng khác | Link | Click | • (mới 01/10/2026) Hiện với khách hàng "Hoạt động"; mở hộp thoại `qt-gop-khach-hang`. Chỉ **Quản trị viên**. |
 
 - Cột "Site đang dùng" hiện tên site kèm dịch vụ; khách hàng dùng ≥2 dịch vụ hiện thêm "+N" (vd Bộ Nội vụ dùng cả iOffice và iStorage → 2 site, hiện "site-bnv (iOffice) +1" — bấm dòng để xem đủ). site-bd dùng chung cho cả UBND tỉnh Bình Định và Sở Nội vụ (site theo tỉnh); site-nho-le dùng chung cho nhiều khách hàng doanh nghiệp nhỏ lẻ cùng dịch vụ.
 - Header nội bộ dùng chung (không đánh số); Flow 7/8/9 là khu vực menu quản trị — các màn truy cập độc lập, không phải wizard. Dữ liệu mẫu chỉ minh họa.
@@ -144,6 +227,68 @@
 - **Cập nhật 24/09/2026:** cột Địa bàn + Tầng tiếp nhận thay cho việc suy team từ loại khách hàng; thêm tab Địa bàn (`qt-danh-muc-dia-ban`).
 - **Cập nhật 23/09/2026:** tách Site thành danh mục riêng (tab `qt-danh-muc-site`) — xem đầu file để biết lý do.
 
+
+---
+
+## Screen: qt-gop-khach-hang — Hộp thoại Gộp khách hàng (mới, 01/10/2026)
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ (nền mờ — màn Danh mục khách hàng phía sau)                          │
+│                                                                      │
+│   ┌────────────────────────────────────────────────────────────┐     │
+│   │ Gộp khách hàng                                             │     │
+│   │ Gộp “Sở Nội vụ” vào khách hàng đích. Dùng khi cùng 1 đơn   │     │
+│   │ vị bị tạo thành 2 khách hàng (mã đơn vị khác nhau).        │     │
+│   │ Khách hàng đích (bắt buộc) [1]                             │     │
+│   │ [o UBND tỉnh Bình Định · Bình Định               x ]       │     │
+│   │ Gõ tên/mã đơn vị để tìm · ↑↓ chọn · Enter xác nhận         │     │
+│   │ ┌ Sẽ chuyển sang khách hàng đích [3] ────────────────────┐ │     │
+│   │ │ • 12 tài khoản (kể cả danh tính trên site)             │ │     │
+│   │ │ • 1 mã đơn vị trên site: site-bd · so.noivu            │ │     │
+│   │ │ • 34 phiếu ticket và lịch sử xử lý                     │ │     │
+│   │ └────────────────────────────────────────────────────────┘ │     │
+│   │ ! Không hoàn tác được. “Sở Nội vụ” chuyển sang Ngừng hoạt  │     │
+│   │   động; đầu mối của khách hàng đích giữ nguyên. [4]        │     │
+│   │ [ ] Tôi hiểu việc gộp không hoàn tác [5]                   │     │
+│   │                          [ Hủy ]  [ Gộp khách hàng ] [6]   │     │
+│   └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+Trạng thái bị chặn:
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ (nền mờ — màn Danh mục khách hàng phía sau)                          │
+│                                                                      │
+│   ┌────────────────────────────────────────────────────────────┐     │
+│   │ Gộp khách hàng                                             │     │
+│   │ Khách hàng đích (bắt buộc)                                 │     │
+│   │ [v: Cty ABC · Đà Nẵng                                    ] │     │
+│   │ ┌ Không gộp được [7] ────────────────────────────────────┐ │     │
+│   │ │ Hai khách hàng đã có mã đơn vị khác nhau trên site     │ │     │
+│   │ │ site-nho-le (so.noivu ≠ cty.abc). Sửa mã đơn vị ở một  │ │     │
+│   │ │ bên cho trùng đơn vị thật rồi gộp lại.                 │ │     │
+│   │ └────────────────────────────────────────────────────────┘ │     │
+│   │                          [ Hủy ]  [ Gộp khách hàng (khóa) ]│     │
+│   └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Khách hàng đích | Combobox tìm kiếm (1 ô) | Text + Select | • Bắt buộc. **Một ô duy nhất**: gõ tên đơn vị hoặc mã đơn vị → danh sách gợi ý ngay dưới ô (tối đa 20 dòng, chỉ khách hàng "Hoạt động", bỏ chính khách hàng nguồn), mỗi dòng: tên đơn vị + "Địa bàn · site · mã đơn vị". Chọn bằng chuột hoặc ↑↓ + Enter; Esc đóng danh sách. Chọn xong ô hiện tên đã chọn kèm nút × bỏ chọn. Đổi đích thì phải tích xác nhận lại. |
+| 2 | (gộp vào mục 1) | — | — | • Bản trước tách "Tìm khách hàng đích" và "Khách hàng đích" thành 2 ô — đã gộp (01/10/2026). |
+| 3 | Xem trước | Label | Chỉ đọc | • "Sẽ chuyển sang khách hàng đích": số tài khoản (kể cả danh tính site), các mã đơn vị trên site (site · mã), số ticket + lịch sử xử lý. Chưa ghi gì cho đến khi bấm Gộp. |
+| 4 | Cảnh báo không hoàn tác | Alert | Chỉ đọc | • Khách hàng nguồn chuyển "Ngừng hoạt động" (giữ để tra cứu); đầu mối của đích giữ nguyên; tài khoản chuyển sang không còn là đầu mối; đầu mối liên hệ trùng email được bỏ bớt; phạm vi phụ trách theo khách hàng chuyển theo. |
+| 5 | Tôi hiểu việc gộp không hoàn tác | Checkbox | Boolean | • Bắt buộc tích mới mở nút Gộp. |
+| 6 | Hủy / Gộp khách hàng | Button ×2 | Click | • Gộp xong: đóng hộp thoại, thông báo "Đã gộp X vào Y", danh sách + banner chờ rà soát tự cập nhật; ghi nhật ký (nguồn, đích, số bản ghi chuyển). |
+| 7 | Báo chặn | Alert (lỗi) | Chỉ đọc | • Không gộp được khi: gộp vào chính nó; nguồn/đích đã Ngừng hoạt động; **khác mã đơn vị trên cùng site** (nêu rõ 2 mã); nguồn có site cùng dịch vụ nhưng khác site với đích (vi phạm "mỗi dịch vụ tối đa 1 site"). Hiện ngay trong hộp thoại, ẩn xem trước, khóa nút Gộp; không chuyển dữ liệu. [wording tạm] |
 
 ---
 
@@ -339,6 +484,96 @@
 
 ---
 
+## Screen: qt-import-khach-hang — Import khách hàng hàng loạt từ Excel (mới, 03/10/2026)
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
+├──────────────────────────────────────────────────────────────────────┤
+│ Import khách hàng từ Excel                       [1] < Tải file mẫu >│
+│                                                                      │
+│   Bước 1. Chọn tệp (.xlsx, tối đa 5 MB / 1.000 dòng)  [2]            │
+│   ┌────────────────────────────────────────────────────────────┐     │
+│   │   Kéo thả tệp vào đây hoặc [ Chọn tệp ]                    │     │
+│   │   khach-hang-23-tinh.xlsx (312 KB) [x]                     │     │
+│   └────────────────────────────────────────────────────────────┘     │
+│   [3] [ Kiểm tra file ]                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│   Bước 2. Kết quả kiểm tra [4]:  118 dòng hợp lệ / 3 dòng lỗi        │
+│   ┌──────┬──────────────┬──────────────┬──────────────────────────┐  │
+│   │ Dòng │ Cột          │ Giá trị      │ Lý do                    │  │
+│   ├──────┼──────────────┼──────────────┼──────────────────────────┤  │
+│   │ 14   │ Địa bàn      │ Binh Dinh    │ Không có trong danh mục  │  │
+│   │ 27   │ Mã đơn vị 1  │ so.noivu     │ Đã gán cho KH khác (site)│  │
+│   │ 63   │ Tên đơn vị   │ UBND tỉnh A  │ Trùng khách hàng đã có   │  │
+│   └──────┴──────────────┴──────────────┴──────────────────────────┘  │
+│   < Tải danh sách lỗi (.xlsx) > [5]                                  │
+├──────────────────────────────────────────────────────────────────────┤
+│   [6] [ Import N khách hàng ] (khóa tới khi 0 lỗi)    [7] [ Hủy ]    │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Tải file mẫu | Link | Click | • Tải `.xlsx` mẫu: sheet "Khách hàng" (cột Tên đơn vị, Loại khách hàng, Địa bàn, Hình thức hỗ trợ, Site 1–3 + Mã đơn vị trên site 1–3, Đầu mối 1–3 họ tên/email/SĐT) kèm sheet "Hướng dẫn" liệt kê địa bàn/site đang dùng và quy tắc điền. **Không có dòng ví dụ** (tránh bị import nhầm khi quên xóa) — đã code 03/10/2026. |
+| 2 | Vùng kéo thả / Chọn tệp | File upload | File | • 1 tệp `.xlsx`, ≤5 MB, ≤1.000 dòng dữ liệu (đã chốt 03/10/2026). Sai định dạng/cấu trúc/quá giới hạn → báo ngay (EX-01, EX-02), chưa kiểm tra dòng nào. Chọn tệp mới thì xóa kết quả cũ. |
+| 3 | Kiểm tra file | Button | Click | • Đọc + kiểm tra TOÀN BỘ file, **không ghi gì**. Disabled khi chưa chọn tệp. Kiểm mọi lỗi mọi dòng, không dừng ở lỗi đầu. |
+| 4 | Kết quả kiểm tra | Label + Table | ReadOnly | • "N dòng hợp lệ / M dòng lỗi". Bảng lỗi: **Số dòng thật trong Excel**, Cột, Giá trị (cắt gọn), Lý do (nêu rõ quy tắc: không có trong danh mục, trùng khách hàng đã có, thiếu mã đơn vị, SĐT sai định dạng...); 20 dòng/trang. |
+| 5 | Tải danh sách lỗi | Link | Click | • Tải `.xlsx` các dòng lỗi (giữ nguyên số dòng gốc + cột "Lý do") để sửa. Chỉ hiện khi có lỗi. |
+| 6 | Import N khách hàng | Button | Click | • **Disabled** khi còn dòng lỗi hoặc chưa kiểm tra. Bấm → hộp xác nhận nêu số khách hàng, số site gắn, số đầu mối; xác nhận → ghi tất cả trong 1 giao dịch (BR-02). Xong: "Đã import N khách hàng" + nút "Mời đầu mối hàng loạt" (→ `qt-moi-dau-moi-hang-loat`). Dữ liệu đổi giữa chừng → EX-04. |
+| 7 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không ghi gì. |
+
+- Chỉ **Quản trị viên** thấy nút "Import Excel" (và "Mời đầu mối") ở đầu `qt-danh-muc-khach-hang` (Figma `28h`, BR-07). Import **chỉ tạo mới**, không sửa khách hàng có sẵn (BR-03); khách hàng tạo từ file không có nhãn "Chưa rà soát" (BR-04, đã chốt 03/10/2026). Figma `28i`/`28j` (đã vẽ và được duyệt 03/10/2026).
+
+---
+
+## Screen: qt-moi-dau-moi-hang-loat — Mời đầu mối hàng loạt (mới, 03/10/2026)
+
+### Wireframe (ASCII)
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ CSKH-NB Ticket(12) | Nội dung | Người dùng | Cấu hình|Báo cáo(o) B v │
+├──────────────────────────────────────────────────────────────────────┤
+│ Mời đầu mối hàng loạt                                                │
+│                                                                      │
+│   Tìm [1] [tên đơn vị________]   [x] Chọn tất cả theo bộ lọc [2]     │
+│   ┌───┬──────────────────────┬───────────┬─────────────────────────┐ │
+│   │   │ Đơn vị               │ Đầu mối   │ Email chưa mời          │ │
+│   ├───┼──────────────────────┼───────────┼─────────────────────────┤ │
+│   │[x]│ UBND tỉnh Bình Định  │ 2         │ a@bd.gov.vn, b@bd.gov.vn│ │
+│   │[x]│ Sở Nội vụ Hà Nội     │ 1         │ c@hn.gov.vn             │ │
+│   │[ ]│ Công ty ABC          │ 1         │ d@abc.vn (đã có TK)  (!)│ │
+│   └───┴──────────────────────┴───────────┴─────────────────────────┘ │
+├──────────────────────────────────────────────────────────────────────┤
+│   Xem trước [3]: sẽ tạo 3 tài khoản đầu mối, gửi 3 email mời.        │
+│   Bỏ qua 1 email vì đã có tài khoản.                                 │
+├──────────────────────────────────────────────────────────────────────┤
+│   [4] [ Tạo tài khoản và gửi lời mời ]            [5] [ Hủy ]        │
+├──────────────────────────────────────────────────────────────────────┤
+│   Kết quả [6]: a@bd.gov.vn Đã gửi · b@bd.gov.vn Gửi lỗi · c@hn.gov.vn│
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Screen description
+
+| # | Items | Control type | Data type | Description |
+|---|-------|--------------|-----------|-------------|
+| 1 | Tìm kiếm | Textbox | Text | • Tìm theo **tên đơn vị** (không dấu, không phân biệt hoa/thường); chưa tìm theo email — đã code 03/10/2026. Kết hợp được với Chọn tất cả. |
+| 2 | Chọn tất cả theo bộ lọc | Checkbox | Check | • Chọn lần lượt các khách hàng đang hiện (tối đa 300 khách hàng/lần tải) cho tới khi chạm 200 lời mời mỗi lượt (đã chốt 03/10/2026) (BR-05); phần còn lại làm ở lượt sau. |
+| 3 | Xem trước | Label | ReadOnly | • "Sẽ tạo N tài khoản đầu mối, gửi N email mời" + email bỏ qua vì đã có tài khoản (EX-05). Cập nhật ngay khi đổi lựa chọn. |
+| 4 | Tạo tài khoản và gửi lời mời | Button | Click | • Disabled khi chưa chọn dòng nào. Có hộp xác nhận nêu số email sẽ gửi. Tạo tài khoản đầu mối **Chờ kích hoạt** + gửi lời mời theo Chức năng 2; tối đa 3 đầu mối/khách hàng. |
+| 5 | Hủy | Button | Click | • Về `qt-danh-muc-khach-hang`, không tạo/gửi gì. |
+| 6 | Kết quả | Table | ReadOnly | • Từng email: Đã gửi / Gửi lỗi (tài khoản vẫn tạo, gửi lại ở Chi tiết tài khoản — EX-06) / Bỏ qua (email đã có tài khoản). Nhật ký ghi 1 dòng tổng + từng tài khoản (BR-06). |
+
+- Mời đầu mối **luôn là bước riêng, có xem trước và xác nhận** — import không tự gửi email (BR-05). Figma `28k`/`28l` (đã vẽ và được duyệt 03/10/2026).
+
+---
+
 ## Screen: qt-danh-sach-tai-khoan — Danh sách tài khoản
 
 ### Wireframe (ASCII)
@@ -418,6 +653,7 @@
 | 6 | Phân quyền | Button | Click | • → `qt-phan-quyen` để gán/đổi vai trò, địa bàn, phạm vi phụ trách (UC56). |
 | 7 | Vô hiệu hóa / Kích hoạt lại | Button | Click | • Nhãn đổi theo trạng thái. **Vô hiệu hóa** (nhân sự nghỉ việc UC54; tài khoản khách hàng UC55): hộp thoại xác nhận nêu rõ tên + hậu quả "khóa quyền truy cập ngay"; xác nhận → khóa, ghi nhật ký; **chặn cả cách vào từ site dịch vụ**. **Kích hoạt lại** khôi phục quyền cũ.<br>• Tài khoản nội bộ đang giữ ticket dở → yêu cầu chuyển ticket sang người khác cùng tầng; chưa chuyển thì tự về hàng đợi tầng (OQ-20).<br>• Không tự vô hiệu hóa chính mình (đã chốt 23/09/2026). |
 | 8 | Gửi lại lời mời | Button | Click | • Chỉ hiện khi "Chờ kích hoạt" (kể cả link mời hết hạn): tạo link mới gửi Email/SMS. Tối đa 5 lần/ngày/tài khoản (OQ-6). |
+| 11 | Đặt mật khẩu và kích hoạt (v1.5, 02/10/2026) | Button + hộp thoại | Click | • Chỉ hiện với tài khoản **nội bộ** đang "Chờ kích hoạt", chỉ Quản trị viên. Bấm → hộp thoại **"Đặt mật khẩu và kích hoạt"**: nêu tên + email tài khoản; Mật khẩu + Nhập lại (hiện/ẩn); checklist ≥8 ký tự, chữ hoa, chữ thường, chữ số; nút **Kích hoạt tài khoản** chỉ bật khi đủ mạnh và khớp (lỗi E-DN-005 / E-DN-006 báo tại ô).<br>• Thành công: tài khoản **Hoạt động** ngay, không gửi email, lời mời cũ hết hiệu lực, thông báo "Đã đặt mật khẩu và kích hoạt tài khoản …, hãy gửi mật khẩu qua kênh an toàn"; nhật ký `dat_mat_khau_kich_hoat` (không ghi mật khẩu). Không bắt buộc đổi mật khẩu ở lần đăng nhập đầu. Figma `31c`. |
 
 - Vẽ ở tài khoản nội bộ đang hoạt động; nút [8] chỉ hiện khi "Chờ kích hoạt", nút [7] đổi nhãn theo trạng thái.
 
@@ -495,8 +731,10 @@
 | 7 | + Thêm dòng | Button | Click | • Thêm 1 dòng phạm vi; các dòng cộng dồn, không loại trừ nhau (`SRS` Chức năng 4 BR-08). |
 | 8 | Dịch vụ được gán | Dropdown đa chọn | Select | • **Chỉ hiện và bắt buộc ≥1 với Biên tập nội dung** (đã chốt 23/09/2026). |
 | 9 | Ghi chú vô hiệu hóa | Label | ReadOnly | • Vô hiệu hóa (UC54) thực hiện ở `qt-chi-tiet-tai-khoan` cho thống nhất với tài khoản khách hàng; màn này chỉ tạo tài khoản. |
-| 10 | Tạo tài khoản | Button | Click | • **Disabled** tới khi [1], [2], [4] hợp lệ và đủ trường theo vai trò ([5], [6] hoặc [8]). Thành công → tạo tài khoản **chờ kích hoạt**, gửi lời mời kích hoạt qua Email (dùng chung cơ chế lời mời của `kh-kich-hoat-tk`, không cấp mật khẩu qua kênh khác — OQ-18), về `qt-danh-sach-tai-khoan`. |
+| 10 | Tạo tài khoản | Button | Click | • (v1.5) Nhãn đổi thành **"Tạo và kích hoạt"** khi chọn "Đặt mật khẩu và kích hoạt ngay" ([12]); disabled thêm tới khi mật khẩu đủ mạnh + nhập lại khớp.<br>• **Disabled** tới khi [1], [2], [4] hợp lệ và đủ trường theo vai trò ([5], [6] hoặc [8]). Thành công → tạo tài khoản **chờ kích hoạt**, gửi lời mời kích hoạt qua Email (dùng chung cơ chế lời mời của `kh-kich-hoat-tk`, không cấp mật khẩu qua kênh khác — OQ-18), về `qt-danh-sach-tai-khoan`. |
 | 11 | Hủy | Button | Click | • Về `qt-danh-sach-tai-khoan`, không tạo gì. |
+| 12 | Cách kích hoạt (v1.5, 02/10/2026) | Radio ×2 | Select | • Đặt phía trên ghi chú [9], dưới phạm vi: **"Gửi email mời kích hoạt"** (mặc định — người dùng tự đặt mật khẩu qua liên kết, hiệu lực 7 ngày) / **"Đặt mật khẩu và kích hoạt ngay"** (Quản trị nhập mật khẩu, tài khoản dùng được ngay, không gửi email). Figma `32c`. |
+| 13 | Mật khẩu / Nhập lại mật khẩu (v1.5) | Textbox mật khẩu ×2 | Text | • Chỉ hiện khi chọn "Đặt mật khẩu và kích hoạt ngay". Có nút hiện/ẩn; checklist tự tích: tối thiểu 8 ký tự, chữ hoa, chữ thường, chữ số (E-DN-005); nhập lại chưa khớp báo ngay tại ô (E-DN-006).<br>• Nhắc: mật khẩu chỉ hiện lúc nhập, hãy gửi cho người dùng qua kênh an toàn; người dùng đổi được mật khẩu sau khi đăng nhập, **không bắt buộc đổi**. Thành công → về danh sách với thông báo "Đã tạo và kích hoạt tài khoản …"; nhật ký không ghi mật khẩu. |
 
 
 ---

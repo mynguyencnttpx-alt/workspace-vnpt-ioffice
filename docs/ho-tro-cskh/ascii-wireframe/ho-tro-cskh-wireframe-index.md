@@ -2,13 +2,13 @@
 type: screen-index
 feature: ho-tro-cskh
 status: draft
-updated: 2026-09-29
+updated: 2026-10-01
 links:
   - docs/ho-tro-cskh/srs/ho-tro-cskh-userflow.md
   - docs/ho-tro-cskh/srs/ho-tro-cskh-userflow-portal.md
 ---
 
-# Hệ thống Hỗ trợ & Chăm sóc Khách hàng — Screens Index
+# Hệ thống Hỗ trợ khách hàng — Screens Index
 
 - **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket của tôi" ở header khách hàng có huy hiệu ĐỎ số ticket chưa đóng (Mới + Đang xử lý + Chờ khách hàng; ẩn khi 0, "99+" khi quá 99) — vẽ "(5)" ở mọi wireframe header khách hàng. Đếm đúng phạm vi danh sách (thành viên: ticket mình tạo; đầu mối: cả đơn vị). Tải lại mỗi 60 giây và ngay khi tạo/đóng ticket.
 - **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket" ở sidebar nội bộ có huy hiệu ĐỎ số ticket chưa đóng — vẽ "(12)" ở mọi wireframe header nội bộ. Đếm theo phạm vi MẶC ĐỊNH của Bảng tiếp nhận (Triển khai của Line: tầng Triển khai Line; Agent helpdesk/Triển khai: trong phạm vi phụ trách; Agent tỉnh: phạm vi được xem; Quản trị viên: tất cả) `[GIẢ ĐỊNH — không phải chỉ ticket gán cho riêng tôi]`. Số chỉ mang tính minh họa.
@@ -44,8 +44,10 @@ links:
 | 25 | [agent-tao-phieu-onebss](xu-ly-ticket-agent.md#agent-tao-phieu-onebss) | xu-ly-ticket-agent | draft | UC6 | [25 · agent-tao-phieu-onebss (+3 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=46-4132) | — | — | 2026-09-24 |
 | 26 | ~~agent-xac-nhan-phieu-onebss~~ (đã bỏ từ v1.1) | xu-ly-ticket-agent | archived | UC8 | — (giữ frame Figma để truy vết; màn đã bỏ, gửi thẳng không qua xác nhận) | — | — | 2026-09-24 |
 | 27 | [agent-canh-bao-sla](xu-ly-ticket-agent.md#agent-canh-bao-sla) | xu-ly-ticket-agent | draft | UC37 | [27 · agent-canh-bao-sla](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-2924) | — | — | 2026-09-25 |
-| 28 | [qt-danh-muc-khach-hang](quan-tri-nguoi-dung.md#qt-danh-muc-khach-hang) | quan-tri-nguoi-dung | draft | UC1, UC28 | [28 · qt-danh-muc-khach-hang](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3093) | — | — | 2026-09-25 |
-| 28c | [qt-danh-muc-site](quan-tri-nguoi-dung.md#qt-danh-muc-site) | quan-tri-nguoi-dung | draft | UC1 | [28c · qt-danh-muc-site](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=129-2447) | — | — | 2026-09-25 |
+| 28 | [qt-danh-muc-khach-hang](quan-tri-nguoi-dung.md#qt-danh-muc-khach-hang) | quan-tri-nguoi-dung | draft | UC1, UC28 | [28 · qt-danh-muc-khach-hang (cập nhật: 28g Chưa rà soát)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=383-3825) | — | — | 2026-10-01 |
+| 28c | [qt-danh-muc-site](quan-tri-nguoi-dung.md#qt-danh-muc-site) | quan-tri-nguoi-dung | draft | UC1 | [28d · qt-danh-muc-site (cột Đồng bộ người dùng)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=383-2908) | — | — | 2026-10-01 |
+| 28e | [qt-sua-site-dong-bo](quan-tri-nguoi-dung.md#qt-sua-site-dong-bo) | quan-tri-nguoi-dung | draft | UC1 | [28e · qt-sua-site-dong-bo (+1 states: 28f Khóa tích hợp)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=383-3215) | — | — | 2026-10-01 |
+| 28h | [qt-gop-khach-hang](quan-tri-nguoi-dung.md#qt-gop-khach-hang) | quan-tri-nguoi-dung | draft | UC1 | [28h · qt-gop-khach-hang (+1 states: 28i bị chặn)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=383-4109) | — | — | 2026-10-01 |
 | 29 | [qt-moi-dau-moi](quan-tri-nguoi-dung.md#qt-moi-dau-moi) | quan-tri-nguoi-dung | draft | UC9 | [29 · qt-moi-dau-moi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3204) | — | — | 2026-09-24 |
 | 30 | [qt-danh-sach-tai-khoan](quan-tri-nguoi-dung.md#qt-danh-sach-tai-khoan) | quan-tri-nguoi-dung | draft | UC25 | [30 · qt-danh-sach-tai-khoan](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3266) | — | — | 2026-09-25 |
 | 31 | [qt-chi-tiet-tai-khoan](quan-tri-nguoi-dung.md#qt-chi-tiet-tai-khoan) | quan-tri-nguoi-dung | draft | UC26, UC54, UC55 | [31 · qt-chi-tiet-tai-khoan (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=25-3375) | — | — | 2026-09-24 |
@@ -89,7 +91,7 @@ links:
 | 69 | [ai-lich-su](hoi-dap-ai.md#ai-lich-su) | hoi-dap-ai | draft | UC34 | [69 · ai-lich-su (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-8624) | — | — | 2026-09-21 |
 | 70 | [noibo-ai-lich-su](noibo-hoi-dap-ai.md#noibo-ai-lich-su) | noibo-hoi-dap-ai | draft | UC34 | [70 · noibo-ai-lich-su (+2 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=74-7833) | — | — | 2026-09-21 |
 | 71 | [vao-tu-site](dang-nhap-kich-hoat-kh.md#vao-tu-site) | dang-nhap-kich-hoat-kh | draft | UC59 | [71 · vao-tu-site (+1 states)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9578) | — | — | 2026-09-24 |
-| 72 | [vao-tu-site-loi](dang-nhap-kich-hoat-kh.md#vao-tu-site-loi) | dang-nhap-kich-hoat-kh | draft | UC59 | [72 · vao-tu-site-loi](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9521) | — | — | 2026-09-24 |
+| 72 | [vao-tu-site-loi](dang-nhap-kich-hoat-kh.md#vao-tu-site-loi) | dang-nhap-kich-hoat-kh | draft | UC59 | [62b · vao-tu-site-loi (thay thiết kế 72 cũ)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=387-1015) | — | — | 2026-10-02 |
 | 73 | [qt-danh-muc-dia-ban](quan-tri-nguoi-dung.md#qt-danh-muc-dia-ban) | quan-tri-nguoi-dung | draft | UC1 | [73 · qt-danh-muc-dia-ban](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=162-9256) | — | — | 2026-09-24 |
 | 74 | [portal-trang-chu](portal-gioi-thieu.md#portal-trang-chu) | portal-gioi-thieu | draft | — | [74 · portal-trang-chu (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3175) | — | — | 2026-09-29 |
 | 75 | [portal-giai-phap-qlvb](portal-gioi-thieu.md#portal-giai-phap-qlvb) | portal-gioi-thieu | draft | — | [75 · portal-giai-phap-qlvb (bản mới)](https://www.figma.com/design/gyP4F56TY6MmUXsVWsraKT/My-Design-system?node-id=270-3887) | — | — | 2026-09-30 |

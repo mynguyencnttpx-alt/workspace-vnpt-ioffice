@@ -4,7 +4,10 @@
     {
       "name": "cskh-linevps-dev",
       "runtimeExecutable": "cmd",
-      "runtimeArgs": ["/c", "cd /d D:\\Project_Antigravity\\CSKH_LineVPS && npm run dev"],
+      "runtimeArgs": [
+        "/c",
+        "cd /d D:\\Project_Antigravity\\CSKH_LineVPS && npm run dev"
+      ],
       "port": 3000
     }
   ]

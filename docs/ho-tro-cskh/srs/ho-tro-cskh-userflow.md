@@ -8,7 +8,7 @@ flow_approved_at: 2026-09-24
 flow_hash: "a53c47ba"
 ---
 
-# Hệ thống Hỗ trợ & Chăm sóc Khách hàng — User Flow
+# Hệ thống Hỗ trợ khách hàng — User Flow
 
 > Nguồn chia flow DUY NHẤT cho feature này. `/wireframe-ascii` và `/wireframe-html` đọc file này để biết flow nào gồm những màn nào — KHÔNG tự chia flow riêng.
 >

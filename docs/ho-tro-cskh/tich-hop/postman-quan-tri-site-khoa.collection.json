@@ -1,0 +1,239 @@
+{
+  "info": {
+    "name": "CSKH — Quản trị site & khóa tích hợp (Quản trị viên)",
+    "description": "Thiết lập phía CSKH trước khi iOffice/iStorage gọi API: đăng nhập Quản trị viên → tìm địa bàn/site → lưu cấu hình đồng bộ → tạo khóa. Chạy tuần tự 1 → 6; kết quả (diaBanId, siteId, secret) tự ghi vào Environment và dùng được ngay cho collection 'API đồng bộ người dùng & đơn vị'. Dùng chung environment 'CSKH — đồng bộ người dùng (local)'.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Đăng nhập Quản trị viên",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 + có chuyenDen', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().chuyenDen).to.be.a('string'); });",
+              "pm.test('Có cookie phiên cskh_phien', () => pm.expect(pm.cookies.has('cskh_phien')).to.be.true);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/phien",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "phien"
+          ]
+        },
+        "description": "Đăng nhập bằng tài khoản Quản trị viên; Postman tự giữ cookie phiên `cskh_phien` cho các request sau (cùng host). Hết phiên (401 E-CHUNG-401) thì chạy lại request này.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{emailQuanTri}}\",\n  \"matKhau\": \"{{matKhauQuanTri}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "2. Tìm địa bàn theo tên → lưu diaBanId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const ten = pm.environment.get('tenDiaBan');",
+              "const ds = pm.response.json().muc || [];",
+              "const d = ds.find(x => x.ten === ten);",
+              "pm.test('Có địa bàn \"' + ten + '\" (có: ' + ds.map(x => x.ten).join(', ') + ')', () => pm.expect(d).to.exist);",
+              "if (d) pm.environment.set('diaBanId', d.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/dia-ban?tatCa=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "dia-ban?tatCa=1"
+          ]
+        },
+        "description": "Lấy danh sách địa bàn rồi chọn địa bàn có tên = biến `tenDiaBan`; lưu id vào biến môi trường `diaBanId` (dùng ở request 5)."
+      }
+    },
+    {
+      "name": "3. Tìm site theo tên → lưu siteId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const ten = pm.environment.get('tenSite');",
+              "const ds = pm.response.json().muc || [];",
+              "const s = ds.find(x => x.ten === ten);",
+              "pm.test('Có site \"' + ten + '\" (có: ' + ds.map(x => x.ten).join(', ') + ')', () => pm.expect(s).to.exist);",
+              "if (s) { pm.environment.set('siteId', s.id); console.log('siteId =', s.id, '· tích hợp:', s.tichHopBat ? 'đang bật' : 'tắt'); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/site?tatCa=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "site?tatCa=1"
+          ]
+        },
+        "description": "Lấy danh sách site rồi chọn site có tên = biến `tenSite`; lưu id vào biến môi trường `siteId` (chính là X-Site-Id mà iOffice dùng ở API 1)."
+      }
+    },
+    {
+      "name": "4. Xem cấu hình đồng bộ của site",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200', () => pm.response.to.have.status(200));",
+              "const j = pm.response.json(); console.log(JSON.stringify({ tichHopBat: j.tichHopBat, domains: j.domains, ips: j.ips, tenDiaBan: j.tenDiaBan, khoa: j.khoa }));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/site/{{siteId}}/tich-hop",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "site",
+            "{{siteId}}",
+            "tich-hop"
+          ]
+        },
+        "description": "Xem cấu hình hiện tại: bật/tắt, domain, IP, địa bàn, hạn mức, mã site và khóa dạng che (không bao giờ trả khóa đầy đủ)."
+      }
+    },
+    {
+      "name": "5. Lưu cấu hình đồng bộ (bật tích hợp)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200', () => pm.response.to.have.status(200));",
+              "pm.test('Đã bật tích hợp + có domain', () => { const j = pm.response.json(); pm.expect(j.tichHopBat).to.be.true; pm.expect(j.domains.length).to.be.above(0); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/site/{{siteId}}/tich-hop",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "site",
+            "{{siteId}}",
+            "tich-hop"
+          ]
+        },
+        "description": "Bật tích hợp + khai domain/địa bàn/hạn mức. Bật thì bắt buộc có ≥1 domain và địa bàn (thiếu → 400 E-QT-002 kèm `truong`). Địa bàn Trung ương cần thêm `hinhThucHoTro` = `helpdesk_cong_ty` hoặc `trien_khai_line`. IP để `[]` = không kiểm IP. Có thể gửi từng phần (chỉ trường cần đổi).",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tichHopBat\": true,\n  \"domains\": [\n    \"{{domainSite}}\"\n  ],\n  \"ips\": [],\n  \"diaBanId\": \"{{diaBanId}}\",\n  \"hanMucGoiPhut\": 300,\n  \"hanMucKhMoiNgay\": 100\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "6. Tạo / xoay vòng khóa tích hợp → lưu secret",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201', () => pm.response.to.have.status(201));",
+              "const j = pm.response.json();",
+              "pm.test('Có khóa cskh_sk_live_…', () => pm.expect(j.khoa).to.match(/^cskh_sk_live_/));",
+              "pm.environment.set('secret', j.khoa);",
+              "console.log('Khóa mới đã lưu vào biến secret.', j.khoaCuHetHan ? 'Khóa cũ còn hiệu lực đến ' + j.khoaCuHetHan : 'Khóa lần đầu.');"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/site/{{siteId}}/tich-hop/khoa",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "site",
+            "{{siteId}}",
+            "tich-hop",
+            "khoa"
+          ]
+        },
+        "description": "Sinh khóa mới (lần đầu hoặc xoay vòng). **Khóa chỉ trả về đúng 1 lần ở phản hồi này** — script lưu vào biến môi trường `secret` để dùng ngay cho collection API 1 (X-Signature). Xoay vòng: khóa cũ còn hiệu lực 24 giờ `[GIẢ ĐỊNH]`. Gửi khóa cho đội iOffice/iStorage qua kênh an toàn."
+      }
+    }
+  ]
+}

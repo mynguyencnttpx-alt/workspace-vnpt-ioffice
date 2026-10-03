@@ -10,7 +10,7 @@ links:
   - docs/ho-tro-cskh/srs/ho-tro-cskh-userflow.md
 ---
 
-# Hệ thống Hỗ trợ & Chăm sóc Khách hàng — User Flow bổ sung: Portal công khai & quản lý liên hệ tư vấn
+# Hệ thống Hỗ trợ khách hàng — User Flow bổ sung: Portal công khai & quản lý liên hệ tư vấn
 
 > File bổ sung cho `docs/ho-tro-cskh/srs/ho-tro-cskh-userflow.md` (Flow 1-12, màn [1]-[73]). File chính CHƯA được cập nhật theo nội dung này; khi cần gộp một nguồn duy nhất, chạy lại `/user-flow ho-tro-cskh` (update mode). Số màn tiếp nối từ [74], số flow tiếp nối từ 13.
 >

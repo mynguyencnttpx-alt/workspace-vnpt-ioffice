@@ -2,7 +2,7 @@
 
 > Màn hình thuộc flow này: dang-nhap → kh-kich-hoat-tk → kh-kich-hoat-tk-het-han → kh-quen-mat-khau → kh-danh-sach-thanh-vien → kh-moi-thanh-vien → kh-tai-khoan-ca-nhan → vao-tu-site → vao-tu-site-loi. Flow tổng xem `../srs/ho-tro-cskh-userflow.md` Mục 1.
 >
-> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
+> Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ khách hàng           .docx".
 >
 > **Cập nhật 24/09/2026 (v1.1 — mô hình hỗ trợ & định tuyến theo địa bàn; khách hàng xác nhận):** thêm 2 màn **vào từ site dịch vụ** (`vao-tu-site`, `vao-tu-site-loi`) — người dùng iOffice/iStorage vào thẳng CSKH bằng mã một lần, không cần đăng nhập lại (không phải SSO); mỗi người 1 tài khoản, tạo tự động ở lần vào đầu tiên; đồng bộ 7 vai trò ở trang đầu sau đăng nhập. Nguồn: `SRS/dang-nhap-kich-hoat/SRS.md` v1.1 Chức năng 5.
 
@@ -14,7 +14,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -54,7 +54,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -82,7 +82,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -115,7 +115,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -158,7 +158,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -193,7 +193,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -352,7 +352,7 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ Hỗ trợ khách hàng                                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │            ┌────────────────────────────────────────────┐            │
@@ -396,26 +396,27 @@
 
 ---
 
-## Screen: vao-tu-site-loi — Không vào được từ site dịch vụ
+## Screen: vao-tu-site-loi — Không vào được từ site dịch vụ (cập nhật 02/10/2026, Figma 62b)
 
 ### Wireframe (ASCII)
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Hỗ trợ & Chăm sóc Khách hàng                                         │
+│ [Logo] Hỗ trợ khách hàng                                             │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
-│           ┌──────────────────────────────────────────────┐           │
-│           │ Không vào được từ site dịch vụ               │           │
-│           │                                              │           │
-│           │ Phiên vào đã hết hạn hoặc không hợp lệ. [1]  │           │
-│           │                                              │           │
-│           │ Vui lòng quay lại site dịch vụ và bấm lại    │           │
-│           │ Hỗ trợ khách hàng. [2]                       │           │
-│           ├──────────────────────────────────────────────┤           │
-│           │ [3] [ Thử lại ] (chỉ khi lỗi kết nối)        │           │
-│           │ [4] < Đăng nhập bằng email >                 │           │
-│           └──────────────────────────────────────────────┘           │
+│                   [!] (biểu tượng liên kết bị ngắt)                  │
+│           Không vào được từ site dịch vụ [1]                         │
+│      Liên kết vào hệ thống hỗ trợ đã hết hạn, đã được dùng hoặc      │
+│      không hợp lệ. Mỗi liên kết chỉ dùng 1 lần trong 60 giây. [2]    │
+│                                                                      │
+│      ┌ Cách vào lại [3] ───────────────────────────────────┐         │
+│      │ 1. Quay lại iOffice/iStorage (đang đăng nhập).      │         │
+│      │ 2. Bấm lại nút "Hỗ trợ khách hàng".                 │         │
+│      └─────────────────────────────────────────────────────┘         │
+│                                                                      │
+│                   [ Quay lại trang trước ] [4]                       │
+│      < Có mật khẩu CSKH (nhân viên)? Đăng nhập bằng email > [5]      │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -424,13 +425,15 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Thông báo lỗi | Label | ReadOnly | • Theo tình huống, không tiết lộ thông tin tài khoản/đơn vị [wording tạm, chưa có mã E-…]: **mã hết hạn/đã dùng/không hợp lệ** → "Phiên vào đã hết hạn hoặc không hợp lệ"; **site dịch vụ không phản hồi** → "Chưa kết nối được site dịch vụ, vui lòng thử lại"; **email trùng tài khoản nội bộ / danh tính trỏ khách hàng khác / site chưa đăng ký** → "Không thể vào tự động, vui lòng liên hệ Quản trị viên" (thông báo chung, chống dò tài khoản; đồng thời báo Quản trị viên); **tài khoản bị vô hiệu hóa** → như đăng nhập thường (`dang-nhap`). |
-| 2 | Hướng dẫn quay lại site | Label | ReadOnly | • Hướng dẫn quay lại site dịch vụ và bấm lại "Hỗ trợ khách hàng" (áp dụng khi mã hết hạn/không hợp lệ). |
-| 3 | Thử lại | Button | Click | • Chỉ hiện khi site dịch vụ không phản hồi; bấm → `vao-tu-site` đổi mã lại. Mã hết hạn trong lúc chờ → chuyển sang thông báo mã hết hạn. |
-| 4 | Đăng nhập bằng email | Link | Click | • Luôn hiện → `dang-nhap` (người dùng có tài khoản có mật khẩu vẫn đăng nhập bình thường). |
+| 1 | Tiêu đề | Label | ReadOnly | • "Không vào được từ site dịch vụ". Đây là **đích của API 2** (`GET /vao?m=…`, HTTP 303) khi mã đăng nhập một lần **sai, hết hạn (quá 60 giây), đã dùng rồi, hoặc tài khoản không còn hoạt động**. Màn không nêu lý do cụ thể và không lộ thông tin tài khoản/đơn vị (chống dò). Chưa đăng nhập nên header chỉ có logo, không có menu. |
+| 2 | Mô tả | Label | ReadOnly | • "Liên kết vào hệ thống hỗ trợ đã hết hạn, đã được dùng hoặc không hợp lệ. Vì lý do bảo mật, mỗi liên kết chỉ dùng được 1 lần trong 60 giây." [wording tạm, chưa có nguồn]. |
+| 3 | Cách vào lại | Label (khối thông tin) | ReadOnly | • Hướng dẫn 2 bước: quay lại iOffice/iStorage (đang đăng nhập) rồi bấm lại "Hỗ trợ khách hàng" — mỗi lần bấm site gọi API 1 và cấp mã mới. |
+| 4 | Quay lại trang trước | Button | Click | • Về lại trang trước đó của trình duyệt (thường là trang iOffice/iStorage người dùng vừa bấm nút). Không có nút "Về iOffice/iStorage" vì CSKH không biết địa chỉ site của người dùng. |
+| 5 | Đăng nhập bằng email | Link | Click | • Luôn hiện → `dang-nhap`. Chỉ dùng được với tài khoản có mật khẩu CSKH (nhân viên, khách hàng tạo qua lời mời); tài khoản đồng bộ từ site **không có mật khẩu CSKH** nên phải quay lại site. |
 
-- Mỗi lần vào (thành công hoặc thất bại) ghi nhật ký: thời gian, site, mã người dùng, kết quả kèm mã lỗi; KHÔNG ghi IP/thiết bị (thống nhất với `dang-nhap`).
-
+- **Phạm vi (02/10/2026):** màn chỉ phục vụ lỗi của **API 2**. Các lỗi của **API 1** (chữ ký sai, domain lạ, email trùng nội bộ, tài khoản bị khóa…) trả về cho máy chủ site, người dùng thấy thông báo của iOffice/iStorage (xem `api-dong-bo-nguoi-dung.md` mục 5.2) — bản thiết kế v1.1 cũ ghi "Thử lại" và nhiều thông báo theo tình huống nay không còn dùng.
+- `vao-tu-site` (màn chuyển tiếp "Đang đưa bạn vào…") ở bản triển khai là chuyển hướng tức thì (HTTP 303), người dùng gần như không thấy màn này.
+- Nhật ký từng lần vào: chưa ghi trong bản S43 hiện tại (còn mở).
 
 ---
 

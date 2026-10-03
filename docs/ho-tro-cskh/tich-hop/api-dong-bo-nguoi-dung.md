@@ -2,14 +2,14 @@
 type: api-contract
 feature: ho-tro-cskh
 status: draft
-updated: 2026-10-01
+updated: 2026-10-02
 links:
   - docs/ho-tro-cskh/srs/ho-tro-cskh-userflow.md
 ---
 
 # API đồng bộ người dùng & đơn vị — hợp đồng tích hợp iOffice / iStorage → CSKH
 
-Tài liệu giao cho đội iOffice và iStorage. Nghiệp vụ gốc: SRS `dang-nhap-kich-hoat` v1.3 Chức năng 5 và `quan-tri-nguoi-dung` v1.3 Chức năng 1. Các mục đánh dấu `[GIẢ ĐỊNH]` là đề xuất, chờ hai bên chốt.
+Tài liệu giao cho đội iOffice và iStorage. Luồng gồm **2 API**: **API 1** — máy chủ site gọi CSKH để đồng bộ đơn vị và người dùng (`POST /api/v1/tich-hop/dong-bo-nguoi-dung`, mục 3–5); **API 2** — trình duyệt người dùng mở địa chỉ đăng nhập một lần do API 1 trả về (`GET /vao?m=…`, mục 5A). Nghiệp vụ gốc: SRS `dang-nhap-kich-hoat` v1.4 Chức năng 5 và `quan-tri-nguoi-dung` v1.4 Chức năng 1. Các mục đánh dấu `[GIẢ ĐỊNH]` là đề xuất, chờ hai bên chốt.
 
 ## 1. Mục đích và luồng
 
@@ -17,15 +17,16 @@ Mỗi lần người dùng đang đăng nhập iOffice/iStorage bấm "Hỗ tr�
 
 ```
 Người dùng ──(1) bấm Hỗ trợ khách hàng──► Máy chủ site
-Máy chủ site ──(2) POST /api/v1/tich-hop/dong-bo-nguoi-dung (ký HMAC)──► CSKH
+Máy chủ site ──(2) API 1: POST /api/v1/tich-hop/dong-bo-nguoi-dung (ký HMAC)──► CSKH
 CSKH ──(3) xác thực, tạo/cập nhật khách hàng + tài khoản + danh tính──►
 CSKH ──(4) dangNhapUrl (60 giây, 1 lần)──► Máy chủ site
-Máy chủ site ──(5) HTTP 302 tới dangNhapUrl──► Trình duyệt ──(6)──► CSKH (vào thẳng trang đầu)
+Máy chủ site ──(5) trả HTTP 302 (của site) tới dangNhapUrl──► Trình duyệt
+Trình duyệt ──(6) API 2: GET /vao?m=…──► CSKH ──(7) HTTP 303 + cookie phiên──► trang đầu (không hiện màn đăng nhập)
 ```
 
 ## 2. Điều kiện trước khi gọi (làm 1 lần cho mỗi site)
 
-Quản trị viên CSKH đăng ký site ở danh mục Site: dịch vụ, **domain hợp lệ** (nhiều domain cùng 1 hệ thống `cloud_admin` thuộc cùng 1 site), **IP máy chủ được phép** (tùy chọn), địa bàn của site, bật tích hợp. Hệ thống tự sinh **Khóa tích hợp** và hiện đúng 1 lần; Quản trị viên chuyển khóa và **mã site** (`X-Site-Id`) cho đội site, đội site lưu trong cấu hình máy chủ (không ghi log, không đưa xuống trình duyệt, không đưa vào mã nguồn). Khóa dài hạn, không tự hết hạn; xoay vòng khi cần (khóa cũ còn hiệu lực ngắn để kịp đổi cấu hình). Mỗi site một khóa, **không** cấp theo từng sở/ban/ngành.
+Quản trị viên CSKH đăng ký site ở danh mục Site: dịch vụ, **domain hợp lệ** (nhiều domain cùng 1 hệ thống `cloud_admin` thuộc cùng 1 site), **IP máy chủ được phép** (tùy chọn), địa bàn của site, bật tích hợp. Quản trị viên bấm **"Tạo khóa"** ở màn Sửa Site: hệ thống sinh **Khóa tích hợp** (dạng `cskh_sk_live_…`) và hiện đúng 1 lần (không xem lại được); Quản trị viên chuyển khóa và **mã site** (`X-Site-Id`) cho đội site, đội site lưu trong cấu hình máy chủ (không ghi log, không đưa xuống trình duyệt, không đưa vào mã nguồn). Khóa dài hạn, không tự hết hạn; xoay vòng khi cần (khóa cũ còn hiệu lực ngắn để kịp đổi cấu hình). Mỗi site một khóa, **không** cấp theo từng sở/ban/ngành.
 
 ## 3. Yêu cầu
 
@@ -105,7 +106,7 @@ Mac mac = Mac.getInstance("HmacSHA256");
 mac.init(new SecretKeySpec(secret.getBytes(UTF_8), "HmacSHA256"));
 String sig = hex(mac.doFinal(canon.getBytes(UTF_8)));
 // POST body với X-Site-Id, X-Timestamp, X-Nonce, X-Signature
-// Thành công → trả 302 cho trình duyệt tới response.dangNhapUrl
+// Thành công → site trả HTTP 302 cho trình duyệt tới response.dangNhapUrl (API 2, mục 5A)
 ```
 
 ## 5. Phản hồi
@@ -133,15 +134,37 @@ Mã lỗi nghiệp vụ là **đề xuất `[GIẢ ĐỊNH]`**, chốt khi cài 
 | 401 | E-TH-001 | Thiếu tiêu đề, chữ ký sai | Kiểm tra khóa, cách ghép chuỗi ký; không thử lại tự động |
 | 401 | E-TH-002 | Mốc giờ lệch quá 60 giây | Đồng bộ giờ máy chủ (NTP) rồi thử lại |
 | 401 | E-TH-003 | Nonce đã dùng | Sinh nonce mới rồi thử lại |
-| 403 | E-TH-004 | Site chưa đăng ký / tạm ngừng tích hợp, domain hoặc IP không thuộc site | Liên hệ Quản trị viên CSKH |
+| 403 | E-TH-004 | Site chưa đăng ký / tạm ngừng tích hợp, domain hoặc IP không thuộc site, hoặc site chưa khai địa bàn mà đơn vị gửi lên chưa có (chưa tự tạo được khách hàng) | Liên hệ Quản trị viên CSKH |
 | 400 | E-TH-005 | Thiếu trường bắt buộc hoặc sai định dạng (nêu rõ `truong`) | Sửa dữ liệu gửi |
 | 409 | E-TH-006 | Email trùng tài khoản nội bộ | Hiện thông báo chung cho người dùng, liên hệ Quản trị viên CSKH |
 | 409 | E-TH-007 | Danh tính trỏ khách hàng khác với khách hàng hiện tại của tài khoản (trùng email giữa 2 đơn vị) | Như trên |
 | 403 | E-TH-008 | Tài khoản đang bị vô hiệu hóa (do site báo hoặc do Quản trị viên CSKH) | Hiện thông báo chung |
 | 429 | E-TH-009 | Vượt hạn mức gọi của site `[GIẢ ĐỊNH: 300 lời gọi/phút; 100 khách hàng tự tạo/ngày]` | Chờ rồi thử lại |
-| 5xx | E-TH-010 | CSKH tạm lỗi | Cho người dùng thử lại (an toàn gọi lặp) |
+| 503 | E-TH-010 | CSKH tạm lỗi | Cho người dùng thử lại (an toàn gọi lặp) |
 
 Người dùng cuối **không** thấy mã lỗi CSKH; site hiện thông báo của chính mình.
+
+## 5A. API 2 — Địa chỉ đăng nhập một lần (`GET /vao`)
+
+API 2 là bước **trình duyệt** của người dùng đi vào CSKH sau khi API 1 thành công. Phía site **không gọi** API này từ máy chủ — chỉ chuyển hướng trình duyệt tới `dangNhapUrl` đã nhận ở mục 5.1.
+
+| Mục | Nội dung |
+|---|---|
+| Địa chỉ | `GET https://<địa chỉ CSKH>/vao?m=<mã một lần>` (chính là `dangNhapUrl`; không sửa, không thêm tham số) |
+| Ai gọi | **Trình duyệt** của người dùng, ngay sau khi site chuyển hướng (HTTP 302 từ site tới địa chỉ này) |
+| Xác thực | Không có tiêu đề/chữ ký; chỉ cần mã `m` còn hiệu lực. Mã sinh ngẫu nhiên, CSKH chỉ lưu bản băm, **không chứa thông tin cá nhân** |
+| Hiệu lực mã | **60 giây** kể từ lúc API 1 trả về và **dùng đúng 1 lần** (mở lần 2 là hỏng). Mỗi lần gọi API 1 cấp 1 mã riêng, mã nào mở trước thắng |
+
+**Kết quả:**
+
+| Tình huống | Phản hồi của CSKH | Người dùng thấy |
+|---|---|---|
+| Mã hợp lệ, tài khoản đang hoạt động | **HTTP 303** tới trang đầu theo vai trò (khách hàng: `/tra-cuu`); kèm cookie phiên `cskh_phien` (HttpOnly, SameSite=Lax, Secure khi chạy thật), **tối đa 8 giờ** `[GIẢ ĐỊNH]`, không gia hạn | Vào thẳng CSKH, không hiện màn đăng nhập |
+| Mã sai, hết hạn (quá 60 giây), đã dùng rồi, hoặc tài khoản không còn hoạt động | **HTTP 303** tới `/khong-vao-duoc`, **không** đặt cookie, không nói rõ lý do (không lộ thông tin tài khoản) | Màn **"Không vào được từ site dịch vụ"** của CSKH: hướng dẫn quay lại iOffice/iStorage bấm lại "Hỗ trợ khách hàng", kèm nút "Quay lại trang trước". Tài khoản đồng bộ **không có mật khẩu CSKH** nên không đăng nhập thay thế được |
+
+Phản hồi đặt `Cache-Control: no-store` và `Referrer-Policy: no-referrer` để mã không bị lưu đệm hay lộ qua tiêu đề Referer. Màn "Không vào được từ site dịch vụ" (SRS `dang-nhap-kich-hoat` EX-09, Figma 62b) hiện câu chữ tạm `[GIẢ ĐỊNH]`.
+
+**Việc phía site:** chuyển hướng ngay (trong 60 giây); không gọi lại `dangNhapUrl` từ máy chủ, không lưu hay ghi log địa chỉ này (mã còn hiệu lực trong 60 giây đầu); nếu người dùng quay lại thấy màn đăng nhập thì hiển thị hướng dẫn bấm lại nút từ site.
 
 ## 6. CSKH xử lý theo thứ tự nào
 
@@ -156,7 +179,7 @@ Người dùng cuối **không** thấy mã lỗi CSKH; site hiện thông báo 
 - Gọi từ **máy chủ**, không từ trình duyệt; không đưa khóa vào URL, trình duyệt, log hay mã nguồn.
 - Giờ máy chủ chính xác (NTP); mỗi lời gọi một nonce mới.
 - **Gọi lặp an toàn:** cùng nội dung cho cùng kết quả; hai lần bấm gần nhau không tạo trùng khách hàng hay tài khoản (CSKH xử lý có khóa theo đơn vị và người dùng); mỗi lần gọi cấp 1 `dangNhapUrl` riêng, địa chỉ nào mở trước thắng.
-- Chuyển hướng tới `dangNhapUrl` ngay (60 giây).
+- Chuyển hướng trình duyệt tới `dangNhapUrl` ngay (60 giây) — đây là **API 2**, chi tiết mục 5A.
 - Người dùng bị khóa ở site: gửi `trangThai = vo_hieu_hoa` ở lần gọi kế tiếp, hoặc không hiện nút "Hỗ trợ khách hàng". **Giai đoạn đầu chưa có API vô hiệu hóa tức thời**; phiên CSKH đang mở hết hạn trong tối đa 8 giờ `[GIẢ ĐỊNH]`.
 - Tài khoản đồng bộ từ site **không có mật khẩu CSKH**; người dùng chỉ vào CSKH qua nút này; hết phiên phải bấm lại từ site.
 

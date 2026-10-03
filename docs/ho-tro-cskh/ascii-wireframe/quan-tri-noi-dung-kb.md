@@ -374,7 +374,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
-| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm vùng để chọn; nhận **.docx, .md, .pdf**, tối đa **10 tệp/lần, mỗi tệp ≤ 20 MB** (OQ-21a). Tách bài theo tiêu đề cấp 1/2; phần không tách được gom vào 1 bài "Chưa phân loại". Tệp sai định dạng/quá cỡ/rỗng/trùng tên-cỡ/quá số lượng → không nhận, báo ở khung cảnh báo [12] (xem Trạng thái phụ). |
+| 1 | Vùng kéo thả / Chọn tệp | File upload | Select | • Kéo thả hoặc bấm vùng để chọn; nhận **.docx, .md, .pdf**, tối đa **10 tệp/lần, mỗi tệp ≤ 50 MB** (OQ-21a). Tách bài theo tiêu đề cấp 1/2; phần không tách được gom vào 1 bài "Chưa phân loại". Tệp sai định dạng/quá cỡ/rỗng/trùng tên-cỡ/quá số lượng → không nhận, báo ở khung cảnh báo [12] (xem Trạng thái phụ). |
 | 2 | Tệp đã chọn | List | Select | • Mỗi dòng: tên tệp (dung lượng) + nút xóa [x]; chưa chọn tệp nào thì ẩn danh sách. |
 | 3 | Dịch vụ | Dropdown | Select | • **Bắt buộc**, áp cho cả lô; mặc định dịch vụ đầu tiên. Đổi dịch vụ → bỏ chọn Phạm vi và Danh mục đích. |
 | 4 | Phạm vi | Dropdown | Select | • **Bắt buộc**: "Dùng chung mọi site của dịch vụ" (mặc định) hoặc "Site: ‹tên site›" của dịch vụ đã chọn; gắn nhãn khi chọn, không tự suy. Đổi phạm vi → bỏ chọn Danh mục đích. |
@@ -633,7 +633,7 @@
 | Mã | Nội dung cần chốt | Đề xuất | Trạng thái |
 |----|-------------------|---------|------------|
 | OQ-4 | Ai được duyệt và xuất bản | Chỉ Quản trị viên; Biên tập soạn và gửi duyệt, không tự duyệt bài mình soạn. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
-| OQ-21a | Tệp tải lên, import, tách bài | Ảnh png/jpg ≤5 MB; docx, md, pdf văn bản ≤20 MB/tệp, ≤10 tệp/lần; tách bài theo tiêu đề cấp 1/2, phần không tách được gom vào bài nháp "Chưa phân loại". | Đã chốt (khách hàng xác nhận, 21/09/2026) |
+| OQ-21a | Tệp tải lên, import, tách bài | Ảnh png/jpg ≤5 MB; docx, md, pdf văn bản ≤50 MB/tệp, ≤10 tệp/lần; tách bài theo tiêu đề cấp 1/2, phần không tách được gom vào bài nháp "Chưa phân loại". | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-21b | Bài của tôi, sửa, khôi phục | Biên tập xem "Bài của tôi" theo Nháp / Chờ duyệt / Bị từ chối / Đã xuất bản; bản đang xuất bản vẫn hiển thị đến khi bản sửa được duyệt; Quản trị viên khôi phục bài đã ẩn (tái lập chỉ mục AI). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-21c | Bài "không dùng cho AI" | Thêm trường "Đối tượng xem" (Khách hàng + Agent / Chỉ nội bộ), tách khỏi cờ "Không dùng cho AI" (chỉ loại khỏi chỉ mục AI). | Đã chốt (khách hàng xác nhận, 21/09/2026) |
 | OQ-21d | Google Drive | Tài khoản dịch vụ được chia sẻ thư mục; quét mặc định hằng ngày 02:00 (chọn hằng giờ/ngày/tuần); hỗ trợ Google Docs, docx, pdf văn bản, md. | Đã chốt (khách hàng xác nhận, 21/09/2026) |
