@@ -1,0 +1,25 @@
+--- a/docs/kiem-tra-phap-ly/ascii-wireframe/kho-van-ban-flow.md
++++ b/docs/kiem-tra-phap-ly/ascii-wireframe/kho-van-ban-flow.md
+@@ -15,8 +15,9 @@
+ │ KTPL   Gửi dự thảo | Lịch sử kiểm tra | *Kho văn bản                                          (o)3  [An v] │
+ ├────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ Kho văn bản pháp lý                                                                  [1][ + Thêm văn bản ] │
+-│ Từ khóa [2] [____________]  Lĩnh vực [3] [v: Tất cả]  Loại [4] [v: Tất cả]  Cơ quan [5] [v: Tất cả]        │
+-│ Tình trạng [6] [v: Còn hiệu lực]  Phạm vi [7] [v: Tất cả]  [ ] Chỉ văn bản cần rà soát [8]  [9][ Tìm kiếm ]│
++│ Số hiệu, trích yếu [2]  [________________________________________________________________________________] │
++│ [v: Lĩnh vực][3]      [v: Loại][4]          [v: Cơ quan][5]       [v: Tình trạng][6]    [v: Phạm vi][7]    │
++│ [ ] Chỉ hiện văn bản cần rà soát [8]                                                      [9][ Tìm kiếm ]  │
+ ├────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+ │ Số hiệu         Trích yếu                Loại      Cơ quan  Hiệu lực   Lĩnh vực  Phạm vi  Tình trạng   [10]│
+ │ --------------------------------------------------------------------------------------------------------   │
+@@ -35,8 +36,8 @@
+ | # | Items | Control type | Data type | Description |
+ |---|-------|--------------|-----------|-------------|
+ | 1 | Thêm văn bản | Button | Click | • Sang `nap-van-ban`. Danh sách rỗng → trạng thái "Chưa có văn bản phù hợp" kèm nút này và nút "Xóa bộ lọc", không báo lỗi. |
+-| 2 | Từ khóa | Textbox | Text | • Tối đa 200 ký tự, tìm tương đối theo số hiệu và trích yếu, không phân biệt dấu và hoa thường. |
+-| 3 | Lĩnh vực | Combobox nhiều giá trị | Select | • Từ danh mục lĩnh vực, gồm giá trị "Ngừng sử dụng" nếu còn văn bản. Mặc định không chọn (tất cả). |
++| 2 | Số hiệu, trích yếu | Textbox | Text | • Ô nhập kéo dài hết bề ngang khung, nằm ở hàng riêng phía trên các tiêu chí khác. Tối đa 200 ký tự, tìm tương đối theo số hiệu và trích yếu, không phân biệt dấu và hoa thường. Mặc định trống. |
++| 3 | Lĩnh vực | Combobox nhiều giá trị | Select | • Hàng thứ hai cùng với Loại, Cơ quan, Tình trạng, Phạm vi; năm ô chia đều bề ngang. Từ danh mục lĩnh vực, gồm giá trị "Ngừng sử dụng" nếu còn văn bản. Mặc định không chọn (tất cả). |
+ | 4 | Loại văn bản | Combobox | Select | • Chọn 1 giá trị, mặc định "-- Tất cả --". |
+ | 5 | Cơ quan ban hành | Combobox | Select | • Chọn 1 giá trị, mặc định "-- Tất cả --". |
+ | 6 | Tình trạng | Combobox | Select | • -- Tất cả -- / Chưa hiệu lực / Còn hiệu lực / Hết hiệu lực / Đã hủy. Mặc định "Còn hiệu lực". |

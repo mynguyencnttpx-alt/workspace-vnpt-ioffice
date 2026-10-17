@@ -1,0 +1,31 @@
+--- a/docs/kiem-tra-phap-ly/SRS.md
++++ b/docs/kiem-tra-phap-ly/SRS.md
+@@ -1858,16 +1858,16 @@
+ - BR-06: Hội thoại gắn với lượt kiểm tra được lưu cùng lượt; hội thoại theo lĩnh vực hoặc văn bản được lưu theo người dùng và ngữ cảnh. Thời hạn lưu giữ như dự thảo (FC-032)
+ - BR-07: Mỗi lượt hỏi đáp có gọi AI → ghi token vào/ra và chi phí như FC-014 BR-07; tính vào hạn mức; chi phí chỉ Quản trị thấy
+ 
++**Kênh popup**
++- BR-08: Trong popup iOffice → hỏi đáp và mở trích dẫn ở lại trong popup. Người dùng chủ động chọn "Mở trang riêng" thì chuyển sang hệ thống và không quay lại popup (FC-024)
++
+ **Hỏi theo đoạn bôi đen (trên màn kết quả)**
+-- BR-09: Chỉ bôi đen trong vùng chữ của thẻ điểm vi phạm (trích đoạn dự thảo, nội dung căn cứ, giải thích, đề xuất); đoạn từ 5 đến 2000 ký tự mới hiện thanh "Hỏi về đoạn này" và "Sao chép". Dưới 5 ký tự không hiện thanh; vượt 2000 → EX-07. Bôi đen không đổi mức độ, đánh giá hay kết quả của điểm vi phạm
+-- BR-10: Đoạn bôi đen chỉ làm ngữ cảnh bổ sung cho câu hỏi: ngữ cảnh luôn là "Lượt kiểm tra này" và trả lời vẫn theo BR-01 (chỉ dựa điều khoản trong ngữ cảnh), không phải câu trả lời tách riêng khỏi lượt. Mỗi câu hỏi gắn tối đa một đoạn; bôi đoạn khác thì thay đoạn cũ. Người dùng bỏ chip thì câu hỏi trở thành câu hỏi thường `[GIẢ ĐỊNH]`
++- BR-09: Chỉ bôi đen trong vùng chữ của thẻ điểm vi phạm (trích đoạn dự thảo, nội dung căn cứ, giải thích, đề xuất); đoạn từ 5 đến 2000 ký tự mới hiện thanh "Hỏi về đoạn này" và "Sao chép". Dưới 5 ký tự không hiện thanh; vượt 2000 → EX-07. Bôi đen không đổi mức độ, đánh giá hay kết quả của điểm vi phạm. Bấm vào link căn cứ vẫn mở văn bản như cũ; chỉ khi kéo chọn chữ mới hiện thanh. Đoạn chứa "[đã xóa trước khi gửi]" → gửi AI đúng chữ đó, không khôi phục giá trị đã xóa
++- BR-10: Đoạn bôi đen chỉ làm ngữ cảnh bổ sung cho câu hỏi: ngữ cảnh luôn là "Lượt kiểm tra này" và trả lời vẫn theo BR-01 (chỉ dựa điều khoản trong ngữ cảnh), không phải câu trả lời tách riêng khỏi lượt. Mỗi câu hỏi gắn tối đa một đoạn; bôi đoạn khác thì thay đoạn cũ. Người dùng bỏ chip thì câu hỏi trở thành câu hỏi thường; sau khi gửi, chip tự xóa (thẻ trích dẫn vẫn nằm trong hội thoại), muốn hỏi tiếp về đoạn đó thì bôi đen lại `[GIẢ ĐỊNH]`. Đổi ngữ cảnh khác "Lượt kiểm tra này" khi chip còn → chip bị bỏ `[GIẢ ĐỊNH]`
+ - BR-11: Đoạn bôi đen đã khôi phục giá trị gốc (đoạn trích dự thảo che ẩn) → trước khi gửi AI phải che ẩn lại hoặc loại bỏ theo lựa chọn nhạy cảm đã chọn lúc gửi dự thảo (FC-013 BR-04, BR-05); không gửi giá trị gốc ra ngoài. Nhà cung cấp tắt rà soát thì bỏ qua (BR-04)
+ - BR-12: Thẻ trích dẫn của đoạn đã chọn được lưu trong hội thoại cùng câu hỏi, hiển thị lại khi mở lại hội thoại; ghi nhận điểm vi phạm nguồn của đoạn. Chi phí, hạn mức tính như BR-07
+ - BR-13: Bôi đen chỉ hỗ trợ trên web; trong popup iOffice chưa hỗ trợ `[CẦN XÁC NHẬN]`
+ 
+-**Kênh popup**
+-- BR-08: Trong popup iOffice → hỏi đáp và mở trích dẫn ở lại trong popup. Người dùng chủ động chọn "Mở trang riêng" thì chuyển sang hệ thống và không quay lại popup (FC-024)
+-
+ ###### Thông báo và thông tin lưu vết log
+ 
+ **Thông báo hệ thống**
+@@ -3484,5 +3484,5 @@
+ |---|---|---|
+ | 1.0 | 2026-10-16 | Bản đầu, phê duyệt có điều kiện |
+ | 1.1 | 2026-10-17 | Bố cục hai cột tràn khung 1440: gộp Gửi dự thảo, Tóm lược, Xử lý nhạy cảm thành một màn (FC-012, FC-013); nguồn đối chiếu chọn theo tab kho và từng văn bản (FC-012 BR-08); quét nhạy cảm tự động ngay sau tải tệp (BR-09); Xem trước bản gửi thành ngăn tùy chọn; thêm nguồn từ tệp hoặc liên kết công khai, phạm vi theo vai trò (FC-005 BR-10, BR-11); Kiểm tra lỗi gộp vào Đang xử lý, Hủy yêu cầu thành hộp thoại (FC-015, FC-016); gộp Kết quả tổng quan, Danh sách, Chi tiết, Đánh giá thành màn Kết quả kiểm tra (FC-018, FC-019); Xuất báo cáo, Xóa lượt thành hộp thoại, Hỏi đáp thành ngăn bên phải (FC-020 đến FC-022); thẻ thống kê ở danh sách lượt (FC-017). Chờ duyệt lại; đã phê duyệt có điều kiện ngày 2026-10-17 |
+-| 1.1 (bổ sung) | 2026-10-17 | Bôi đen đoạn kết quả để hỏi sâu (FC-022 Bước 1b, EX-07, BR-09 đến BR-13, E-103; Module 5 UI) |
+ | 1.1 (hoàn tất) | 2026-10-17 | Sửa theo review vòng 3: màn Đang xử lý hiển thị văn bản đã được tham chiếu (số đoạn, số điểm); dữ liệu danh sách nguồn của lượt; đồng bộ popup; thêm EX-03 FC-019 (E-102), BR-11 FC-012 (tệp tạm mã hóa), công thức thẻ thống kê FC-017; chèn link wireframe và Figma; cập nhật UC v3 |
++| 1.1 (bổ sung) | 2026-10-17 | Bôi đen đoạn kết quả để hỏi sâu (FC-022 Bước 1b, EX-07, BR-09 đến BR-13, E-103; Module 5 UI) |

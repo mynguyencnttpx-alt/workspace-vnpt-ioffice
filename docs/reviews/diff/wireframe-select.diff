@@ -1,0 +1,43 @@
+--- a/docs/kiem-tra-phap-ly/ascii-wireframe/ket-qua-kiem-tra-flow.md
++++ b/docs/kiem-tra-phap-ly/ascii-wireframe/ket-qua-kiem-tra-flow.md
+@@ -67,7 +67,7 @@
+ │ ( ) Luật QH đô thị 2009 1 điểm       │ (!) [5] 1 căn cứ đã hết hiệu lực, kết quả có thể không còn đúng.    │
+ │ ( ) Luật Đất đai 2024   4 điểm       │ ---------------------------------------------------------------     │
+ │     (!) Hết hiệu lực 01/09/2026      │ 1/10 [!Nghiêm trọng] Trang 12, Điều 8 Khoản 2   [6]                 │
+-│ ( ) TT 05/2023/TT-BXD   2 điểm       │ Trích đoạn: "Thời hạn cấp phép không quá 3 ngày làm việc ..."       │
++│ ( ) TT 05/2023/TT-BXD   2 điểm       │ Trích đoạn [14]: "Thời hạn cấp phép không quá 3 ngày làm việc ..."  │
+ │ ( ) QĐ 28/2022/QĐ-UBND  0 điểm       │ Căn cứ [7]: < ND 11/2021 Điều 15 Khoản 1, Tr.7 >                    │
+ │ ( ) TT 12/2020/TT-BTNMT 0 điểm       │   "Thời hạn giải quyết không quá 15 ngày kể từ ngày nhận hồ sơ."    │
+ │                                      │ Giải thích: 3 ngày ngắn hơn mức tối thiểu 15 ngày theo quy định.    │
+@@ -97,6 +97,7 @@
+ | 11 | Gửi lại kiểm tra | Button | Click | • Chỉ hiện khi có dải cảnh báo căn cứ. Click → `gui-du-thao` điền sẵn lĩnh vực và nguồn; Ngày xét hiệu lực = ngày hiện tại; người dùng chọn lại tệp dự thảo. |
+ | 12 | Xuất báo cáo | Button | Click | • Mở hộp thoại `xuat-bao-cao` (FC-020). |
+ | 13 | Hỏi đáp | Button | Click | • Mở ngăn `hoi-dap-web` bên phải với ngữ cảnh "Lượt kiểm tra này". |
++| 14 | Bôi đen đoạn kết quả | Vùng chữ | Select | • Bôi đen bằng chuột hoặc phím trong vùng chữ của thẻ (trích đoạn, căn cứ, giải thích, đề xuất). Đoạn từ 5 đến 2000 ký tự → hiện thanh nổi ngay trên đoạn: [ Hỏi về đoạn này ] [ Sao chép ]; vùng chọn giữ nền nhấn. Bấm ra ngoài hoặc Esc → ẩn thanh.<br>• "Hỏi về đoạn này" → mở `hoi-dap-web` kèm trích dẫn đoạn (xem [9], [10] của màn đó). Chỉ web, popup chưa hỗ trợ `[CẦN XÁC NHẬN]`.<br>• Dưới 5 ký tự: không hiện thanh. Vượt 2000 ký tự → `E-kiem-tra-phap-ly-103` "Đoạn đã chọn tối đa 2000 ký tự. Vui lòng chọn đoạn ngắn hơn."; không mở ngăn, giữ vùng bôi đen.<br>• Không đổi mức độ, đánh giá hay kết quả của điểm vi phạm. |
+ 
+ ---
+ 
+@@ -173,6 +174,7 @@
+ ├────────────────────────────────────────────────────────────────────────────┤
+ │ Ngữ cảnh [1]: [v: Lượt kiểm tra này]                                       │
+ │ ---------------------------------------------------------------            │
++│ [10] Đã chọn · Điểm 1/10, Giải thích: "Thời hạn 3 ngày ngắn hơn mức ..."   │
+ │ [3] Bạn: Điều 8 khoản 2 vi phạm quy định nào?                              │
+ │     AI: Thời hạn 3 ngày ngắn hơn Điều 15 Khoản 1 NĐ 11/2021.               │
+ │     Trích dẫn [4]: < ND 11/2021 Đ.15 Tr.7 >                                │
+@@ -180,6 +182,7 @@
+ │     Bạn: Điều 12 có ngoại lệ cho hồ sơ khẩn không?                         │
+ │     AI: Chưa đủ căn cứ trong kho văn bản đã chọn để trả lời.               │
+ │ ---------------------------------------------------------------            │
++│ [9] Đang hỏi về: "Thời hạn 3 ngày ngắn hơn mức tối thiểu ..."   < Bỏ x >   │
+ │ Câu hỏi (tối đa 2000 ký tự) [5]                                            │
+ │ [Điều 12 có ngoại lệ cho hồ sơ khẩn không?_____________________]           │
+ │ [6][ Đính kèm tệp ]  BieuMau.pdf (1,2 MB) < Xóa >                          │
+@@ -199,5 +202,7 @@
+ | 6 | Đính kèm tệp | Upload | Select | • Không bắt buộc, một tệp mỗi câu hỏi, PDF hoặc Word, tối đa 50MB; AI đọc trực tiếp, tệp không vào kho. Sai định dạng, quá lớn hoặc không đọc được → `E-kiem-tra-phap-ly-060` "Tệp đính kèm phải là PDF hoặc Word, tối đa 50MB, và đọc được nội dung." |
+ | 7 | Đóng | Link | Click | • Đóng ngăn, về `ket-qua-kiem-tra`; hội thoại vẫn lưu cùng lượt. |
+ | 8 | Gửi | Button | Click | • Gọi AI theo nhà cung cấp mặc định của đơn vị; ghi token, chi phí, tính vào hạn mức. Lỗi nhà cung cấp → `E-kiem-tra-phap-ly-061` "Chưa trả lời được do lỗi từ nhà cung cấp AI. Vui lòng thử lại." Chưa có nhà cung cấp mặc định hoặc hạn mức chế độ Chặn đã vượt → chặn gửi như màn Gửi dự thảo. |
++| 9 | Chip Đang hỏi về | Chip | Click | • Chỉ hiện khi mở từ bôi đen (màn kết quả [14]). Rút gọn đoạn đã chọn; "Bỏ" xóa chip, câu hỏi trở thành câu hỏi thường. Mỗi câu hỏi gắn tối đa một đoạn; bôi đoạn khác thì thay đoạn cũ.<br>• Đoạn đã khôi phục giá trị gốc → che ẩn lại hoặc loại bỏ theo lựa chọn nhạy cảm của lượt trước khi gửi AI. |
++| 10 | Thẻ trích dẫn đoạn đã chọn | Card | ReadOnly | • Hiện đầu hội thoại và lưu cùng câu hỏi: điểm vi phạm nguồn, nơi bôi đen, đoạn chữ (tối đa 2000 ký tự). Ngữ cảnh luôn "Lượt kiểm tra này", trả lời vẫn chỉ dựa điều khoản trong ngữ cảnh. |
+ 
+ ---

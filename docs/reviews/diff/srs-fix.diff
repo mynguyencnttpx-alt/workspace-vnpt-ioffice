@@ -1,0 +1,110 @@
+--- a/docs/kiem-tra-phap-ly/SRS.md
++++ b/docs/kiem-tra-phap-ly/SRS.md
+@@ -545,9 +545,11 @@
+ 
+ **Hiệu lực và đơn vị tạo**
+ - BR-08: Tình trạng hiệu lực không nhập tay mà hệ thống tính từ Ngày hiệu lực và Ngày hết hiệu lực (xem FC-008 BR-03)
++- BR-09: Lưu văn bản phạm vi Đơn vị hoặc Một số đơn vị do Quản trị đơn vị nạp → ghi "Đơn vị tạo" là đơn vị đang thao tác. Do Quản trị hệ thống nạp → "Đơn vị tạo" để trống (văn bản thuộc hệ thống). Trường này dùng cho quyền sửa ở FC-008 BR-01
++
++**Điểm vào Thêm nguồn từ màn Gửi dự thảo**
+ - BR-10: Điểm vào "+ Thêm nguồn" ở màn Gửi dự thảo → mở hộp thoại một màn: chọn tệp hoặc dán liên kết, thông tin bóc tách và phạm vi sử dụng hiện ngay bên dưới để kiểm tra, chỉnh rồi "Lưu vào kho"; mọi quy tắc FC-005 (bóc tách, gợi ý lĩnh vực, trùng số hiệu BR-06, phạm vi BR-04 và BR-05, chuẩn bị đối chiếu BR-07) giữ nguyên. Mặc định phạm vi "Cá nhân"
+ - BR-11: Trong hộp thoại Thêm nguồn, lỗi EX-01 đến EX-04 hiển thị ngay trong hộp thoại (không chuyển màn nap-van-ban-loi hoặc nhap-tay-thong-tin); trường không bóc tách được để trống cho người dùng nhập tại chỗ. Sau khi lưu, văn bản ở trạng thái "Đang chuẩn bị" xuất hiện trong danh sách nguồn nhưng chưa tích chọn được (FC-012 BR-10)
+-- BR-09: Lưu văn bản phạm vi Đơn vị hoặc Một số đơn vị do Quản trị đơn vị nạp → ghi "Đơn vị tạo" là đơn vị đang thao tác. Do Quản trị hệ thống nạp → "Đơn vị tạo" để trống (văn bản thuộc hệ thống). Trường này dùng cho quyền sửa ở FC-008 BR-01
+ 
+ ###### Thông báo và thông tin lưu vết log
+ 
+@@ -1037,10 +1039,10 @@
+ | **Hộp thoại Thêm nguồn (them-nguon)** | | | | |
+ | Các trường chọn nguồn, thông tin bóc tách, phạm vi sử dụng | Như bảng FC-005 mục "hộp thoại Thêm nguồn" | | Cùng ràng buộc | |
+ | **Màn Đang xử lý (dang-xu-ly): cột nguồn bên trái và thông tin bên phải** | | | | |
+-| Danh sách nguồn đang đối chiếu | Label | - | Chỉ đọc. Mỗi văn bản có trạng thái "Chờ", "Đang đối chiếu" (kèm điều khoản đang dùng) hoặc "Xong" (kèm số điểm liên quan) `[CẦN XÁC NHẬN khả thi kỹ thuật]` | String |
++| Văn bản đã được tham chiếu | Label | - | Chỉ đọc. Danh sách văn bản nguồn của lượt, mỗi dòng nêu số đoạn dự thảo đã đối chiếu với văn bản đó và số điểm vi phạm tìm thấy đến nay; số tăng dần theo tiến độ. Văn bản chưa được tham chiếu hiển thị mờ. Không có trạng thái "Đang đối chiếu" hoặc "Xong" theo từng văn bản vì việc đối chiếu chạy theo từng đoạn dự thảo (FC-014) `[CẦN XÁC NHẬN khả thi kỹ thuật]` | Data list |
+ | Tiến độ | Progress | - | Phần trăm và giai đoạn hiện tại: Đọc nội dung / Tìm căn cứ / Đối chiếu / Tổng hợp. Cập nhật tự động | String |
+ | Số đoạn đã xử lý | Label | - | Dạng "<đã xử lý>/<tổng số đoạn>" | String |
+-| Điểm vi phạm phát hiện đến nay | Label | - | Danh sách mức độ, vị trí, căn cứ của các điểm đã tìm thấy, thêm dần khi xử lý `[CẦN XÁC NHẬN khả thi kỹ thuật]` | Data list |
++| Điểm vi phạm phát hiện đến nay | Label | - | Danh sách mức độ, vị trí, căn cứ của các điểm đã tìm thấy, thêm dần khi xử lý. Chỉ hiện nếu thử nghiệm xác nhận lưu được kết quả từng phần; nếu không, ẩn khối này và chỉ hiển thị số điểm khi lượt hoàn tất `[CẦN XÁC NHẬN khả thi kỹ thuật]` | Data list |
+ | Đoạn dự thảo đang đối chiếu | Label | - | Trích đoạn đang được so, kèm văn bản đang dùng | String |
+ | Trạng thái lỗi | Label | - | Chỉ hiện khi lượt "Lỗi": nguyên nhân (từ mã lỗi), phần đã hoàn thành, số lần chạy lại còn lại. Người dùng thường không thấy chi phí | String |
+ | Nút Hủy yêu cầu | Button | - | Chỉ hiện khi trạng thái Chờ xử lý hoặc Đang xử lý. Mở hộp thoại Hủy yêu cầu | - |
+@@ -1136,7 +1138,7 @@
+ - BR-07: Lượt kiểm tra → tính chi phí, hạn mức và nhà cung cấp mặc định theo "đơn vị tính chi phí": đơn vị của tài khoản; Quản trị đơn vị phụ trách nhiều đơn vị dùng đơn vị đang thao tác; Quản trị hệ thống (không thuộc đơn vị) chọn đơn vị trên màn Gửi dự thảo `[CẦN XÁC NHẬN cách xử lý cho Quản trị hệ thống]`. Quản trị hệ thống không có hạn mức tài khoản riêng, chi phí tính vào đơn vị đã chọn. Quy tắc này áp dụng cho FC-022 và FC-024
+ 
+ **Nguồn đối chiếu**
+-- BR-08: Người dùng được bỏ tích từng văn bản nguồn trước khi bắt đầu; danh sách nguồn đã tích được lưu cùng lượt và dùng cho FC-014, FC-016. Bỏ tích không đổi nội dung kho
++- BR-08: Người dùng được bỏ tích từng văn bản nguồn trước khi bắt đầu; danh sách nguồn đã tích (mã văn bản và phiên bản tại thời điểm gửi) được lưu cùng lượt và dùng cho FC-014, FC-016, FC-018. Bỏ tích không đổi nội dung kho
+ - BR-09: Rà soát nhạy cảm bật → hệ thống tự quét dự thảo ngay sau khi tải tệp, quét nội bộ, chưa gửi gì ra ngoài. Quét lỗi xử lý theo EX-02 của FC-013
+ - BR-10: Văn bản vừa thêm bằng "+ Thêm nguồn" ở trạng thái "Đang chuẩn bị" hoặc "Chuẩn bị lỗi" hiện trong danh sách nhưng mờ, không tích được, cho tới khi chuẩn bị xong (FC-005 BR-07); chuẩn bị xong → tự dùng được và gửi thông báo cho người thêm
+ 
+@@ -1158,7 +1160,7 @@
+ - Người dùng gửi cùng một tệp nhiều lần: mỗi lần là một lượt, mỗi lượt tính chi phí riêng.
+ - Dự thảo rất dài (hàng trăm trang): thời gian xử lý lâu, người dùng được rời trang; chỉ tiêu thời gian tối đa `[CẦN XÁC NHẬN]`.
+ - Hàng đợi quá tải (nhiều đơn vị cùng gửi): lượt ở trạng thái Chờ xử lý lâu hơn; hiển thị vị trí trong hàng đợi `[GIẢ ĐỊNH]`.
+-- Nhà cung cấp AI mặc định bị ngừng sử dụng giữa lúc người dùng ở màn Tóm lược: xử lý theo EX-04 khi bắt đầu.
++- Nhà cung cấp AI mặc định bị ngừng sử dụng giữa lúc người dùng ở màn Gửi dự thảo sau khi tải tệp: xử lý theo EX-04 khi bắt đầu.
+ 
+ ---
+ 
+@@ -1263,7 +1265,7 @@
+ **① Luồng xử lý thành công**
+ 
+ Hệ thống (xử lý nền) nhận một lượt "Chờ xử lý" từ hàng đợi, hệ thống thực hiện:
+-- Chuyển lượt sang "Đang xử lý", cập nhật tiến độ theo từng giai đoạn; cập nhật trạng thái từng văn bản nguồn (Chờ, Đang đối chiếu, Xong), các điểm vi phạm đã tìm thấy và đoạn đang xét để màn Đang xử lý hiển thị `[CẦN XÁC NHẬN khả thi kỹ thuật]`
++- Chuyển lượt sang "Đang xử lý", cập nhật tiến độ theo từng giai đoạn; sau mỗi đoạn ghi tạm số đoạn đã đối chiếu và số điểm theo từng văn bản nguồn, các điểm vi phạm đã tìm thấy và đoạn đang xét để màn Đang xử lý hiển thị `[CẦN XÁC NHẬN khả thi kỹ thuật]`
+ - Tách dự thảo (bản đã xử lý nhạy cảm) theo Chương, Điều, Khoản, Điểm, giữ số trang
+ - Dùng danh sách nguồn đã tích của lượt (FC-012 BR-01, BR-08) và lấy các điều khoản của văn bản đủ điều kiện
+ - Với mỗi đoạn dự thảo: tìm tối đa N điều khoản ứng viên liên quan nhất (từ khóa kết hợp tìm theo ngữ nghĩa); đoạn không có ứng viên đạt ngưỡng liên quan thì bỏ qua, không gọi AI
+@@ -1428,7 +1430,7 @@
+ |----|-----------|-------|
+ | EX-01 | Lượt không ở trạng thái "Lỗi" hoặc người dùng không phải người gửi | Hiển thị `E-kiem-tra-phap-ly-048`: "Chỉ chạy lại được lượt bị lỗi của chính bạn." |
+ | EX-02 | Nhà cung cấp AI mặc định của đơn vị đã bị ngừng hoặc không còn cấu hình | Chặn chạy lại, hiển thị `E-kiem-tra-phap-ly-049`: "Nhà cung cấp AI của đơn vị hiện không khả dụng. Vui lòng liên hệ quản trị." |
+-| EX-03 | Văn bản trong kho đã bị hủy kể từ lượt gốc | Vẫn chạy lại với ảnh chụp kho lúc bắt đầu, hiển thị cảnh báo trong kết quả nếu căn cứ đã hủy |
++| EX-03 | Văn bản trong kho đã bị hủy kể từ lượt gốc | Vẫn chạy lại với danh sách nguồn đã tích lúc bắt đầu, hiển thị cảnh báo trong kết quả nếu căn cứ đã hủy |
+ 
+ **③ Quy tắc nghiệp vụ**
+ 
+@@ -1606,7 +1608,7 @@
+ - BR-04: Vị trí = số trang của dự thảo gốc và mục/Điều gần nhất; căn cứ = tên văn bản + số hiệu + Điều/Khoản + số trang của văn bản trong kho (do FC-014 BR-04 bảo đảm tồn tại)
+ 
+ **Cảnh báo căn cứ**
+-- BR-05: Văn bản căn cứ hiện đang "Đã hủy" hoặc "Hết hiệu lực" hoặc có cờ "Cần rà soát" (so với lúc kiểm tra) → hiển thị dải cảnh báo "Căn cứ đã thay đổi từ lúc kiểm tra, kết quả có thể không còn đúng" ở tổng quan và chi tiết điểm; điểm đó vẫn hiển thị, mức không tự đổi, cho phép gợi ý "Gửi lại để kiểm tra lại"
++- BR-05: Văn bản căn cứ hiện đang "Đã hủy" hoặc "Hết hiệu lực" hoặc có cờ "Cần rà soát" (so với lúc kiểm tra) → hiển thị dải cảnh báo "Căn cứ đã thay đổi từ lúc kiểm tra, kết quả có thể không còn đúng" ở đầu màn Kết quả kiểm tra và trên thẻ điểm vi phạm tương ứng; điểm đó vẫn hiển thị, mức không tự đổi, cho phép gợi ý "Gửi lại để kiểm tra lại"
+ 
+ **Mức vi phạm**
+ - BR-06: Ba mức hiển thị bằng tên đầy đủ; màu và biểu tượng thống nhất toàn hệ thống `[CẦN XÁC NHẬN thiết kế]`
+@@ -1891,7 +1893,7 @@
+ | **Popup chọn tệp (popup-chon-tep)** | | | | |
+ | Danh sách tệp đã đẩy từ iOffice | Checklist | - | Hiển thị tệp ở trạng thái "Chờ xác nhận" của người dùng đang đăng nhập iOffice: tên tệp, dung lượng, thời gian đẩy. Chọn 1 tệp để gửi (một tệp mỗi lần) `[GIẢ ĐỊNH]` | Data list |
+ | Lĩnh vực cần đối chiếu | Combobox nhiều giá trị | - | Bắt buộc, chọn ít nhất 1. Mặc định lĩnh vực đã dùng gần nhất của người dùng `[GIẢ ĐỊNH]` | Data list |
+-| Kho đối chiếu | Checkbox nhóm | - | Như màn Gửi dự thảo (FC-012). Mặc định chọn tất cả | Data list |
++| Kho đối chiếu | Checkbox nhóm | - | Ba lựa chọn kho (Kho cá nhân, Kho đơn vị, Kho dùng chung) theo quyền, mặc định chọn hết. Văn bản đủ điều kiện của các kho đã chọn được tích hết (FC-012 BR-01). Popup không chọn từng văn bản và không có "+ Thêm nguồn" `[GIẢ ĐỊNH]` | Data list |
+ | Cảnh báo hạn mức | Label | - | Như màn Gửi dự thảo (FC-012 BR-03), không chặn gửi | String |
+ | Nút Gửi kiểm tra | Button | - | Click → bắt đầu luồng kiểm tra như FC-012 trong khung popup | - |
+ | **Popup xử lý nhạy cảm (popup-xu-ly-nhay-cam)** | | | | |
+@@ -2038,7 +2040,7 @@
+ - Hiển thị danh sách tệp "Chờ xác nhận" do iOffice đã đẩy sang
+ 
+ Bước 2: Người dùng chọn tệp, lĩnh vực, kho đối chiếu rồi nhấn "Gửi kiểm tra", hệ thống thực hiện:
+-- Chạy luồng như FC-012 trong khung popup: kiểm tra kho, hạn mức, rà soát nhạy cảm (nếu bật, hiển thị popup-xu-ly-nhay-cam), tạo lượt, đưa vào hàng đợi
++- Chạy luồng như FC-012 trong khung popup: kiểm tra kho, hạn mức, rà soát nhạy cảm (nếu bật, hiển thị popup-xu-ly-nhay-cam), tạo lượt, đưa vào hàng đợi. Khác web: tệp do iOffice đẩy sang chỉ được quét nhạy cảm và gửi AI sau khi người dùng bấm "Gửi kiểm tra" trong popup (FC-023 BR-02)
+ - Hiển thị popup-dang-xu-ly với tiến độ
+ 
+ Bước 3: Khi lượt hoàn tất, hệ thống thực hiện:
+@@ -2074,7 +2076,7 @@
+ - BR-03: Đang thao tác trong popup → kết quả, hỏi đáp mở trích dẫn đều ở lại popup. Chỉ khi người dùng chủ động nhấn "Mở trang riêng" mới chuyển sang hệ thống (cửa sổ khác) và từ đó ở lại hệ thống
+ 
+ **Chức năng dùng chung**
+-- BR-04: Quy tắc về kho đối chiếu, hạn mức, rà soát nhạy cảm, chi phí → như FC-012 đến FC-014. Popup không cho các thao tác quản trị (đổi phạm vi, cấu hình...)
++- BR-04: Quy tắc về kho đối chiếu, hạn mức, rà soát nhạy cảm, chi phí → như FC-012 đến FC-014, trừ hai điểm riêng của popup: nguồn đối chiếu là toàn bộ văn bản đủ điều kiện của các kho đã chọn (không bỏ tích từng văn bản, không "+ Thêm nguồn"), và thời điểm quét nhạy cảm là sau khi bấm "Gửi kiểm tra". Popup không cho các thao tác quản trị (đổi phạm vi, cấu hình...)
+ 
+ ###### Thông báo và thông tin lưu vết log
+ 
+@@ -3383,7 +3385,8 @@
+ | Cờ Cần rà soát, Mã băm nội dung nguồn | FC-011 | Boolean / String | Phát hiện nguồn thay đổi |
+ | Lý do hủy, Người hủy, Ngày hủy | FC-010 | String / Date | Truy vết hủy văn bản |
+ | Điều, Khoản, số trang của văn bản | FC-005 | String / Number | Phục vụ trích dẫn căn cứ |
+-| Tên lượt, Lĩnh vực, Kho đối chiếu, Ngày xét hiệu lực, Trạng thái lượt | FC-012 | String / Date / Data list | Thông tin lượt kiểm tra |
++| Tên lượt, Lĩnh vực, Ngày xét hiệu lực, Trạng thái lượt | FC-012 | String / Date / Data list | Thông tin lượt kiểm tra |
++| Danh sách văn bản nguồn đã tích của lượt (mã văn bản và phiên bản tại lúc gửi) | FC-012, FC-016 | Data list | Dùng cho đối chiếu (FC-014), chạy lại (FC-016) và hiển thị căn cứ đã dùng (FC-018) |
+ | Tệp dự thảo, Bản đã xử lý nhạy cảm, Ánh xạ mã tạm (mã hóa) | FC-012, FC-013 | File / String | Chỉ lưu tới hết thời hạn lưu giữ |
+ | Điểm vi phạm: mức, vị trí, trích đoạn, căn cứ, giải thích, đề xuất | FC-014 | String / Data list | Kết quả kiểm tra |
+ | Đánh giá điểm vi phạm, ghi chú | FC-019 | Data list / String | Thống kê chất lượng gợi ý |

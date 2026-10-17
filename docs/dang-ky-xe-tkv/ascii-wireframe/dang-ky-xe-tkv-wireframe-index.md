@@ -2,7 +2,7 @@
 type: screen-index
 feature: dang-ky-xe-tkv
 status: draft
-updated: 2026-08-13
+updated: 2026-10-16
 links:
   - docs/dang-ky-xe-tkv/srs/dang-ky-xe-tkv-userflow.md
 ---
@@ -26,7 +26,7 @@ links:
 | 11 | [xacnhan-diove-banxacnhan](xac-nhan-di-ve.md#screen-xacnhan-diove-banxacnhan--đại-diện-ban-xác-nhận--đánh-giá) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
 | 12 | [phieu-xacnhan-diove](xac-nhan-di-ve.md#screen-phieu-xacnhan-diove--phiếu-xác-nhận-đi-về) | xac-nhan-di-ve | draft | — | — | — | — | 2026-08-12 |
 | 13 | [danh-muc-xe-list](danh-muc-xe-laixe.md#screen-danh-muc-xe-list--danh-mục-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
-| 14 | [danh-muc-xe-form](danh-muc-xe-laixe.md#screen-danh-muc-xe-form--thêmsửa-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
+| 14 | [danh-muc-xe-form](danh-muc-xe-laixe.md#screen-danh-muc-xe-form--thêmsửa-xe) | danh-muc-xe-laixe | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26732) | — | — | 2026-10-16 |
 | 15 | [danh-muc-laixe-list](danh-muc-xe-laixe.md#screen-danh-muc-laixe-list--danh-mục-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
 | 16 | [danh-muc-laixe-form](danh-muc-xe-laixe.md#screen-danh-muc-laixe-form--thêmsửa-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
 | 17 | [danh-muc-laixe-detail](danh-muc-xe-laixe.md#screen-danh-muc-laixe-detail--chi-tiết-lái-xe) | danh-muc-xe-laixe | draft | — | — | — | — | 2026-08-13 |
@@ -45,8 +45,25 @@ links:
 | 30 | [bieumau-list](bieu-mau-dong.md#screen-bieumau-list--danh-mục-biểu-mẫu-động) | bieu-mau-dong | draft | — | — | — | — | 2026-08-13 |
 | 31 | [bieumau-form](bieu-mau-dong.md#screen-bieumau-form--uploadcấu-hình-biểu-mẫu) | bieu-mau-dong | draft | — | — | — | — | 2026-08-13 |
 | 32 | [nhatky-xe-list](nghiep-vu-doc-lap.md#screen-nhatky-xe-list--nhật-ký-xe-ngoài-chuyến-đăng-ký) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
-| 33 | [nhien-lieu-list](nghiep-vu-doc-lap.md#screen-nhien-lieu-list--quản-lý-nhiên-liệu) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
+| 33 | [linh-ton-thang](quan-ly-nhien-lieu.md#screen-linh-ton-thang--lĩnh-và-tồn-nhiên-liệu-theo-tháng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-18814) | — | — | 2026-10-16 |
 | 34 | [baocao-km](nghiep-vu-doc-lap.md#screen-baocao-km--báo-cáo-thống-kê-km) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
+| 35 | [linh-ton-thang-da-chot](quan-ly-nhien-lieu.md#screen-linh-ton-thang-da-chot--lĩnh-và-tồn---tháng-đã-chốt) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27423) | — | — | 2026-10-16 |
+| 36 | [so-theo-doi-linh](quan-ly-nhien-lieu.md#screen-so-theo-doi-linh--sổ-theo-dõi-lĩnh-nhiên-liệu-theo-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-18479) | — | — | 2026-10-16 |
+| 37 | [mua-ngoai-popup](quan-ly-nhien-lieu.md#screen-mua-ngoai-popup--mua-ngoài-cây-xăng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-19150) | — | — | 2026-10-16 |
+| 38 | [chot-thang-confirm](quan-ly-nhien-lieu.md#screen-chot-thang-confirm--xác-nhận-chốt-tháng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27680) | — | — | 2026-10-16 |
+| 39 | [mo-khoa-thang](quan-ly-nhien-lieu.md#screen-mo-khoa-thang--mở-khóa-tháng-đã-chốt) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27700) | — | — | 2026-10-16 |
+| 40 | [ton-dau-lech](quan-ly-nhien-lieu.md#screen-ton-dau-lech--tồn-đầu-các-tháng-sau-bị-lệch) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27723) | — | — | 2026-10-16 |
+| 41 | [linh-ton-log](quan-ly-nhien-lieu.md#screen-linh-ton-log--nhật-ký-chỉnh-sửa-lĩnh-và-tồn) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27778) | — | — | 2026-10-16 |
+| 42 | [baocao-quyet-toan](quan-ly-nhien-lieu.md#screen-baocao-quyet-toan--báo-cáo-quyết-toán-tiêu-hao) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27903) | — | — | 2026-10-16 |
+| 43 | [baocao-linh-ton](quan-ly-nhien-lieu.md#screen-baocao-linh-ton--báo-cáo-lĩnh-sử-dụng-tồn) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-28162) | — | — | 2026-10-16 |
+| 44 | [chi-tiet-xe-tieuhao](quan-ly-nhien-lieu.md#screen-chi-tiet-xe-tieuhao--chi-tiết-tiêu-hao-theo-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-28398) | — | — | 2026-10-16 |
+| 45 | [loai-xe-list](quan-ly-nhien-lieu.md#screen-loai-xe-list--danh-mục-loại-xe-và-định-mức) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26367) | — | — | 2026-10-16 |
+| 46 | [loai-xe-form](quan-ly-nhien-lieu.md#screen-loai-xe-form--thêmsửa-loại-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26487) | — | — | 2026-10-16 |
+| 47 | [he-so-config](quan-ly-nhien-lieu.md#screen-he-so-config--cấu-hình-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26570) | — | — | 2026-10-16 |
+| 48 | [he-so-form](quan-ly-nhien-lieu.md#screen-he-so-form--sửa-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26686) | — | — | 2026-10-16 |
+| 49 | [xuat-mau-02-linh-su-dung-ton](quan-ly-nhien-lieu.md#screen-xuat-mau-02-linh-su-dung-ton--xuất-mẫu-2---lĩnh-sử-dụng-tồn) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2714-18772) | — | — | 2026-10-16 |
+| 50 | [xuat-mau-03-theo-doi-linh-xe](quan-ly-nhien-lieu.md#screen-xuat-mau-03-theo-doi-linh-xe--xuất-mẫu-3---theo-dõi-lĩnh-nhiên-liệu) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2714-19106) | — | — | 2026-10-16 |
+| 51 | [xuat-mau-04-quyet-toan](quan-ly-nhien-lieu.md#screen-xuat-mau-04-quyet-toan--xuất-mẫu-4---quyết-toán-tiêu-hao) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2714-19274) | — | — | 2026-10-16 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -97,7 +114,7 @@ Xem/tải phiếu xác nhận đi về đã hoàn tất theo biểu mẫu chuẩ
 Danh mục xe: danh sách, tìm kiếm, thêm mới.
 
 ### danh-muc-xe-form
-Thêm/sửa xe: biển số, đơn vị quản lý, lái xe biên chế, chu kỳ đăng kiểm/bảo hiểm/bảo dưỡng, tổng km/km công tơ, trạng thái.
+Thêm/sửa xe: biển số, loại xe, đơn vị quản lý, ngày sử dụng (tính tuổi xe), lái xe biên chế, chu kỳ kiểm định/bảo hiểm/số km bảo dưỡng, tổng km/km công tơ, trạng thái hoạt động, khối định mức nhiên liệu (loại nhiên liệu, dung tích thùng, xe khai trường, định mức riêng, định mức đang áp dụng).
 
 ### danh-muc-laixe-list
 Danh mục lái xe: danh sách, tìm kiếm.
@@ -153,11 +170,62 @@ Upload/cấu hình biểu mẫu, bắt buộc xem trước trước khi lưu act
 ### nhatky-xe-list
 Nhật ký xe ngoài chuyến đăng ký — thêm/sửa/xóa bản ghi của mình.
 
-### nhien-lieu-list
-Quản lý nhiên liệu — khung tối thiểu, chờ TKV (OQ-11).
+### linh-ton-thang
+Nhập tồn cuối + ghi chú từng xe theo tháng, tự tính Sử dụng, tự cộng lĩnh/mua ngoài; Chốt tháng; xuất mẫu 2.
 
 ### baocao-km
 Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
+
+### linh-ton-thang-da-chot
+Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có quyền.
+
+### so-theo-doi-linh
+Sổ theo dõi lĩnh theo xe/tháng: số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu); nguồn của mẫu 3.
+
+### mua-ngoai-popup
+Nhập hóa đơn mua nhiên liệu ngoài cây xăng chỉ định gắn chuyến công tác; cảnh báo vượt hạn mức.
+
+### chot-thang-confirm
+Xác nhận chốt số liệu tháng (đủ tồn cuối, không sai quy tắc tồn).
+
+### mo-khoa-thang
+Mở khóa tháng đã chốt, bắt buộc nhập lý do, ghi nhật ký.
+
+### ton-dau-lech
+Xử lý tồn đầu các tháng sau bị lệch sau khi sửa tháng cũ: tính lại hoặc giữ nguyên đánh dấu lệch.
+
+### linh-ton-log
+Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xem).
+
+### baocao-quyet-toan
+Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4.
+
+### baocao-linh-ton
+Báo cáo lĩnh, sử dụng, tồn theo xe; xuất mẫu 2.
+
+### chi-tiet-xe-tieuhao
+Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời.
+
+### loai-xe-list
+Danh mục loại xe và định mức gốc (lít/100km), lối vào cấu hình hệ số.
+
+### loai-xe-form
+Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức.
+
+### he-so-config
+Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05).
+
+### he-so-form
+Sửa hệ số tuổi xe/khai trường có hiệu lực từ ngày.
+
+### xuat-mau-02-linh-su-dung-ton
+Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay).
+
+### xuat-mau-03-theo-doi-linh-xe
+Bản xuất PDF/Excel biểu Theo dõi lĩnh nhiên liệu từng xe (in ký tay).
+
+### xuat-mau-04-quyet-toan
+Bản xuất PDF/Excel biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô (in ký tay).
 
 ## Links upstream
 

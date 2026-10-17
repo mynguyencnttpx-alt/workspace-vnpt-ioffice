@@ -1,0 +1,62 @@
+--- a/docs/kiem-tra-phap-ly/SRS.md
++++ b/docs/kiem-tra-phap-ly/SRS.md
+@@ -65,7 +65,7 @@
+ 
+ - Mã lỗi hiển thị cho người dùng có dạng `E-kiem-tra-phap-ly-NNN`, đánh số liên tục toàn tài liệu. Mỗi mã chỉ xuất hiện một lần ở bảng Luồng xử lý ngoại lệ của chức năng sở hữu nó.
+ - Nội dung đánh dấu `[CẦN XÁC NHẬN]` là thông tin chưa có nguồn, không được tự giả định khi triển khai. Nội dung đánh dấu `[GIẢ ĐỊNH]` là đề xuất của BA, cần khách hàng xác nhận.
+-- Hình ảnh giao diện: mỗi module ghi `[CẦN BỔ SUNG ẢNH]` cho đến khi có wireframe sinh bằng `/wireframe-ascii` (nguồn: thư mục `ascii-wireframe/` của feature).
++- Hình ảnh giao diện: mỗi module dẫn tới wireframe trong thư mục `ascii-wireframe/` của feature và các khung thiết kế Figma tương ứng (trang "Kiểm tra pháp lý", file "Kiểm tra pháp lý iOffice").
+ - Kích thước khung: giao diện web theo desktop 1440px, bố cục tràn khung, nội dung dàn đều theo chiều ngang (các màn kiểm tra pháp lý dùng hai cột: nguồn bên trái, thông tin bên phải); popup iOffice khoảng 480px.
+ 
+ ---
+@@ -86,7 +86,7 @@
+ 
+ ##### Yêu cầu giao diện
+ 
+-- Hình ảnh giao diện / mockup: `[CẦN BỔ SUNG ẢNH]` — nguồn: `ascii-wireframe/dang-nhap-tai-khoan-flow.md`.
++- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/dang-nhap-tai-khoan-flow.md`; thiết kế Figma (trang "Kiểm tra pháp lý", file "Kiểm tra pháp lý iOffice"): Đăng nhập [node 29-2747](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2747), Sai thông tin [29-2808](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2808), Quên mật khẩu [29-2839](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2839), Đặt lại mật khẩu [29-2857](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2857), Đặt lại thành công [29-2876](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2876), Liên kết hết hạn [29-2887](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2887), Tài khoản bị khóa [29-2898](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2898), Truy cập bị từ chối [29-2911](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2911), Trang chủ [29-2922](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-2922), Ngăn thông báo [29-3149](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-3149), Đổi mật khẩu [29-3005](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-3005), Thông tin cá nhân [29-3049](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=29-3049).
+ 
+ - Bảng mô tả các trường thông tin trên giao diện:
+ 
+@@ -2131,7 +2131,7 @@
+ 
+ ##### Yêu cầu giao diện
+ 
+-- Hình ảnh giao diện / mockup: `[CẦN BỔ SUNG ẢNH]` — nguồn: `ascii-wireframe/danh-muc-flow.md`.
++- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/danh-muc-flow.md`; thiết kế Figma (trang "Kiểm tra pháp lý", file "Kiểm tra pháp lý iOffice"): Danh mục (tab Lĩnh vực) [node 30-3315](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-3315), Tab Quy tắc gợi ý [30-3418](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-3418), Thêm giá trị danh mục [30-3575](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-3575), Thêm quy tắc gợi ý [30-3715](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-3715), Xác nhận xóa [30-3852](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-3852), Quy tắc nhạy cảm [30-3968](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-3968), Thêm quy tắc nhạy cảm [30-4069](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4069), Thử quy tắc [30-4218](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4218).
+ 
+ - Bảng mô tả các trường thông tin trên giao diện:
+ 
+@@ -2346,7 +2346,7 @@
+ 
+ ##### Yêu cầu giao diện
+ 
+-- Hình ảnh giao diện / mockup: `[CẦN BỔ SUNG ẢNH]` — nguồn: `ascii-wireframe/cau-hinh-ai-chi-phi-flow.md`.
++- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/cau-hinh-ai-chi-phi-flow.md`; thiết kế Figma (trang "Kiểm tra pháp lý", file "Kiểm tra pháp lý iOffice"): Nhà cung cấp AI [node 30-4380](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4380), Thêm nhà cung cấp [30-4465](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4465), Cảnh báo tắt rà soát [30-4615](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4615), Xác nhận xóa [30-4778](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4778), Mặc định đơn vị [30-4876](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4876), Đơn giá [30-4932](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-4932), Hạn mức [30-5014](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-5014), Lưu giữ dữ liệu [30-5084](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=30-5084).
+ 
+ - Bảng mô tả các trường thông tin trên giao diện:
+ 
+@@ -2776,7 +2776,7 @@
+ 
+ ##### Yêu cầu giao diện
+ 
+-- Hình ảnh giao diện / mockup: `[CẦN BỔ SUNG ẢNH]` — nguồn: `ascii-wireframe/bao-cao-flow.md`.
++- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/bao-cao-flow.md`; thiết kế Figma (trang "Kiểm tra pháp lý", file "Kiểm tra pháp lý iOffice"): Báo cáo theo đơn vị [node 31-5186](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=31-5186), Chi tiết đơn vị [31-5293](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=31-5293), Theo tài khoản [31-5370](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=31-5370), Nhật ký gửi AI [31-5458](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=31-5458), Chi tiết lượt gửi [31-5558](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=31-5558), Lịch sử đổi cấu hình [31-5690](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=31-5690).
+ 
+ - Bảng mô tả các trường thông tin trên giao diện:
+ 
+@@ -2980,7 +2980,7 @@
+ 
+ ##### Yêu cầu giao diện
+ 
+-- Hình ảnh giao diện / mockup: `[CẦN BỔ SUNG ẢNH]` — nguồn: `ascii-wireframe/quan-tri-nguoi-dung-flow.md`.
++- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/quan-tri-nguoi-dung-flow.md`; thiết kế Figma (trang "Kiểm tra pháp lý", file "Kiểm tra pháp lý iOffice"): Danh sách đơn vị [node 32-5776](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-5776), Thêm đơn vị [32-5846](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-5846), Vô hiệu hóa đơn vị [32-5951](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-5951), Danh sách tài khoản [32-6071](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6071), Tạo tài khoản [32-6171](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6171), Vô hiệu hóa tài khoản [32-6315](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6315), Tạo tài khoản quản trị [32-6437](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6437), Phân quyền theo vai trò [32-6691](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6691), Ô chọn đơn vị thao tác [32-6584](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6584).
+ 
+ - Bảng mô tả các trường thông tin trên giao diện:
+ 
+@@ -3486,4 +3486,4 @@
+ | 1.1 | 2026-10-17 | Bố cục hai cột tràn khung 1440: gộp Gửi dự thảo, Tóm lược, Xử lý nhạy cảm thành một màn (FC-012, FC-013); nguồn đối chiếu chọn theo tab kho và từng văn bản (FC-012 BR-08); quét nhạy cảm tự động ngay sau tải tệp (BR-09); Xem trước bản gửi thành ngăn tùy chọn; thêm nguồn từ tệp hoặc liên kết công khai, phạm vi theo vai trò (FC-005 BR-10, BR-11); Kiểm tra lỗi gộp vào Đang xử lý, Hủy yêu cầu thành hộp thoại (FC-015, FC-016); gộp Kết quả tổng quan, Danh sách, Chi tiết, Đánh giá thành màn Kết quả kiểm tra (FC-018, FC-019); Xuất báo cáo, Xóa lượt thành hộp thoại, Hỏi đáp thành ngăn bên phải (FC-020 đến FC-022); thẻ thống kê ở danh sách lượt (FC-017). Chờ duyệt lại; đã phê duyệt có điều kiện ngày 2026-10-17 |
+ | 1.1 (hoàn tất) | 2026-10-17 | Sửa theo review vòng 3: màn Đang xử lý hiển thị văn bản đã được tham chiếu (số đoạn, số điểm); dữ liệu danh sách nguồn của lượt; đồng bộ popup; thêm EX-03 FC-019 (E-102), BR-11 FC-012 (tệp tạm mã hóa), công thức thẻ thống kê FC-017; chèn link wireframe và Figma; cập nhật UC v3 |
+ | 1.1 (bổ sung) | 2026-10-17 | Bôi đen đoạn kết quả để hỏi sâu (FC-022 Bước 1b, EX-07, BR-09 đến BR-13, E-103; Module 5 UI) |
+-| 1.1 (liên kết) | 2026-10-17 | Gắn link wireframe và Figma vào Yêu cầu giao diện Module 2, 3, 5, 6, thay `[CẦN BỔ SUNG ẢNH]` |
++| 1.1 (liên kết) | 2026-10-17 | Gắn link wireframe và Figma vào Yêu cầu giao diện mọi module (2, 3, 5, 6 trước; 1, 7, 8, 9, 10 sau), thay `[CẦN BỔ SUNG ẢNH]` |

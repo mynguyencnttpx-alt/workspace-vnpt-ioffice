@@ -1,0 +1,24 @@
+--- a/docs/kiem-tra-phap-ly/srs/kiem-tra-phap-ly-userflow.md
++++ b/docs/kiem-tra-phap-ly/srs/kiem-tra-phap-ly-userflow.md
+@@ -551,7 +551,7 @@
+ | 5.2 | ket-qua-kiem-tra | Kết quả kiểm tra | Căn cứ bên trái có số điểm vi phạm; bên phải tóm tắt, lọc mức độ, thẻ điểm vi phạm đủ vị trí, trích đoạn, căn cứ, giải thích, đề xuất, đánh giá | ket-qua-kiem-tra-flow |
+ | 5.3 | xuat-bao-cao | Xuất báo cáo | Hộp thoại chọn Word hoặc PDF và tải về | ket-qua-kiem-tra-flow |
+ | 5.4 | xoa-luot-kiem-tra | Xóa lượt kiểm tra | Hộp thoại cảnh báo không khôi phục, xác nhận xóa | ket-qua-kiem-tra-flow |
+-| 5.5 | hoi-dap-web | Hỏi đáp trong trang kết quả | Ngăn bên phải: hỏi AI về kết quả, lĩnh vực hoặc văn bản trong kho, có thể đính kèm thêm tệp lúc hỏi, có trích dẫn | ket-qua-kiem-tra-flow |
++| 5.5 | hoi-dap-web | Hỏi đáp trong trang kết quả | Ngăn bên phải: hỏi AI về kết quả, lĩnh vực hoặc văn bản trong kho, có thể đính kèm thêm tệp lúc hỏi, có trích dẫn; mở được kèm đoạn bôi đen từ màn kết quả | ket-qua-kiem-tra-flow |
+ | 6.1 | popup-chon-tep | Popup: chọn tệp | Chọn tệp đính kèm iOffice để kiểm tra | popup-ioffice-flow |
+ | 6.2 | popup-xu-ly-nhay-cam | Popup: xử lý nhạy cảm | Xử lý dữ liệu nhạy cảm trong khung nhỏ | popup-ioffice-flow |
+ | 6.3 | popup-dang-xu-ly | Popup: đang xử lý | Theo dõi tiến độ trong popup | popup-ioffice-flow |
+@@ -717,6 +717,7 @@
+ | xuat-bao-cao [5.3] | ket-qua-kiem-tra [5.2] | tải về hoặc đóng | — |
+ | xuat-bao-cao [5.3] | xuat-bao-cao [5.3] | xuất lỗi, thử lại | — |
+ | ket-qua-kiem-tra [5.2] | hoi-dap-web [5.5] | hỏi đáp | — |
++| ket-qua-kiem-tra [5.2] | hoi-dap-web [5.5] | bôi đen đoạn rồi chọn Hỏi về đoạn này | Đoạn từ 5 đến 2000 ký tự; ngữ cảnh Lượt kiểm tra, kèm trích dẫn đoạn. Vượt 2000 ký tự → ở lại màn kết quả, báo lỗi |
+ | hoi-dap-web [5.5] | noi-dung-van-ban [3.3] | chọn trích dẫn | — |
+ | hoi-dap-web [5.5] | ket-qua-kiem-tra [5.2] | đóng | — |
+ | ket-qua-kiem-tra [5.2] | gui-du-thao [4.1] | gửi lại để kiểm tra lại | Chỉ khi có cảnh báo căn cứ |
+@@ -859,3 +860,4 @@
+ - QĐ-23: "Thêm nguồn" từ màn gửi là một hộp thoại duy nhất: chọn tệp hoặc dán liên kết ở trên, thông tin bóc tách hiện ngay bên dưới để kiểm tra và chỉnh (như nạp văn bản ở flow 2) rồi Lưu vào kho, không tách bước; mỗi lần một tệp. Phạm vi sử dụng theo vai trò như nạp văn bản ở flow 2: Người dùng chỉ Cá nhân; Quản trị đơn vị thêm Đơn vị hoặc Một số đơn vị (trong đơn vị phụ trách) và chọn đơn vị; Quản trị hệ thống thêm Toàn hệ thống (dùng chung). Mặc định Cá nhân.
+ - QĐ-24: Liên kết thêm nguồn chỉ nhận trang văn bản công khai. Danh sách nguồn được phép vẫn là điểm mở của nạp văn bản (flow 2).
+ - QĐ-25: Văn bản vừa thêm có trạng thái Đang chuẩn bị, chưa dùng được trong lượt kiểm tra cho tới khi tách xong Điều, Khoản.
++- QĐ-26: Trên màn kết quả, người dùng bôi đen một đoạn chữ trong thẻ điểm vi phạm rồi chọn "Hỏi về đoạn này" (như cơ chế chọn đoạn rồi trả lời): mở ngăn hỏi đáp ngữ cảnh Lượt kiểm tra, đoạn hiện thành thẻ trích dẫn và chip "Đang hỏi về"; mỗi câu hỏi gắn tối đa một đoạn, 5 đến 2000 ký tự. Chỉ trên web; popup iOffice chưa hỗ trợ `[CẦN XÁC NHẬN]`. Không thêm màn mới, flow tổng (Mục 1) không đổi.

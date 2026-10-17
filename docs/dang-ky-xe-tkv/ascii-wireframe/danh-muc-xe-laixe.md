@@ -38,28 +38,35 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────┐
-│ Thêm/sửa xe                                                       │
+│ Thêm/sửa xe                                                      │
 ├──────────────────────────────────────────────────────────────────┤
-│ Biển số        [________________]                            [1]│
-│ Loại xe        [________________]                                │
-│ Đơn vị quản lý [v: VP trụ sở chính            ]                  │
-│ Lái xe biên chế cố định [v: -- chọn lái xe --  ]              [2]│
-│                                                                    │
-│ Chu kỳ đăng kiểm                                              [3]│
-│  Ngày đăng kiểm gần nhất [__/__/____]  Chu kỳ (tháng) [____]     │
-│ Chu kỳ mua bảo hiểm                                               │
-│  Ngày mua gần nhất       [__/__/____]  Chu kỳ (tháng) [____]     │
-│ Chu kỳ bảo dưỡng                                                  │
-│  Ngày bảo dưỡng gần nhất [__/__/____]  Chu kỳ (tháng) [____]     │
-│                                                                    │
-│ Tổng km theo đăng ký xe : 12.450 km  (tự cộng dồn)           [4]│
-│ Km công tơ thực tế      : 12.450 km  (tự cộng dồn)                │
-│                                                                    │
-│ Trạng thái                                                    [5]│
-│ (*) Đang hoạt động                                                │
-│ ( ) Ngừng sử dụng — Lý do: [v: -- chọn lý do --      ]           │
-│                                                                    │
-│ [ Lưu ]                                                           │
+│ Biển số * [__________]   Loại xe * [v ___________]           [1] │
+│ Đơn vị quản lý * [v ________]  Ngày sử dụng * [__/__/____]       │
+│ Lái xe * [v -- chọn lái xe --]      Số chỗ [__]              [2] │
+│ Tình trạng xe [v Xe mới]   Đơn vị sử dụng [v ___________]        │
+│ Thông tin khác: dung tích động cơ, hộp số, năm SX, nguồn     [3] │
+│ gốc, màu sơn, ngày mua, ngày đăng ký lần đầu/mới nhất,           │
+│ ngày biên chế về đội xe, mục đích/phạm vi sử dụng, ảnh, mô tả    │
+├──────────────────────────────────────────────────────────────────┤
+│ Thông tin bổ sung                                            [4] │
+│ Thời gian kiểm định [v 3 tháng]  Mua bảo hiểm [v 3 tháng]        │
+│ Số Km bảo dưỡng [______] km                                      │
+│ Gần nhất: đăng kiểm [__/__/____]  bảo hiểm [__/__/____]          │
+│           bảo dưỡng [__/__/____]                                 │
+│ Tổng km theo đăng ký xe : 0 km (tự cộng dồn)                 [5] │
+│ Km công tơ thực tế      : 0 km (tự cộng dồn)                     │
+│ Trạng thái hoạt động [v Đang hoạt động]                      [6] │
+│ Lý do ngừng sử dụng  [____________] (bắt buộc khi Ngừng)         │
+├──────────────────────────────────────────────────────────────────┤
+│ Định mức nhiên liệu                                          [7] │
+│ Loại nhiên liệu * (*) Xăng ( ) Dầu  Dung tích thùng * [__] lít   │
+│ [ ] Xe phục vụ khai trường     Định mức riêng [____] lít/100km   │
+│ Văn bản căn cứ [< Tải tệp lên >]  Hiệu lực từ [__/__/____]       │
+│ Đang áp dụng (tự tính): 18,7 lít/100km                       [8] │
+│   = 17,0 (loại xe) x 1,10 (tuổi xe, nhóm C) x 1,00 (khai trường) │
+│   < Xem lịch sử định mức >                                       │
+│                                                                  │
+│ [ Lưu ]  [ Lưu và đóng ]  [ Đóng ]                               │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -67,11 +74,14 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Biển số | Textbox | Text | • Bắt buộc, duy nhất. Trùng với xe khác đã tồn tại → chặn lưu, báo "Biển số đã tồn tại trong danh mục". |
-| 2 | Lái xe biên chế cố định | Dropdown | Select | • Không bắt buộc. Là nguồn gợi ý mặc định ở màn `cap-xe` (flow `cap-xe-dieudong`) khi cấp xe — người điều vận vẫn chọn được lái xe khác tại đó (GAP A1 "gợi ý khi cấp xe, cho phép chọn lái xe khác"). |
-| 3 | Chu kỳ đăng kiểm / bảo hiểm / bảo dưỡng | Datepicker + Textbox (số) | Text | • Không bắt buộc tại thời điểm tạo mới, nhưng cần để hệ thống tính ngày đến hạn tiếp theo và làm căn cứ cảnh báo (GAP A7/B5 — ngoài phạm vi đợt này, chỉ nhập dữ liệu nguồn ở đây). |
-| 4 | Tổng km theo đăng ký xe / Km công tơ thực tế | Label (số) | ReadOnly | • Tự động cộng dồn từ các phiếu xác nhận đi về (`xacnhan-diove-nhap`) — tính theo **vòng đời xe, không phân biệt đơn vị quản lý** (GAP A1). Không sửa tay được ở màn này. |
-| 5 | Trạng thái | Radio + Dropdown (ẩn/hiện) | Select | • Bắt buộc chọn 1 trong 2. Chọn "Ngừng sử dụng" → bắt buộc chọn lý do (thanh lý / đang sửa chữa dài hạn / khác).<br>• Xe "Ngừng sử dụng" bị loại khỏi danh sách gợi ý xe trống ở `cap-xe` — validate: không cho chuyển "Ngừng sử dụng" nếu xe đang có phiếu ở trạng thái "Đã cấp xe" chưa hoàn tất (chặn lưu, báo rõ mã phiếu đang dùng xe này). |
+| 1 | Biển số / Loại xe | Textbox + Dropdown | Text + Select | • Biển số bắt buộc, duy nhất. Trùng xe khác → chặn lưu, báo "Biển số đã tồn tại trong danh mục".<br>• Loại xe bắt buộc, chọn từ danh mục loại xe (`loai-xe-list`) — loại xe quyết định định mức gốc (lít/100km) của xe. |
+| 2 | Đơn vị quản lý / Ngày sử dụng / Lái xe / Số chỗ / Tình trạng xe / Đơn vị sử dụng | Dropdown + Datepicker + Textbox | Select + Text | • Đơn vị quản lý bắt buộc (VP trụ sở chính / VP Hạ Long, không đăng ký chéo trừ khi cấu hình mượn chéo cho phép).<br>• Ngày sử dụng bắt buộc — căn cứ tính TUỔI XE để xác định nhóm hệ số A (đến 7 năm) / B (trên 7 đến 14 năm) / C (trên 14 năm) ở `he-so-config` [GIẢ ĐỊNH — mốc tính tuổi chờ chốt, OQ-13].<br>• Lái xe (biên chế cố định theo xe) là nguồn gợi ý mặc định ở `cap-xe` (flow `cap-xe-dieudong`); người điều vận vẫn chọn được lái xe khác. Figma đánh dấu bắt buộc, trong khi bản trước ghi không bắt buộc (OQ-20).<br>• Số chỗ: số nguyên dương. Tình trạng xe: dropdown (mặc định "Xe mới"; danh mục giá trị chưa chốt, OQ-20). Đơn vị sử dụng: dropdown không bắt buộc. |
+| 3 | Thông tin chung khác | Textbox + Datepicker + Upload | Text | • Không bắt buộc: dung tích động cơ, loại hộp số, năm sản xuất, nguồn gốc, màu sơn, ngày mua, ngày đăng ký lần đầu, ngày đăng ký mới nhất, ngày biên chế về đội xe, mục đích sử dụng, phạm vi sử dụng, ảnh xe (tải tệp), mô tả. Chỉ lưu thông tin, không tham gia tính toán. |
+| 4 | Thời gian kiểm định / mua bảo hiểm / Số Km bảo dưỡng / ngày gần nhất | Dropdown + Textbox (số) + Datepicker | Select + Text | • Thời gian kiểm định và thời gian mua bảo hiểm: chọn chu kỳ (vd 3 tháng). Ngày đăng kiểm / mua bảo hiểm / bảo dưỡng gần nhất: nhập tay.<br>• Số Km bảo dưỡng (km): chu kỳ bảo dưỡng theo km (Figma không có chu kỳ bảo dưỡng theo tháng như bản trước — OQ-20).<br>• Không bắt buộc khi tạo mới, nhưng là dữ liệu nguồn để tính ngày đến hạn và cảnh báo ở 3 sổ định kỳ (`so-baoduong`, `so-dangkiem`, `so-baohiem`; ngưỡng cảnh báo OQ-8). |
+| 5 | Tổng km theo đăng ký xe / Km công tơ thực tế | Label (số) | ReadOnly | • Tự cộng dồn từ các phiếu xác nhận đi về (`xacnhan-diove-nhap`) theo vòng đời xe, không phân biệt đơn vị quản lý. Không sửa tay được ở màn này. |
+| 6 | Trạng thái hoạt động / Lý do ngừng sử dụng | Dropdown + Textbox | Select + Text | • Trạng thái hoạt động: Đang hoạt động / Ngừng sử dụng. Chọn "Ngừng sử dụng" → bắt buộc nhập lý do (ô nhập tự do; lý do thường gặp: thanh lý, sửa chữa dài hạn).<br>• Xe "Ngừng sử dụng" bị loại khỏi danh sách gợi ý xe trống ở `cap-xe`. Không cho chuyển "Ngừng sử dụng" nếu xe đang có phiếu "Đã cấp xe" chưa hoàn tất (chặn lưu, báo mã phiếu đang dùng xe). |
+| 7 | Khối Định mức nhiên liệu | Radio + Textbox (số) + Checkbox + Upload + Datepicker | Select + Text | • Loại nhiên liệu bắt buộc (Xăng / Dầu): quyết định xe vào Tổng xăng hay Tổng dầu ở `linh-ton-thang` (danh mục loại nhiên liệu cụ thể như Xăng A95, Dầu DO: OQ-18). Dung tích thùng bắt buộc, số dương (lít): là mức trần khi kiểm tra tồn ở `linh-ton-thang` và hóa đơn mua ngoài ở `mua-ngoai-popup`.<br>• "Xe phục vụ khai trường" (checkbox): xe bố trí phục vụ tại Trung tâm Điều hành sản xuất tại Quảng Ninh → nhân thêm hệ số 1,05 (xem `he-so-config`).<br>• Định mức riêng (lít/100km, tùy chọn): để trống thì dùng định mức gốc của loại xe; nhập thì thay thế định mức gốc từ ngày hiệu lực, có văn bản căn cứ kèm theo [GIẢ ĐỊNH — định mức riêng có nhân thêm hệ số tuổi/khai trường hay không: OQ-21].<br>• Hiệu lực từ ngày: ngày áp dụng khai báo nhiên liệu/định mức riêng này [GIẢ ĐỊNH]. Mỗi lần đổi ghi nhật ký, giữ lịch sử. |
+| 8 | Định mức đang áp dụng (tự tính) + Xem lịch sử định mức | Label + Link | ReadOnly + Click | • Hiển thị định mức giao khoán đang áp dụng = định mức loại xe x hệ số tuổi x hệ số khai trường (vd 17,0 x 1,10 x 1,00 = 18,7 lít/100km), kèm diễn giải từng thành phần. Không nhập tay; thay thế ô "Định mức tiêu hao nhiên liệu" trước đây bị hiển thị trùng.<br>• Xem lịch sử định mức: mở danh sách các mốc định mức đã áp dụng cho xe này [GIẢ ĐỊNH — nội dung popup chưa thiết kế riêng]. |
 
 ---
 

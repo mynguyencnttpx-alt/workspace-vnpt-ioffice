@@ -1,0 +1,63 @@
+--- a/docs/kiem-tra-phap-ly/srs/kiem-tra-phap-ly-userflow.md
++++ b/docs/kiem-tra-phap-ly/srs/kiem-tra-phap-ly-userflow.md
+@@ -624,7 +624,7 @@
+ 
+ ## 3.5. Chuyển màn (transitions)
+ 
+-> Nguồn DUY NHẤT cho chuyển màn màn→màn. Rút từ Mục 1; bước trung gian (điểm quyết định, trạng thái) gộp vào cột Điều kiện.
++> Nguồn DUY NHẤT cho chuyển màn màn→màn. Rút từ Mục 1; bước trung gian (điểm quyết định, trạng thái) gộp vào cột Điều kiện. Các màn quản trị của flow 7 đến 10 (danh mục, quy tắc nhạy cảm, cấu hình AI, báo cáo, quản trị người dùng) cùng có menu bên trái để chuyển qua lại trong cùng nhóm; các cạnh menu này không liệt kê từng dòng.
+ 
+ | Từ màn [#] | Đến màn [#] | Trigger | Điều kiện |
+ |-----------|------------|---------|-----------|
+@@ -743,7 +743,7 @@
+ | trang-chu [1.7] | quy-tac-nhay-cam-danh-sach [7.4] | Quy tắc nhạy cảm | — |
+ | danh-muc-danh-sach [7.1] | danh-muc-them-sua [7.2] | thêm hoặc sửa | — |
+ | danh-muc-danh-sach [7.1] | danh-muc-them-sua [7.2] | danh sách trống | — |
+-| danh-muc-danh-sach [7.1] | danh-muc-danh-sach [7.1] | xóa | Giá trị đã được sử dụng?: đang dùng → xác nhận ngừng sử dụng hoặc hủy |
++| danh-muc-danh-sach [7.1] | danh-muc-xoa-xac-nhan [7.3] | xóa | Giá trị đã được sử dụng?: đang dùng → hộp thoại chỉ cho Ngừng sử dụng hoặc hủy |
+ | danh-muc-danh-sach [7.1] | danh-muc-xoa-xac-nhan [7.3] | xóa | Giá trị đã được sử dụng?: chưa dùng |
+ | danh-muc-them-sua [7.2] | danh-muc-danh-sach [7.1] | lưu hợp lệ hoặc hủy | — |
+ | danh-muc-them-sua [7.2] | danh-muc-them-sua [7.2] | trùng hoặc chưa hợp lệ | — |
+@@ -762,22 +762,22 @@
+ | trang-chu [1.7] | thiet-lap-han-muc [8.5] | Hạn mức | — |
+ | trang-chu [1.7] | cau-hinh-luu-giu [8.6] | Lưu giữ dữ liệu | — |
+ | nha-cung-cap-danh-sach [8.1] | nha-cung-cap-form [8.2] | thêm hoặc sửa | — |
+-| nha-cung-cap-danh-sach [8.1] | nha-cung-cap-danh-sach [8.1] | xóa | Nhà cung cấp đã có lượt dùng?: đã có lượt dùng → xác nhận hoặc hủy |
++| nha-cung-cap-danh-sach [8.1] | nha-cung-cap-xoa-xac-nhan [8.8] | xóa | Nhà cung cấp đã có lượt dùng?: đã có lượt dùng → hộp thoại chỉ cho Ngừng sử dụng hoặc hủy |
+ | nha-cung-cap-danh-sach [8.1] | nha-cung-cap-xoa-xac-nhan [8.8] | xóa | Nhà cung cấp đã có lượt dùng?: chưa có lượt dùng |
+ | nha-cung-cap-form [8.2] | nha-cung-cap-form [8.2] | kiểm tra kết nối | Kết nối thử?: thất bại → thử lại hoặc sửa |
+ | nha-cung-cap-form [8.2] | nha-cung-cap-form [8.2] | kiểm tra kết nối | Kết nối thử?: thành công |
+-| nha-cung-cap-form [8.2] | canh-bao-tat-ra-soat [8.7] | lưu | Cờ rà soát nhạy cảm sau khi lưu?: tắt cho nhà cung cấp nước ngoài |
+-| nha-cung-cap-form [8.2] | nha-cung-cap-danh-sach [8.1] | lưu | Cờ rà soát nhạy cảm sau khi lưu?: bật, không đổi hoặc tắt cho nhà cung cấp trong nước |
+-| canh-bao-tat-ra-soat [8.7] | nha-cung-cap-danh-sach [8.1] | xác nhận | — |
++| nha-cung-cap-form [8.2] | canh-bao-tat-ra-soat [8.7] | chọn Tắt rà soát nhạy cảm | Nhà cung cấp loại Nước ngoài |
++| nha-cung-cap-form [8.2] | nha-cung-cap-danh-sach [8.1] | lưu hoặc hủy | Rà soát bật, không đổi hoặc tắt cho nhà cung cấp trong nước, hoặc đã xác nhận tắt |
++| canh-bao-tat-ra-soat [8.7] | nha-cung-cap-form [8.2] | xác nhận tắt | Quay lại biểu mẫu để lưu |
+ | canh-bao-tat-ra-soat [8.7] | nha-cung-cap-form [8.2] | hủy | — |
+ | nha-cung-cap-xoa-xac-nhan [8.8] | nha-cung-cap-danh-sach [8.1] | xác nhận hoặc hủy | — |
+-| chon-ncc-mac-dinh-don-vi [8.3] | trang-chu [1.7] | lưu | — |
+-| thiet-lap-don-gia [8.4] | trang-chu [1.7] | lưu hợp lệ | — |
++| chon-ncc-mac-dinh-don-vi [8.3] | chon-ncc-mac-dinh-don-vi [8.3] | lưu hợp lệ | Ở lại màn, báo đã lưu |
++| thiet-lap-don-gia [8.4] | thiet-lap-don-gia [8.4] | lưu hợp lệ | Ở lại màn, lịch sử đơn giá thêm dòng mới |
+ | thiet-lap-don-gia [8.4] | thiet-lap-don-gia [8.4] | đơn giá chưa hợp lệ | — |
+-| thiet-lap-han-muc [8.5] | trang-chu [1.7] | lưu hợp lệ | — |
++| thiet-lap-han-muc [8.5] | thiet-lap-han-muc [8.5] | lưu hợp lệ | Ở lại màn, báo đã lưu |
+ | thiet-lap-han-muc [8.5] | thiet-lap-han-muc [8.5] | giá trị chưa hợp lệ | — |
+ | thiet-lap-han-muc [8.5] | chon-don-vi-thao-tac [10.1] | Quản trị đơn vị đổi đơn vị thao tác | — |
+-| cau-hinh-luu-giu [8.6] | trang-chu [1.7] | lưu | — |
++| cau-hinh-luu-giu [8.6] | cau-hinh-luu-giu [8.6] | lưu hợp lệ | Ở lại màn, báo đã lưu |
+ | chon-don-vi-thao-tac [10.1] | thiet-lap-han-muc [8.5] | chọn đơn vị | — |
+ | trang-chu [1.7] | bao-cao-chi-phi-don-vi [9.1] | Báo cáo theo đơn vị (Quản trị hệ thống) | — |
+ | trang-chu [1.7] | bao-cao-chi-phi-tai-khoan [9.3] | Báo cáo theo tài khoản (Quản trị đơn vị) | — |
+@@ -822,9 +822,9 @@
+ | tao-tai-khoan [10.5] | danh-sach-tai-khoan [10.4] | lưu hợp lệ hoặc hủy | — |
+ | tao-tai-khoan [10.5] | tao-tai-khoan [10.5] | trùng tên đăng nhập | — |
+ | vo-hieu-hoa-tai-khoan [10.6] | danh-sach-tai-khoan [10.4] | xác nhận hoặc hủy | — |
+-| tao-tai-khoan-quan-tri [10.7] | trang-chu [1.7] | lưu hợp lệ | — |
++| tao-tai-khoan-quan-tri [10.7] | danh-sach-tai-khoan [10.4] | lưu hợp lệ hoặc hủy | — |
+ | tao-tai-khoan-quan-tri [10.7] | tao-tai-khoan-quan-tri [10.7] | chưa chọn đơn vị nào | — |
+-| phan-quyen-vai-tro [10.8] | trang-chu [1.7] | lưu hợp lệ | — |
++| phan-quyen-vai-tro [10.8] | phan-quyen-vai-tro [10.8] | lưu hợp lệ | Ở lại màn, báo đã lưu |
+ | phan-quyen-vai-tro [10.8] | phan-quyen-vai-tro [10.8] | vi phạm quyền tối thiểu của vai trò | — |
+ | vo-hieu-hoa-don-vi-xac-nhan [10.9] | danh-sach-don-vi [10.2] | xác nhận hoặc hủy | — |
+ 

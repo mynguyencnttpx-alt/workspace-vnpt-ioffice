@@ -1,0 +1,72 @@
+--- a/docs/kiem-tra-phap-ly/SRS.md
++++ b/docs/kiem-tra-phap-ly/SRS.md
+@@ -1503,6 +1503,8 @@
+ | Nút Gửi lại để kiểm tra lại | Button | - | Chỉ hiện khi có dải cảnh báo căn cứ; mở màn Gửi dự thảo (FC-012) điền sẵn lĩnh vực và nguồn, Ngày xét hiệu lực = ngày hiện tại, người dùng chọn lại tệp dự thảo | - |
+ | Nút Xuất báo cáo | Button | - | Mở hộp thoại Xuất báo cáo (FC-020) | - |
+ | Nút Hỏi đáp về kết quả | Button | - | Mở ngăn hỏi đáp bên phải (FC-022) | - |
++| Bôi đen đoạn kết quả | Vùng chữ | - | Chọn bằng chuột hoặc phím trong vùng chữ của thẻ điểm vi phạm; đoạn 5 đến 2000 ký tự hiện thanh công cụ nổi ngay trên đoạn, vùng chọn giữ nền nhấn. Bấm ra ngoài hoặc Esc thì ẩn thanh (FC-022 BR-09) | String |
++| Thanh Hỏi về đoạn này / Sao chép | Button nhóm | - | "Hỏi về đoạn này" → mở ngăn hỏi đáp kèm trích dẫn đoạn; "Sao chép" → chép đoạn vào bộ nhớ tạm. Vượt 2000 ký tự → hiện `E-kiem-tra-phap-ly-103` | - |
+ | **Hộp thoại Xuất báo cáo (xuat-bao-cao)** | | | | |
+ | Định dạng | Radio | - | Word / PDF. Mặc định Word | Data list |
+ | Mức độ đưa vào | Checkbox nhóm | - | Nghiêm trọng, Cần chỉnh sửa, Lưu ý. Mặc định chọn cả ba | Data list |
+@@ -1517,6 +1519,8 @@
+ | Đính kèm tệp | Upload | - | Không bắt buộc. PDF, DOC, DOCX, tối đa 50MB, một tệp mỗi câu hỏi `[GIẢ ĐỊNH]`. AI đọc trực tiếp nội dung tệp | File |
+ | Hội thoại | Label | - | Danh sách câu hỏi/ trả lời theo thứ tự. Mỗi câu trả lời kèm danh sách trích dẫn (văn bản, điều, trang) bấm mở được | String |
+ | Nút Xóa hội thoại | Button | - | Xóa toàn bộ hội thoại của ngữ cảnh hiện tại | - |
++| Thẻ trích dẫn đoạn đã chọn | Card | - | Hiện trong hội thoại: điểm vi phạm nguồn, nơi bôi đen và đoạn chữ (tối đa 2000 ký tự). Chỉ đọc | String |
++| Chip Đang hỏi về | Chip | - | Phía trên ô câu hỏi, rút gọn đoạn đã chọn; nút "Bỏ" xóa chip và câu hỏi thành câu hỏi thường (FC-022 BR-10) | String |
+ 
+ ---
+ 
+@@ -1789,6 +1793,7 @@
+     participant AI as Nhà cung cấp AI
+ 
+     U->>S: (1) Mở khung hỏi đáp và chọn ngữ cảnh
++    U->>S: (1b) Hoặc bôi đen một đoạn trên màn kết quả, chọn Hỏi về đoạn này
+     U->>S: (2) Gửi câu hỏi, có thể đính kèm tệp
+     S->>S: (3) Rà soát dữ liệu nhạy cảm trong câu hỏi và tệp
+     S->>DB: (4) Tìm điều khoản liên quan trong ngữ cảnh
+@@ -1808,10 +1813,14 @@
+ - Hiển thị khung trò chuyện và lịch sử của ngữ cảnh đang chọn
+ - Hiển thị cảnh báo hạn mức nếu đạt ngưỡng (không chặn)
+ 
++Bước 1b (tùy chọn, chỉ trên màn kết quả): Người dùng bôi đen một đoạn chữ trong thẻ điểm vi phạm rồi chọn "Hỏi về đoạn này", hệ thống thực hiện (→ EX-07):
++- Mở ngăn hỏi đáp với ngữ cảnh "Lượt kiểm tra này", ghi rõ điểm vi phạm chứa đoạn đã chọn
++- Đưa đoạn đã chọn vào hội thoại dạng thẻ trích dẫn và chip "Đang hỏi về" phía trên ô câu hỏi; người dùng bỏ được chip trước khi gửi
++
+ Bước 2: Người dùng nhập câu hỏi, có thể đính kèm tệp, rồi gửi, hệ thống thực hiện:
+ - Kiểm tra câu hỏi, tệp đính kèm và ngữ cảnh (→ EX-01, EX-02)
+ - Rà soát dữ liệu nhạy cảm trong câu hỏi và nội dung tệp theo nhà cung cấp AI mặc định của đơn vị; có phát hiện → hiển thị hộp xử lý tương tự FC-013 trong khung hỏi đáp (chọn Cho phép / Che ẩn / Xóa) rồi mới gửi
+-- Tìm điều khoản liên quan trong ngữ cảnh đã chọn, đọc trực tiếp nội dung tệp đính kèm nếu có
++- Tìm điều khoản liên quan trong ngữ cảnh đã chọn, ưu tiên điểm vi phạm chứa đoạn đã bôi đen (nếu có), đọc trực tiếp nội dung tệp đính kèm nếu có
+ - Gọi AI (→ EX-03), kiểm tra trích dẫn, ghi token và chi phí
+ - Hiển thị câu trả lời kèm danh sách trích dẫn
+ 
+@@ -1830,6 +1839,7 @@
+ | EX-04 | Không tìm thấy điều khoản đủ liên quan trong ngữ cảnh | Trả lời cố định: "Chưa đủ căn cứ trong kho văn bản đã chọn để trả lời câu hỏi này." Không gọi AI nếu chưa có ứng viên (không tốn chi phí) |
+ | EX-05 | Đơn vị chưa có nhà cung cấp AI mặc định, hoặc hạn mức đặt chế độ Chặn đã vượt | Chặn gửi, hiển thị thông báo giống EX-04 và EX-05 của FC-012 |
+ | EX-06 | Ngữ cảnh "Lượt kiểm tra" nhưng lượt đã hết hạn lưu giữ hoặc bị xóa | Hiển thị `E-kiem-tra-phap-ly-062`: "Kết quả của lượt kiểm tra này không còn, vui lòng chọn ngữ cảnh khác." |
++| EX-07 | Đoạn bôi đen vượt 2000 ký tự | Hiển thị `E-kiem-tra-phap-ly-103` ngay trên thanh công cụ nổi: "Đoạn đã chọn tối đa 2000 ký tự. Vui lòng chọn đoạn ngắn hơn." Không mở ngăn hỏi đáp, giữ nguyên vùng bôi đen |
+ 
+ **③ Quy tắc nghiệp vụ**
+ 
+@@ -1848,6 +1858,13 @@
+ - BR-06: Hội thoại gắn với lượt kiểm tra được lưu cùng lượt; hội thoại theo lĩnh vực hoặc văn bản được lưu theo người dùng và ngữ cảnh. Thời hạn lưu giữ như dự thảo (FC-032)
+ - BR-07: Mỗi lượt hỏi đáp có gọi AI → ghi token vào/ra và chi phí như FC-014 BR-07; tính vào hạn mức; chi phí chỉ Quản trị thấy
+ 
++**Hỏi theo đoạn bôi đen (trên màn kết quả)**
++- BR-09: Chỉ bôi đen trong vùng chữ của thẻ điểm vi phạm (trích đoạn dự thảo, nội dung căn cứ, giải thích, đề xuất); đoạn từ 5 đến 2000 ký tự mới hiện thanh "Hỏi về đoạn này" và "Sao chép". Dưới 5 ký tự không hiện thanh; vượt 2000 → EX-07. Bôi đen không đổi mức độ, đánh giá hay kết quả của điểm vi phạm
++- BR-10: Đoạn bôi đen chỉ làm ngữ cảnh bổ sung cho câu hỏi: ngữ cảnh luôn là "Lượt kiểm tra này" và trả lời vẫn theo BR-01 (chỉ dựa điều khoản trong ngữ cảnh), không phải câu trả lời tách riêng khỏi lượt. Mỗi câu hỏi gắn tối đa một đoạn; bôi đoạn khác thì thay đoạn cũ. Người dùng bỏ chip thì câu hỏi trở thành câu hỏi thường `[GIẢ ĐỊNH]`
++- BR-11: Đoạn bôi đen đã khôi phục giá trị gốc (đoạn trích dự thảo che ẩn) → trước khi gửi AI phải che ẩn lại hoặc loại bỏ theo lựa chọn nhạy cảm đã chọn lúc gửi dự thảo (FC-013 BR-04, BR-05); không gửi giá trị gốc ra ngoài. Nhà cung cấp tắt rà soát thì bỏ qua (BR-04)
++- BR-12: Thẻ trích dẫn của đoạn đã chọn được lưu trong hội thoại cùng câu hỏi, hiển thị lại khi mở lại hội thoại; ghi nhận điểm vi phạm nguồn của đoạn. Chi phí, hạn mức tính như BR-07
++- BR-13: Bôi đen chỉ hỗ trợ trên web; trong popup iOffice chưa hỗ trợ `[CẦN XÁC NHẬN]`
++
+ **Kênh popup**
+ - BR-08: Trong popup iOffice → hỏi đáp và mở trích dẫn ở lại trong popup. Người dùng chủ động chọn "Mở trang riêng" thì chuyển sang hệ thống và không quay lại popup (FC-024)
+ 
+@@ -3467,4 +3484,5 @@
+ |---|---|---|
+ | 1.0 | 2026-10-16 | Bản đầu, phê duyệt có điều kiện |
+ | 1.1 | 2026-10-17 | Bố cục hai cột tràn khung 1440: gộp Gửi dự thảo, Tóm lược, Xử lý nhạy cảm thành một màn (FC-012, FC-013); nguồn đối chiếu chọn theo tab kho và từng văn bản (FC-012 BR-08); quét nhạy cảm tự động ngay sau tải tệp (BR-09); Xem trước bản gửi thành ngăn tùy chọn; thêm nguồn từ tệp hoặc liên kết công khai, phạm vi theo vai trò (FC-005 BR-10, BR-11); Kiểm tra lỗi gộp vào Đang xử lý, Hủy yêu cầu thành hộp thoại (FC-015, FC-016); gộp Kết quả tổng quan, Danh sách, Chi tiết, Đánh giá thành màn Kết quả kiểm tra (FC-018, FC-019); Xuất báo cáo, Xóa lượt thành hộp thoại, Hỏi đáp thành ngăn bên phải (FC-020 đến FC-022); thẻ thống kê ở danh sách lượt (FC-017). Chờ duyệt lại; đã phê duyệt có điều kiện ngày 2026-10-17 |
++| 1.1 (bổ sung) | 2026-10-17 | Bôi đen đoạn kết quả để hỏi sâu (FC-022 Bước 1b, EX-07, BR-09 đến BR-13, E-103; Module 5 UI) |
+ | 1.1 (hoàn tất) | 2026-10-17 | Sửa theo review vòng 3: màn Đang xử lý hiển thị văn bản đã được tham chiếu (số đoạn, số điểm); dữ liệu danh sách nguồn của lượt; đồng bộ popup; thêm EX-03 FC-019 (E-102), BR-11 FC-012 (tệp tạm mã hóa), công thức thẻ thống kê FC-017; chèn link wireframe và Figma; cập nhật UC v3 |

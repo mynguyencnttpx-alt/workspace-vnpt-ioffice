@@ -1,6 +1,6 @@
 # Flow: Nghiệp vụ độc lập
 
-> Màn hình thuộc flow này: nhatky-xe-list, nhien-lieu-list, baocao-km (3 màn độc lập, không có luồng chuyển tiếp cho nhau, truy cập trực tiếp từ menu). Flow tổng xem `../srs/dang-ky-xe-tkv-userflow.md` Mục 1.
+> Màn hình thuộc flow này: nhatky-xe-list, baocao-km (2 màn độc lập, không có luồng chuyển tiếp cho nhau, truy cập trực tiếp từ menu; nhiên liệu đã chuyển sang flow `quan-ly-nhien-lieu`). Flow tổng xem `../srs/dang-ky-xe-tkv-userflow.md` Mục 1.
 
 ---
 
@@ -27,38 +27,6 @@
 |---|-------|--------------|-----------|--------------|
 | 1 | Lọc (xe, người lái, khoảng ngày) | Dropdown + Datepicker | Select | • Mặc định "Người lái = Tôi" (chỉ thấy bản ghi của mình); người có quyền "xem tất cả" (OQ-10 — chưa chốt ai có quyền này) đổi được bộ lọc sang xem theo xe/người khác. |
 | 2 | Bảng nhật ký + Sửa | Label (bảng) + Button | ReadOnly + Click | • "+ Thêm bản ghi": mở form nhập số km, thời gian từ-đến, mục đích, xe, người lái (mặc định là người đang đăng nhập).<br>• "Sửa": chỉ khả dụng với bản ghi của chính mình, hoặc mọi bản ghi nếu có quyền xem tất cả. Có nút Xóa kèm xác nhận trong form sửa. |
-
----
-
-## Screen: nhien-lieu-list — Quản lý nhiên liệu
-
-### Wireframe (ASCII)
-
-```text
-┌──────────────────────────────────────────────────────────────────┐
-│ Quản lý nhiên liệu                                                │
-├──────────────────────────────────────────────────────────────────┤
-│ (!) Đang chờ TKV cung cấp biểu mẫu nhập cụ thể — khung dưới  [1]│
-│     đây là tối thiểu, sẽ bổ sung khi có biểu mẫu.                 │
-├──────────────────────────────────────────────────────────────────┤
-│ Tháng: [v: 08/2026]  Xe: [v: Tất cả  ]                        [2]│
-├──────────────────────────────────────────────────────────────────┤
-│ Xe          | Số lít tiêu thụ | Định mức | Chênh lệch         [3]│
-│ 29A-123.45  | 180             | 200      | -20 (trong định mức)│
-│ (scroll xuống xem thêm)                                          │
-│                                                                    │
-│ [ + Thêm bản ghi ]                                            [4]│
-└──────────────────────────────────────────────────────────────────┘
-```
-
-### Screen description
-
-| # | Items | Control type | Data type | Description |
-|---|-------|--------------|-----------|--------------|
-| 1 | Cảnh báo chờ biểu mẫu | Label (warning) | ReadOnly | • Ghi nhận OQ-11: chờ TKV cung cấp biểu mẫu nhập nhiên liệu cụ thể (GAP B6). |
-| 2 | Lọc (tháng, xe) | Dropdown | Select | • Không bắt buộc. |
-| 3 | Bảng tổng hợp nhiên liệu | Label (bảng) | ReadOnly | • Khung tối thiểu: số lít tiêu thụ so định mức. Nguồn định mức cụ thể chưa có (chờ TKV). |
-| 4 | Thêm bản ghi | Button (primary) | Click | • Mở form tối thiểu (xe, tháng, số lít) — sẽ mở rộng khi có biểu mẫu chuẩn từ TKV. |
 
 ---
 

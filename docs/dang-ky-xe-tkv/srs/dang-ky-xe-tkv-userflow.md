@@ -1,7 +1,7 @@
 ---
 type: srs-userflow
 feature: dang-ky-xe-tkv
-updated: 2026-08-13
+updated: 2026-10-16
 primary_device: desktop
 stage: flow-approved
 flow_approved_at: 2026-08-13
@@ -190,7 +190,7 @@ flowchart TD
     class n25,n26,n27 happy
 ```
 
-> Bổ sung 2026-08-13 (đợt 3, nhóm cuối phạm vi Desktop): A8 (Thông báo đa kênh), B2 (Biểu mẫu động), B4 (Nhật ký xe ngoài chuyến), B6 (Nhiên liệu — chờ TKV, OQ-11), B7 (Báo cáo km — chờ TKV, OQ-12). `bieumau-form` là màn quản trị template mà `dk-xe-form`/`xacnhan-diove-nhap` (đã duyệt) đang dùng để "Gen biểu mẫu" — bắt buộc qua bước xem trước trước khi lưu bản active vì template ảnh hưởng văn bản có ký số SignServer; phiếu đang xử lý dùng snapshot template tại thời điểm gen, không đổi giữa chừng khi template được cập nhật. `thong-bao-list` KHÔNG có sự kiện "sắp hết định biên km" (chưa có cơ chế tính đã dùng/còn lại); mỗi thông báo click điều hướng tới đúng màn nghiệp vụ liên quan (flow khác).
+> Bổ sung 2026-08-13 (đợt 3, nhóm cuối phạm vi Desktop): A8 (Thông báo đa kênh), B2 (Biểu mẫu động), B4 (Nhật ký xe ngoài chuyến), B6 (Nhiên liệu — đã tách thành flow `quan-ly-nhien-lieu`, bổ sung 2026-10-16, OQ-11 đã đóng), B7 (Báo cáo km — chờ TKV, OQ-12). `bieumau-form` là màn quản trị template mà `dk-xe-form`/`xacnhan-diove-nhap` (đã duyệt) đang dùng để "Gen biểu mẫu" — bắt buộc qua bước xem trước trước khi lưu bản active vì template ảnh hưởng văn bản có ký số SignServer; phiếu đang xử lý dùng snapshot template tại thời điểm gen, không đổi giữa chừng khi template được cập nhật. `thong-bao-list` KHÔNG có sự kiện "sắp hết định biên km" (chưa có cơ chế tính đã dùng/còn lại); mỗi thông báo click điều hướng tới đúng màn nghiệp vụ liên quan (flow khác).
 
 ### Flow: Thông báo
 
@@ -233,16 +233,85 @@ flowchart TD
 ```mermaid
 flowchart TD
     n32["[32] Nhật ký xe ngoài chuyến<br/>(nhatky-xe-list)"]
-    n33["[33] Quản lý nhiên liệu<br/>(nhien-lieu-list)"]
     n34["[34] Báo cáo thống kê km<br/>(baocao-km)"]
 
     n32 -.->|"thêm/sửa/xóa bản ghi"| n32
-    n33 -.->|"+ thêm bản ghi (khung tối thiểu)"| n33
     n34 -.->|"chọn loại báo cáo, xuất"| n34
 
     classDef happy fill:#d4edda,stroke:#28a745
 
-    class n32,n33,n34 happy
+    class n32,n34 happy
+```
+
+> Bổ sung 2026-10-16: phân hệ Quản lý nhiên liệu (B6) theo biểu mẫu đơn vị đang dùng + quy định định mức của Tập đoàn + thiết kế Figma. Thay màn khung tạm [33] cũ. 3 biểu mẫu xuất (mẫu 2, 3, 4) in ký tay, không ký số; số phiếu lĩnh chỉ nhập số + kiểm trùng; mua ngoài vượt hạn mức chỉ cảnh báo. Lĩnh tại cây xăng ở [33] tự cộng từ sổ theo dõi lĩnh [36]; Mua ngoài tự cộng từ hóa đơn [37].
+
+### Flow: Quản lý nhiên liệu
+
+```mermaid
+flowchart TD
+    n45["[45] Danh mục loại xe<br/>(loai-xe-list)"]
+    n46["[46] Thêm/sửa loại xe<br/>(loai-xe-form)"]
+    n47["[47] Cấu hình hệ số<br/>(he-so-config)"]
+    n48["[48] Sửa hệ số<br/>(he-so-form)"]
+    n33["[33] Lĩnh và tồn tháng<br/>(linh-ton-thang)"]
+    n35["[35] Lĩnh và tồn đã chốt<br/>(linh-ton-thang-da-chot)"]
+    n36["[36] Sổ theo dõi lĩnh theo xe<br/>(so-theo-doi-linh)"]
+    n37["[37] Mua ngoài cây xăng<br/>(mua-ngoai-popup)"]
+    n38["[38] Xác nhận chốt tháng<br/>(chot-thang-confirm)"]
+    n39["[39] Mở khóa tháng<br/>(mo-khoa-thang)"]
+    n40["[40] Tồn đầu các tháng sau bị lệch<br/>(ton-dau-lech)"]
+    n41["[41] Nhật ký chỉnh sửa<br/>(linh-ton-log)"]
+    n42["[42] Báo cáo quyết toán tiêu hao<br/>(baocao-quyet-toan)"]
+    n43["[43] Báo cáo lĩnh, sử dụng, tồn<br/>(baocao-linh-ton)"]
+    n44["[44] Chi tiết tiêu hao theo xe<br/>(chi-tiet-xe-tieuhao)"]
+    n49["[49] Xuất mẫu 2<br/>(xuat-mau-02-linh-su-dung-ton)"]
+    n50["[50] Xuất mẫu 3<br/>(xuat-mau-03-theo-doi-linh-xe)"]
+    n51["[51] Xuất mẫu 4<br/>(xuat-mau-04-quyet-toan)"]
+    d1{"Đủ tồn cuối, không âm,<br/>không vượt thùng?"}
+    d2{"Tồn đầu các tháng sau<br/>có bị lệch?"}
+
+    n45 -->|"chọn loại xe / + Thêm mới"| n46
+    n46 -->|"lưu hợp lệ"| n45
+    n46 -.->|"thiếu trường bắt buộc"| n46
+    n45 -->|"Hệ số"| n47
+    n47 -->|"Sửa hệ số"| n48
+    n48 -->|"lưu"| n47
+    n47 -.->|"quay lại"| n45
+    n33 -->|"bấm số lít lĩnh tại cây xăng"| n36
+    n36 -->|"lưu"| n33
+    n36 -.->|"trùng số phiếu lĩnh"| n36
+    n33 -->|"bấm số lít mua ngoài"| n37
+    n37 -->|"lưu"| n33
+    n37 -.->|"vượt hạn mức, chỉ cảnh báo"| n37
+    n33 -->|"Chốt tháng"| d1
+    d1 -->|"đủ"| n38
+    d1 -.->|"thiếu hoặc sai"| n33
+    n38 -->|"xác nhận chốt"| n35
+    n38 -.->|"hủy"| n33
+    n35 -->|"Mở khóa (có quyền)"| n39
+    n39 -->|"nhập lý do, mở khóa"| d2
+    n39 -.->|"hủy"| n35
+    d2 -->|"lệch"| n40
+    d2 -->|"không lệch"| n33
+    n40 -->|"tính lại, hoặc giữ nguyên và đánh dấu lệch"| n33
+    n33 -->|"Xem nhật ký"| n41
+    n35 -->|"Xem nhật ký"| n41
+    n41 -.->|"quay lại"| n33
+    n33 -.->|"Xuất mẫu 2"| n49
+    n35 -.->|"Xuất mẫu 2"| n49
+    n36 -.->|"Xuất PDF mẫu 3"| n50
+    n42 -->|"tab Lĩnh, sử dụng, tồn"| n43
+    n43 -->|"tab Quyết toán tiêu hao"| n42
+    n42 -->|"bấm biển số xe"| n44
+    n44 -.->|"quay lại báo cáo"| n42
+    n42 -.->|"Xuất PDF mẫu 4"| n51
+    n43 -.->|"Xuất PDF mẫu 2"| n49
+
+    classDef happy fill:#d4edda,stroke:#28a745
+    classDef edge fill:#fff3cd,stroke:#ffc107
+
+    class n45,n46,n47,n48,n33,n35,n36,n37,n38,n39,n41,n42,n43,n44,n49,n50,n51 happy
+    class n40 edge
 ```
 
 ## 2. Danh sách màn hình
@@ -262,7 +331,7 @@ flowchart TD
 | 11 | xacnhan-diove-banxacnhan | Đại diện ban xác nhận + đánh giá | Đại diện từng đơn vị tham gia xác nhận + đánh giá chuyến đi, ký điện tử qua SignServer. Bắt buộc đủ TẤT CẢ các ban mới hoàn tất; có thể phản đối km (không đồng ý) | xac-nhan-di-ve |
 | 12 | phieu-xacnhan-diove | Phiếu xác nhận đi về | Xem/tải phiếu xác nhận đi về đã gen theo biểu mẫu chuẩn (ghép xe → mỗi đơn vị gốc có 1 phiếu riêng) | xac-nhan-di-ve |
 | 13 | danh-muc-xe-list | Danh mục xe | Danh sách xe, tìm kiếm, thêm mới | danh-muc-xe-laixe |
-| 14 | danh-muc-xe-form | Thêm/sửa xe | Biển số, đơn vị quản lý (VP trụ sở chính/VP Hạ Long — không đăng ký chéo trừ khi cấu hình mượn chéo cho phép), lái xe biên chế cố định theo xe, chu kỳ đăng kiểm/bảo hiểm/bảo dưỡng, tổng km theo đăng ký xe + km công tơ thực tế (readonly, cộng dồn theo vòng đời xe), trạng thái (Đang hoạt động/Ngừng sử dụng + lý do) | danh-muc-xe-laixe |
+| 14 | danh-muc-xe-form | Thêm/sửa xe | Biển số, loại xe, đơn vị quản lý (VP trụ sở chính/VP Hạ Long — không đăng ký chéo trừ khi cấu hình mượn chéo cho phép), ngày sử dụng (căn cứ tính tuổi xe), lái xe biên chế cố định theo xe, chu kỳ kiểm định/bảo hiểm + số km bảo dưỡng, tổng km theo đăng ký xe + km công tơ thực tế (readonly, cộng dồn theo vòng đời xe), trạng thái hoạt động (Đang hoạt động/Ngừng sử dụng + lý do), khối định mức nhiên liệu (loại nhiên liệu, dung tích thùng, xe phục vụ khai trường, định mức riêng, định mức đang áp dụng tự tính) | danh-muc-xe-laixe |
 | 15 | danh-muc-laixe-list | Danh mục lái xe | Danh sách lái xe, tìm kiếm | danh-muc-xe-laixe |
 | 16 | danh-muc-laixe-form | Thêm/sửa lái xe | Thông tin cá nhân + nhóm trường GPLX (hạng, ngày cấp, ngày hết hạn, ảnh đính kèm), trạng thái (Đang làm việc/Ngừng sử dụng + lý do) | danh-muc-xe-laixe |
 | 17 | danh-muc-laixe-detail | Chi tiết lái xe | Hồ sơ + tab lịch sử phục vụ (từ dữ liệu chuyến đã lái, readonly) + tab đánh giá (tổng hợp từ `xacnhan-diove-banxacnhan`, readonly) | danh-muc-xe-laixe |
@@ -281,8 +350,25 @@ flowchart TD
 | 30 | bieumau-list | Danh mục biểu mẫu động | Danh sách biểu mẫu theo đơn vị/khối (đăng ký xe, phiếu xác nhận đi về) | bieu-mau-dong |
 | 31 | bieumau-form | Upload/cấu hình biểu mẫu | Upload file, cấu hình vị trí/tên người duyệt-ký, mapping trường dữ liệu; bắt buộc qua bước xem trước trước khi lưu bản active — nguồn template cho `dk-xe-form`/`xacnhan-diove-nhap` (đã duyệt) | bieu-mau-dong |
 | 32 | nhatky-xe-list | Nhật ký xe ngoài chuyến đăng ký | Danh sách + thêm/sửa/xóa bản ghi (km, thời gian từ-đến, mục đích, xe, người lái); người nhập thấy bản ghi của mình, quyền xem tất cả chưa chốt (OQ-10) | nghiep-vu-doc-lap |
-| 33 | nhien-lieu-list | Quản lý nhiên liệu | Tổng hợp nhiên liệu theo tháng/xe so định mức — khung generic tối thiểu, chờ TKV cung cấp biểu mẫu (OQ-11) | nghiep-vu-doc-lap |
+| 33 | linh-ton-thang | Lĩnh và tồn nhiên liệu theo tháng | Nhập tồn cuối + ghi chú từng xe theo tháng, tự tính Sử dụng, tự cộng lĩnh/mua ngoài; Chốt tháng; xuất mẫu 2 | quan-ly-nhien-lieu |
 | 34 | baocao-km | Báo cáo thống kê km | 6 loại báo cáo theo tháng/quý/năm, khung generic tối thiểu, chờ TKV cung cấp biểu mẫu (OQ-12) | nghiep-vu-doc-lap |
+| 35 | linh-ton-thang-da-chot | Lĩnh và tồn - tháng đã chốt | Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có quyền | quan-ly-nhien-lieu |
+| 36 | so-theo-doi-linh | Sổ theo dõi lĩnh nhiên liệu theo xe | Sổ theo dõi lĩnh theo xe/tháng: số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu); nguồn của mẫu 3 | quan-ly-nhien-lieu |
+| 37 | mua-ngoai-popup | Mua ngoài cây xăng | Nhập hóa đơn mua nhiên liệu ngoài cây xăng chỉ định gắn chuyến công tác; cảnh báo vượt hạn mức | quan-ly-nhien-lieu |
+| 38 | chot-thang-confirm | Xác nhận chốt tháng | Xác nhận chốt số liệu tháng (đủ tồn cuối, không sai quy tắc tồn) | quan-ly-nhien-lieu |
+| 39 | mo-khoa-thang | Mở khóa tháng đã chốt | Mở khóa tháng đã chốt, bắt buộc nhập lý do, ghi nhật ký | quan-ly-nhien-lieu |
+| 40 | ton-dau-lech | Tồn đầu các tháng sau bị lệch | Xử lý tồn đầu các tháng sau bị lệch sau khi sửa tháng cũ: tính lại hoặc giữ nguyên đánh dấu lệch | quan-ly-nhien-lieu |
+| 41 | linh-ton-log | Nhật ký chỉnh sửa lĩnh và tồn | Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xem) | quan-ly-nhien-lieu |
+| 42 | baocao-quyet-toan | Báo cáo quyết toán tiêu hao | Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4 | quan-ly-nhien-lieu |
+| 43 | baocao-linh-ton | Báo cáo lĩnh, sử dụng, tồn | Báo cáo lĩnh, sử dụng, tồn theo xe; xuất mẫu 2 | quan-ly-nhien-lieu |
+| 44 | chi-tiet-xe-tieuhao | Chi tiết tiêu hao theo xe | Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời | quan-ly-nhien-lieu |
+| 45 | loai-xe-list | Danh mục loại xe và định mức | Danh mục loại xe và định mức gốc (lít/100km), lối vào cấu hình hệ số | quan-ly-nhien-lieu |
+| 46 | loai-xe-form | Thêm/sửa loại xe | Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức | quan-ly-nhien-lieu |
+| 47 | he-so-config | Cấu hình hệ số | Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05) | quan-ly-nhien-lieu |
+| 48 | he-so-form | Sửa hệ số | Sửa hệ số tuổi xe/khai trường có hiệu lực từ ngày | quan-ly-nhien-lieu |
+| 49 | xuat-mau-02-linh-su-dung-ton | Xuất mẫu 2 - Lĩnh, sử dụng, tồn | Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
+| 50 | xuat-mau-03-theo-doi-linh-xe | Xuất mẫu 3 - Theo dõi lĩnh nhiên liệu | Bản xuất PDF/Excel biểu Theo dõi lĩnh nhiên liệu từng xe (in ký tay) | quan-ly-nhien-lieu |
+| 51 | xuat-mau-04-quyet-toan | Xuất mẫu 4 - Quyết toán tiêu hao | Bản xuất PDF/Excel biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
 
 ## 3. Danh sách flow
 
@@ -297,7 +383,8 @@ flowchart TD
 | so-theo-doi-dinh-ky | Sổ theo dõi định kỳ | so-baoduong, so-dangkiem, so-baohiem (3 màn độc lập, filter theo xe) | happy (thêm bản ghi mới); edge (cảnh báo sắp đến hạn — ngưỡng ngày chưa chốt, OQ-8); empty state khi xe mới chưa có lịch sử |
 | thong-bao | Thông báo | thong-bao-list → thong-bao-cauhinh | happy (xem/đánh dấu đã đọc, cấu hình kênh, điều hướng theo sự kiện); edge (chưa cấu hình kênh nào → mặc định app; danh sách rỗng) |
 | bieu-mau-dong | Biểu mẫu động | bieumau-list → bieumau-form → xem trước → lưu bản active | happy (upload/cấu hình/xem trước thành công); error (thiếu vị trí người ký) |
-| nghiep-vu-doc-lap | Nghiệp vụ độc lập | nhatky-xe-list, nhien-lieu-list, baocao-km (3 màn độc lập, không có luồng chuyển tiếp cho nhau) | happy (thêm/sửa/xóa nhật ký, xem báo cáo); edge (khung generic B6/B7 chờ TKV cung cấp biểu mẫu) |
+| nghiep-vu-doc-lap | Nghiệp vụ độc lập | nhatky-xe-list, baocao-km (2 màn độc lập, không có luồng chuyển tiếp cho nhau) | happy (thêm/sửa/xóa nhật ký, xem báo cáo); edge (khung generic B7 chờ TKV cung cấp biểu mẫu) |
+| quan-ly-nhien-lieu | Quản lý nhiên liệu | loai-xe-list → loai-xe-form, loai-xe-list → he-so-config → he-so-form; linh-ton-thang ↔ linh-ton-thang-da-chot (chốt/mở khóa), linh-ton-thang → so-theo-doi-linh, mua-ngoai-popup, chot-thang-confirm, mo-khoa-thang, ton-dau-lech, linh-ton-log; baocao-quyet-toan ↔ baocao-linh-ton → chi-tiet-xe-tieuhao; xuat-mau-02, xuat-mau-03, xuat-mau-04 | happy (nhập lĩnh/tồn, chốt tháng, xem báo cáo, xuất 3 biểu mẫu); error (trùng số phiếu lĩnh, tồn âm hoặc vượt thùng, thiếu lý do mở khóa); edge (mua ngoài vượt hạn mức chỉ cảnh báo, tồn đầu các tháng sau bị lệch, xe chưa có định mức/chưa khai báo nhiên liệu) |
 
 ## 3.5. Chuyển màn (transitions)
 
@@ -359,7 +446,36 @@ flowchart TD
 | Xem trước biểu mẫu | Upload/cấu hình biểu mẫu [31] | Cần chỉnh sửa | - |
 | Upload/cấu hình biểu mẫu [31] | (giữ nguyên) [31] | Lưu | Thiếu vị trí người ký |
 | Nhật ký xe ngoài chuyến [32] | (giữ nguyên) [32] | Thêm/sửa/xóa bản ghi | - |
-| Quản lý nhiên liệu [33] | (giữ nguyên) [33] | + Thêm bản ghi | Khung tối thiểu, chờ TKV |
+| Danh mục loại xe [45] | Thêm/sửa loại xe [46] | Chọn loại xe / + Thêm mới | - |
+| Thêm/sửa loại xe [46] | Danh mục loại xe [45] | Lưu | Có định mức mới thì phải có hiệu lực từ ngày |
+| Thêm/sửa loại xe [46] | (giữ nguyên) [46] | Lưu | Thiếu tên loại xe/định mức, hoặc trùng tên loại xe |
+| Danh mục loại xe [45] | Cấu hình hệ số [47] | Hệ số | - |
+| Cấu hình hệ số [47] | Sửa hệ số [48] | Sửa hệ số | - |
+| Sửa hệ số [48] | Cấu hình hệ số [47] | Lưu | Hiệu lực từ ngày hợp lệ, không áp ngược tháng đã chốt |
+| Lĩnh và tồn tháng [33] | Sổ theo dõi lĩnh theo xe [36] | Bấm số lít lĩnh tại cây xăng | - |
+| Sổ theo dõi lĩnh theo xe [36] | Lĩnh và tồn tháng [33] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
+| Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu | Trùng số phiếu lĩnh: báo xe và ngày đã dùng, chặn lưu dòng đó |
+| Lĩnh và tồn tháng [33] | Mua ngoài cây xăng [37] | Bấm số lít mua ngoài | - |
+| Mua ngoài cây xăng [37] | Lĩnh và tồn tháng [33] | Lưu | Vượt hạn mức (hóa đơn lớn hơn thùng hoặc tổng chuyến lớn hơn định mức theo km): chỉ cảnh báo, vẫn lưu, ghi nhật ký |
+| Lĩnh và tồn tháng [33] | Xác nhận chốt tháng [38] | Chốt tháng | Đủ tồn cuối; tồn không âm và không vượt thùng; Sử dụng không âm |
+| Lĩnh và tồn tháng [33] | (giữ nguyên) [33] | Chốt tháng | Thiếu tồn cuối hoặc vi phạm quy tắc tồn: báo xe còn thiếu/sai |
+| Xác nhận chốt tháng [38] | Lĩnh và tồn đã chốt [35] | Xác nhận chốt | Ghi nhật ký (người, thời điểm) |
+| Xác nhận chốt tháng [38] | Lĩnh và tồn tháng [33] | Hủy | - |
+| Lĩnh và tồn đã chốt [35] | Mở khóa tháng [39] | Mở khóa | Chỉ người có quyền mở khóa (OQ-17) |
+| Mở khóa tháng [39] | Tồn đầu các tháng sau bị lệch [40] | Mở khóa | Tồn đầu các tháng sau bị lệch sau khi sửa |
+| Mở khóa tháng [39] | Lĩnh và tồn tháng [33] | Mở khóa | Tồn đầu các tháng sau không lệch; bắt buộc nhập lý do (tối đa 500 ký tự) |
+| Mở khóa tháng [39] | Lĩnh và tồn đã chốt [35] | Hủy | - |
+| Tồn đầu các tháng sau bị lệch [40] | Lĩnh và tồn tháng [33] | Tính lại / Giữ nguyên, đánh dấu lệch | Tính lại chỉ cho tháng chưa chốt; ghi nhật ký |
+| Lĩnh và tồn tháng [33] / đã chốt [35] | Nhật ký chỉnh sửa [41] | Xem nhật ký | - |
+| Nhật ký chỉnh sửa [41] | Lĩnh và tồn tháng [33] | Quay lại | - |
+| Lĩnh và tồn tháng [33] / đã chốt [35] | Xuất mẫu 2 [49] | Xuất mẫu 2 (PDF/Excel) | In ký tay, không ký số |
+| Sổ theo dõi lĩnh theo xe [36] | Xuất mẫu 3 [50] | Xuất PDF mẫu 3 | In ký tay, không ký số |
+| Báo cáo quyết toán tiêu hao [42] | Báo cáo lĩnh, sử dụng, tồn [43] | Chuyển tab | - |
+| Báo cáo lĩnh, sử dụng, tồn [43] | Báo cáo quyết toán tiêu hao [42] | Chuyển tab | - |
+| Báo cáo quyết toán tiêu hao [42] | Chi tiết tiêu hao theo xe [44] | Bấm biển số xe | - |
+| Chi tiết tiêu hao theo xe [44] | Báo cáo quyết toán tiêu hao [42] | Quay lại báo cáo | - |
+| Báo cáo quyết toán tiêu hao [42] | Xuất mẫu 4 [51] | Xuất PDF mẫu 4 | Tháng chưa chốt: cột Thực tế để trống |
+| Báo cáo lĩnh, sử dụng, tồn [43] | Xuất mẫu 2 [49] | Xuất PDF mẫu 2 | In ký tay, không ký số |
 | Báo cáo thống kê km [34] | (giữ nguyên) [34] | Chọn loại báo cáo, xuất | Khung tối thiểu, chờ TKV |
 
 ## 4. Open Questions
@@ -368,7 +484,16 @@ flowchart TD
 - [ ] OQ-8: Ngưỡng "sắp đến hạn" để cảnh báo ở 3 sổ theo dõi định kỳ — bao nhiêu ngày trước hạn đăng kiểm/bảo hiểm/bảo dưỡng thì bắt đầu cảnh báo?
 - [ ] OQ-9: "Danh mục cấp bảo dưỡng" (nguồn dropdown "cấp bảo dưỡng" ở Sổ bảo dưỡng) — có cần tách thành màn quản trị riêng (thêm/sửa/xóa cấp bảo dưỡng) hay dropdown nhập tay là đủ?
 - [ ] OQ-10: Nhật ký xe ngoài chuyến — "quyền xem tất cả" là quyền riêng trong ma trận `phan-quyen-thamso`, hay mặc định cấp cho Đội trưởng/phó + QTHT?
-- [ ] OQ-11: B6 Quản lý nhiên liệu — cần TKV cung cấp biểu mẫu nhập cụ thể để hoàn thiện trường dữ liệu; hiện vẽ khung tối thiểu.
+- [x] OQ-11: B6 Quản lý nhiên liệu — Resolved 2026-10-16: đã có biểu mẫu đơn vị đang dùng (3 biểu: lĩnh-sử dụng-tồn, theo dõi lĩnh, quyết toán tiêu hao) + quy định định mức; thay bằng flow `quan-ly-nhien-lieu` (màn [33], [35]–[51]).
 - [ ] OQ-12: B7 Báo cáo thống kê km — cần TKV cung cấp biểu mẫu báo cáo cụ thể (sheet "KM năm 2026", "TH HN - HL theo xe") để hoàn thiện; hiện vẽ khung tối thiểu.
+- [ ] OQ-13: Tuổi xe (nhóm A/B/C) tính từ mốc nào: Ngày sử dụng, năm sản xuất hay ngày đăng ký lần đầu? Hiện giả định Ngày sử dụng.
+- [ ] OQ-14: Xe đổi nhóm tuổi giữa tháng (vd từ B sang C): tách dòng theo chuyến hay lấy định mức bình quân gia quyền cho báo cáo quyết toán tháng?
+- [ ] OQ-15: Đơn vị nào ngoài Đội xe văn phòng dùng chung 3 biểu mẫu; tiêu đề biểu mẫu có lấy theo Đơn vị quản lý của xe không?
+- [ ] OQ-16: Biểu giấy tháng 08/2026, xe 30M-51952 ghi tồn cuối 42 nhưng 40 + 490 − 489 = 41 và tổng xăng tồn cuối 283 khớp 41 — đơn vị xác nhận 42 có phải lỗi in tay không?
+- [ ] OQ-17: Quyền Chốt tháng, Mở khóa tháng, Nhập lĩnh/tồn, Quản trị loại xe và hệ số nằm trong ma trận quyền nào của `phan-quyen-thamso` (hiện ma trận chưa có các quyền này)?
+- [ ] OQ-18: Danh mục loại nhiên liệu cụ thể (Xăng A95 / Xăng 95 / Dầu DO...) và cách nhóm lên Xăng/Dầu để cộng tổng; biểu giấy đang ghi không thống nhất ("Xăng A95", "Xăng 95").
+- [ ] OQ-19: Nguồn "Số Km hoạt động trong tháng" của biểu quyết toán: chỉ km chuyến đã xác nhận đi về, hay cộng cả nhật ký xe ngoài chuyến? Hiện giả định chỉ chuyến đã xác nhận đi về.
+- [ ] OQ-20: Màn thêm/sửa xe theo Figma mới lệch bản trước ở 3 điểm cần xác nhận: (a) Lái xe biên chế có BẮT BUỘC không (Figma ghi bắt buộc, bản trước ghi không bắt buộc); (b) chu kỳ bảo dưỡng tính theo km (Figma chỉ có "Số Km bảo dưỡng") hay theo thời gian như 3 sổ định kỳ đang mô tả; (c) danh mục giá trị của ô "Tình trạng xe" (Figma mới có "Xe mới").
+- [ ] OQ-21: Định mức riêng của xe (nhập ở màn thêm/sửa xe) thay thế định mức gốc của loại xe, và có còn nhân thêm hệ số tuổi xe/khai trường không?
 
 (OQ-1, OQ-2, OQ-3 đã chốt ở đợt trước — bắt buộc tất cả ban xác nhận, ký qua SignServer, tính lại km khi hủy phiếu trong nhóm ghép. OQ-5 đã chốt thành business rule "cấu hình mượn xe chéo đơn vị" tại màn `phan-quyen-thamso` — Mục 2 dòng 18. OQ-6, OQ-7 đã được khách hàng quyết định bỏ qua ở đợt này.)

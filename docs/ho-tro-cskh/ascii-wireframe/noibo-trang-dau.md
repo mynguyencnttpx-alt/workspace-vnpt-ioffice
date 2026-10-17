@@ -67,7 +67,7 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐          │
 │ │ [2] 7      │ │ [3] 2      │ │ [4] 4      │ │ [5] 5      │          │
-│ │ Ticket mới │ │ Sắp quá hạn│ │ KH phản hồi│ │ Bài chờ    │          │
+│ │ Cần xử lý  │ │ Sắp quá hạn│ │ Chờ KH     │ │ Bài chờ    │          │
 │ │ 3 khẩn cấp │ │ dưới 1 giờ │ │ cần trả lời│ │ duyệt      │          │
 │ └────────────┘ └────────────┘ └────────────┘ └────────────┘          │
 ├──────────────────────────────────────────────────────────────────────┤
@@ -84,9 +84,9 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Nút hành động chính | Button | Click | • Theo vai trò (đã chốt 23/09/2026): Agent tỉnh/Agent helpdesk/Triển khai của Line/Quản trị viên → "Xem hàng đợi ticket" (`agent-hang-doi`); Chủ quản dịch vụ → "Xem báo cáo" (`baocao-tong-quan`); Biên tập nội dung → "Xem chờ duyệt" (`kb-cho-duyet`). |
-| 2 | Thẻ Ticket mới trong phạm vi của tôi | Stat card | Click | • Số ticket mới trong **phạm vi xem mặc định** của vai trò — gồm ticket giao cho tài khoản và ticket chưa phân công nằm trong phạm vi (kèm số khẩn cấp); bấm → `agent-hang-doi` đã lọc tương ứng. Chỉ Agent tỉnh, Agent helpdesk, Triển khai của Line, Quản trị viên (đã chốt 24/09/2026). |
+| 2 | Thẻ Cần xử lý trong phạm vi của tôi | Stat card | Click | • Số ticket "Cần xử lý" (trạng thái Mới: mới gửi hoặc khách vừa phản hồi rồi chuyển lại, 03/10/2026) trong **phạm vi xem mặc định** của vai trò — gồm ticket giao cho tài khoản và ticket chưa phân công nằm trong phạm vi (kèm số khẩn cấp); bấm → `agent-hang-doi` đã lọc tương ứng. Chỉ Agent tỉnh, Agent helpdesk, Triển khai của Line, Quản trị viên (đã chốt 24/09/2026). |
 | 3 | Thẻ Sắp quá hạn SLA | Stat card | Click | • Số ticket còn dưới ngưỡng cảnh báo SLA (cấu hình ở `cauhinh-sla`); bấm → `agent-canh-bao-sla`. Chỉ Agent tỉnh, Agent helpdesk, Triển khai của Line, Quản trị viên, trong phạm vi xem mặc định. |
-| 4 | Thẻ Khách vừa phản hồi | Stat card | Click | • Số ticket khách hàng vừa phản hồi cần trả lời; bấm → `agent-hang-doi` lọc trạng thái tương ứng. |
+| 4 | Thẻ Đang chờ khách phản hồi | Stat card | Click | • Số ticket đã chuyển cho khách hàng và đang "Chờ khách hàng phản hồi" (03/10/2026: thay thẻ "Khách vừa phản hồi" — ticket khách vừa phản hồi nay nằm trong thẻ Cần xử lý); bấm → `agent-hang-doi` lọc trạng thái tương ứng. |
 | 5 | Thẻ Bài chờ duyệt | Stat card | Click | • **Chỉ Quản trị viên thấy** (chỉ Quản trị viên duyệt — OQ-4); bấm → `kb-cho-duyet`. Vai trò khác không hiện thẻ (tránh bấm vào màn không có quyền). |
 | 6 | Việc cần làm ngay | List | Click | • Tối đa 3 mục ưu tiên (khẩn cấp, sắp quá hạn, khách phản hồi); bấm 1 dòng → `agent-chi-tiet-ticket`. Rỗng → "Chưa có việc cần làm". |
 | 7 | Hoạt động gần đây | List | ReadOnly | • Sự kiện gần nhất liên quan đến tài khoản (ticket đóng, bài được duyệt, chỉ mục cần tái lập...). Chỉ hiển thị mục thuộc phạm vi/quyền của vai trò. |
