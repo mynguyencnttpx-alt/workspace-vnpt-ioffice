@@ -84,6 +84,9 @@ links:
 | 68 | [vo-hieu-hoa-don-vi-xac-nhan](quan-tri-nguoi-dung-flow.md#vo-hieu-hoa-don-vi-xac-nhan) | quan-tri-nguoi-dung-flow | draft | FC-038 | [Figma](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-5951) | — | — | 2026-10-17 |
 | 69 | [ket-qua-kiem-tra](ket-qua-kiem-tra-flow.md#ket-qua-kiem-tra) | ket-qua-kiem-tra-flow | draft | FC-019 | [Figma E-102](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-6933) | — | — | 2026-10-17 |
 | 70 | [ket-qua-kiem-tra](ket-qua-kiem-tra-flow.md#ket-qua-kiem-tra) | ket-qua-kiem-tra-flow | draft | FC-014, FC-018 | [Figma E-045](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=32-7112) | — | — | 2026-10-17 |
+| 71 | [popup-xem-truoc-ban-gui](popup-ioffice-flow.md#popup-xem-truoc-ban-gui) | popup-ioffice-flow | draft | FC-013, FC-024 | [Figma](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=43-8030) | — | — | 2026-10-18 |
+| 72 | [popup-xuat-bao-cao](popup-ioffice-flow.md#popup-xuat-bao-cao) | popup-ioffice-flow | draft | FC-020, FC-024 | [Figma](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=43-8114) | — | — | 2026-10-18 |
+| 73 | [popup-noi-dung-van-ban](popup-ioffice-flow.md#popup-noi-dung-van-ban) | popup-ioffice-flow | draft | FC-007, FC-024 | [Figma](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=43-8209) | — | — | 2026-10-18 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived`.
 
@@ -169,7 +172,7 @@ Xử lý dữ liệu nhạy cảm trong khung nhỏ một cột.
 Theo dõi tiến độ trong popup, hủy yêu cầu.
 
 ### popup-ket-qua-tom-tat
-Tóm tắt số điểm theo mức và 5 điểm tiêu biểu, mở hỏi đáp hoặc trang riêng.
+Kết quả kiểm tra đầy đủ trong popup: thông tin lượt, lọc mức độ, thẻ điểm vi phạm có căn cứ, đánh giá, bôi đen hỏi sâu, xuất báo cáo, hỏi đáp.
 
 ### popup-hoi-dap
 Hỏi đáp trong popup, có thể đính kèm tệp, có trích dẫn.
@@ -299,6 +302,15 @@ Ma trận quyền theo vai trò cố định, ràng buộc quyền tối thiểu
 
 ### vo-hieu-hoa-don-vi-xac-nhan
 Xác nhận vô hiệu hóa đơn vị, nêu số tài khoản bị ảnh hưởng và lượt đang chạy.
+
+### popup-xem-truoc-ban-gui
+Xem nội dung đã che ẩn sẽ gửi ra AI trong popup, duyệt từng mục nhạy cảm.
+
+### popup-xuat-bao-cao
+Chọn Word hoặc PDF, mức độ, kèm đề xuất rồi tải báo cáo ngay trong popup.
+
+### popup-noi-dung-van-ban
+Xem điều khoản được trích dẫn ngay trong popup, tô nền đúng điều và trang.
 
 ## Links upstream
 

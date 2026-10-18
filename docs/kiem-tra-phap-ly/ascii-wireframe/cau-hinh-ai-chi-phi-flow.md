@@ -47,20 +47,25 @@
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────────────────────┐
-│ Thêm nhà cung cấp AI                                                     (x)             │
+│ Thêm nhà cung cấp AI                                                  (x)                │
 ├──────────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                          │
-│ Tên nhà cung cấp (*) [1]  [OpenAI________________________]                               │
-│ Loại (*) [2]              ( ) Trong nước   (*) Nước ngoài  (không đổi nếu đã có lượt)    │
-│ Địa chỉ dịch vụ (*) [3]   [https://api.example.com/v1_______________]                    │
-│ Model (*) [4]             [gpt-model__________]                                          │
-│ Khóa kết nối (*) [5]      [••••••••••••••••••] (sửa: để trống = giữ nguyên)              │
-│ Rà soát nhạy cảm [6]      (*) Bật   ( ) Tắt                                              │
-│ Trạng thái [7]            [v: Đang dùng]                                                 │
-│ (!) [8] Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp.                             │
-│ (ok) [9] Kết nối thành công.   (!) Kết nối thất bại: hết thời gian chờ.                  │
+│ Tên nhà cung cấp (*) [1]   [OpenAI________________________]                              │
+│ Hãng AI (*) [2]            [v: OpenAI]  (OpenAI, Anthropic, Gemini, DeepSeek, Groq, Khác)│
+│ Loại (*) [3]               ( ) Trong nước   (*) Nước ngoài  (không đổi nếu đã có lượt)   │
+│ Địa chỉ dịch vụ (*) [4]    [https://api.openai.com/v1__________]  (tự điền theo hãng)    │
+│ Model (*) [5]              [gpt-model__________]  (gợi ý theo hãng, nhập tay được)       │
+│ Khóa kết nối (*) [6]       [••••••••••••••••••] (sửa: để trống = giữ nguyên)             │
+│ Nhiệt độ [7]               [0.0___]   (0 đến 1)                                          │
+│ Token ra tối đa (*) [8]    [4096__]                                                      │
+│ Token vào tối đa (*) [9]   [128000__]  (giới hạn đầu vào của model)                      │
+│ Thời gian chờ (giây) [10]  [90___]    (10 đến 600)                                       │
+│ Rà soát nhạy cảm [11]      (*) Bật   ( ) Tắt                                             │
+│ Trạng thái [12]            [v: Đang dùng]                                                │
+│ (!) [13] Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp.                            │
+│ (ok) [14] Kết nối thành công.   (!) Kết nối thất bại: hết thời gian chờ.                 │
 │                                                                                          │
-│   [10][ Kiểm tra kết nối ]                    [11] < Hủy >    [12][ Lưu ]                │
+│   [15][ Kiểm tra kết nối ]                    [16] < Hủy >    [17][ Lưu ]                │
 └──────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -69,17 +74,22 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Tên nhà cung cấp | Textbox | Text | • **Bắt buộc**, tối đa 100 ký tự, không trùng. |
-| 2 | Loại | Radio | Select | • Trong nước / Nước ngoài, **bắt buộc**; không đổi được nếu đã có lượt dùng. Quyết định chế độ cảnh báo khi tắt rà soát. |
-| 3 | Địa chỉ dịch vụ | Textbox | Text | • **Bắt buộc**, tối đa 500 ký tự, bắt đầu bằng https://. |
-| 4 | Model | Textbox | Text | • **Bắt buộc**, tối đa 100 ký tự. |
-| 5 | Khóa kết nối | Password | Text | • Bắt buộc khi thêm; khi sửa để trống = giữ khóa cũ. Lưu mã hóa, không hiện lại, không ghi vào log hay thông báo (BR-01). |
-| 6 | Rà soát dữ liệu nhạy cảm | Radio | Select | • Bật / Tắt, mặc định Bật. Tắt cho "Trong nước": được, không cảnh báo. Tắt cho "Nước ngoài": mở hộp cảnh báo `canh-bao-tat-ra-soat`, chỉ lưu khi xác nhận (`E-kiem-tra-phap-ly-078`); thao tác ghi nhật ký và gửi thông báo cho mọi Quản trị hệ thống `[CẦN XÁC NHẬN chính sách]`. |
-| 7 | Trạng thái | Combobox | Select | • Đang dùng / Ngừng sử dụng, mặc định Đang dùng. |
-| 8 | Thông báo lỗi nhập | Label | ReadOnly | • Thiếu trường bắt buộc, địa chỉ không phải https, tên trùng → `E-kiem-tra-phap-ly-077` "Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp." tại ô. |
-| 9 | Kết quả kiểm tra kết nối | Label | ReadOnly | • Thành công hoặc thất bại kèm nguyên nhân rút gọn; thất bại → `E-kiem-tra-phap-ly-076` "Kết nối thất bại: <nguyên nhân rút gọn>. Kiểm tra lại địa chỉ, khóa kết nối rồi thử lại." Không hiện khóa trong thông báo. |
-| 10 | Kiểm tra kết nối | Button | Click | • Gọi thử một lần tối thiểu, hết giờ 15 giây, không thử lại; không lưu dữ liệu. Ghi log kết quả. |
-| 11 | Hủy | Link | Click | • Đóng hộp thoại, về `nha-cung-cap-danh-sach`. |
-| 12 | Lưu | Button | Click | • Kiểm tra hợp lệ rồi mã hóa và lưu khóa, lưu thông tin, ghi nhật ký (đặc biệt khi đổi cờ rà soát: giá trị trước và sau). Lượt đang chạy giữ cấu hình lúc bắt đầu `[GIẢ ĐỊNH]`. |
+| 2 | Hãng AI | Combobox | Select | • **Bắt buộc**: OpenAI, Anthropic, Gemini, DeepSeek, Groq, "Khác (tương thích OpenAI)"; không đổi được nếu đã có lượt dùng.<br>• Chọn hãng → tự điền sẵn Loại, Địa chỉ dịch vụ và Model gợi ý (BR-05); người dùng sửa lại được. |
+| 3 | Loại | Radio | Select | • Trong nước / Nước ngoài, **bắt buộc**; mặc định "Nước ngoài" với 5 hãng đầu `[GIẢ ĐỊNH]`; không đổi được nếu đã có lượt dùng. Quyết định chế độ cảnh báo khi tắt rà soát. |
+| 4 | Địa chỉ dịch vụ | Textbox | Text | • **Bắt buộc**, tối đa 500 ký tự, bắt đầu bằng https://. Tự điền theo hãng, sửa được (máy chủ trung gian hoặc máy chủ riêng). |
+| 5 | Model | Textbox | Text | • **Bắt buộc**, tối đa 100 ký tự. Gợi ý tên model theo hãng, nhập tay được. |
+| 6 | Khóa kết nối | Password | Text | • Bắt buộc khi thêm; khi sửa để trống = giữ khóa cũ. Lưu mã hóa, không hiện lại, không ghi vào log hay thông báo (BR-01). |
+| 7 | Nhiệt độ (mức sáng tạo) | Textbox số | Text | • Từ 0 đến 1, tối đa 2 chữ số thập phân; mặc định 0 `[GIẢ ĐỊNH]`; để trống = dùng mặc định hệ thống. |
+| 8 | Token đầu ra tối đa | Textbox số | Text | • **Bắt buộc**, số nguyên > 0, không vượt giới hạn của model. |
+| 9 | Giới hạn token đầu vào | Textbox số | Text | • **Bắt buộc**, số nguyên > 0. Dùng để tự chia nhỏ dự thảo và danh sách quy định dài trước khi gửi, gộp kết quả vào cùng một lượt (BR-06). |
+| 10 | Thời gian chờ mỗi lần gọi (giây) | Textbox số | Text | • Số nguyên 10 đến 600, mặc định 90 (BR-04). |
+| 11 | Rà soát dữ liệu nhạy cảm | Radio | Select | • Bật / Tắt, mặc định Bật. Tắt cho "Trong nước": được, không cảnh báo. Tắt cho "Nước ngoài": mở hộp cảnh báo `canh-bao-tat-ra-soat`, chỉ lưu khi xác nhận (`E-kiem-tra-phap-ly-078`); thao tác ghi nhật ký và gửi thông báo cho mọi Quản trị hệ thống `[CẦN XÁC NHẬN chính sách]`. DeepSeek và Groq cần khách hàng xác nhận chính sách lưu dữ liệu trước khi dùng. |
+| 12 | Trạng thái | Combobox | Select | • Đang dùng / Ngừng sử dụng, mặc định Đang dùng. |
+| 13 | Thông báo lỗi nhập | Label | ReadOnly | • Thiếu trường bắt buộc, địa chỉ không phải https, tên trùng, nhiệt độ ngoài 0 đến 1, token hoặc thời gian chờ không hợp lệ → `E-kiem-tra-phap-ly-077` "Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp." tại ô. |
+| 14 | Kết quả kiểm tra kết nối | Label | ReadOnly | • Thành công hoặc thất bại kèm nguyên nhân rút gọn; thất bại → `E-kiem-tra-phap-ly-076` "Kết nối thất bại: <nguyên nhân rút gọn>. Kiểm tra lại địa chỉ, khóa kết nối rồi thử lại." Không hiện khóa trong thông báo. |
+| 15 | Kiểm tra kết nối | Button | Click | • Gọi thử một lần tối thiểu, hết giờ 15 giây, không thử lại; không lưu dữ liệu. Ghi log kết quả. |
+| 16 | Hủy | Link | Click | • Đóng hộp thoại, về `nha-cung-cap-danh-sach`. |
+| 17 | Lưu | Button | Click | • Kiểm tra hợp lệ rồi mã hóa và lưu khóa, lưu thông tin, ghi nhật ký (đặc biệt khi đổi cờ rà soát: giá trị trước và sau). Đổi tham số hoặc model chỉ áp dụng cho lượt gửi sau; lượt đang chạy giữ cấu hình lúc bắt đầu (BR-09). |
 
 ---
 

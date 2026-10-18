@@ -1280,10 +1280,10 @@ Hệ thống (xử lý nền) nhận một lượt "Chờ xử lý" từ hàng �
 
 | Thông tin | Giá trị |
 |---|---|
-| Hệ thống đối tác | Nhà cung cấp AI mặc định của đơn vị (trong nước hoặc nước ngoài, cấu hình ở FC-028) |
-| Endpoint, Method, cơ chế xác thực | `[CẦN XÁC NHẬN — chờ tài liệu API của nhà cung cấp AI được chọn]` |
+| Hệ thống đối tác | Nhà cung cấp AI mặc định của đơn vị (cấu hình ở FC-028): OpenAI, Anthropic, Gemini, DeepSeek, Groq hoặc dịch vụ "Khác (tương thích OpenAI)" |
+| Endpoint, Method, cơ chế xác thực | Theo Hãng AI chọn ở FC-028 (địa chỉ dịch vụ và khóa kết nối do Quản trị hệ thống nhập). Chi tiết định dạng gọi của từng hãng lấy từ tài liệu API chính thức của hãng `[CẦN XÁC NHẬN — kiểm tra lại với tài liệu hiện hành trước khi xây dựng]` |
 | Thời điểm gọi | Mỗi cặp đoạn dự thảo + điều khoản ứng viên, và khi tạo tóm tắt |
-| Timeout / Retry | Hết giờ 90 giây mỗi lần gọi. Thử lại tối đa 3 lần (chờ 2s, 4s, 8s) khi gặp lỗi 429, 5xx hoặc mất kết nối. Không thử lại khi 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]` |
+| Timeout / Retry | Hết giờ theo cấu hình của nhà cung cấp (mặc định 90 giây) mỗi lần gọi. Thử lại tối đa 3 lần (chờ 2s, 4s, 8s) khi gặp lỗi 429, 5xx hoặc mất kết nối. Không thử lại khi 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]` |
 
 Mapping Request (hệ thống → nhà cung cấp AI):
 
@@ -1866,7 +1866,7 @@ Ngoại lệ phát sinh theo điều kiện, không gắn một bước riêng: 
 - BR-10: Đoạn bôi đen chỉ làm ngữ cảnh bổ sung cho câu hỏi: ngữ cảnh luôn là "Lượt kiểm tra này" và trả lời vẫn theo BR-01 (chỉ dựa điều khoản trong ngữ cảnh), không phải câu trả lời tách riêng khỏi lượt. Mỗi câu hỏi gắn tối đa một đoạn; bôi đoạn khác thì thay đoạn cũ. Người dùng bỏ chip thì câu hỏi trở thành câu hỏi thường; sau khi gửi, chip tự xóa (thẻ trích dẫn vẫn nằm trong hội thoại), muốn hỏi tiếp về đoạn đó thì bôi đen lại `[GIẢ ĐỊNH]`. Đổi ngữ cảnh khác "Lượt kiểm tra này" khi chip còn → chip bị bỏ `[GIẢ ĐỊNH]`
 - BR-11: Đoạn bôi đen đã khôi phục giá trị gốc (đoạn trích dự thảo che ẩn) → trước khi gửi AI phải che ẩn lại hoặc loại bỏ theo lựa chọn nhạy cảm đã chọn lúc gửi dự thảo (FC-013 BR-04, BR-05); không gửi giá trị gốc ra ngoài. Nhà cung cấp tắt rà soát thì bỏ qua (BR-04)
 - BR-12: Thẻ trích dẫn của đoạn đã chọn được lưu trong hội thoại cùng câu hỏi, hiển thị lại khi mở lại hội thoại; ghi nhận điểm vi phạm nguồn của đoạn. Chi phí, hạn mức tính như BR-07
-- BR-13: Bôi đen chỉ hỗ trợ trên web; trong popup iOffice chưa hỗ trợ `[CẦN XÁC NHẬN]`
+- BR-13: Bôi đen hỗ trợ cả trên web và trong popup iOffice (popup-ket-qua-tom-tat sang popup-hoi-dap), cùng quy tắc BR-09 đến BR-12; thanh "Hỏi về đoạn này" thu gọn vừa khung popup `[GIẢ ĐỊNH]`
 
 ###### Thông báo và thông tin lưu vết log
 
@@ -1890,7 +1890,7 @@ Ghi nhật ký gửi dữ liệu ra AI cho mỗi câu hỏi (loại và số lư
 
 ##### Mô tả tóm tắt
 
-Hệ thống iOffice đẩy tệp dự thảo sang hệ thống qua API; người dùng iOffice mở cửa sổ popup nhúng ngay trên giao diện iOffice để chọn tệp, gửi kiểm tra, xem kết quả tóm tắt và hỏi đáp, hoặc mở sang hệ thống kiểm tra pháp lý ở cửa sổ khác.
+Hệ thống iOffice đẩy tệp dự thảo sang hệ thống qua API; người dùng iOffice mở cửa sổ popup nhúng ngay trên giao diện iOffice để chọn tệp, gửi kiểm tra, xem kết quả đầy đủ, đánh giá, xuất báo cáo và hỏi đáp (có đủ thông tin như trên hệ thống), hoặc mở sang hệ thống kiểm tra pháp lý ở cửa sổ khác.
 
 ---
 
@@ -1902,7 +1902,7 @@ Hệ thống iOffice đẩy tệp dự thảo sang hệ thống qua API; ngườ
 
 ##### Yêu cầu giao diện
 
-- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/popup-ioffice-flow.md`; thiết kế Figma (cùng file, khung 480x680): Chọn tệp [node 24-2819](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=24-2819), Xử lý nhạy cảm [26-2864](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-2864), Đang xử lý [26-2923](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-2923), Kết quả tóm tắt [26-2947](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-2947), Hỏi đáp [26-3007](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3007), Phiên hết hạn [26-3038](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3038), Mở trang riêng [26-3052](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3052), Lỗi kết nối [26-3066](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3066).
+- Hình ảnh giao diện / mockup: wireframe `ascii-wireframe/popup-ioffice-flow.md`; thiết kế Figma (cùng file, khung 480x680): Chọn tệp [node 24-2819](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=24-2819), Xử lý nhạy cảm [26-2864](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-2864), Đang xử lý [26-2923](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-2923), Kết quả kiểm tra đầy đủ [26-2947](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-2947), Xem trước bản gửi [43-8030](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=43-8030), Xuất báo cáo [43-8114](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=43-8114), Nội dung văn bản [43-8209](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=43-8209), Hỏi đáp [26-3007](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3007), Phiên hết hạn [26-3038](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3038), Mở trang riêng [26-3052](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3052), Lỗi kết nối [26-3066](https://www.figma.com/design/hpcME8W2TcBrL8PnKXdgNR?node-id=26-3066).
 - Hành vi UI/UX đặc biệt: popup rộng khoảng 480px; người dùng kéo mép để thu nhỏ hoặc mở rộng (tối thiểu 320px, tối đa theo màn hình `[GIẢ ĐỊNH]`); nút "Mở trang riêng" mở hệ thống ở cửa sổ khác của trình duyệt.
 
 - Bảng mô tả các trường thông tin trên giao diện:
@@ -1911,22 +1911,46 @@ Hệ thống iOffice đẩy tệp dự thảo sang hệ thống qua API; ngườ
 |---|---|---|---|---|
 | **Popup chọn tệp (popup-chon-tep)** | | | | |
 | Danh sách tệp đã đẩy từ iOffice | Checklist | - | Hiển thị tệp ở trạng thái "Chờ xác nhận" của người dùng đang đăng nhập iOffice: tên tệp, dung lượng, thời gian đẩy. Chọn 1 tệp để gửi (một tệp mỗi lần) `[GIẢ ĐỊNH]` | Data list |
+| Tên lượt | Textbox | 200 | Mặc định theo tên tệp, sửa được (như màn Gửi dự thảo, FC-012) | String |
+| Tóm lược tệp | Label | - | Số trang, loại văn bản nhận dạng, trạng thái rà soát nhạy cảm (Bật / Tắt theo nhà cung cấp mặc định của đơn vị) | String |
 | Lĩnh vực cần đối chiếu | Combobox nhiều giá trị | - | Bắt buộc, chọn ít nhất 1. Mặc định lĩnh vực đã dùng gần nhất của người dùng `[GIẢ ĐỊNH]` | Data list |
-| Kho đối chiếu | Checkbox nhóm | - | Ba lựa chọn kho (Kho cá nhân, Kho đơn vị, Kho dùng chung) theo quyền, mặc định chọn hết. Văn bản đủ điều kiện của các kho đã chọn được tích hết (FC-012 BR-01). Popup không chọn từng văn bản và không có "+ Thêm nguồn" `[GIẢ ĐỊNH]` | Data list |
+| Ngày xét hiệu lực | DatePicker | - | Mặc định ngày hiện tại, không lớn hơn ngày hiện tại (FC-012) | Date |
+| Kho đối chiếu | Checkbox nhóm | - | Ba lựa chọn kho (Kho cá nhân, Kho đơn vị, Kho dùng chung) theo quyền, kèm số văn bản đủ điều kiện mỗi kho, mặc định chọn hết. Văn bản đủ điều kiện của các kho đã chọn được tích hết (FC-012 BR-01). Popup không chọn từng văn bản và không có "+ Thêm nguồn" `[GIẢ ĐỊNH]` | Data list |
+| Số văn bản nguồn | Label | - | Tổng số văn bản được dùng, kèm cảnh báo số văn bản bị loại (Đang chuẩn bị, hết hiệu lực tại ngày xét, nguồn không truy cập được) | String |
 | Cảnh báo hạn mức | Label | - | Như màn Gửi dự thảo (FC-012 BR-03), không chặn gửi | String |
 | Nút Gửi kiểm tra | Button | - | Click → bắt đầu luồng kiểm tra như FC-012 trong khung popup | - |
 | **Popup xử lý nhạy cảm (popup-xu-ly-nhay-cam)** | | | | |
-| Danh sách dữ liệu nhạy cảm, cách xử lý, nút xác nhận | Như bảng xử lý dữ liệu nhạy cảm (FC-013) | | Bố cục một cột phù hợp khung hẹp. Cùng ràng buộc FC-013 | |
+| Tổng quan phát hiện, Nhà cung cấp nhận dữ liệu | Label | - | Số loại và số mục nhạy cảm; tên và loại (trong nước / nước ngoài) nhà cung cấp AI mặc định của đơn vị | String |
+| Danh sách dữ liệu nhạy cảm, cách xử lý, Che ẩn tất cả, Cho phép tất cả, nút xác nhận | Như bảng xử lý dữ liệu nhạy cảm (FC-013) | | Bố cục một cột phù hợp khung hẹp. Cùng ràng buộc FC-013 | |
+| Link Xem bản sẽ gửi | Link | - | Mở popup-xem-truoc-ban-gui, không bắt buộc | - |
+| **Popup xem trước bản gửi (popup-xem-truoc-ban-gui)** | | | | |
+| Nội dung đã xử lý | Vùng chữ | - | Chỉ đọc. Mục Che ẩn hiện mã tạm `[LOẠI_n]`, mục Xóa bỏ trống, mục Cho phép giữ nguyên chữ | String |
+| Mục đang xem, Mục trước, Mục sau | Label, Link | - | Duyệt từng mục nhạy cảm theo thứ tự trang, cuộn tới vị trí tương ứng | - |
+| Nút Đóng | Button | - | Về popup-xu-ly-nhay-cam, giữ lựa chọn | - |
 | **Popup đang xử lý (popup-dang-xu-ly)** | | | | |
 | Tiến độ, Số đoạn đã xử lý, Nút Hủy yêu cầu | Như màn Đang xử lý (FC-012, FC-014) | | Cùng ràng buộc | |
-| **Popup kết quả tóm tắt (popup-ket-qua-tom-tat)** | | | | |
-| Số điểm theo mức | Label | - | Ba ô đếm: Nghiêm trọng / Cần chỉnh sửa / Lưu ý | Number |
-| Danh sách điểm tiêu biểu | Table | - | Hiển thị tối đa 5 điểm mức cao nhất (vị trí, trích đoạn rút gọn, căn cứ). Click điểm → xem chi tiết trong popup | Data list |
+| Văn bản đã được tham chiếu | List | - | Văn bản nguồn đã dùng, mỗi dòng nêu số đoạn đã đối chiếu và số điểm vi phạm (như màn Đang xử lý, không hiện trạng thái Xong / Đang đối chiếu từng văn bản) | Data list |
+| Điểm vi phạm phát hiện đến nay, Đoạn đang đối chiếu | List, Label | - | Số điểm và danh sách rút gọn cập nhật dần `[CẦN XÁC NHẬN khả thi kỹ thuật]`; số trang và trích đoạn đang xét | Data list |
+| **Popup kết quả kiểm tra (popup-ket-qua-tom-tat)** | | | | |
+| Thông tin lượt, Tóm tắt nội dung dự thảo | Label | - | Tên lượt, trạng thái, thời gian gửi, lĩnh vực, ngày xét hiệu lực, số trang; tóm tắt do AI tạo (như FC-018) | String |
+| Lọc theo mức độ | Chip | - | Tất cả / Nghiêm trọng / Cần chỉnh sửa / Lưu ý kèm số điểm | Data list |
+| Dải cảnh báo căn cứ, Gửi lại kiểm tra | Label, Link | - | Như FC-018 BR-05; "Gửi lại kiểm tra" chỉ hiện khi có cảnh báo, về popup-chon-tep điền sẵn lĩnh vực và nguồn | - |
+| Căn cứ đã dùng | Accordion | - | Danh sách văn bản căn cứ kèm số điểm, thu gọn mặc định, chọn một văn bản để lọc thẻ điểm | Data list |
+| Thẻ điểm vi phạm | Card | - | Mỗi điểm một thẻ đầy đủ như web: số thứ tự, mức độ, vị trí, trích đoạn dự thảo, căn cứ và nội dung điều khoản, giải thích, đề xuất, dải cảnh báo căn cứ. Không giới hạn 5 điểm. Không có điểm nào → trạng thái rỗng như FC-018 | Data list |
+| Đánh giá từng điểm, Ghi chú đánh giá | Radio, Textbox nhiều dòng | 500 | Như FC-019 (Đúng / Sai / Bỏ qua, lưu tự động, ghi chú tối đa 500 ký tự) | Data list |
+| Bôi đen đoạn kết quả | Vùng chữ | - | Như màn Kết quả (FC-022 BR-09 đến BR-13); "Hỏi về đoạn này" mở popup-hoi-dap kèm trích dẫn đoạn | String |
+| Căn cứ trên thẻ | Link | - | Mở popup-noi-dung-van-ban tại đúng điều khoản | - |
 | Nút Hỏi đáp | Button | - | Mở khung hỏi đáp trong popup (popup-hoi-dap) | - |
+| Nút Xuất báo cáo | Button | - | Mở popup-xuat-bao-cao (FC-020) | - |
 | Nút Mở trang riêng | Button | - | Mở hệ thống kiểm tra pháp lý ở cửa sổ khác tại màn Kết quả kiểm tra của lượt đó (popup-mo-trang-rieng) | - |
-| Nút Đóng | Button | - | Đóng popup | - |
+| **Popup xuất báo cáo (popup-xuat-bao-cao)** | | | | |
+| Định dạng, Mức độ đưa vào, Kèm đề xuất chỉnh sửa, Nút Xuất | Như Hộp thoại Xuất báo cáo (FC-020) | | Cùng ràng buộc; xong về popup-ket-qua-tom-tat | |
+| **Popup nội dung văn bản (popup-noi-dung-van-ban)** | | | | |
+| Thông tin văn bản, Nội dung theo Chương, Điều, Khoản | Label, Vùng chữ | - | Như màn Nội dung văn bản (FC-007): cuộn tới và tô nền điều khoản và trang được trích dẫn, chỉ đọc. Không còn quyền xem văn bản → hiện điều khoản đã lưu và ghi chú như web | String |
+| Nút Quay lại, Mở trang riêng | Button | - | Quay lại màn đã mở (kết quả hoặc hỏi đáp); Mở trang riêng mở văn bản đầy đủ ở hệ thống | - |
 | **Popup hỏi đáp (popup-hoi-dap)** | | | | |
-| Ngữ cảnh, Câu hỏi, Đính kèm tệp, Hội thoại | Như Khung hỏi đáp (FC-022) | | Cùng ràng buộc. Ngữ cảnh mặc định "Lượt kiểm tra này" | |
+| Ngữ cảnh, Câu hỏi, Đính kèm tệp, Hội thoại, Xóa hội thoại | Như Khung hỏi đáp (FC-022) | | Cùng ràng buộc. Ngữ cảnh mặc định "Lượt kiểm tra này" | |
+| Thẻ trích dẫn đoạn đã chọn, Chip Đang hỏi về | Card, Chip | - | Như FC-022 BR-10, BR-12 khi mở từ "Hỏi về đoạn này" | - |
 | **Popup phiên hết hạn (popup-phien-het-han) và Popup lỗi kết nối (popup-loi-ket-noi)** | | | | |
 | Nội dung thông báo | Label | - | Chỉ đọc, lấy từ mã lỗi EX tương ứng | String |
 | Nút | Button | - | Phiên hết hạn: "Đăng nhập lại iOffice" (đóng popup). Lỗi kết nối: "Thử lại", "Đóng" | - |
@@ -2058,13 +2082,13 @@ Bước 1: Người dùng mở popup trong iOffice, hệ thống thực hiện:
 - Kiểm tra người dùng và đơn vị đang hoạt động (→ EX-02)
 - Hiển thị danh sách tệp "Chờ xác nhận" do iOffice đã đẩy sang
 
-Bước 2: Người dùng chọn tệp, lĩnh vực, kho đối chiếu rồi nhấn "Gửi kiểm tra", hệ thống thực hiện:
-- Chạy luồng như FC-012 trong khung popup: kiểm tra kho, hạn mức, rà soát nhạy cảm (nếu bật, hiển thị popup-xu-ly-nhay-cam), tạo lượt, đưa vào hàng đợi. Khác web: tệp do iOffice đẩy sang chỉ được quét nhạy cảm và gửi AI sau khi người dùng bấm "Gửi kiểm tra" trong popup (FC-023 BR-02)
-- Hiển thị popup-dang-xu-ly với tiến độ
+Bước 2: Người dùng chọn tệp, xem tóm lược, đặt tên lượt, lĩnh vực, ngày xét hiệu lực, kho đối chiếu rồi nhấn "Gửi kiểm tra", hệ thống thực hiện:
+- Chạy luồng như FC-012 trong khung popup: kiểm tra kho, hạn mức, rà soát nhạy cảm (nếu bật, hiển thị popup-xu-ly-nhay-cam; người dùng có thể mở popup-xem-truoc-ban-gui để xem bản sẽ gửi), tạo lượt, đưa vào hàng đợi. Khác web: tệp do iOffice đẩy sang chỉ được quét nhạy cảm và gửi AI sau khi người dùng bấm "Gửi kiểm tra" trong popup (FC-023 BR-02)
+- Hiển thị popup-dang-xu-ly với tiến độ, văn bản đã được tham chiếu, điểm vi phạm phát hiện dần và đoạn đang đối chiếu (như màn Đang xử lý, FC-014)
 
 Bước 3: Khi lượt hoàn tất, hệ thống thực hiện:
-- Hiển thị popup-ket-qua-tom-tat: số điểm theo mức và tối đa 5 điểm mức cao nhất
-- Người dùng nhấn một điểm → xem chi tiết điểm ngay trong popup
+- Hiển thị popup-ket-qua-tom-tat với đủ thông tin như màn Kết quả kiểm tra (FC-018): thông tin lượt, tóm tắt, lọc mức độ, căn cứ đã dùng, toàn bộ thẻ điểm vi phạm với căn cứ, giải thích, đề xuất
+- Người dùng đánh giá từng điểm (FC-019), bôi đen đoạn để hỏi sâu (FC-022), nhấn căn cứ để xem điều khoản trong popup-noi-dung-van-ban, hoặc nhấn "Xuất báo cáo" để mở popup-xuat-bao-cao (FC-020); có cảnh báo căn cứ thay đổi thì cho "Gửi lại kiểm tra"
 
 Bước 4: Người dùng nhấn "Hỏi đáp", hệ thống thực hiện:
 - Mở popup-hoi-dap với ngữ cảnh lượt kiểm tra (FC-022); mọi thao tác ở lại trong popup
@@ -2095,7 +2119,9 @@ Ngoại lệ phát sinh theo điều kiện, không gắn một bước riêng: 
 - BR-03: Đang thao tác trong popup → kết quả, hỏi đáp mở trích dẫn đều ở lại popup. Chỉ khi người dùng chủ động nhấn "Mở trang riêng" mới chuyển sang hệ thống (cửa sổ khác) và từ đó ở lại hệ thống
 
 **Chức năng dùng chung**
-- BR-04: Quy tắc về kho đối chiếu, hạn mức, rà soát nhạy cảm, chi phí → như FC-012 đến FC-014, trừ hai điểm riêng của popup: nguồn đối chiếu là toàn bộ văn bản đủ điều kiện của các kho đã chọn (không bỏ tích từng văn bản, không "+ Thêm nguồn"), và thời điểm quét nhạy cảm là sau khi bấm "Gửi kiểm tra". Popup không cho các thao tác quản trị (đổi phạm vi, cấu hình...)
+- BR-04: Quy tắc về kho đối chiếu, hạn mức, rà soát nhạy cảm, chi phí → như FC-012 đến FC-014, trừ hai điểm riêng của popup: nguồn đối chiếu là toàn bộ văn bản đủ điều kiện của các kho đã chọn (không bỏ tích từng văn bản, không "+ Thêm nguồn"), và thời điểm quét nhạy cảm là sau khi bấm "Gửi kiểm tra". Popup không cho các thao tác quản trị (đổi phạm vi, cấu hình...) và không có danh sách Lịch sử kiểm tra, Xóa lượt
+- BR-05: Mỗi màn popup có đủ thông tin như màn web tương ứng (Gửi dự thảo, Đang xử lý, Kết quả kiểm tra, Hỏi đáp, Nội dung văn bản, Xuất báo cáo) và cùng ràng buộc, mã lỗi; chỉ khác cách bố trí một cột, cuộn dọc, và hai điểm nêu ở BR-04. Kết quả không còn giới hạn "5 điểm tiêu biểu"
+- BR-06: Quyền đánh giá, xuất báo cáo, bôi đen hỏi sâu trong popup như trên web: chỉ người gửi lượt, kết quả còn lưu giữ (FC-018 đến FC-020, FC-022)
 
 ###### Thông báo và thông tin lưu vết log
 
@@ -2356,10 +2382,15 @@ Quản trị hệ thống cấu hình nhà cung cấp AI, đơn giá, hạn mứ
 | Bảng nhà cung cấp | Table | - | Cột: Tên, Loại (Trong nước / Nước ngoài), Model, Rà soát nhạy cảm (Bật / Tắt), Trạng thái (Đang dùng / Ngừng sử dụng), Số đơn vị đang dùng làm mặc định. Danh sách trống → hiện nút "Thêm" | Data list |
 | **Màn Thêm hoặc sửa nhà cung cấp AI (nha-cung-cap-form)** | | | | |
 | Tên nhà cung cấp | Textbox | 100 | Bắt buộc. Không trùng | String |
-| Loại | Radio | - | Trong nước / Nước ngoài. Bắt buộc. Không đổi được nếu đã có lượt dùng | Data list |
-| Địa chỉ dịch vụ | Textbox | 500 | Bắt buộc. Bắt đầu bằng https:// | String |
-| Model | Textbox | 100 | Bắt buộc | String |
+| Hãng AI | Combobox | - | Bắt buộc. Chọn một trong: OpenAI, Anthropic, Gemini, DeepSeek, Groq, "Khác (tương thích OpenAI)". Không đổi được nếu đã có lượt dùng. Chọn hãng → tự điền sẵn Địa chỉ dịch vụ, Loại và Model gợi ý (BR-05); người dùng sửa lại được | Data list |
+| Loại | Radio | - | Trong nước / Nước ngoài. Bắt buộc. Mặc định "Nước ngoài" với 5 hãng trên `[GIẢ ĐỊNH]`; hãng "Khác" không có mặc định. Không đổi được nếu đã có lượt dùng | Data list |
+| Địa chỉ dịch vụ | Textbox | 500 | Bắt buộc. Bắt đầu bằng https://. Tự điền theo Hãng AI, sửa được (dùng cho máy chủ trung gian hoặc máy chủ riêng) | String |
+| Model | Textbox | 100 | Bắt buộc. Gợi ý tên model theo Hãng AI, nhập tay được | String |
 | Khóa kết nối | Password | 500 | Bắt buộc khi thêm. Khi sửa để trống = giữ nguyên. Lưu mã hóa, không hiển thị lại | String |
+| Nhiệt độ (mức sáng tạo) | Textbox số | - | 0 đến 1, tối đa 2 chữ số thập phân. Mặc định 0 `[GIẢ ĐỊNH]` (ưu tiên kết quả ổn định cho kiểm tra pháp lý). Để trống = dùng mặc định của hệ thống | Number |
+| Số token đầu ra tối đa | Textbox số | - | Số nguyên > 0. Bắt buộc. Không vượt giới hạn của model | Number |
+| Giới hạn token đầu vào | Textbox số | - | Số nguyên > 0. Bắt buộc. Dùng để tự chia nhỏ văn bản dài và danh sách quy định trước khi gửi (BR-06) | Number |
+| Thời gian chờ mỗi lần gọi (giây) | Textbox số | - | Số nguyên 10 đến 600. Mặc định 90 (BR-04) | Number |
 | Rà soát dữ liệu nhạy cảm | Radio | - | Bật / Tắt. Mặc định "Bật". Chọn "Tắt" cho loại "Nước ngoài" → hiện hộp cảnh báo (FC-028) | Data list |
 | Nút Kiểm tra kết nối | Button | - | Gọi thử 1 lần tối thiểu, hết giờ 15 giây, không thử lại. Hiển thị kết quả thành công hoặc nguyên nhân thất bại | - |
 | Trạng thái | Combobox | - | Đang dùng / Ngừng sử dụng. Mặc định "Đang dùng" | Data list |
@@ -2439,7 +2470,7 @@ Ngoại lệ phát sinh theo điều kiện, không gắn một bước riêng: 
 | Mã | Tình huống | Xử lý |
 |----|-----------|-------|
 | EX-01 | Kiểm tra kết nối thất bại (sai khóa, hết giờ, không truy cập được) | Hiển thị `E-kiem-tra-phap-ly-076`: "Kết nối thất bại: <nguyên nhân rút gọn>. Kiểm tra lại địa chỉ, khóa kết nối rồi thử lại." Cho thử lại hoặc sửa. Không hiển thị khóa trong thông báo |
-| EX-02 | Thiếu trường bắt buộc, địa chỉ không phải https, tên trùng | Hiển thị `E-kiem-tra-phap-ly-077` tại ô: "Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp." |
+| EX-02 | Thiếu trường bắt buộc, địa chỉ không phải https, tên trùng, nhiệt độ ngoài 0–1, token tối đa hoặc giới hạn đầu vào không hợp lệ, thời gian chờ ngoài 10–600 giây | Hiển thị `E-kiem-tra-phap-ly-077` tại ô: "Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp." |
 | EX-03 | Tắt rà soát nhạy cảm cho nhà cung cấp "Nước ngoài" | Hiển thị hộp cảnh báo `E-kiem-tra-phap-ly-078`: "Dữ liệu dự thảo sẽ được gửi ra nhà cung cấp nước ngoài mà không rà soát dữ liệu nhạy cảm. Thao tác này được ghi nhật ký. Bạn chắc chắn tắt?" Chỉ lưu khi xác nhận |
 | EX-04 | Xóa nhà cung cấp đã có lượt dùng hoặc đang là mặc định của đơn vị | Không xóa, hiển thị `E-kiem-tra-phap-ly-079`: "Nhà cung cấp đã được sử dụng, chỉ có thể chuyển sang Ngừng sử dụng." Nếu còn đơn vị dùng làm mặc định, yêu cầu đổi mặc định cho các đơn vị đó trước |
 | EX-05 | Người dùng không phải Quản trị hệ thống | Chuyển màn truy-cap-bi-tu-choi |
@@ -2448,11 +2479,16 @@ Ngoại lệ phát sinh theo điều kiện, không gắn một bước riêng: 
 
 **Cấu hình**
 - BR-01: Khóa kết nối → lưu mã hóa, không hiển thị lại, không ghi vào log hay thông báo. Khi sửa để trống → giữ khóa cũ
-- BR-02: Cờ "Rà soát nhạy cảm" mặc định "Bật" cho mọi nhà cung cấp; nhà cung cấp "Trong nước" được tắt không cần cảnh báo; nhà cung cấp "Nước ngoài" tắt phải qua hộp cảnh báo và ghi nhật ký `[CẦN XÁC NHẬN chính sách có cho tắt với nhà cung cấp nước ngoài hay không]`
+- BR-02: Cờ "Rà soát nhạy cảm" mặc định "Bật" cho mọi nhà cung cấp; nhà cung cấp "Trong nước" được tắt không cần cảnh báo; nhà cung cấp "Nước ngoài" tắt phải qua hộp cảnh báo và ghi nhật ký `[CẦN XÁC NHẬN chính sách có cho tắt với nhà cung cấp nước ngoài hay không]`. Cả 5 hãng đã hỗ trợ sẵn đều là dịch vụ nước ngoài nên mặc định bật rà soát; riêng DeepSeek và Groq cần khách hàng xác nhận chấp nhận chính sách lưu dữ liệu và nơi đặt máy chủ trước khi dùng `[CẦN XÁC NHẬN]`
 - BR-03: Nhà cung cấp "Ngừng sử dụng" → không chọn được làm mặc định mới, không tiếp nhận lượt mới; các lượt đã chạy giữ nguyên
 
 **Gọi nhà cung cấp**
-- BR-04: Mỗi lần gọi hết giờ sau 90 giây. Thử lại tối đa 3 lần (chờ 2, 4, 8 giây) khi gặp lỗi 429, 5xx hoặc mất kết nối; không thử lại với 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]`
+- BR-04: Mỗi lần gọi hết giờ sau thời gian chờ đã cấu hình cho nhà cung cấp (mặc định 90 giây). Thử lại tối đa 3 lần (chờ 2, 4, 8 giây) khi gặp lỗi 429, 5xx hoặc mất kết nối; không thử lại với 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]`
+- BR-05: Hệ thống hỗ trợ sẵn 5 hãng AI: OpenAI, Anthropic, Gemini, DeepSeek, Groq, và loại "Khác (tương thích OpenAI)" cho dịch vụ nội bộ hoặc trong nước. Người dùng và các chức năng kiểm tra pháp lý không phải quan tâm khác biệt giữa các hãng: cùng một yêu cầu, cùng một dạng kết quả. Hãng AI chỉ quyết định giá trị điền sẵn của biểu mẫu
+- BR-06: Văn bản dự thảo hoặc danh sách quy định vượt "Giới hạn token đầu vào" → hệ thống tự chia thành nhiều phần gửi lần lượt rồi gộp kết quả; mọi phần cộng dồn vào cùng một lượt kiểm tra và một khoản chi phí. Không chia được (một phần đơn lẻ vẫn vượt giới hạn) → lượt chuyển trạng thái lỗi `[CẦN XÁC NHẬN mã lỗi hiển thị cho người dùng]`
+- BR-07: Kết quả AI trả về phải đúng cấu trúc hệ thống yêu cầu (nhóm lĩnh vực, điều luật, mức đỏ/vàng/xanh, trích dẫn, lý do). Sai cấu trúc → thử lại tối đa 2 lần; vẫn sai → lượt lỗi, không hiển thị kết quả sai, không tính chi phí các lần sai `[GIẢ ĐỊNH]`
+- BR-08: Số token vào/ra của mỗi lần gọi lấy từ số liệu nhà cung cấp trả về để tính chi phí (FC-030). Nhà cung cấp không trả số liệu này → chi phí lượt để trống, không coi bằng 0 (thống nhất với mapping Response ở FC-012 và BR-02 của FC-030)
+- BR-09: Sửa tham số (nhiệt độ, token tối đa, thời gian chờ) hoặc đổi model → chỉ áp dụng cho lượt gửi sau; lượt đang chạy giữ cấu hình lúc bắt đầu (như cấu hình địa chỉ dịch vụ ở Edge cases)
 
 ###### Thông báo và thông tin lưu vết log
 
@@ -3414,7 +3450,7 @@ Hệ thống được nghiệm thu khi thỏa các điều kiện sau:
 | Giá trị danh mục: mã, tên, mô tả, thứ tự, trạng thái | FC-025 | String / Number | Danh mục dùng chung |
 | Quy tắc gợi ý lĩnh vực: điều kiện, lĩnh vực đích, điểm | FC-026 | String / Data list | Gợi ý lĩnh vực |
 | Quy tắc nhạy cảm: tên loại, phạm vi, cách nhận dạng, cách xử lý | FC-027 | String / Data list | Nhận dạng dữ liệu nhạy cảm |
-| Nhà cung cấp AI: tên, loại, địa chỉ, model, khóa (mã hóa), cờ rà soát | FC-028 | String / Data list | Cấu hình nhà cung cấp |
+| Nhà cung cấp AI: tên, hãng AI, loại, địa chỉ, model, khóa (mã hóa), cờ rà soát, nhiệt độ, token đầu ra tối đa, giới hạn token đầu vào, thời gian chờ | FC-028 | String / Data list / Number | Cấu hình nhà cung cấp |
 | Nhà cung cấp mặc định của đơn vị | FC-029 | Data list | Chọn nhà cung cấp theo đơn vị |
 | Đơn giá token vào/ra, ngày hiệu lực | FC-030 | Number / Date | Tính chi phí |
 | Ngân sách tháng, số lượt tối đa, cách xử lý khi vượt | FC-031 | Number / Data list | Hạn mức |
@@ -3486,4 +3522,5 @@ Số UC theo tệp `DanhSach_UC_KiemTraPhapLy_v3.xlsx` (v3 cập nhật lời gi
 | 1.1 | 2026-10-17 | Bố cục hai cột tràn khung 1440: gộp Gửi dự thảo, Tóm lược, Xử lý nhạy cảm thành một màn (FC-012, FC-013); nguồn đối chiếu chọn theo tab kho và từng văn bản (FC-012 BR-08); quét nhạy cảm tự động ngay sau tải tệp (BR-09); Xem trước bản gửi thành ngăn tùy chọn; thêm nguồn từ tệp hoặc liên kết công khai, phạm vi theo vai trò (FC-005 BR-10, BR-11); Kiểm tra lỗi gộp vào Đang xử lý, Hủy yêu cầu thành hộp thoại (FC-015, FC-016); gộp Kết quả tổng quan, Danh sách, Chi tiết, Đánh giá thành màn Kết quả kiểm tra (FC-018, FC-019); Xuất báo cáo, Xóa lượt thành hộp thoại, Hỏi đáp thành ngăn bên phải (FC-020 đến FC-022); thẻ thống kê ở danh sách lượt (FC-017). Chờ duyệt lại; đã phê duyệt có điều kiện ngày 2026-10-17 |
 | 1.1 (hoàn tất) | 2026-10-17 | Sửa theo review vòng 3: màn Đang xử lý hiển thị văn bản đã được tham chiếu (số đoạn, số điểm); dữ liệu danh sách nguồn của lượt; đồng bộ popup; thêm EX-03 FC-019 (E-102), BR-11 FC-012 (tệp tạm mã hóa), công thức thẻ thống kê FC-017; chèn link wireframe và Figma; cập nhật UC v3 |
 | 1.1 (bổ sung) | 2026-10-17 | Bôi đen đoạn kết quả để hỏi sâu (FC-022 Bước 1b, EX-07, BR-09 đến BR-13, E-103; Module 5 UI) |
+| 1.1 (popup) | 2026-10-18 | Đồng bộ popup iOffice với màn web: kết quả đầy đủ thay cho tóm tắt 5 điểm, thêm tên lượt, tóm lược, ngày xét, văn bản tham chiếu; thêm 3 màn xem trước bản gửi, xuất báo cáo, nội dung văn bản; bôi đen hỏi sâu trong popup (FC-024 BR-05, BR-06; FC-022 BR-13; Module 6) |
 | 1.1 (liên kết) | 2026-10-17 | Gắn link wireframe và Figma vào Yêu cầu giao diện mọi module (2, 3, 5, 6 trước; 1, 7, 8, 9, 10 sau), thay `[CẦN BỔ SUNG ẢNH]` |

@@ -1,11 +1,11 @@
 ---
 type: srs-userflow
 feature: kiem-tra-phap-ly
-updated: 2026-10-17
+updated: 2026-10-18
 primary_device: desktop          # desktop (khung 1440, tràn khung) cho hệ thống web; flow 6 (popup iOffice) là khung nhỏ ~480px, vẽ riêng
 stage: flow-approved
 flow_approved_at: 2026-10-17
-flow_hash: "e98bdb39"
+flow_hash: "bc3b6ef5"
 ---
 
 # Kiểm tra pháp lý văn bản dự thảo — User Flow
@@ -290,6 +290,9 @@ flowchart TD
     f5["[6.5] popup-hoi-dap"]
     f7["[6.7] popup-mo-trang-rieng<br/>người dùng chủ động bấm"]
     f12["[5.2] ket-qua-kiem-tra<br/>(hệ thống, không quay lại popup)"]
+    f13["[6.9] popup-xem-truoc-ban-gui"]
+    f14["[6.10] popup-xuat-bao-cao"]
+    f15["[6.11] popup-noi-dung-van-ban"]
     f0 -->|"xác thực qua tài khoản iOffice"| f9
     f9 -->|"hợp lệ"| f1
     f9 -->|"hết hạn"| f6
@@ -312,11 +315,23 @@ flowchart TD
     f5 -->|"mở sang hệ thống"| f7
     f7 -->|"chuyển sang hệ thống"| f12
     f4 -->|"đóng"| f10
+    f2 -->|"xem bản sẽ gửi"| f13
+    f13 -->|"đóng"| f2
+    f4 -->|"xuất báo cáo"| f14
+    f14 -->|"tải về hoặc hủy"| f4
+    f14 -.->|"xuất lỗi, thử lại"| f14
+    f4 -->|"bấm căn cứ"| f15
+    f5 -->|"chọn trích dẫn"| f15
+    f15 -->|"quay lại kết quả"| f4
+    f15 -->|"quay lại hỏi đáp"| f5
+    f15 -->|"mở trang riêng"| f7
+    f4 -->|"bôi đen, hỏi về đoạn này"| f5
+    f4 -->|"gửi lại kiểm tra (có cảnh báo căn cứ)"| f1
 
     classDef happy fill:#d4edda,stroke:#28a745
     classDef error fill:#f8d7da,stroke:#dc3545
     classDef edge fill:#fff3cd,stroke:#ffc107
-    class f1,f2,f3,f4,f5,f7,f12 happy
+    class f1,f2,f3,f4,f5,f7,f12,f13,f14,f15 happy
     class f6,f8 error
     class f0,f10 edge
 ```
@@ -552,14 +567,17 @@ flowchart TD
 | 5.3 | xuat-bao-cao | Xuất báo cáo | Hộp thoại chọn Word hoặc PDF và tải về | ket-qua-kiem-tra-flow |
 | 5.4 | xoa-luot-kiem-tra | Xóa lượt kiểm tra | Hộp thoại cảnh báo không khôi phục, xác nhận xóa | ket-qua-kiem-tra-flow |
 | 5.5 | hoi-dap-web | Hỏi đáp trong trang kết quả | Ngăn bên phải: hỏi AI về kết quả, lĩnh vực hoặc văn bản trong kho, có thể đính kèm thêm tệp lúc hỏi, có trích dẫn; mở được kèm đoạn bôi đen từ màn kết quả | ket-qua-kiem-tra-flow |
-| 6.1 | popup-chon-tep | Popup: chọn tệp | Chọn tệp đính kèm iOffice để kiểm tra | popup-ioffice-flow |
-| 6.2 | popup-xu-ly-nhay-cam | Popup: xử lý nhạy cảm | Xử lý dữ liệu nhạy cảm trong khung nhỏ | popup-ioffice-flow |
-| 6.3 | popup-dang-xu-ly | Popup: đang xử lý | Theo dõi tiến độ trong popup | popup-ioffice-flow |
-| 6.4 | popup-ket-qua-tom-tat | Popup: kết quả tóm tắt | Tóm tắt kết quả, số điểm theo mức | popup-ioffice-flow |
-| 6.5 | popup-hoi-dap | Popup: hỏi đáp | Hỏi đáp ngay trong popup, có thể đính kèm thêm tệp lúc hỏi, có trích dẫn | popup-ioffice-flow |
+| 6.1 | popup-chon-tep | Popup: chọn tệp | Chọn tệp đính kèm iOffice; tên lượt, tóm lược, lĩnh vực, ngày xét hiệu lực, kho đối chiếu kèm số văn bản nguồn, cảnh báo hạn mức | popup-ioffice-flow |
+| 6.2 | popup-xu-ly-nhay-cam | Popup: xử lý nhạy cảm | Xử lý dữ liệu nhạy cảm trong khung nhỏ, nêu nhà cung cấp nhận dữ liệu, cho xem bản sẽ gửi | popup-ioffice-flow |
+| 6.3 | popup-dang-xu-ly | Popup: đang xử lý | Tiến độ, văn bản đã được tham chiếu (số đoạn, số điểm), điểm vi phạm phát hiện dần, đoạn đang đối chiếu | popup-ioffice-flow |
+| 6.4 | popup-ket-qua-tom-tat | Popup: kết quả kiểm tra (đầy đủ) | Đủ như màn kết quả web: thông tin lượt, tóm tắt, lọc mức độ, căn cứ đã dùng, thẻ điểm vi phạm, đánh giá, bôi đen hỏi sâu, xuất báo cáo, hỏi đáp | popup-ioffice-flow |
+| 6.5 | popup-hoi-dap | Popup: hỏi đáp | Đủ như hỏi đáp web: chọn ngữ cảnh, xóa hội thoại, đính kèm tệp, trích dẫn mở trong popup, hỏi theo đoạn bôi đen | popup-ioffice-flow |
 | 6.6 | popup-phien-het-han | Popup: phiên hết hạn | Báo phiên iOffice hết hạn, hướng dẫn đăng nhập lại | popup-ioffice-flow |
 | 6.7 | popup-mo-trang-rieng | Popup: mở trang riêng | Người dùng chủ động chuyển sang hệ thống kiểm tra pháp lý | popup-ioffice-flow |
 | 6.8 | popup-loi-ket-noi | Popup: lỗi kết nối | Báo mất kết nối hoặc lỗi xử lý, cho thử lại | popup-ioffice-flow |
+| 6.9 | popup-xem-truoc-ban-gui | Popup: xem trước bản gửi | Xem nội dung đã che ẩn sẽ gửi ra AI, duyệt từng mục nhạy cảm | popup-ioffice-flow |
+| 6.10 | popup-xuat-bao-cao | Popup: xuất báo cáo | Chọn Word hoặc PDF, mức độ, kèm đề xuất rồi tải về | popup-ioffice-flow |
+| 6.11 | popup-noi-dung-van-ban | Popup: nội dung văn bản | Xem điều khoản được trích dẫn ngay trong popup | popup-ioffice-flow |
 | 7.1 | danh-muc-danh-sach | Danh mục | Xem danh sách lĩnh vực, loại văn bản, cơ quan, quy tắc gợi ý | danh-muc-flow |
 | 7.2 | danh-muc-them-sua | Thêm hoặc sửa giá trị danh mục | Nhập giá trị, kiểm tra trùng | danh-muc-flow |
 | 7.3 | danh-muc-xoa-xac-nhan | Xác nhận xóa | Xác nhận xóa (dùng chung cho danh mục và quy tắc nhạy cảm) | danh-muc-flow |
@@ -599,7 +617,7 @@ flowchart TD
 | kho-van-ban-flow | Quản lý kho văn bản | danh-sach-van-ban, chi-tiet-van-ban, noi-dung-van-ban, sua-thong-tin-van-ban, doi-pham-vi-van-ban, huy-van-ban | happy (xem, sửa, hủy), error (dữ liệu chưa hợp lệ), edge (văn bản đã hủy, hết hiệu lực, cần rà soát, danh sách rỗng, người dùng thường đổi phạm vi) |
 | kiem-tra-phap-ly-flow | Gửi dự thảo kiểm tra pháp lý | gui-du-thao, them-nguon, xem-truoc-ban-gui, dang-xu-ly, huy-yeu-cau | happy (gửi, theo dõi), error (tệp lỗi, AI lỗi, nguồn nạp không hợp lệ), edge (kho thiếu văn bản, vượt hạn mức vẫn gửi, bỏ qua khối nhạy cảm, thêm nguồn, trùng số hiệu, hủy, rời màn hình) |
 | ket-qua-kiem-tra-flow | Xem và xử lý kết quả kiểm tra | danh-sach-luot-kiem-tra, ket-qua-kiem-tra, xuat-bao-cao, xoa-luot-kiem-tra, hoi-dap-web | happy (xem kết quả, đánh giá, xuất, hỏi đáp), error (xuất lỗi), edge (không có vi phạm, căn cứ hết hiệu lực, danh sách rỗng, xóa lượt) |
-| popup-ioffice-flow | Popup nhúng trong iOffice (khung nhỏ) | popup-chon-tep, popup-xu-ly-nhay-cam, popup-dang-xu-ly, popup-ket-qua-tom-tat, popup-hoi-dap, popup-phien-het-han, popup-mo-trang-rieng, popup-loi-ket-noi | happy (chọn tệp, kết quả, hỏi đáp), error (mất kết nối), edge (phiên hết hạn, tệp không hỗ trợ, mở trang riêng) |
+| popup-ioffice-flow | Popup nhúng trong iOffice (khung nhỏ) | popup-chon-tep, popup-xu-ly-nhay-cam, popup-dang-xu-ly, popup-ket-qua-tom-tat, popup-hoi-dap, popup-phien-het-han, popup-mo-trang-rieng, popup-loi-ket-noi, popup-xem-truoc-ban-gui, popup-xuat-bao-cao, popup-noi-dung-van-ban | happy (chọn tệp, kết quả, hỏi đáp), error (mất kết nối), edge (phiên hết hạn, tệp không hỗ trợ, mở trang riêng) |
 | danh-muc-flow | Danh mục và quy tắc dữ liệu nhạy cảm | danh-muc-danh-sach, danh-muc-them-sua, danh-muc-xoa-xac-nhan, quy-tac-nhay-cam-danh-sach, quy-tac-nhay-cam-form, thu-quy-tac | happy (thêm, sửa, xóa danh mục, quy tắc nhạy cảm), error (trùng, không hợp lệ), edge (xóa giá trị đang dùng, quy tắc mặc định hệ thống) |
 | cau-hinh-ai-chi-phi-flow | Cấu hình AI, đơn giá, hạn mức | nha-cung-cap-danh-sach, nha-cung-cap-form, chon-ncc-mac-dinh-don-vi, thiet-lap-don-gia, thiet-lap-han-muc, cau-hinh-luu-giu, canh-bao-tat-ra-soat, nha-cung-cap-xoa-xac-nhan | happy (cấu hình nhà cung cấp, đơn giá, hạn mức, lưu giữ), error (kết nối thất bại), edge (tắt rà soát nhà cung cấp nước ngoài, xóa nhà cung cấp đã dùng) |
 | bao-cao-flow | Báo cáo và nhật ký | bao-cao-chi-phi-don-vi, bao-cao-chi-tiet-don-vi, bao-cao-chi-phi-tai-khoan, nhat-ky-gui-ai, chi-tiet-luot-gui, lich-su-doi-cau-hinh | happy (báo cáo, nhật ký, chi tiết), error (không áp dụng), edge (không có dữ liệu trong kỳ, đổi đơn vị thao tác) |
@@ -729,12 +747,24 @@ Truy cập chức năng ngoài quyền: hiển thị truy-cap-bi-tu-choi [1.10].
 | popup-chon-tep [6.1] | popup-chon-tep [6.1] | tệp không hỗ trợ | — |
 | popup-xu-ly-nhay-cam [6.2] | popup-dang-xu-ly [6.3] | xác nhận | — |
 | popup-xu-ly-nhay-cam [6.2] | popup-chon-tep [6.1] | quay lại | — |
+| popup-xu-ly-nhay-cam [6.2] | popup-xem-truoc-ban-gui [6.9] | xem bản sẽ gửi | — |
+| popup-xem-truoc-ban-gui [6.9] | popup-xu-ly-nhay-cam [6.2] | đóng | — |
 | popup-dang-xu-ly [6.3] | popup-ket-qua-tom-tat [6.4] | hoàn tất | — |
 | popup-dang-xu-ly [6.3] | popup-loi-ket-noi [6.8] | mất kết nối hoặc lỗi xử lý | — |
 | popup-loi-ket-noi [6.8] | popup-dang-xu-ly [6.3] | thử lại | — |
 | popup-ket-qua-tom-tat [6.4] | popup-hoi-dap [6.5] | hỏi đáp | — |
+| popup-ket-qua-tom-tat [6.4] | popup-hoi-dap [6.5] | bôi đen, hỏi về đoạn này | Đoạn từ 5 đến 2000 ký tự; ngữ cảnh Lượt kiểm tra kèm trích dẫn đoạn |
+| popup-ket-qua-tom-tat [6.4] | popup-xuat-bao-cao [6.10] | xuất báo cáo | Người gửi, kết quả còn lưu giữ |
+| popup-xuat-bao-cao [6.10] | popup-ket-qua-tom-tat [6.4] | tải về hoặc hủy | — |
+| popup-xuat-bao-cao [6.10] | popup-xuat-bao-cao [6.10] | chưa chọn mức độ hoặc xuất lỗi | — |
+| popup-ket-qua-tom-tat [6.4] | popup-noi-dung-van-ban [6.11] | bấm căn cứ | — |
+| popup-ket-qua-tom-tat [6.4] | popup-chon-tep [6.1] | gửi lại kiểm tra | Có cảnh báo căn cứ đã thay đổi |
 | popup-ket-qua-tom-tat [6.4] | popup-mo-trang-rieng [6.7] | mở trang riêng | — |
 | popup-hoi-dap [6.5] | popup-ket-qua-tom-tat [6.4] | quay lại kết quả | — |
+| popup-hoi-dap [6.5] | popup-noi-dung-van-ban [6.11] | chọn trích dẫn | — |
+| popup-noi-dung-van-ban [6.11] | popup-ket-qua-tom-tat [6.4] | quay lại | Mở từ kết quả |
+| popup-noi-dung-van-ban [6.11] | popup-hoi-dap [6.5] | quay lại | Mở từ hỏi đáp |
+| popup-noi-dung-van-ban [6.11] | popup-mo-trang-rieng [6.7] | mở trang riêng | — |
 | popup-hoi-dap [6.5] | popup-phien-het-han [6.6] | phiên hết hạn | — |
 | popup-hoi-dap [6.5] | popup-hoi-dap [6.5] | mất kết nối, thử lại | — |
 | popup-hoi-dap [6.5] | popup-mo-trang-rieng [6.7] | mở sang hệ thống | — |
@@ -860,4 +890,5 @@ Tất cả OQ-1 đến OQ-10 đã được chốt ngày 2026-10-16; QĐ-19 đế
 - QĐ-23: "Thêm nguồn" từ màn gửi là một hộp thoại duy nhất: chọn tệp hoặc dán liên kết ở trên, thông tin bóc tách hiện ngay bên dưới để kiểm tra và chỉnh (như nạp văn bản ở flow 2) rồi Lưu vào kho, không tách bước; mỗi lần một tệp. Phạm vi sử dụng theo vai trò như nạp văn bản ở flow 2: Người dùng chỉ Cá nhân; Quản trị đơn vị thêm Đơn vị hoặc Một số đơn vị (trong đơn vị phụ trách) và chọn đơn vị; Quản trị hệ thống thêm Toàn hệ thống (dùng chung). Mặc định Cá nhân.
 - QĐ-24: Liên kết thêm nguồn chỉ nhận trang văn bản công khai. Danh sách nguồn được phép vẫn là điểm mở của nạp văn bản (flow 2).
 - QĐ-25: Văn bản vừa thêm có trạng thái Đang chuẩn bị, chưa dùng được trong lượt kiểm tra cho tới khi tách xong Điều, Khoản.
-- QĐ-26: Trên màn kết quả, người dùng bôi đen một đoạn chữ trong thẻ điểm vi phạm rồi chọn "Hỏi về đoạn này" (như cơ chế chọn đoạn rồi trả lời): mở ngăn hỏi đáp ngữ cảnh Lượt kiểm tra, đoạn hiện thành thẻ trích dẫn và chip "Đang hỏi về"; mỗi câu hỏi gắn tối đa một đoạn, 5 đến 2000 ký tự. Chỉ trên web; popup iOffice chưa hỗ trợ `[CẦN XÁC NHẬN]`. Không thêm màn mới, flow tổng (Mục 1) không đổi.
+- QĐ-26: Trên màn kết quả, người dùng bôi đen một đoạn chữ trong thẻ điểm vi phạm rồi chọn "Hỏi về đoạn này" (như cơ chế chọn đoạn rồi trả lời): mở ngăn hỏi đáp ngữ cảnh Lượt kiểm tra, đoạn hiện thành thẻ trích dẫn và chip "Đang hỏi về"; mỗi câu hỏi gắn tối đa một đoạn, 5 đến 2000 ký tự. Hỗ trợ cả trên web và popup iOffice `[GIẢ ĐỊNH]`. Không thêm màn mới, flow tổng (Mục 1) không đổi.
+- QĐ-27: Popup iOffice có đủ thông tin như màn web tương ứng (kết quả đầy đủ thay cho tóm tắt 5 điểm, đánh giá, xuất báo cáo, hỏi đáp kèm bôi đen hỏi sâu), xếp một cột và cuộn dọc; thêm 3 màn xem trước bản gửi, xuất báo cáo, nội dung văn bản. Chỉ giữ hai khác biệt: nguồn đối chiếu là toàn bộ văn bản đủ điều kiện của các kho đã chọn, và quét nhạy cảm sau khi bấm Gửi kiểm tra.
