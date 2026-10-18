@@ -6,6 +6,8 @@
 >
 > **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket" ở sidebar nội bộ có huy hiệu ĐỎ số ticket chưa đóng — vẽ "(12)" ở mọi wireframe header nội bộ. Đếm theo phạm vi MẶC ĐỊNH của Bảng tiếp nhận (Triển khai của Line: tầng Triển khai Line; Agent helpdesk/Triển khai: trong phạm vi phụ trách; Agent tỉnh: phạm vi được xem; Quản trị viên: tất cả) `[GIẢ ĐỊNH — không phải chỉ ticket gán cho riêng tôi]`. Số chỉ mang tính minh họa.
 >
+> **Cập nhật 03/10/2026 (nhãn trạng thái theo vai trò — yêu cầu trực tiếp của người dùng, Figma đã duyệt):** khách hàng và nhân viên thấy NHÃN trạng thái khác nhau cho cùng 1 trạng thái lưu, để mỗi bên đọc ra việc mình phải làm. Khách hàng: Mới = "Đã chuyển hỗ trợ", Đang xử lý = "Hỗ trợ đang xử lý", Chờ khách hàng = "Cần bạn phản hồi" (cam, nổi bật), Đã đóng. Nhân viên: Mới = "Cần xử lý" (gồm ticket mới gửi và ticket khách vừa chuyển lại), Đang xử lý, Chờ khách hàng = "Chờ khách hàng phản hồi", Đã đóng. Khách chuyển lại thì ticket về "Mới". Tiếp nhận KHÔNG bắt buộc. Các chỗ còn viết "Mới / Đang xử lý / Chờ khách hàng" là tên trạng thái lưu.
+>
 > **Cập nhật 01/10/2026 (luồng chuyền lượt):** màn Xử lý ticket **bỏ dropdown Trạng thái**; thay bằng thanh tiến trình [15] + khối "lượt" [16] + nút (đặt trên thanh trên cùng, dính khi cuộn, cùng hàng "Chuyển OneBSS") "Tiếp nhận" [17] / "Chuyển cho khách hàng" [18] / "Đóng ticket" [19]; gửi phản hồi không đổi trạng thái, khách hàng chỉ được báo khi bấm [18]; bỏ trạng thái "Chờ khách hàng xác nhận". Xem `xu-ly-ticket-agent/SRS.md` v1.2.
 >
 > **Cập nhật 23/09/2026 (khách hàng xác nhận, qua phiên chốt SRS):** ticket "Đã đóng" KHÔNG mở lại được trong mọi trường hợp — cả khách hàng và agent (đồng bộ với `gui-theo-doi-ticket.md`); bấm dòng ở Cảnh báo SLA mở thẳng màn Xử lý ticket; job cảnh báo SLA chỉ tính ticket còn đang mở tại thời điểm quét.
@@ -34,9 +36,9 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Mã      Khách hàng   Vấn đề            Ưu tiên   Trạng thái   SLA [5]│
 │ -------------------------------------------------------------------- │
-│ #T-0123 UBND Q.1     Không ký số được  Khẩn cấp  Mới          Quá hạn│
+│ #T-0123 UBND Q.1     Không ký số được  Khẩn cấp  Cần xử lý    Quá hạn│
 │ #T-0121 Sở Nội vụ    Lỗi tải tệp (AI)  Bình thư  Đang xử lý   Còn 6h │
-│ #T-0118 UBND P.3     Phân quyền        Cao       Chờ KH       Sắp hết│
+│ #T-0118 UBND P.3     Phân quyền        Cao       Chờ KH p.hồi Sắp hết│
 │                                                                      │
 │ [6] Trang 1/2                                                        │
 │                                                                      │
@@ -49,7 +51,7 @@
 |---|-------|--------------|-----------|-------------|
 | 1 | Tầng đang xem | Label / Dropdown | Select | • Agent tỉnh, Agent helpdesk: nhãn cố định tầng của mình (vd "Tỉnh Bình Định", "Helpdesk công ty"), không đổi.<br>• Triển khai của Line, Quản trị viên: dropdown "Tất cả tầng" / từng tầng; mặc định Triển khai của Line → tầng Triển khai của Line và Quản trị viên → Tất cả tầng. Xem "Tất cả tầng" thì bảng thêm cột **Tầng**.<br>• Tầng của ticket ghi cố định lúc tạo theo Địa bàn + Hình thức hỗ trợ của khách hàng (`quan-tri-nguoi-dung` Chức năng 1 BR-01); đổi định tuyến sau chỉ ảnh hưởng ticket mới. Hình vẽ ở góc nhìn Triển khai của Line. |
 | 2 | Cảnh báo SLA | Button (badge) | Click | • Hiện số ticket sắp/đã quá hạn SLA trong phạm vi xem của người dùng; bấm → `agent-canh-bao-sla`. Ẩn khi không có cảnh báo [GIẢ ĐỊNH]. |
-| 3 | Bộ lọc trạng thái / ưu tiên / dịch vụ | Dropdown | Select | • Trạng thái: Mới / Đang xử lý / Chờ khách hàng / Đã đóng. Ưu tiên: Khẩn cấp / Cao / Bình thường. Dịch vụ: iOffice/iStorage… Kết hợp được nhiều bộ lọc; đổi giá trị → lọc lại ngay. |
+| 3 | Bộ lọc trạng thái / ưu tiên / dịch vụ | Dropdown | Select | • Trạng thái (nhãn nhân viên, 03/10/2026): Cần xử lý / Đang xử lý / Chờ khách hàng phản hồi / Đã đóng. Chip lọc nhanh "Cần xử lý (N)" cạnh dải Tất cả/Của tôi/Chưa phân công; hàng đợi xếp "Cần xử lý" lên đầu. Ưu tiên: Khẩn cấp / Cao / Bình thường. Dịch vụ: iOffice/iStorage… Kết hợp được nhiều bộ lọc; đổi giá trị → lọc lại ngay. |
 | 4 | Lọc khách hàng + AI đã tự trả lời | Textbox + Checkbox | Text / Check | • Ô khách hàng: tìm theo tên đơn vị/site. Checkbox **"Chỉ ticket AI đã tự trả lời"** lọc các ticket AI đã gửi phản hồi tự động (UC36) để agent review/can thiệp — chỉ có ý nghĩa khi chế độ AI tự động phản hồi được bật (`cauhinh-tham-so-ai`). |
 | 5 | Bảng ticket | Table | Select | • Cột: Mã, Khách hàng, Vấn đề, Ưu tiên, Trạng thái, SLA (Còn …/Sắp hết/Quá hạn). Bấm 1 dòng → `agent-chi-tiet-ticket` (nhận xử lý). Đuôi "(AI)" = đã được AI tự trả lời.<br>• Sắp xếp mặc định: ưu tiên/hạn SLA gần nhất trước [GIẢ ĐỊNH].<br>• Ticket mới do định tuyến tự động; quá hạn SLA **chỉ cảnh báo, không tự động phân công lại** (MVP).<br>• Empty: "Không có ticket nào phù hợp". |
 | 6 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11). |
@@ -76,7 +78,7 @@
 │ Khách hàng: UBND Q.1 | Tầng: Tỉnh BĐ | iOffice | Loại: Lỗi ký số     │
 │ Người xử lý: Trần Thị B [3][Phân công]  OneBSS: chưa có  SLA [4]     │
 │ [5] Đã trả lời tự động bởi AI - cần review      [ Can thiệp ]        │
-│ [15] (Mới) -> [Đang xử lý] <=> (Chờ khách hàng) -> (Đã đóng)         │
+│ [15] (Cần xử lý)->[Đang xử lý]<=>(Chờ KH phản hồi)->(Đã đóng)        │
 │ [16] Lượt của đội hỗ trợ: gửi phản hồi rồi chuyển cho khách hàng.    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Trao đổi [6]                                                         │
@@ -97,7 +99,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Về hàng đợi | Link | Click | • Navigate → `agent-hang-doi`. |
-| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Một trong: Mới / Đang xử lý / Chờ khách hàng / Đã đóng. **Không còn dropdown** (v1.2) — trạng thái chỉ đổi qua nút [17][18][19] hoặc khi khách hàng bấm "Chuyển cho hỗ trợ" / "Đóng ticket".<br>• Hết thời gian cấu hình ở "Chờ khách hàng" mà không phản hồi → hệ thống tự đóng (UC35, OQ-1).<br>• Ticket "Đã đóng" (khách hàng đóng, nhân viên đóng hay tự động đóng) KHÔNG mở lại được trong mọi trường hợp (xem `gui-theo-doi-ticket.md`). |
+| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Nhãn nhân viên (03/10/2026): Cần xử lý / Đang xử lý / Chờ khách hàng phản hồi / Đã đóng. **Không còn dropdown** (v1.2) — trạng thái chỉ đổi qua nút [17][18][19] hoặc khi khách hàng chuyển lại. |
 | 3 | Phân công | Button | Click | • Click → `agent-phan-cong` (phân công lại). Chỉ người có quyền xử lý ticket thấy nút (Agent tỉnh/Agent helpdesk cùng tầng, Triển khai của Line, Quản trị viên). Người xử lý là agent đã nhận ticket; chưa có người → hiện nút "Nhận xử lý" thay cho tên [GIẢ ĐỊNH]; với ticket "Mới" dùng nút "Tiếp nhận" [17]. |
 | 4 | SLA còn lại | Label | ReadOnly | • Thời gian còn lại theo mức ưu tiên (khẩn cấp/cao/bình thường); đổi màu khi sắp/đã quá hạn. Ngưỡng cụ thể: OQ-2; màn cấu hình SLA: OQ-19. |
 | 5 | Nhãn phản hồi tự động của AI | Banner + Button | Click | • **Chỉ hiện khi** ticket đã được AI tự soạn & gửi phản hồi (UC36, chế độ tự động bật). Gắn nhãn "phản hồi tự động" để agent theo dõi và **can thiệp** nếu cần (Đề xuất — AI tự động phản hồi).<br>• [ Can thiệp ] → agent nhận ticket, soạn phản hồi bổ sung/thay thế (khách hàng vẫn thấy phản hồi AI trước đó — chưa có nguồn về việc thu hồi).<br>• Ticket khẩn cấp luôn cần agent duyệt trước khi AI gửi (cấu hình ở `cauhinh-tham-so-ai`) nên không có nhãn này. |
@@ -111,10 +113,10 @@
 | 13 | Gửi | Button | Click | • **Disabled** khi [9] rỗng; khóa khi submitting. Gửi phản hồi công khai → lưu lịch sử, **không đổi trạng thái và chưa báo khách hàng** (khách hàng chỉ được báo khi bấm [18]); phản hồi công khai đầu tiên trên ticket "Mới" vẫn ngầm tiếp nhận ("Mới" → "Đang xử lý") [GIẢ ĐỊNH]. Sau khi gửi về `agent-hang-doi` hoặc ở lại màn [GIẢ ĐỊNH — userflow: quay về hàng đợi]. |
 | 14 | Tạo FAQ từ ticket này | Button | Click | • **Đổi từ link sang nút viền xám cỡ nhỏ (01/10/2026), đặt thanh trên cùng cạnh [7]** cho đồng bộ họ nút. Chỉ hiện với ticket **đã có phản hồi công khai của đội hỗ trợ** (trạng thái Chờ khách hàng hoặc Đã đóng), dành cho Agent/Quản trị viên. Click → `kb-tu-ticket-thanh-faq` với ticket này đã chọn sẵn; bản nháp FAQ phải ẩn danh dữ liệu khách hàng và vẫn qua duyệt (OQ-21e). |
 | 20 | Hỏi AI nghiệp vụ | Text link | Click | • Text link xanh (01/10/2026, trước là nút) cạnh [11]; mở `noibo-hoi-dap-ai` kèm ticket đang xử lý (xem `noibo-hoi-dap-ai.md`). |
-| 15 | Thanh tiến trình | Stepper | ReadOnly | • 4 bước Mới → Đang xử lý ⇄ Chờ khách hàng → Đã đóng; bước hiện tại nổi bật, bước đã qua có ✓; mũi tên hai chiều giữa "Đang xử lý" và "Chờ khách hàng". |
-| 16 | Khối "lượt" | Banner | ReadOnly | • "Lượt của đội hỗ trợ" (Mới / Đang xử lý) kèm gợi ý bước tiếp theo; "Đang chờ khách hàng" (Chờ khách hàng) kèm số ngày làm việc tự đóng; hiện thời điểm + người chuyển lượt gần nhất; ẩn khi đã đóng. |
-| 17 | Tiếp nhận | Button | Click | • **Thanh trên cùng, dính khi cuộn**; nút viền + chữ xanh, cao 28px. Là nơi duy nhất để nhận ticket (không còn nút Nhận cạnh tên người xử lý hay trong dải cảnh báo). Chỉ hiện với ticket "Mới" chưa có người xử lý và người có quyền xử lý. Bấm → ghi người nhận, chuyển "Đang xử lý", ghi nhật ký "tiếp nhận ticket". |
-| 18 | Chuyển cho khách hàng | Button | Click | • **Thanh trên cùng, dính khi cuộn**; nút xanh đặc cỡ nhỏ kèm mũi tên (việc chính của lượt). Hiện khi ticket "Đang xử lý". **Disabled** (kèm tooltip) nếu từ lần chuyển lượt/tạo ticket gần nhất chưa có phản hồi công khai nào của đội hỗ trợ — vi phạm → E-XL-003 "Chưa có phản hồi để chuyển" `[GIẢ ĐỊNH — guard + wording chờ duyệt]`.<br>• Bấm → "Chờ khách hàng", tạm dừng đồng hồ SLA, báo khách hàng Email/SMS "Ticket #X đang chờ bạn phản hồi", bắt đầu đếm thời gian tự đóng. Khóa nút khi submitting; ticket đã đổi ở nơi khác → báo + tải lại. |
+| 15 | Thanh tiến trình | Stepper | ReadOnly | • 4 bước Cần xử lý → Đang xử lý ⇄ Chờ khách hàng phản hồi → Đã đóng; bước hiện tại nổi bật, bước đã qua có ✓; khách chuyển lại thì quay về "Cần xử lý" (Figma 23h). |
+| 16 | Khối "lượt" | Banner | ReadOnly | • "Cần xử lý" (Mới: Tiếp nhận hoặc gửi phản hồi công khai ngay, rồi Chuyển cho khách hàng; khách chuyển lại thì ghi "khách hàng vừa phản hồi và chuyển lại lúc …" — Figma 23h) / "Lượt của đội hỗ trợ" (Đang xử lý); "Chờ khách hàng phản hồi" kèm số ngày làm việc tự đóng; hiện thời điểm + người chuyển lượt gần nhất. |
+| 17 | Tiếp nhận | Button | Click | • **Thanh trên cùng, dính khi cuộn**; nút viền + chữ xanh, cao 28px. **TÙY CHỌN (03/10/2026)**: gửi phản hồi công khai cũng tự tiếp nhận và tự gán người trả lời làm người xử lý (nếu ticket chưa có người xử lý). Chỉ hiện với ticket "Cần xử lý" (Mới) chưa có người xử lý hoặc đã giao sẵn cho mình; bấm → ghi người nhận + chuyển "Đang xử lý". |
+| 18 | Chuyển cho khách hàng | Button | Click | • **Thanh trên cùng, dính khi cuộn**; nút xanh đặc cỡ nhỏ kèm mũi tên (việc chính của lượt). **Hiện ở "Cần xử lý" và "Đang xử lý" — không cần Tiếp nhận trước (03/10/2026).** **Disabled** (kèm tooltip) tới khi có ít nhất 1 phản hồi công khai của đội hỗ trợ từ lần chuyển lượt/tạo ticket gần nhất. Bấm → "Chờ khách hàng phản hồi", tạm dừng đồng hồ SLA, báo khách hàng "Ticket #{mã} cần bạn phản hồi". |
 | 19 | Đóng ticket | Button | Click | • **Thanh trên cùng, dính khi cuộn**; viền + chữ đỏ, nền trắng. Hộp xác nhận có nút "Đóng ticket" nền đỏ đặc. Hiện khi ticket chưa đóng và người có quyền xử lý; có hộp xác nhận (đóng rồi không mở lại), ghi chú nội bộ tùy chọn; lý do đóng "Nhân viên đóng ticket", báo khách hàng. |
 
 - Vẽ ở trạng thái có nhãn AI tự trả lời [5] (chỉ hiện khi áp dụng). Panel "Mẫu trả lời" [10] và "AI gợi ý" [11] mở dạng panel bên phải trong cùng màn, không phải màn riêng (đúng userflow đã duyệt). Quản trị viên xem cùng màn với phạm vi toàn hệ thống (UC22).

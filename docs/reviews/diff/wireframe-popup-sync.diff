@@ -1,0 +1,426 @@
+--- a/docs/kiem-tra-phap-ly/ascii-wireframe/popup-ioffice-flow.md
++++ b/docs/kiem-tra-phap-ly/ascii-wireframe/popup-ioffice-flow.md
+@@ -1,8 +1,8 @@
+ # Flow: Popup nhúng trong iOffice
+ 
+-> Màn hình thuộc flow này: popup-chon-tep → popup-xu-ly-nhay-cam → popup-dang-xu-ly → popup-ket-qua-tom-tat → popup-hoi-dap, kèm popup-phien-het-han, popup-mo-trang-rieng, popup-loi-ket-noi. Flow tổng xem `../srs/kiem-tra-phap-ly-userflow.md` Mục 1. Nguồn mô tả: `../SRS.md` v1.1 (FC-023, FC-024, FC-012 đến FC-014, FC-022). Thiết bị: khung popup khoảng 480px (kéo mép để đổi, tối thiểu 320px), bố cục một cột.
++> Màn hình thuộc flow này: popup-chon-tep → popup-xu-ly-nhay-cam (→ popup-xem-truoc-ban-gui) → popup-dang-xu-ly → popup-ket-qua-tom-tat (→ popup-xuat-bao-cao, popup-noi-dung-van-ban) → popup-hoi-dap, kèm popup-phien-het-han, popup-mo-trang-rieng, popup-loi-ket-noi. Flow tổng xem `../srs/kiem-tra-phap-ly-userflow.md` Mục 1. Nguồn mô tả: `../SRS.md` v1.1 (FC-023, FC-024, FC-012 đến FC-014, FC-018 đến FC-020, FC-022). Thiết bị: khung popup khoảng 480px (kéo mép để đổi, tối thiểu 320px), bố cục một cột, cuộn dọc.
+ >
+-> Khác bản web: nguồn đối chiếu là toàn bộ văn bản đủ điều kiện của các kho đã chọn (không bỏ tích từng văn bản, không "+ Thêm nguồn"); quét nhạy cảm sau khi bấm "Gửi kiểm tra". Số liệu trong khung chỉ minh họa.
++> Nguyên tắc: mỗi màn popup có đủ thông tin như màn web tương ứng. Khác bản web: nguồn đối chiếu là toàn bộ văn bản đủ điều kiện của các kho đã chọn (không bỏ tích từng văn bản, không "+ Thêm nguồn"); quét nhạy cảm sau khi bấm "Gửi kiểm tra"; không có thao tác quản trị, danh sách lịch sử, Xóa lượt. Số liệu trong khung chỉ minh họa.
+ 
+ ---
+ 
+@@ -10,7 +10,7 @@
+ 
+ ### Wireframe (ASCII)
+ 
+-> Khung popup ~480px (kéo mép để đổi, tối thiểu 320px), bố cục một cột. Nút "Mở trang riêng" luôn có ở tiêu đề.
++> Khung popup ~480px (kéo mép để đổi, tối thiểu 320px), bố cục một cột, cuộn dọc. Nút "Mở trang riêng" luôn có ở tiêu đề. Có đủ thông tin như `gui-du-thao`, trừ chọn từng văn bản nguồn, "+ Thêm nguồn" và xem bản sẽ gửi (xem bản sẽ gửi chỉ có sau khi quét nhạy cảm).
+ 
+ ```text
+ ┌───────────────────────────────────────────────────────┐
+@@ -19,17 +19,20 @@
+ │ Tệp đã gửi từ iOffice [1]                             │
+ │ (*) HopDong_ThueDat.docx  1,1 MB  09:40               │
+ │ ( ) DuThao_QuyetDinh.pdf  2,3 MB  09:12               │
+-│ (!) [2] Tệp không được hỗ trợ (chỉ PDF hoặc           │
+-│     Word, tối đa 50MB).  (chỉ hiện khi lỗi)           │
+-│                                                       │
+-│ Lĩnh vực cần đối chiếu (*) [3]                        │
++│ (!) [2] Tệp không được hỗ trợ (chỉ PDF hoặc Word,     │
++│     tối đa 50MB).   (chỉ hiện khi lỗi)                │
++│ Tên lượt [3] [HopDong_ThueDat________________]        │
++│ Tóm lược [4]: 42 trang | Hợp đồng | Rà soát: Bật      │
++│ Lĩnh vực cần đối chiếu (*) [5]                        │
+ │ [v: Quy hoạch, Đất đai (2)               ]            │
+-│ Kho đối chiếu [4]                                     │
+-│ [x] Cá nhân  [x] Đơn vị  [x] Dùng chung               │
+-│ (!) [5] Đã dùng 82% hạn mức tháng.                    │
+-│     Bạn vẫn có thể gửi.                               │
+-│                                                       │
+-│                  [6][ Gửi kiểm tra ]                  │
++│ Ngày xét hiệu lực [6]  [18/10/2026]                   │
++│ Kho đối chiếu [7]                                     │
++│ [x] Cá nhân 4  [x] Đơn vị 9  [x] Dùng chung 5         │
++│ 18 văn bản nguồn được dùng [8]                        │
++│ (!) 2 văn bản chưa chuẩn bị hoặc hết hiệu lực,        │
++│     không được dùng.                                  │
++│ (!) [9] Đã dùng 82% hạn mức tháng. Bạn vẫn có thể gửi.│
++│                  [10][ Gửi kiểm tra ]                 │
+ └───────────────────────────────────────────────────────┘
+ ```
+ 
+@@ -39,10 +42,14 @@
+ |---|-------|--------------|-----------|-------------|
+ | 1 | Danh sách tệp đã đẩy từ iOffice | Checklist (chọn 1) | Select | • Tệp ở trạng thái "Chờ xác nhận" của người đang đăng nhập iOffice: tên, dung lượng, thời gian đẩy; chọn 1 tệp mỗi lần `[GIẢ ĐỊNH]`. Không có tệp → `E-kiem-tra-phap-ly-065` "Chưa có tệp nào được gửi sang. Vui lòng chọn chức năng kiểm tra pháp lý từ tệp đính kèm trong iOffice." |
+ | 2 | Cảnh báo tệp | Label | ReadOnly | • Chọn tệp không hỗ trợ → `E-kiem-tra-phap-ly-067` "Tệp không được hỗ trợ (chỉ PDF hoặc Word, tối đa 50MB)." ngay tại danh sách, ở lại màn này. |
+-| 3 | Lĩnh vực cần đối chiếu | Combobox nhiều giá trị | Select | • **Bắt buộc**, ít nhất 1. Mặc định lĩnh vực dùng gần nhất của người dùng `[GIẢ ĐỊNH]`. |
+-| 4 | Kho đối chiếu | Checkbox nhóm | Check | • Kho cá nhân, Kho đơn vị, Kho dùng chung theo quyền; mặc định chọn hết, tích hết văn bản đủ điều kiện của các kho đã chọn (FC-012 BR-01). Popup không chọn từng văn bản và không có "+ Thêm nguồn" `[GIẢ ĐỊNH]`. Kho trống → `E-kiem-tra-phap-ly-038`. |
+-| 5 | Cảnh báo hạn mức | Label | ReadOnly | • Hiện khi đạt 80% hoặc vượt 100%, nêu phần trăm, không hiện số tiền cho người dùng thường; không chặn gửi trừ khi hạn mức đặt "Chặn gửi" → `E-kiem-tra-phap-ly-040`. |
+-| 6 | Gửi kiểm tra | Button | Click | • Kiểm tra kho, hạn mức, nhà cung cấp AI (chưa có → `E-kiem-tra-phap-ly-039`). Rà soát nhạy cảm bật: tệp iOffice chỉ được quét và gửi AI sau khi bấm nút này (FC-023 BR-02); có phát hiện → `popup-xu-ly-nhay-cam`, không phát hiện → tạo lượt và sang `popup-dang-xu-ly`. Mất kết nối → `E-kiem-tra-phap-ly-041`. |
++| 3 | Tên lượt | Textbox | Text | • Mặc định theo tên tệp, tối đa 200 ký tự, sửa được; hiện trong Lịch sử kiểm tra (như màn Gửi dự thảo, FC-012). |
++| 4 | Tóm lược tệp | Label | ReadOnly | • Số trang, loại văn bản nhận dạng, trạng thái rà soát nhạy cảm (Bật / Tắt theo nhà cung cấp mặc định của đơn vị); đọc xong tệp mới hiện. Tệp không đọc được → thông báo như màn Gửi dự thảo. |
++| 5 | Lĩnh vực cần đối chiếu | Combobox nhiều giá trị | Select | • **Bắt buộc**, ít nhất 1. Mặc định lĩnh vực dùng gần nhất của người dùng `[GIẢ ĐỊNH]`. Lĩnh vực đổi thì danh sách nguồn và số văn bản được dùng tính lại. |
++| 6 | Ngày xét hiệu lực | DatePicker | Date | • Mặc định ngày hiện tại, không lớn hơn ngày hiện tại; quyết định văn bản nào còn hiệu lực để đối chiếu (FC-012). |
++| 7 | Kho đối chiếu | Checkbox nhóm | Check | • Kho cá nhân, Kho đơn vị, Kho dùng chung theo quyền, kèm số văn bản đủ điều kiện mỗi kho; mặc định chọn hết, tích hết văn bản đủ điều kiện của các kho đã chọn (FC-012 BR-01). Popup không chọn từng văn bản và không có "+ Thêm nguồn" `[GIẢ ĐỊNH]`. Kho trống → `E-kiem-tra-phap-ly-038`. |
++| 8 | Số văn bản nguồn | Label | ReadOnly | • Tổng số văn bản được dùng, kèm cảnh báo số văn bản bị loại (Đang chuẩn bị, hết hiệu lực tại ngày xét, nguồn không truy cập được). Muốn chọn từng văn bản hoặc thêm nguồn → dùng "Mở trang riêng". |
++| 9 | Cảnh báo hạn mức | Label | ReadOnly | • Hiện khi đạt 80% hoặc vượt 100%, nêu phần trăm, không hiện số tiền cho người dùng thường; không chặn gửi trừ khi hạn mức đặt "Chặn gửi" → `E-kiem-tra-phap-ly-040`. |
++| 10 | Gửi kiểm tra | Button | Click | • Kiểm tra kho, hạn mức, nhà cung cấp AI (chưa có → `E-kiem-tra-phap-ly-039`). Rà soát nhạy cảm bật: tệp iOffice chỉ được quét và gửi AI sau khi bấm nút này (FC-023 BR-02); có phát hiện → `popup-xu-ly-nhay-cam`, không phát hiện → tạo lượt và sang `popup-dang-xu-ly`. Mất kết nối → `E-kiem-tra-phap-ly-041`. |
+ 
+ ---
+ 
+@@ -50,24 +57,66 @@
+ 
+ ### Wireframe (ASCII)
+ 
+-> Chỉ hiện khi rà soát bật và có phát hiện. Không có bước xem trước bản gửi trong popup `[GIẢ ĐỊNH]`.
++> Chỉ hiện khi rà soát bật và có phát hiện. Đủ thông tin như khối xử lý nhạy cảm của `gui-du-thao`.
+ 
+ ```text
+ ┌───────────────────────────────────────────────────────┐
+ │ Xử lý dữ liệu nhạy cảm             [Mở trang riêng][x]│
+ ├───────────────────────────────────────────────────────┤
+-│ Phát hiện 5 loại dữ liệu nhạy cảm.                    │
+-│ [1][ Che ẩn tất cả ] [ Cho phép tất cả ]              │
++│ Phát hiện 5 loại, 11 mục dữ liệu nhạy cảm. [1]        │
++│ Sẽ gửi tới OpenAI (nước ngoài). [2]                   │
++│ [3][ Che ẩn tất cả ] [ Cho phép tất cả ]              │
+ │                                                       │
+-│ CCCD  012*****789 (x2, tr.3,7) [2]                    │
++│ CCCD  012*****789 (x2, tr.3,7) [4]                    │
+ │  (*)Che ẩn ( )Cho phép ( )Xóa                         │
+ │ Email  a***@vnpt.vn (x3, tr.1,2)                      │
+ │  ( )Che ẩn (*)Cho phép ( )Xóa                         │
+ │ Họ tên  Nguyễn V. A (x4, tr.1-3)                      │
+ │  (*)Che ẩn ( )Cho phép ( )Xóa                         │
+ │ ...  (cuộn xem thêm)                                  │
+-│                                                       │
+-│      [3] < Quay lại >   [4][ Xác nhận ]               │
++│ (!) [5] Còn mục chưa chọn cách xử lý.                 │
++│ [6] < Xem bản sẽ gửi >                                │
++│      [7] < Quay lại >   [8][ Xác nhận ]               │
++└───────────────────────────────────────────────────────┘
++```
++
++### Screen description
++
++| # | Items | Control type | Data type | Description |
++|---|-------|--------------|-----------|-------------|
++| 1 | Tổng quan phát hiện | Label | ReadOnly | • Số loại và số mục nhạy cảm phát hiện trong tệp (FC-013). |
++| 2 | Nhà cung cấp nhận dữ liệu | Label | ReadOnly | • Tên và loại (trong nước / nước ngoài) nhà cung cấp AI mặc định của đơn vị; nước ngoài thì nêu rõ để người dùng cân nhắc cách xử lý. |
++| 3 | Che ẩn tất cả / Cho phép tất cả | Button | Click | • Đặt cùng một cách xử lý cho mọi mục; vẫn chỉnh từng mục sau đó. |
++| 4 | Danh sách dữ liệu nhạy cảm | Table một cột | Select | • Bố cục một cột cho khung hẹp, cùng ràng buộc FC-013: mỗi mục có loại, giá trị che một phần, số lần, trang, ba cách xử lý (Cho phép gửi / Che ẩn / Xóa), mặc định theo quy tắc. |
++| 5 | Cảnh báo thiếu lựa chọn | Label | ReadOnly | • Mục thiếu cách xử lý → `E-kiem-tra-phap-ly-042` tô nổi mục đó, chưa cho Xác nhận. |
++| 6 | Xem bản sẽ gửi | Link | Click | • Mở `popup-xem-truoc-ban-gui` để xem nội dung sau khi áp dụng các lựa chọn hiện tại; không bắt buộc. |
++| 7 | Quay lại | Link | Click | • Về `popup-chon-tep`, không tạo lượt, không gửi gì ra ngoài. |
++| 8 | Xác nhận | Button | Click | • Lưu lựa chọn, tạo lượt "Chờ xử lý", vào hàng đợi, sang `popup-dang-xu-ly`; ghi nhật ký gửi ra AI (chỉ loại và số lượng). Quét lỗi → `E-kiem-tra-phap-ly-043`. |
++
++---
++
++## Screen: popup-xem-truoc-ban-gui — Popup: xem trước bản gửi
++
++### Wireframe (ASCII)
++
++> Màn mới, tương ứng ngăn "Xem bản sẽ gửi" của `gui-du-thao` (FC-013), mở từ `popup-xu-ly-nhay-cam`.
++
++```text
++┌───────────────────────────────────────────────────────┐
++│ Bản sẽ gửi ra AI                   [Mở trang riêng][x]│
++├───────────────────────────────────────────────────────┤
++│ Nội dung đã xử lý, chỉ đọc [1]                        │
++│ ---------------------------------------------         │
++│ Bên thuê đất là ông [HO_TEN_1], CCCD số               │
++│ [CCCD_1], địa chỉ [DIA_CHI_1]. Thời hạn cấp           │
++│ phép không quá 3 ngày làm việc kể từ ngày             │
++│ nhận đủ hồ sơ...                                      │
++│ ---------------------------------------------         │
++│ Mục đang xem [2]: CCCD (che ẩn, x2)  2/11             │
++│ [3]< Mục trước >            < Mục sau >               │
++│ Mã tạm chỉ dùng để gửi AI; kết quả hiển thị           │
++│ lại giá trị gốc cho bạn.                              │
++│                             [4][ Đóng ]               │
+ └───────────────────────────────────────────────────────┘
+ ```
+ 
+@@ -75,10 +124,10 @@
+ 
+ | # | Items | Control type | Data type | Description |
+ |---|-------|--------------|-----------|-------------|
+-| 1 | Che ẩn tất cả / Cho phép tất cả | Button | Click | • Đặt cùng một cách xử lý cho mọi mục; vẫn chỉnh từng mục sau đó. |
+-| 2 | Danh sách dữ liệu nhạy cảm | Table một cột | Select | • Bố cục một cột cho khung hẹp, cùng ràng buộc FC-013: mỗi mục có loại, giá trị che một phần, số lần, trang, ba cách xử lý (Cho phép gửi / Che ẩn / Xóa), mặc định theo quy tắc. Mục thiếu cách xử lý → `E-kiem-tra-phap-ly-042` tô nổi. |
+-| 3 | Quay lại | Link | Click | • Về `popup-chon-tep`, không tạo lượt, không gửi gì ra ngoài. |
+-| 4 | Xác nhận | Button | Click | • Lưu lựa chọn, tạo lượt "Chờ xử lý", vào hàng đợi, sang `popup-dang-xu-ly`; ghi nhật ký gửi ra AI (chỉ loại và số lượng). Quét lỗi → `E-kiem-tra-phap-ly-043`. |
++| 1 | Nội dung đã xử lý | Vùng chữ | ReadOnly | • Văn bản sau khi áp dụng cách xử lý: mục Che ẩn hiện mã tạm dạng `[LOẠI_n]` (cùng giá trị dùng cùng mã), mục Xóa hiện dấu bỏ trống, mục Cho phép giữ nguyên chữ; chỉ đọc, không sửa tại đây. Cho phép tối đa vài trang đầu hoặc phần quanh mục đang xem để popup nhẹ `[GIẢ ĐỊNH]`. |
++| 2 | Mục đang xem | Label | ReadOnly | • Loại, cách xử lý, số lần và vị trí của mục đang tô nổi; thứ tự theo trang. |
++| 3 | Mục trước / Mục sau | Link | Click | • Chuyển giữa các mục nhạy cảm và cuộn tới vị trí tương ứng. |
++| 4 | Đóng | Button | Click | • Về `popup-xu-ly-nhay-cam`, giữ nguyên lựa chọn. Không gửi gì ra ngoài ở bước này. |
+ 
+ ---
+ 
+@@ -86,21 +135,29 @@
+ 
+ ### Wireframe (ASCII)
+ 
++> Đủ thông tin như `dang-xu-ly` (FC-014), xếp một cột và cuộn dọc.
++
+ ```text
+ ┌───────────────────────────────────────────────────────┐
+ │ Đang kiểm tra pháp lý              [Mở trang riêng][x]│
+ ├───────────────────────────────────────────────────────┤
+-│ HopDong_ThueDat.docx                                  │
+-│ Trạng thái: (o) Đang xử lý                            │
++│ HopDong_ThueDat.docx          (o) Đang xử lý          │
+ │                                                       │
+ │ Tiến độ [1]: [#######.............] 35%               │
+-│ Đã xử lý [2]: 12/34 đoạn                              │
+-│ Giai đoạn: Đối chiếu                                  │
+-│                                                       │
+-│ (info) Bạn có thể đóng popup, lượt vẫn                │
+-│ chạy nền; sẽ có thông báo khi xong.                   │
++│ Đã xử lý [2]: 12/34 đoạn | Giai đoạn: Đối chiếu       │
+ │                                                       │
+-│               [3][ Hủy yêu cầu ]                      │
++│ Văn bản đã được tham chiếu [3]   4/18                 │
++│ > NĐ 11/2021/NĐ-CP        14 đoạn · 2 điểm            │
++│ > Luật QH đô thị 2009      6 đoạn · 1 điểm            │
++│ > Luật Đất đai 2024        9 đoạn · 0 điểm            │
++│ ... (cuộn xem thêm)                                   │
++│ Điểm vi phạm phát hiện đến nay: 3 [4]                 │
++│ [!NT] Tr.12 Cấp phép trong 3 ngày làm việc...         │
++│ [!NT] Tr.15 Không cần thẩm định đối với...            │
++│ Đoạn đang đối chiếu [5] (Trang 21)                    │
++│ "Điều 15. Thời hạn cấp phép không quá..."             │
++│ (info) Bạn có thể đóng popup, lượt vẫn chạy nền.      │
++│               [6][ Hủy yêu cầu ]                      │
+ └───────────────────────────────────────────────────────┘
+ ```
+ 
+@@ -110,31 +167,129 @@
+ |---|-------|--------------|-----------|-------------|
+ | 1 | Tiến độ | Progress | ReadOnly | • Phần trăm và giai đoạn hiện tại (Đọc nội dung, Tìm căn cứ, Đối chiếu, Tổng hợp); tự cập nhật. |
+ | 2 | Số đoạn đã xử lý | Label | ReadOnly | • Dạng "<đã xử lý>/<tổng số đoạn>". Không hiển thị chi phí cho người dùng thường. |
+-| 3 | Hủy yêu cầu | Button | Click | • Chỉ hiện khi lượt Chờ xử lý hoặc Đang xử lý và người xem là người gửi; hộp xác nhận ngay trong popup như `huy-yeu-cau`. Lượt đã xong, lỗi, hủy → `E-kiem-tra-phap-ly-046`; không phải người gửi → `E-kiem-tra-phap-ly-047`. Mất kết nối hoặc lỗi → `popup-loi-ket-noi`. Hoàn tất → `popup-ket-qua-tom-tat`. |
++| 3 | Văn bản đã được tham chiếu | List | ReadOnly | • Các văn bản nguồn đã được dùng đến lúc này, mỗi dòng nêu số đoạn dự thảo đã đối chiếu và số điểm vi phạm liên quan; không hiện trạng thái Xong hay Đang đối chiếu từng văn bản (như `dang-xu-ly`, FC-014). Văn bản chưa tham chiếu hiện "Chưa tham chiếu" mờ. |
++| 4 | Điểm vi phạm phát hiện đến nay | List | ReadOnly | • Số điểm và danh sách rút gọn (mức độ, trang, trích đoạn ngắn) cập nhật dần, tối đa vài dòng, cuộn khi nhiều `[CẦN XÁC NHẬN khả thi kỹ thuật như màn Đang xử lý trên web]`. |
++| 5 | Đoạn đang đối chiếu | Label | ReadOnly | • Số trang và trích đoạn dự thảo đang được xét; giá trị che ẩn hiển thị khôi phục cho người gửi. |
++| 6 | Hủy yêu cầu | Button | Click | • Chỉ hiện khi lượt Chờ xử lý hoặc Đang xử lý và người xem là người gửi; hộp xác nhận ngay trong popup như `huy-yeu-cau` (nêu chi phí đã phát sinh). Lượt đã xong, lỗi, hủy → `E-kiem-tra-phap-ly-046`; không phải người gửi → `E-kiem-tra-phap-ly-047`. Mất kết nối hoặc lỗi → `popup-loi-ket-noi`. Hoàn tất → `popup-ket-qua-tom-tat`. |
+ 
+ ---
+ 
+-## Screen: popup-ket-qua-tom-tat — Popup: kết quả tóm tắt
++## Screen: popup-ket-qua-tom-tat — Popup: kết quả kiểm tra (đầy đủ)
+ 
+ ### Wireframe (ASCII)
+ 
++> Thay cho bản tóm tắt tối đa 5 điểm: popup hiển thị đủ thông tin như `ket-qua-kiem-tra`, một cột, cuộn dọc; thanh hành động dính ở đáy. Slug giữ nguyên `popup-ket-qua-tom-tat`.
++
+ ```text
+ ┌───────────────────────────────────────────────────────┐
+ │ Kết quả kiểm tra                   [Mở trang riêng][x]│
+ ├───────────────────────────────────────────────────────┤
+-│ HopDong_ThueDat.docx   [Hoàn tất]                     │
++│ HopDong_ThueDat.docx          [Hoàn tất] [1]          │
++│ Gửi 18/10 09:15 | Quy hoạch, Đất đai | xét 18/10      │
++│ Tóm tắt [2]: Hợp đồng thuê đất 42 trang, 6 điều...    │
++│ [Tất cả 10][!NT 2][^CCS 5][iLY 3] [3]                 │
++│ (!) [4] 1 căn cứ đã hết hiệu lực, kết quả có thể      │
++│     không còn đúng.       < Gửi lại kiểm tra > [5]    │
++│ Căn cứ đã dùng (18) [6]            < Mở rộng v >      │
++│ ---------------------------------------------         │
++│ 1/10 [!NT] Tr.12 Đ.8 K.2 [7]       Đánh giá [8]       │
++│ Trích đoạn: "Thời hạn cấp phép không quá 3            │
++│ ngày làm việc kể từ ngày nhận đủ hồ sơ." [9]          │
++│ Căn cứ [10]: < ND 11/2021 Đ.15 K.1 Tr.7 >             │
++│  "Thời hạn giải quyết không quá 15 ngày..."           │
++│ Giải thích: 3 ngày ngắn hơn mức tối thiểu 15          │
++│ ngày theo quy định hiện hành.                         │
++│ Đề xuất: "... không quá 15 ngày làm việc ..."         │
++│ (*)Đúng ( )Sai ( )Bỏ qua  [ghi chú_______] [11]       │
++│ 2/10 [!NT] Tr.15 Đ.11 K.1 ... (cuộn xem thêm)         │
++│ ---------------------------------------------         │
++│ [12][Hỏi đáp] [13][Xuất báo cáo] [14][Trang riêng]    │
++└───────────────────────────────────────────────────────┘
++```
++
++### Screen description
++
++| # | Items | Control type | Data type | Description |
++|---|-------|--------------|-----------|-------------|
++| 1 | Thông tin lượt | Label | ReadOnly | • Tên lượt, trạng thái, thời gian gửi, lĩnh vực, ngày xét hiệu lực, số trang (như `ket-qua-kiem-tra`, FC-018). Không phải người gửi hoặc kết quả hết hạn lưu giữ → `E-kiem-tra-phap-ly-051`. |
++| 2 | Tóm tắt nội dung dự thảo | Label | ReadOnly | • Đoạn tóm tắt do AI tạo, chỉ đọc; giá trị che ẩn khôi phục cho người gửi. |
++| 3 | Lọc theo mức độ | Chip | Select | • Tất cả / Nghiêm trọng / Cần chỉnh sửa / Lưu ý kèm số điểm; kết hợp được với lọc theo căn cứ; chip cuộn ngang nếu hẹp. |
++| 4 | Dải cảnh báo căn cứ | Label | ReadOnly | • Hiện khi có căn cứ Đã hủy, Hết hiệu lực hoặc Cần rà soát so với lúc kiểm tra (FC-018 BR-05). |
++| 5 | Gửi lại kiểm tra | Link | Click | • Chỉ hiện khi có dải cảnh báo; về `popup-chon-tep` điền sẵn lĩnh vực và nguồn, ngày xét = hôm nay, người dùng chọn lại tệp dự thảo từ iOffice. |
++| 6 | Căn cứ đã dùng | Accordion | Select | • Danh sách văn bản căn cứ kèm số điểm vi phạm tham chiếu, thu gọn mặc định; chọn một văn bản để lọc các thẻ điểm. Căn cứ đã hủy hoặc hết hiệu lực hiện nhãn cảnh báo; không còn quyền xem văn bản → vẫn hiện điều khoản đã lưu, ẩn link. |
++| 7 | Thẻ điểm vi phạm | Card | ReadOnly | • Mỗi điểm một thẻ đầy đủ như web: số thứ tự, mức độ, vị trí (trang, mục), trích đoạn dự thảo, căn cứ và nội dung điều khoản, giải thích, đề xuất chỉnh sửa; sắp xếp theo mức giảm dần rồi trang tăng dần. Không có điểm nào → "Không phát hiện điểm vi phạm với các văn bản đã đối chiếu" (E-045: "Không tìm thấy nội dung dự thảo liên quan đến các văn bản trong kho đã chọn."). |
++| 8 | Đánh giá từng điểm | Radio trên thẻ | Select | • Đúng / Sai / Bỏ qua, mặc định Bỏ qua; lưu tự động, hiện "Đã lưu" (FC-019). Kết quả hết hạn → `E-kiem-tra-phap-ly-052`; lưu thất bại → `E-kiem-tra-phap-ly-102` kèm nút Thử lại. |
++| 9 | Trích đoạn dự thảo (bôi đen) | Vùng chữ | Select | • Bôi đen 5 đến 2000 ký tự trong trích đoạn, căn cứ, giải thích hoặc đề xuất → thanh nổi "Hỏi về đoạn này / Sao chép"; "Hỏi về đoạn này" mở `popup-hoi-dap` kèm trích dẫn đoạn đã chọn (FC-022 BR-09 đến BR-13). Vượt 2000 ký tự → `E-kiem-tra-phap-ly-103`. |
++| 10 | Căn cứ trên thẻ | Link | Click | • Mở `popup-noi-dung-van-ban` tại đúng điều khoản và trang ngay trong popup; căn cứ đã hủy hoặc hết hiệu lực vẫn mở được kèm dải cảnh báo. |
++| 11 | Ghi chú đánh giá | Textbox nhiều dòng | Text | • Không bắt buộc, tối đa 500 ký tự, lưu khi rời ô → `E-kiem-tra-phap-ly-053` khi vượt. |
++| 12 | Hỏi đáp | Button | Click | • Sang `popup-hoi-dap`, ngữ cảnh "Lượt kiểm tra này". |
++| 13 | Xuất báo cáo | Button | Click | • Mở `popup-xuat-bao-cao` (FC-020). Chỉ người gửi và kết quả còn lưu giữ. |
++| 14 | Mở trang riêng | Button | Click | • Mở hệ thống ở cửa sổ khác của trình duyệt, dùng phiên iOffice, tại `ket-qua-kiem-tra` của lượt; từ đó ở lại hệ thống, không quay lại popup. Sang `popup-mo-trang-rieng`. Nút Đóng (x) ở tiêu đề; kết quả xem lại được ở Lịch sử kiểm tra trên hệ thống. |
++
++---
++
++## Screen: popup-xuat-bao-cao — Popup: xuất báo cáo
++
++### Wireframe (ASCII)
++
++> Màn mới, tương ứng hộp thoại `xuat-bao-cao` của `ket-qua-kiem-tra` (FC-020).
++
++```text
++┌───────────────────────────────────────────────────────┐
++│ Xuất báo cáo                       [Mở trang riêng][x]│
++├───────────────────────────────────────────────────────┤
++│                                                       │
++│ Định dạng [1]      (*) Word    ( ) PDF                │
+ │                                                       │
+-│ [!NT 2] [^Cần chỉnh sửa 5] [iLưu ý 3] [1]             │
++│ Mức độ đưa vào [2]                                    │
++│ [x] Nghiêm trọng  [x] Cần chỉnh sửa  [x] Lưu ý        │
+ │                                                       │
+-│ Điểm tiêu biểu (tối đa 5) [2]                         │
+-│ 1. [!] Tr.12 Đ.8  ND 11/2021 Đ.15                     │
+-│    "Thời hạn cấp phép không quá 3 ngày..."            │
+-│ 2. [!] Tr.15 Đ.11 Luật QH Đ.41                        │
+-│    "Không cần thẩm định đối với..."                   │
+-│ 3. [^] Tr.20 Đ.14 TT 05/2023 Đ.6                      │
+-│    "Phí thẩm định thu theo..."                        │
++│ [x] Kèm đề xuất chỉnh sửa [3]                         │
+ │                                                       │
+-│ [3][ Hỏi đáp ][4][ Trang riêng ][5][ Đóng ]           │
++│ (!) [4] Vui lòng chọn ít nhất một mức độ.             │
++│ (!) [5] Không tạo được báo cáo. Vui lòng thử lại.     │
++│                                                       │
++│          [6] < Hủy >    [7][ Xuất ]                   │
++└───────────────────────────────────────────────────────┘
++```
++
++### Screen description
++
++| # | Items | Control type | Data type | Description |
++|---|-------|--------------|-----------|-------------|
++| 1 | Định dạng | Radio | Select | • Word / PDF, mặc định Word (FC-020). |
++| 2 | Mức độ đưa vào | Checkbox nhóm | Check | • Nghiêm trọng, Cần chỉnh sửa, Lưu ý; mặc định chọn cả ba. Không chọn mức nào → `E-kiem-tra-phap-ly-055` "Vui lòng chọn ít nhất một mức độ." |
++| 3 | Kèm đề xuất chỉnh sửa | Checkbox | Check | • Mặc định chọn. |
++| 4 | Thông báo lỗi mức độ | Label | ReadOnly | • `E-kiem-tra-phap-ly-055`. |
++| 5 | Thông báo lỗi tạo báo cáo | Label | ReadOnly | • `E-kiem-tra-phap-ly-056` "Không tạo được báo cáo. Vui lòng thử lại." kèm cho thử lại; không có quyền hoặc kết quả hết hạn → `E-kiem-tra-phap-ly-054`. |
++| 6 | Hủy | Link | Click | • Về `popup-ket-qua-tom-tat`. |
++| 7 | Xuất | Button | Click | • Tạo và tải tệp báo cáo (trình duyệt tải về như khi dùng hệ thống `[CẦN XÁC NHẬN việc tải tệp từ popup nhúng]`), rồi về `popup-ket-qua-tom-tat`. Tệp chứa trích đoạn dự thảo nên chỉ người gửi xuất được. |
++
++---
++
++## Screen: popup-noi-dung-van-ban — Popup: nội dung văn bản
++
++### Wireframe (ASCII)
++
++> Màn mới, mở khi bấm trích dẫn hoặc căn cứ trong popup (FC-024 BR-03, FC-022 BR-08); tương ứng `noi-dung-van-ban` của web.
++
++```text
++┌───────────────────────────────────────────────────────┐
++│ Nội dung văn bản                   [Mở trang riêng][x]│
++├───────────────────────────────────────────────────────┤
++│ < Quay lại [1] >                                      │
++│ NĐ 11/2021/NĐ-CP · Nghị định · Chính phủ              │
++│ [Còn hiệu lực] Đơn vị · hiệu lực 01/01/2022 [2]       │
++│ ---------------------------------------------         │
++│ Chương III. CẤP PHÉP XÂY DỰNG                         │
++│ Điều 14. Hồ sơ đề nghị cấp phép ...                   │
++│ ┃ Điều 15. Thời hạn giải quyết [3]  (tô nền)          │
++│ ┃ 1. Thời hạn giải quyết không quá 15 ngày kể         │
++│ ┃    từ ngày nhận đủ hồ sơ.            Tr.7           │
++│ Điều 16. Trách nhiệm của cơ quan cấp phép ...         │
++│                                  (cuộn xem thêm)      │
++│ (!) [4] Bạn không còn quyền xem văn bản này.          │
++│                  [5][ Mở trang riêng ]                │
+ └───────────────────────────────────────────────────────┘
+ ```
+ 
+@@ -142,11 +297,11 @@
+ 
+ | # | Items | Control type | Data type | Description |
+ |---|-------|--------------|-----------|-------------|
+-| 1 | Số điểm theo mức | Label (3 ô) | ReadOnly | • Nghiêm trọng / Cần chỉnh sửa / Lưu ý; màu và biểu tượng thống nhất với web `[CẦN XÁC NHẬN thiết kế]`. |
+-| 2 | Danh sách điểm tiêu biểu | Table | Click | • Tối đa 5 điểm mức cao nhất: vị trí, trích đoạn rút gọn (giá trị che ẩn khôi phục cho người gửi), căn cứ. Click điểm → xem chi tiết (vị trí, trích đoạn, căn cứ, giải thích, đề xuất) ngay trong popup, có nút quay lại. Không có điểm vi phạm → "Không phát hiện điểm vi phạm với các văn bản đã đối chiếu". |
+-| 3 | Hỏi đáp | Button | Click | • Sang `popup-hoi-dap`, ngữ cảnh "Lượt kiểm tra này". |
+-| 4 | Mở trang riêng | Button | Click | • Mở hệ thống ở cửa sổ khác của trình duyệt, dùng phiên iOffice, tại `ket-qua-kiem-tra` của lượt; từ đó ở lại hệ thống, không quay lại popup. Sang `popup-mo-trang-rieng`. |
+-| 5 | Đóng | Button | Click | • Đóng popup; kết quả xem lại được ở Lịch sử kiểm tra trên hệ thống. |
++| 1 | Quay lại | Link | Click | • Về màn đã mở (`popup-ket-qua-tom-tat` hoặc `popup-hoi-dap`), giữ vị trí cuộn. |
++| 2 | Thông tin văn bản | Label | ReadOnly | • Số hiệu, loại, cơ quan, nhãn tình trạng hiệu lực (Còn hiệu lực, Hết hiệu lực, Đã hủy, Cần rà soát), phạm vi, ngày hiệu lực; đủ để đọc như `noi-dung-van-ban` (FC-007). |
++| 3 | Nội dung theo Chương, Điều, Khoản | Vùng chữ | ReadOnly | • Cuộn tới và tô nền đúng điều khoản và trang được trích dẫn; cho chuyển Điều trước, sau. Không sửa nội dung tại popup. |
++| 4 | Thông báo quyền | Label | ReadOnly | • Người xem không còn quyền xem văn bản → vẫn hiện trích điều khoản đã lưu, ẩn phần còn lại, ghi "Bạn không còn quyền xem văn bản căn cứ." |
++| 5 | Mở trang riêng | Button | Click | • Mở văn bản đầy đủ ở màn Nội dung văn bản của hệ thống (cửa sổ khác); không quay lại popup (FC-024 BR-03). |
+ 
+ ---
+ 
+@@ -154,22 +309,27 @@
+ 
+ ### Wireframe (ASCII)
+ 
++> Đủ thông tin như `hoi-dap-web` (FC-022), thêm hỗ trợ hỏi theo đoạn bôi đen từ kết quả.
++
+ ```text
+ ┌───────────────────────────────────────────────────────┐
+ │ Hỏi đáp về kết quả                 [Mở trang riêng][x]│
+ ├───────────────────────────────────────────────────────┤
+-│ Ngữ cảnh [1]: [v: Lượt kiểm tra này]                  │
++│ Ngữ cảnh [1]: [v: Lượt kiểm tra này]   < Xóa HT > [2] │
++│ Điểm 1/10 · 18 căn cứ                                 │
+ │ ---------------------------------------------         │
+-│ Bạn: Điều 8 khoản 2 vi phạm quy định nào?             │
+-│ AI: Thời hạn 3 ngày ngắn hơn Điều 15                  │
+-│     Khoản 1 NĐ 11/2021.                               │
+-│     Trích dẫn [2]: < ND 11/2021 Đ.15 Tr.7 >           │
+-│                                                       │
+-│ Câu hỏi [3] (tối đa 2000 ký tự)                       │
++│ Trích đoạn đã chọn [3] · Điểm 1/10, Giải thích        │
++│ "Thời hạn 3 ngày ngắn hơn mức tối thiểu..."           │
++│ Bạn: Vì sao bị xem là vi phạm?                        │
++│ AI: Điều 15 Khoản 1 NĐ 11/2021 quy định tối           │
++│     thiểu 15 ngày.                                    │
++│     Trích dẫn [4]: < ND 11/2021 Đ.15 Tr.7 >           │
++│ ---------------------------------------------         │
++│ Đang hỏi về [5]: "Thời hạn 3 ngày..." < Bỏ x >        │
++│ Câu hỏi [6] (tối đa 2000 ký tự)                       │
+ │ [Điều 12 có ngoại lệ không?_______________]           │
+-│ [4][ Đính kèm tệp ]  BieuMau.pdf < Xóa >              │
+-│                                                       │
+-│ [5] < Quay lại kết quả >     [6][ Gửi ]               │
++│ [7][ Đính kèm tệp ]  BieuMau.pdf < Xóa >              │
++│ [8] < Quay lại kết quả >         [9][ Gửi ]           │
+ └───────────────────────────────────────────────────────┘
+ ```
+ 
+@@ -177,12 +337,15 @@
+ 
+ | # | Items | Control type | Data type | Description |
+ |---|-------|--------------|-----------|-------------|
+-| 1 | Ngữ cảnh | Combobox | Select | • Mặc định "Lượt kiểm tra này"; cùng ràng buộc FC-022 (Lĩnh vực, Văn bản trong kho). |
+-| 2 | Trích dẫn | Link | Click | • Mở văn bản tại đúng điều khoản ngay trong popup (hoặc cửa sổ mới nếu người dùng chọn); ở lại popup (FC-022 BR-08). |
+-| 3 | Câu hỏi | Textbox nhiều dòng | Text | • **Bắt buộc**, tối đa 2000 ký tự → `E-kiem-tra-phap-ly-059`. Rà soát nhạy cảm như dự thảo, hộp chọn hiện trong popup nếu có phát hiện. |
+-| 4 | Đính kèm tệp | Upload | Select | • Một tệp mỗi câu hỏi, PDF/Word tối đa 50MB, AI đọc trực tiếp; lỗi → `E-kiem-tra-phap-ly-060`. |
+-| 5 | Quay lại kết quả | Link | Click | • Về `popup-ket-qua-tom-tat`. |
+-| 6 | Gửi | Button | Click | • Gọi AI, ghi token và chi phí, tính vào hạn mức; lỗi → `E-kiem-tra-phap-ly-061`. Mất kết nối → thử lại trong khung (không mất hội thoại). Phiên hết hạn → `popup-phien-het-han`. "Mở trang riêng" luôn có ở tiêu đề. |
++| 1 | Ngữ cảnh | Combobox | Select | • "Lượt kiểm tra này" (mặc định khi mở từ kết quả) / "Lĩnh vực" (hiện ô chọn lĩnh vực) / "Văn bản trong kho" (hiện ô chọn văn bản có quyền xem); cùng ràng buộc FC-022. Lượt hết hạn lưu giữ hoặc bị xóa → `E-kiem-tra-phap-ly-062`. |
++| 2 | Xóa hội thoại | Link | Click | • Xóa toàn bộ hội thoại của ngữ cảnh hiện tại sau khi xác nhận (hộp xác nhận nhỏ ngay trong popup). |
++| 3 | Thẻ trích dẫn đoạn đã chọn | Card | ReadOnly | • Hiện đầu hội thoại khi hỏi từ đoạn bôi đen: điểm vi phạm nguồn, nơi bôi đen, đoạn chữ (tối đa 2000 ký tự); lưu cùng câu hỏi (FC-022 BR-12). |
++| 4 | Trích dẫn | Link | Click | • Mở `popup-noi-dung-van-ban` tại đúng điều khoản ngay trong popup; ở lại popup (FC-022 BR-08). |
++| 5 | Chip Đang hỏi về | Chip | Click | • Chỉ hiện khi mở từ "Hỏi về đoạn này" ở `popup-ket-qua-tom-tat`; "Bỏ" xóa chip, câu hỏi thành câu hỏi thường; tự xóa sau khi gửi; đổi ngữ cảnh khỏi "Lượt kiểm tra này" thì bỏ chip (FC-022 BR-10). |
++| 6 | Câu hỏi | Textbox nhiều dòng | Text | • **Bắt buộc**, tối đa 2000 ký tự → `E-kiem-tra-phap-ly-059`. Rà soát nhạy cảm như dự thảo (kể cả đoạn đã khôi phục giá trị gốc, FC-022 BR-11), hộp chọn hiện trong popup nếu có phát hiện. |
++| 7 | Đính kèm tệp | Upload | Select | • Một tệp mỗi câu hỏi, PDF/Word tối đa 50MB, AI đọc trực tiếp; lỗi → `E-kiem-tra-phap-ly-060`. |
++| 8 | Quay lại kết quả | Link | Click | • Về `popup-ket-qua-tom-tat`. |
++| 9 | Gửi | Button | Click | • Gọi AI, ghi token và chi phí, tính vào hạn mức; lỗi → `E-kiem-tra-phap-ly-061`; chưa đủ căn cứ → trả lời cố định như web (FC-022 EX-04). Mất kết nối → thử lại trong khung (không mất hội thoại). Phiên hết hạn → `popup-phien-het-han`. "Mở trang riêng" luôn có ở tiêu đề. |
+ 
+ ---
+ 
+@@ -236,7 +399,7 @@
+ 
+ | # | Items | Control type | Data type | Description |
+ |---|-------|--------------|-----------|-------------|
+-| 1 | Thông báo chuyển sang hệ thống | Label | ReadOnly | • Người dùng chủ động bấm "Mở trang riêng" ở `popup-ket-qua-tom-tat` hoặc `popup-hoi-dap` thì mở hệ thống ở cửa sổ mới (dùng phiên iOffice) tại `ket-qua-kiem-tra` của lượt; không có đường quay lại popup (FC-024 BR-03). |
++| 1 | Thông báo chuyển sang hệ thống | Label | ReadOnly | • Người dùng chủ động bấm "Mở trang riêng" ở `popup-ket-qua-tom-tat`, `popup-hoi-dap` hoặc `popup-noi-dung-van-ban` thì mở hệ thống ở cửa sổ mới (dùng phiên iOffice) tại màn tương ứng của lượt; không có đường quay lại popup (FC-024 BR-03). |
+ | 2 | Đóng popup | Button | Click | • Đóng popup. |
+ 
+ ---

@@ -1,0 +1,72 @@
+--- a/docs/kiem-tra-phap-ly/SRS.md
++++ b/docs/kiem-tra-phap-ly/SRS.md
+@@ -1280,10 +1280,10 @@
+ 
+ | Thông tin | Giá trị |
+ |---|---|
+-| Hệ thống đối tác | Nhà cung cấp AI mặc định của đơn vị (trong nước hoặc nước ngoài, cấu hình ở FC-028) |
+-| Endpoint, Method, cơ chế xác thực | `[CẦN XÁC NHẬN — chờ tài liệu API của nhà cung cấp AI được chọn]` |
++| Hệ thống đối tác | Nhà cung cấp AI mặc định của đơn vị (cấu hình ở FC-028): OpenAI, Anthropic, Gemini, DeepSeek, Groq hoặc dịch vụ "Khác (tương thích OpenAI)" |
++| Endpoint, Method, cơ chế xác thực | Theo Hãng AI chọn ở FC-028 (địa chỉ dịch vụ và khóa kết nối do Quản trị hệ thống nhập). Chi tiết định dạng gọi của từng hãng lấy từ tài liệu API chính thức của hãng `[CẦN XÁC NHẬN — kiểm tra lại với tài liệu hiện hành trước khi xây dựng]` |
+ | Thời điểm gọi | Mỗi cặp đoạn dự thảo + điều khoản ứng viên, và khi tạo tóm tắt |
+-| Timeout / Retry | Hết giờ 90 giây mỗi lần gọi. Thử lại tối đa 3 lần (chờ 2s, 4s, 8s) khi gặp lỗi 429, 5xx hoặc mất kết nối. Không thử lại khi 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]` |
++| Timeout / Retry | Hết giờ theo cấu hình của nhà cung cấp (mặc định 90 giây) mỗi lần gọi. Thử lại tối đa 3 lần (chờ 2s, 4s, 8s) khi gặp lỗi 429, 5xx hoặc mất kết nối. Không thử lại khi 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]` |
+ 
+ Mapping Request (hệ thống → nhà cung cấp AI):
+ 
+@@ -2382,10 +2382,15 @@
+ | Bảng nhà cung cấp | Table | - | Cột: Tên, Loại (Trong nước / Nước ngoài), Model, Rà soát nhạy cảm (Bật / Tắt), Trạng thái (Đang dùng / Ngừng sử dụng), Số đơn vị đang dùng làm mặc định. Danh sách trống → hiện nút "Thêm" | Data list |
+ | **Màn Thêm hoặc sửa nhà cung cấp AI (nha-cung-cap-form)** | | | | |
+ | Tên nhà cung cấp | Textbox | 100 | Bắt buộc. Không trùng | String |
+-| Loại | Radio | - | Trong nước / Nước ngoài. Bắt buộc. Không đổi được nếu đã có lượt dùng | Data list |
+-| Địa chỉ dịch vụ | Textbox | 500 | Bắt buộc. Bắt đầu bằng https:// | String |
+-| Model | Textbox | 100 | Bắt buộc | String |
++| Hãng AI | Combobox | - | Bắt buộc. Chọn một trong: OpenAI, Anthropic, Gemini, DeepSeek, Groq, "Khác (tương thích OpenAI)". Không đổi được nếu đã có lượt dùng. Chọn hãng → tự điền sẵn Địa chỉ dịch vụ, Loại và Model gợi ý (BR-05); người dùng sửa lại được | Data list |
++| Loại | Radio | - | Trong nước / Nước ngoài. Bắt buộc. Mặc định "Nước ngoài" với 5 hãng trên `[GIẢ ĐỊNH]`; hãng "Khác" không có mặc định. Không đổi được nếu đã có lượt dùng | Data list |
++| Địa chỉ dịch vụ | Textbox | 500 | Bắt buộc. Bắt đầu bằng https://. Tự điền theo Hãng AI, sửa được (dùng cho máy chủ trung gian hoặc máy chủ riêng) | String |
++| Model | Textbox | 100 | Bắt buộc. Gợi ý tên model theo Hãng AI, nhập tay được | String |
+ | Khóa kết nối | Password | 500 | Bắt buộc khi thêm. Khi sửa để trống = giữ nguyên. Lưu mã hóa, không hiển thị lại | String |
++| Nhiệt độ (mức sáng tạo) | Textbox số | - | 0 đến 1, tối đa 2 chữ số thập phân. Mặc định 0 `[GIẢ ĐỊNH]` (ưu tiên kết quả ổn định cho kiểm tra pháp lý). Để trống = dùng mặc định của hệ thống | Number |
++| Số token đầu ra tối đa | Textbox số | - | Số nguyên > 0. Bắt buộc. Không vượt giới hạn của model | Number |
++| Giới hạn token đầu vào | Textbox số | - | Số nguyên > 0. Bắt buộc. Dùng để tự chia nhỏ văn bản dài và danh sách quy định trước khi gửi (BR-06) | Number |
++| Thời gian chờ mỗi lần gọi (giây) | Textbox số | - | Số nguyên 10 đến 600. Mặc định 90 (BR-04) | Number |
+ | Rà soát dữ liệu nhạy cảm | Radio | - | Bật / Tắt. Mặc định "Bật". Chọn "Tắt" cho loại "Nước ngoài" → hiện hộp cảnh báo (FC-028) | Data list |
+ | Nút Kiểm tra kết nối | Button | - | Gọi thử 1 lần tối thiểu, hết giờ 15 giây, không thử lại. Hiển thị kết quả thành công hoặc nguyên nhân thất bại | - |
+ | Trạng thái | Combobox | - | Đang dùng / Ngừng sử dụng. Mặc định "Đang dùng" | Data list |
+@@ -2465,7 +2470,7 @@
+ | Mã | Tình huống | Xử lý |
+ |----|-----------|-------|
+ | EX-01 | Kiểm tra kết nối thất bại (sai khóa, hết giờ, không truy cập được) | Hiển thị `E-kiem-tra-phap-ly-076`: "Kết nối thất bại: <nguyên nhân rút gọn>. Kiểm tra lại địa chỉ, khóa kết nối rồi thử lại." Cho thử lại hoặc sửa. Không hiển thị khóa trong thông báo |
+-| EX-02 | Thiếu trường bắt buộc, địa chỉ không phải https, tên trùng | Hiển thị `E-kiem-tra-phap-ly-077` tại ô: "Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp." |
++| EX-02 | Thiếu trường bắt buộc, địa chỉ không phải https, tên trùng, nhiệt độ ngoài 0–1, token tối đa hoặc giới hạn đầu vào không hợp lệ, thời gian chờ ngoài 10–600 giây | Hiển thị `E-kiem-tra-phap-ly-077` tại ô: "Vui lòng nhập đầy đủ và đúng thông tin nhà cung cấp." |
+ | EX-03 | Tắt rà soát nhạy cảm cho nhà cung cấp "Nước ngoài" | Hiển thị hộp cảnh báo `E-kiem-tra-phap-ly-078`: "Dữ liệu dự thảo sẽ được gửi ra nhà cung cấp nước ngoài mà không rà soát dữ liệu nhạy cảm. Thao tác này được ghi nhật ký. Bạn chắc chắn tắt?" Chỉ lưu khi xác nhận |
+ | EX-04 | Xóa nhà cung cấp đã có lượt dùng hoặc đang là mặc định của đơn vị | Không xóa, hiển thị `E-kiem-tra-phap-ly-079`: "Nhà cung cấp đã được sử dụng, chỉ có thể chuyển sang Ngừng sử dụng." Nếu còn đơn vị dùng làm mặc định, yêu cầu đổi mặc định cho các đơn vị đó trước |
+ | EX-05 | Người dùng không phải Quản trị hệ thống | Chuyển màn truy-cap-bi-tu-choi |
+@@ -2474,11 +2479,16 @@
+ 
+ **Cấu hình**
+ - BR-01: Khóa kết nối → lưu mã hóa, không hiển thị lại, không ghi vào log hay thông báo. Khi sửa để trống → giữ khóa cũ
+-- BR-02: Cờ "Rà soát nhạy cảm" mặc định "Bật" cho mọi nhà cung cấp; nhà cung cấp "Trong nước" được tắt không cần cảnh báo; nhà cung cấp "Nước ngoài" tắt phải qua hộp cảnh báo và ghi nhật ký `[CẦN XÁC NHẬN chính sách có cho tắt với nhà cung cấp nước ngoài hay không]`
++- BR-02: Cờ "Rà soát nhạy cảm" mặc định "Bật" cho mọi nhà cung cấp; nhà cung cấp "Trong nước" được tắt không cần cảnh báo; nhà cung cấp "Nước ngoài" tắt phải qua hộp cảnh báo và ghi nhật ký `[CẦN XÁC NHẬN chính sách có cho tắt với nhà cung cấp nước ngoài hay không]`. Cả 5 hãng đã hỗ trợ sẵn đều là dịch vụ nước ngoài nên mặc định bật rà soát; riêng DeepSeek và Groq cần khách hàng xác nhận chấp nhận chính sách lưu dữ liệu và nơi đặt máy chủ trước khi dùng `[CẦN XÁC NHẬN]`
+ - BR-03: Nhà cung cấp "Ngừng sử dụng" → không chọn được làm mặc định mới, không tiếp nhận lượt mới; các lượt đã chạy giữ nguyên
+ 
+ **Gọi nhà cung cấp**
+-- BR-04: Mỗi lần gọi hết giờ sau 90 giây. Thử lại tối đa 3 lần (chờ 2, 4, 8 giây) khi gặp lỗi 429, 5xx hoặc mất kết nối; không thử lại với 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]`
++- BR-04: Mỗi lần gọi hết giờ sau thời gian chờ đã cấu hình cho nhà cung cấp (mặc định 90 giây). Thử lại tối đa 3 lần (chờ 2, 4, 8 giây) khi gặp lỗi 429, 5xx hoặc mất kết nối; không thử lại với 400, 401, 403, 404 `[GIẢ ĐỊNH theo cấu hình sẵn có của hệ thống CSKH]`
++- BR-05: Hệ thống hỗ trợ sẵn 5 hãng AI: OpenAI, Anthropic, Gemini, DeepSeek, Groq, và loại "Khác (tương thích OpenAI)" cho dịch vụ nội bộ hoặc trong nước. Người dùng và các chức năng kiểm tra pháp lý không phải quan tâm khác biệt giữa các hãng: cùng một yêu cầu, cùng một dạng kết quả. Hãng AI chỉ quyết định giá trị điền sẵn của biểu mẫu
++- BR-06: Văn bản dự thảo hoặc danh sách quy định vượt "Giới hạn token đầu vào" → hệ thống tự chia thành nhiều phần gửi lần lượt rồi gộp kết quả; mọi phần cộng dồn vào cùng một lượt kiểm tra và một khoản chi phí. Không chia được (một phần đơn lẻ vẫn vượt giới hạn) → lượt chuyển trạng thái lỗi `[CẦN XÁC NHẬN mã lỗi hiển thị cho người dùng]`
++- BR-07: Kết quả AI trả về phải đúng cấu trúc hệ thống yêu cầu (nhóm lĩnh vực, điều luật, mức đỏ/vàng/xanh, trích dẫn, lý do). Sai cấu trúc → thử lại tối đa 2 lần; vẫn sai → lượt lỗi, không hiển thị kết quả sai, không tính chi phí các lần sai `[GIẢ ĐỊNH]`
++- BR-08: Số token vào/ra của mỗi lần gọi lấy từ số liệu nhà cung cấp trả về để tính chi phí (FC-030). Nhà cung cấp không trả số liệu này → chi phí lượt để trống, không coi bằng 0 (thống nhất với mapping Response ở FC-012 và BR-02 của FC-030)
++- BR-09: Sửa tham số (nhiệt độ, token tối đa, thời gian chờ) hoặc đổi model → chỉ áp dụng cho lượt gửi sau; lượt đang chạy giữ cấu hình lúc bắt đầu (như cấu hình địa chỉ dịch vụ ở Edge cases)
+ 
+ ###### Thông báo và thông tin lưu vết log
+ 
+@@ -3440,7 +3450,7 @@
+ | Giá trị danh mục: mã, tên, mô tả, thứ tự, trạng thái | FC-025 | String / Number | Danh mục dùng chung |
+ | Quy tắc gợi ý lĩnh vực: điều kiện, lĩnh vực đích, điểm | FC-026 | String / Data list | Gợi ý lĩnh vực |
+ | Quy tắc nhạy cảm: tên loại, phạm vi, cách nhận dạng, cách xử lý | FC-027 | String / Data list | Nhận dạng dữ liệu nhạy cảm |
+-| Nhà cung cấp AI: tên, loại, địa chỉ, model, khóa (mã hóa), cờ rà soát | FC-028 | String / Data list | Cấu hình nhà cung cấp |
++| Nhà cung cấp AI: tên, hãng AI, loại, địa chỉ, model, khóa (mã hóa), cờ rà soát, nhiệt độ, token đầu ra tối đa, giới hạn token đầu vào, thời gian chờ | FC-028 | String / Data list / Number | Cấu hình nhà cung cấp |
+ | Nhà cung cấp mặc định của đơn vị | FC-029 | Data list | Chọn nhà cung cấp theo đơn vị |
+ | Đơn giá token vào/ra, ngày hiệu lực | FC-030 | Number / Date | Tính chi phí |
+ | Ngân sách tháng, số lượt tối đa, cách xử lý khi vượt | FC-031 | Number / Data list | Hạn mức |

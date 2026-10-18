@@ -4,7 +4,9 @@
 >
 > Các mục ghi "(OQ-n)" đã được **khách hàng xác nhận (21/09/2026)** ở bảng cuối file (cập nhật 19/09/2026), cũng đã ghi vào tài liệu "Đề xuất Hệ thống Hỗ trợ & Chăm sóc Khách hàng.docx".
 >
-> **Huy hiệu số ticket chưa đóng (01/10/2026):** mục menu "Ticket của tôi" ở header khách hàng có huy hiệu ĐỎ số ticket chưa đóng (Mới + Đang xử lý + Chờ khách hàng; ẩn khi 0, "99+" khi quá 99) — vẽ "(5)" ở mọi wireframe header khách hàng. Đếm đúng phạm vi danh sách (thành viên: ticket mình tạo; đầu mối: cả đơn vị). Tải lại mỗi 60 giây và ngay khi tạo/đóng ticket.
+> **Huy hiệu số ticket cần phản hồi (đổi 03/10/2026, trước đó đếm ticket chưa đóng):** mục menu "Ticket của tôi" ở header khách hàng có huy hiệu ĐỎ số ticket đang "Cần bạn phản hồi" (trạng thái lưu Chờ khách hàng; ẩn khi 0, "99+" khi quá 99) — trùng với số ở chip "Cần tôi phản hồi (N)" của danh sách ticket khi chưa lọc ưu tiên/dịch vụ. Số "(5)" vẽ ở các wireframe header khách hàng chỉ là dữ liệu mẫu. Menu "Ticket" nội bộ vẫn đếm ticket chưa đóng. Đếm đúng phạm vi danh sách (thành viên: ticket mình tạo; đầu mối: cả đơn vị). Tải lại mỗi 60 giây và ngay khi tạo/đóng ticket.
+>
+> **Cập nhật 03/10/2026 (nhãn trạng thái theo vai trò — yêu cầu trực tiếp của người dùng, Figma đã duyệt):** khách hàng và nhân viên thấy NHÃN trạng thái khác nhau cho cùng 1 trạng thái lưu, để mỗi bên đọc ra việc mình phải làm. Khách hàng: Mới = "Đã chuyển hỗ trợ", Đang xử lý = "Hỗ trợ đang xử lý", Chờ khách hàng = "Cần bạn phản hồi" (cam, nổi bật), Đã đóng. Nhân viên: Mới = "Cần xử lý" (gồm ticket mới gửi và ticket khách vừa chuyển lại), Đang xử lý, Chờ khách hàng = "Chờ khách hàng phản hồi", Đã đóng. Khách chuyển lại thì ticket về "Mới". Tiếp nhận KHÔNG bắt buộc. Các chỗ còn viết "Mới / Đang xử lý / Chờ khách hàng" là tên trạng thái lưu.
 >
 > **Cập nhật 01/10/2026 (luồng chuyền lượt — yêu cầu trực tiếp của người dùng):** bỏ trạng thái "Chờ khách hàng xác nhận" và màn "Xác nhận kết quả" (slug `ticket-xac-nhan` giữ nguyên để không vỡ userflow, nay là hộp thoại **Đóng ticket**); Chi tiết ticket có thanh tiến trình 4 bước + khối "lượt" + nút "Chuyển cho hỗ trợ" / "Đóng ticket"; nhắn tin không còn tự đổi trạng thái. Xem `gui-yeu-cau-ho-tro/SRS.md` v1.2.
 >
@@ -149,12 +151,14 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ Trạng thái [2]   Ưu tiên [3]      Dịch vụ                            │
 │ [v: Tất cả     ] [v: Tất cả     ] [v: Tất cả     ]                   │
+│ [7] (Cần tôi phản hồi (2)) (Đã chuyển HT) (HT đang xử lý) (Đã đóng)  │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Mã       Vấn đề                  Ưu tiên     Trạng thái       Ngày   │
 │ [4] ---------------------------------------------------------------  │
-│ #T-0123  Không ký số được (clip) Khẩn cấp    Chờ khách hàng   17/09  │
-│ #T-0121  Lỗi tải tệp (clip)      Bình thường Đang xử lý       16/09  │
-│ #T-0118  Hướng dẫn phân quyền    Cao         Chờ khách hàng   15/09  │
+│ #T-0123  Không ký số được (clip) Khẩn cấp    Cần bạn phản hồi 17/09  │
+│ #T-0121  Lỗi tải tệp (clip)      Bình thường Cần bạn phản hồi 16/09  │
+│ #T-0118  Hướng dẫn phân quyền    Cao         Hỗ trợ xử lý     15/09  │
+│ #T-0114  Không nhận được email   Cao         Đã chuyển hỗ trợ 14/09  │
 │ #T-0110  Không gửi được VB đi    Cao         Đã đóng          10/09  │
 │                                                                      │
 │ [5] Trang 1/1              [6] (clip) = ticket có tệp/ảnh đính kèm   │
@@ -167,11 +171,12 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | + Tạo yêu cầu mới | Button | Click | • Navigate → `ticket-tao-moi`. Luôn hiện với khách hàng đã đăng nhập. |
-| 2 | Lọc trạng thái | Dropdown | Select | • Giá trị: Tất cả / Mới / Đang xử lý / Chờ khách hàng / Đã đóng (v1.2: bỏ "Chờ khách hàng xác nhận"). Đổi giá trị → lọc lại ngay. |
+| 2 | Lọc trạng thái | Dropdown | Select | • Giá trị (nhãn khách hàng, 03/10/2026): Tất cả / Đã chuyển hỗ trợ / Hỗ trợ đang xử lý / Cần bạn phản hồi / Đã đóng. Đổi giá trị → lọc lại ngay. |
 | 3 | Lọc ưu tiên / dịch vụ | Dropdown | Select | • Ưu tiên: Khẩn cấp / Cao / Bình thường; Dịch vụ: theo dịch vụ khách hàng dùng (UC21: bộ lọc trạng thái/ưu tiên/dịch vụ). Có thể kết hợp nhiều bộ lọc. |
-| 4 | Bảng ticket | Table | Select | • Cột: Mã, Vấn đề, Ưu tiên, Trạng thái, Ngày cập nhật. Bấm 1 dòng → `ticket-chi-tiet-kh` (UC22).<br>• **Phạm vi dữ liệu:** khách hàng chỉ thấy ticket của mình; đầu mối có thấy ticket của thành viên khác trong đơn vị không: đã chốt (OQ-17).<br>• Dòng "Chờ khách hàng" (đến lượt khách hàng) nên nổi bật (cần hành động) [GIẢ ĐỊNH].<br>• Empty: "Bạn chưa có yêu cầu hỗ trợ nào" + nút [1]. Định dạng mã ticket: chưa có nguồn (dữ liệu mẫu). |
+| 4 | Bảng ticket | Table | Select | • Cột: Mã, Vấn đề, Ưu tiên, Trạng thái (nhãn khách hàng), Ngày. Bấm 1 dòng → `ticket-chi-tiet-kh` (UC22).<br>• **Phạm vi dữ liệu:** khách hàng chỉ thấy ticket của mình; đầu mối có thấy ticket của thành viên khác trong đơn vị không: đã chốt (OQ-17).<br>• **Ticket "Cần bạn phản hồi" xếp lên đầu** rồi mới nhất trước; dòng đó tô nền cam nhạt (03/10/2026).<br>• Empty: "Bạn chưa có yêu cầu hỗ trợ nào" + nút [1]. Định dạng mã ticket: chưa có nguồn (dữ liệu mẫu). |
 | 5 | Phân trang | Pagination | Click | • 10 bản ghi/trang (đã chốt, OQ-11); ẩn khi 1 trang. |
 | 6 | Biểu tượng tệp đính kèm | Icon (clip) | ReadOnly | • Hiện cạnh tiêu đề vấn đề khi ticket có ít nhất 1 tệp/ảnh đính kèm (lúc tạo hoặc trong trao đổi). Không bấm riêng — bấm dòng vẫn vào `ticket-chi-tiet-kh`; ticket không có tệp thì không hiện. |
+| 7 | Dải lọc nhanh trạng thái | Chip group | Select | • **Mới (03/10/2026).** 5 chip phía trên bảng: **Cần tôi phản hồi (N)** (cam; N = số ticket "Cần bạn phản hồi" theo bộ lọc ưu tiên/dịch vụ, không theo bộ lọc trạng thái) / Đã chuyển hỗ trợ / Hỗ trợ đang xử lý / Đã đóng / Tất cả (mặc định). Chọn chip = đặt bộ lọc [2]. |
 
 - Mã ticket, tiêu đề, ngày là dữ liệu mẫu. Header dùng chung (không đánh số).
 
@@ -188,9 +193,9 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ [1] < Quay lại DS >  [7][Chuyển cho hỗ trợ ->] [16][Đóng ticket]     │
 ├──────────────────────────────────────────────────────────────────────┤
-│ #T-0123  Không ký số được                        [2] Chờ khách hàng  │
+│ #T-0123  Không ký số được                       [2] Cần bạn phản hồi │
 │ Dịch vụ: iOffice | Loại: Lỗi ký số | Ưu tiên: Khẩn cấp   [3]         │
-│ [15] (Mới) -> (Đang xử lý) <=> [Chờ khách hàng] -> (Đã đóng)         │
+│ [15] (Đã chuyển HT) -> (HT đang xử lý) <=> [Cần bạn phản hồi] -> (Đóng)│
 ├──────────────────────────────────────────────────────────────────────┤
 │ Lịch sử trao đổi [4]                                                 │
 │ 17/09 08:02  Bạn: Ký số báo lỗi 403 khi ký văn bản đi.               │
@@ -201,7 +206,7 @@
 ├──────────────────────────────────────────────────────────────────────┤
 │ [5] Mốc: Tạo 17/09 08:02 | Phản hồi 17/09 09:15 | Đóng - | Mở lại -  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [6] Đến lượt bạn: nhắn thêm rồi chuyển cho hỗ trợ, hoặc đóng ticket. │
+│ [6] Cần bạn phản hồi: nhắn thêm rồi chuyển cho hỗ trợ, hoặc đóng.    │
 │ [8] [Nhập phản hồi...________] [11] [+ Đính kèm] [9] [ Gửi ]         │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
@@ -212,12 +217,12 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|-------------|
 | 1 | Quay lại danh sách | Link | Click | • Navigate → `ticket-danh-sach-kh`. |
-| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Một trong: Mới / Đang xử lý / Chờ khách hàng / Đã đóng. Đổi khi một bên bấm nút chuyển lượt hoặc đóng ticket (nhắn tin KHÔNG đổi trạng thái); khách hàng nhận thông báo Email/SMS khi đội hỗ trợ bấm "Chuyển cho khách hàng" hoặc đóng ticket (theo `cauhinh-kenh-thongbao`). |
+| 2 | Trạng thái ticket | Label (badge) | ReadOnly | • Nhãn khách hàng (03/10/2026): Đã chuyển hỗ trợ / Hỗ trợ đang xử lý / **Cần bạn phản hồi** (cam) / Đã đóng. Đổi khi một bên bấm nút chuyển lượt hoặc đóng ticket (nhắn tin KHÔNG đổi trạng thái); khách hàng nhận thông báo Email/SMS "Ticket #{mã} cần bạn phản hồi" khi đội hỗ trợ bấm "Chuyển cho khách hàng", hoặc khi đóng ticket (theo `cauhinh-kenh-thongbao`). |
 | 3 | Thông tin ticket | Label | ReadOnly | • Dịch vụ, loại vấn đề, mức ưu tiên khách hàng đã chọn; không sửa được sau khi gửi [GIẢ ĐỊNH]. Không hiển thị tầng/nhân viên nội bộ hay ghi chú nội bộ (chỉ nhân viên nội bộ thấy). |
 | 4 | Lịch sử trao đổi | Timeline | ReadOnly | • Chỉ hiện **phản hồi công khai** giữa khách hàng và đội hỗ trợ theo thứ tự thời gian, kèm tệp đính kèm; **ghi chú nội bộ của agent không bao giờ hiện**.<br>• Có hiển thị tên agent hay chỉ "Đội hỗ trợ": đã chốt (OQ-17).<br>• Phản hồi AI tự động (khi bật) hiển thị như phản hồi thường, có nhãn "phản hồi tự động" cho khách hàng hay không: đã chốt (OQ-17).<br>• Ticket đã chuyển OneBSS: mã phiếu OneBSS có hiện cho khách hàng không: đã chốt (OQ-17).<br>• Mỗi tin có thể kèm tệp/ảnh (xem [10]); ghi chú nội bộ và tệp nội bộ của agent không bao giờ hiện cho khách hàng |
 | 5 | Mốc thời gian | Label | ReadOnly | • Tạo, phản hồi, đóng, mở lại — toàn bộ mốc được lưu trong lịch sử ticket (Đề xuất — Gửi yêu cầu hỗ trợ). Mốc chưa xảy ra hiện "-". |
-| 6 | Khối "lượt" | Banner | ReadOnly | • Nêu bên đang giữ lượt: **Chờ khách hàng** → "Đến lượt bạn" (xem phản hồi, nhắn thêm rồi "Chuyển cho hỗ trợ", hoặc "Đóng ticket"; nhắc tự đóng sau N ngày làm việc — OQ-1) kèm thời điểm + người chuyển lượt; **Mới / Đang xử lý** → "Đang chờ đội hỗ trợ" (vẫn nhắn bổ sung được; có thể đóng ticket); **Đã đóng** → ẩn.<br>• Màu nhấn khi đến lượt khách hàng. |
-| 7 | Chuyển cho hỗ trợ | Button | Click | • **Đặt ở thanh trên cùng (dính khi cuộn), bên phải "Quay lại danh sách"** — nút xanh đặc cỡ nhỏ (cao 28px, chữ 12px) kèm mũi tên. Chỉ hiện khi trạng thái = Chờ khách hàng. Bấm → "Đang xử lý" (giữ nguyên người xử lý cũ), chạy lại đồng hồ SLA, báo nhân viên phụ trách; ticket đổi sang "Đang chờ đội hỗ trợ". Khóa nút khi submitting. Lỗi → giữ màn, báo lỗi [wording chưa có, chưa có mã E-…]. |
+| 6 | Khối "lượt" | Banner | ReadOnly | • Nêu việc cần làm: **Chờ khách hàng** → "Cần bạn phản hồi" (cam; xem phản hồi, nhắn thêm rồi "Chuyển cho hỗ trợ", hoặc "Đóng ticket"; nhắc tự đóng sau N ngày làm việc — OQ-1) kèm thời điểm + người chuyển lượt; **Mới** → "Đã chuyển hỗ trợ" (xanh); **Đang xử lý** → "Hỗ trợ đang xử lý" (xanh) — cả hai vẫn nhắn bổ sung được, có thể đóng ticket; **Đã đóng** → ẩn.<br>• Màu cam khi đến lượt khách hàng. |
+| 7 | Chuyển cho hỗ trợ | Button | Click | • **Đặt ở thanh trên cùng (dính khi cuộn), bên phải "Quay lại danh sách"** — nút xanh đặc cỡ nhỏ (cao 28px, chữ 12px) kèm mũi tên. Chỉ bấm được khi "Cần bạn phản hồi" (Chờ khách hàng); trạng thái khác hiện mờ. Bấm → ticket về **"Đã chuyển hỗ trợ"** (trạng thái lưu Mới; giữ nguyên người xử lý cũ, agent thấy "Cần xử lý"), chạy lại đồng hồ SLA, báo nhân viên phụ trách. Khóa nút khi submitting. Lỗi → giữ màn, báo lỗi [wording chưa có, chưa có mã E-…]. |
 | 8 | Ô nhập phản hồi | Textbox (multi-line) | Text | • Khách hàng bổ sung thông tin/đính kèm cho đội hỗ trợ; hiển thị khi ticket chưa đóng (đặc biệt lúc "Chờ khách hàng"). Ticket đã đóng → ẩn, chuyển sang `ticket-da-dong` (KHÔNG mở lại được — xem [5] tại đó, cập nhật 23/09/2026).<br>• Gửi tin **không đổi trạng thái** (v1.2); chuyển lượt phải bấm [7].<br>• Tệp chọn qua [11] hiện thành dòng "Đính kèm:" phía trên ô nhập, mỗi tệp có (x) để gỡ (xem Trạng thái phụ — soạn phản hồi kèm tệp) |
 | 9 | Gửi | Button | Click | • **Disabled** khi [8] rỗng; gửi → thêm vào lịch sử trao đổi, **không đổi trạng thái**. Nếu ticket đang lượt đội hỗ trợ → báo agent phụ trách; nếu đang "Chờ khách hàng" → chưa báo cho tới khi bấm [7]. |
 | 10 | Tệp đính kèm trong lịch sử | Ảnh xem trước / File chip | Click | • Tệp/ảnh kèm theo từng tin của khách hàng và của đội hỗ trợ. Ảnh hiện hình xem trước nhỏ + tên; bấm ảnh → hộp xem ảnh [12]. Tệp khác (PDF...) hiện tên + dung lượng + (dl); bấm → tải xuống.<br>• Chỉ hiện tệp thuộc phản hồi công khai. |
@@ -225,10 +230,10 @@
 | 12 | Hộp xem ảnh | Modal | ReadOnly | • Mở khi bấm ảnh ở [10]; nền màn phía sau mờ đi. Hiện ảnh lớn, tên tệp, dung lượng, thời điểm gửi; chỉ xem, không sửa (xem Trạng thái phụ — xem ảnh đính kèm). |
 | 13 | Đóng hộp xem ảnh | Icon button (x) | Click | • Đóng hộp, quay về màn chi tiết ticket ở vị trí cũ. |
 | 14 | Tải xuống | Button | Click | • Tải ảnh gốc về máy khách hàng. |
-| 15 | Thanh tiến trình | Stepper | ReadOnly | • 4 bước Mới → Đang xử lý ⇄ Chờ khách hàng → Đã đóng; bước hiện tại nổi bật, bước đã qua có dấu ✓; mũi tên hai chiều giữa "Đang xử lý" và "Chờ khách hàng" thể hiện chuyền qua lại. |
+| 15 | Thanh tiến trình | Stepper | ReadOnly | • 4 bước (nhãn khách hàng) Đã chuyển hỗ trợ → Hỗ trợ đang xử lý ⇄ Cần bạn phản hồi → Đã đóng; bước hiện tại nổi bật, bước đã qua có dấu ✓; mũi tên hai chiều giữa "Hỗ trợ đang xử lý" và "Cần bạn phản hồi" thể hiện chuyền qua lại; khách chuyển lại thì quay về "Đã chuyển hỗ trợ". |
 | 16 | Đóng ticket | Button | Click | • **Đặt ở thanh trên cùng (dính khi cuộn), cạnh [7]** — nút viền + chữ đỏ, nền trắng, cùng cỡ [7] (nhắc thao tác không hoàn tác). Hiện bất cứ lúc nào ticket chưa đóng (kể cả khi đang lượt đội hỗ trợ). Bấm → mở hộp thoại `ticket-xac-nhan` (Đóng ticket + đánh giá). |
 
-- Bố cục vẽ ở trạng thái "Chờ khách hàng" (đủ khối [6] và nút [7] trên thanh trên cùng); ở "Mới/Đang xử lý" khối [6] đổi thành "Đang chờ đội hỗ trợ", ẩn nút [7]; "Đã đóng" → sang `ticket-da-dong`. Nút [16] hiện ở mọi trạng thái chưa đóng.
+- Bố cục vẽ ở trạng thái "Cần bạn phản hồi" (đủ khối [6] và nút [7] trên thanh trên cùng); ở "Đã chuyển hỗ trợ"/"Hỗ trợ đang xử lý" khối [6] đổi sang màu xanh, nút [7] hiện mờ (Figma 17e); "Đã đóng" → sang `ticket-da-dong`. Nút [16] hiện ở mọi trạng thái chưa đóng.
 
 #### Trạng thái phụ — soạn phản hồi kèm tệp
 

@@ -25,9 +25,9 @@
 │ Đã tạo: 128 (+12%) | Đã xử lý: 110 (+8%) | Tồn đọng: 18 (-5%) [4]    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Ticket theo trạng thái [5]                                           │
-│ Mới          ####  12                                                │
+│ Cần xử lý    ####  12                                                │
 │ Đang xử lý   ########  38                                            │
-│ Chờ KH       ###  9                                                  │
+│ Chờ KH p.hồi ###  9                                                  │
 │ Đã đóng      ################  69                                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tầng           Đã tạo   Đang xử lý   Đã đóng    Tồn [6]              │
@@ -46,7 +46,7 @@
 | 2 | Kỳ báo cáo + so sánh | Dropdown + Checkbox | Select / Check | • Kỳ: ngày / tuần / tháng / khoảng tùy chọn (Đề xuất — Tổng quan hoạt động hỗ trợ). Checkbox **So kỳ trước** hiện tỷ lệ tăng/giảm ở [4]; cách xác định kỳ trước: OQ-23. |
 | 3 | Lọc tầng / địa bàn / dịch vụ / khách hàng | Dropdown | Select | • Tầng tiếp nhận (Tỉnh X, Helpdesk công ty, Triển khai Line), địa bàn, dịch vụ (iOffice/iStorage), khách hàng — chỉ liệt kê giá trị **trong phạm vi được xem**. Đổi bộ lọc → tải lại số liệu; đang tải hiện trạng thái chờ. |
 | 4 | Số liệu chính | Label (KPI) | ReadOnly | • Số phiếu **đã tạo / đã xử lý / đang tồn đọng (backlog)** trong kỳ (UC50), kèm % so kỳ trước. Định nghĩa "đã xử lý"/"tồn đọng" theo trạng thái nào: OQ-23.<br>• **Không có dữ liệu trong khoảng lọc** → thay số liệu và biểu đồ bằng "Không có dữ liệu trong khoảng đã chọn" + gợi ý đổi bộ lọc. |
-| 5 | Biểu đồ theo trạng thái | Chart | ReadOnly | • Số ticket theo trạng thái (Mới / Đang xử lý / Chờ khách hàng / Chờ xác nhận / Đã đóng); vẽ dạng cột ngang đơn giản. Có thể xem theo ngày/tuần/tháng. |
+| 5 | Biểu đồ theo trạng thái | Chart | ReadOnly | • Số ticket theo trạng thái, nhãn nhân viên (03/10/2026): Cần xử lý / Đang xử lý / Chờ khách hàng phản hồi / Đã đóng (đã bỏ "Chờ xác nhận" từ 01/10/2026); vẽ dạng cột ngang đơn giản. Có thể xem theo ngày/tuần/tháng. |
 | 6 | Bảng theo tầng | Table | ReadOnly | • Số ticket theo tầng tiếp nhận, dịch vụ, khách hàng theo bộ lọc; bấm dòng để lọc sâu hơn [GIẢ ĐỊNH]. Chủ quản dịch vụ chỉ thấy các dòng thuộc dịch vụ mình. |
 
 - Header nội bộ dùng chung (không đánh số). Số liệu, tên tầng/tỉnh là dữ liệu mẫu chỉ minh họa; biểu đồ vẽ dạng cột ngang bằng ký tự #. Đây cũng là màn landing của Chủ quản dịch vụ và là báo cáo cơ bản (giới hạn theo phạm vi) của Agent.
@@ -69,8 +69,8 @@
 │ Kỳ [2]           Xem theo [3]     Phạm vi                            │
 │ [v: 09/2026    ] [v: Tầng       ] [v: Tất cả     ]                   │
 ├──────────────────────────────────────────────────────────────────────┤
-│ TB phản hồi: 1h20 | TB xử lý: 6h15 | Đúng hạn 91%  Quá hạn 9% [4]    │
-│ Phiếu đã chuyển sang OneBSS: 9 (tầng Tỉnh/Helpdesk) [5]              │
+│ TB phản hồi   TB xử lý   Đúng hạn/Quá hạn SLA   Phiếu OneBSS [4][5]  │
+│ 1h20          6h15       91% (Quá hạn 9%)       9                    │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Tầng / Tỉnh / Agent TB phản hồi  TB xử lý     Đúng hạn   Quá hạn [6] │
 │ --------------------------------------------------------------       │
@@ -91,7 +91,7 @@
 | 2 | Kỳ báo cáo | Dropdown | Select | • Như tab Tổng quan. |
 | 3 | Xem theo | Dropdown | Select | • Tầng / Tỉnh / Agent (đề xuất: theo tầng/tỉnh/agent). Chủ quản dịch vụ **không xem theo Agent** (thông tin cá nhân) [GIẢ ĐỊNH — nguồn chưa nói, OQ-23]. |
 | 4 | Thời gian & SLA | Label (KPI) | ReadOnly | • Thời gian phản hồi trung bình, thời gian xử lý trung bình, **tỷ lệ ticket đúng hạn / quá hạn SLA** (UC51). Mốc bắt đầu/kết thúc, có trừ thời gian "Chờ khách hàng"/ngoài giờ làm việc không, ngưỡng SLA từng ưu tiên: OQ-2, OQ-19, OQ-23. |
-| 5 | Chuyển OneBSS | Label (KPI) | ReadOnly | • Số phiếu đã chuyển sang OneBSS trong kỳ (chỉ ticket tầng Tỉnh/Helpdesk). Không còn chỉ số "escalate tỉnh lên trung tâm" vì bỏ Chuyển cấp từ v1.1 (đã chốt 24/09/2026). |
+| 5 | Thẻ Phiếu chuyển OneBSS | Label (KPI) | ReadOnly | • Thẻ thứ 4 cùng hàng với 3 thẻ [4] (4 thẻ bằng nhau, thiết kế 04/10/2026). Số phiếu OneBSS tạo thành công trong kỳ (chỉ ticket tầng Tỉnh/Helpdesk). Không còn chỉ số "escalate tỉnh lên trung tâm" vì bỏ Chuyển cấp từ v1.1 (đã chốt 24/09/2026); Figma chỉ giữ **1 thẻ OneBSS** (bỏ thẻ trùng cũ). |
 | 6 | Bảng chi tiết | Table | ReadOnly | • Số liệu theo lựa chọn [3]; sắp xếp theo cột; không có dữ liệu → thông báo trống như tab Tổng quan. |
 | 7 | Ghi chú MVP | Label | ReadOnly | • Nhắc: MVP không tự động phân công lại theo SLA (giai đoạn 4); dữ liệu này để nhân viên/Quản trị viên tự quyết xử lý. |
 
