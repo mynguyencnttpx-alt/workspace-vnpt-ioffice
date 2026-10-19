@@ -66,6 +66,7 @@ links:
 | 52 | lich-su-dinh-muc-xe-popup (chưa có section ASCII riêng — mô tả tại [danh-muc-xe-form](danh-muc-xe-laixe.md#screen-danh-muc-xe-form--thêmsửa-xe) mục 8 và [loai-xe-form](quan-ly-nhien-lieu.md#screen-loai-xe-form--thêmsửa-loại-xe) mục 3) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2727-18540) | — | — | 2026-10-19 |
 | 53 | [he-so-ngung](quan-ly-nhien-lieu.md#screen-he-so-ngung--ngừng-áp-dụng-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2764-14962) | — | — | 2026-10-19 |
 | 54 | [nhap-linh-hang-loat](quan-ly-nhien-lieu.md#screen-nhap-linh-hang-loat--nhập-phiếu-lĩnh-hàng-loạt-theo-tháng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2767-15514) | — | — | 2026-10-19 |
+| 55 | [them-phieu-linh-popup](quan-ly-nhien-lieu.md#screen-them-phieu-linh-popup--thêmsửa-phiếu-lĩnh) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2772-16861) | — | — | 2026-10-19 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -179,7 +180,7 @@ Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
 Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có quyền.
 
 ### so-theo-doi-linh
-Nhập phiếu lĩnh theo xe/tháng (sổ theo dõi lĩnh): số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu), ghi chú; xem Tồn đầu, Tồn cuối, Sử dụng (tự tính); nguồn của mẫu 3.
+Sổ theo dõi lĩnh theo xe/tháng (chỉ xem): bảng phiếu lĩnh, khối Tồn đầu/Lĩnh/Mua ngoài/Tồn cuối/Sử dụng; nút Thêm phiếu lĩnh mở popup nhập, nguồn của mẫu 3.
 
 ### mua-ngoai-popup
 Nhập hóa đơn mua nhiên liệu ngoài cây xăng chỉ định gắn chuyến công tác; cảnh báo vượt hạn mức.
@@ -219,6 +220,9 @@ Thêm mới/sửa hệ số tuổi xe hoặc hệ số xe phục vụ khai trư�
 
 ### nhap-linh-hang-loat
 Nhập phiếu lĩnh nhiên liệu cho nhiều xe trong một tháng (ngày, xe, số phiếu, số lít), kiểm trùng số phiếu toàn hệ thống; dùng chung dữ liệu với sổ theo dõi lĩnh từng xe.
+
+### them-phieu-linh-popup
+Popup thêm/sửa một phiếu lĩnh (ngày, số phiếu lĩnh, số lít, ghi chú) mở từ nút Thêm phiếu lĩnh hoặc icon Sửa của sổ theo dõi lĩnh; kiểm trùng số phiếu toàn hệ thống.
 
 ### he-so-ngung
 Ngừng hoạt động một hệ số từ ngày chọn, bắt buộc nhập lý do, chặn nếu làm hở khoảng tuổi hoặc rơi vào tháng đã chốt; không xóa cứng, ghi nhật ký.

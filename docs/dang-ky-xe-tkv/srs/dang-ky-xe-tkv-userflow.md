@@ -257,6 +257,7 @@ flowchart TD
     n48["[48] Thêm/sửa hệ số<br/>(he-so-form)"]
     n53["[53] Ngừng hoạt động hệ số<br/>(he-so-ngung)"]
     n54["[54] Nhập phiếu lĩnh hàng loạt<br/>(nhap-linh-hang-loat)"]
+    n55["[55] Thêm/sửa phiếu lĩnh<br/>(them-phieu-linh-popup)"]
     n35["[35] Lĩnh và tồn đã chốt<br/>(linh-ton-thang-da-chot)"]
     n36["[36] Sổ theo dõi lĩnh theo xe<br/>(so-theo-doi-linh)"]
     n37["[37] Mua ngoài cây xăng<br/>(mua-ngoai-popup)"]
@@ -290,6 +291,9 @@ flowchart TD
     n54 -.->|"trùng số phiếu lĩnh hoặc tháng đã chốt"| n54
     n36 -->|"lưu"| n43
     n36 -.->|"trùng số phiếu lĩnh"| n36
+    n36 -->|"Thêm phiếu lĩnh / Sửa"| n55
+    n55 -->|"lưu hợp lệ"| n36
+    n55 -.->|"trùng số phiếu lĩnh"| n55
     n36 -->|"Mua ngoài"| n37
     n37 -->|"lưu"| n36
     n37 -.->|"vượt hạn mức, chỉ cảnh báo"| n37
@@ -377,6 +381,7 @@ flowchart TD
 | 48 | he-so-form | Thêm/sửa hệ số | Thêm mới/sửa hệ số tuổi xe hoặc khai trường có hiệu lực từ ngày | quan-ly-nhien-lieu |
 | 53 | he-so-ngung | Ngừng hoạt động hệ số | Ngừng hoạt động một hệ số từ ngày chọn, bắt buộc lý do, không xóa cứng | quan-ly-nhien-lieu |
 | 54 | nhap-linh-hang-loat | Nhập phiếu lĩnh hàng loạt | Nhập phiếu lĩnh (ngày, xe, số phiếu, số lít) cho nhiều xe trong tháng, kiểm trùng số phiếu, dùng chung dữ liệu với sổ theo dõi lĩnh | quan-ly-nhien-lieu |
+| 55 | them-phieu-linh-popup | Thêm/sửa phiếu lĩnh | Popup thêm/sửa một phiếu lĩnh (ngày, số phiếu, số lít, ghi chú), kiểm trùng số phiếu | quan-ly-nhien-lieu |
 | 49 | xuat-mau-02-linh-su-dung-ton | Xuất mẫu 2 - Lĩnh, sử dụng, tồn | Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
 | 50 | xuat-mau-03-theo-doi-linh-xe | Xuất mẫu 3 - Theo dõi lĩnh nhiên liệu | Bản xuất PDF/Excel biểu Theo dõi lĩnh nhiên liệu từng xe (in ký tay) | quan-ly-nhien-lieu |
 | 51 | xuat-mau-04-quyet-toan | Xuất mẫu 4 - Quyết toán tiêu hao | Bản xuất PDF/Excel biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
@@ -472,7 +477,9 @@ flowchart TD
 | Báo cáo lĩnh, sử dụng, tồn [43] | Nhập phiếu lĩnh hàng loạt [54] | Nhập phiếu lĩnh | Tháng chưa chốt, có quyền nhập |
 | Nhập phiếu lĩnh hàng loạt [54] | Báo cáo lĩnh, sử dụng, tồn [43] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Nhập phiếu lĩnh hàng loạt [54] | (giữ nguyên) [54] | Lưu | Trùng số phiếu hoặc xe chưa khai báo nhiên liệu: chặn lưu dòng đó |
-| Sổ theo dõi lĩnh theo xe [36] | Báo cáo lĩnh, sử dụng, tồn [43] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
+| Sổ theo dõi lĩnh theo xe [36] | Thêm/sửa phiếu lĩnh [55] | Thêm phiếu lĩnh / icon Sửa | Tháng chưa chốt, có quyền nhập |
+| Thêm/sửa phiếu lĩnh [55] | Sổ theo dõi lĩnh theo xe [36] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
+| Thêm/sửa phiếu lĩnh [55] | (giữ nguyên) [55] | Lưu | Trùng số phiếu: báo xe và ngày đã dùng, chặn lưu |
 | Báo cáo lĩnh, sử dụng, tồn [43] | (giữ nguyên) [43] | Lưu | Tồn đầu/Tồn cuối ≥ 0 và ≤ dung tích thùng; vi phạm: viền đỏ, chặn lưu |
 | Sổ theo dõi lĩnh theo xe [36] | Mua ngoài cây xăng [37] | Mua ngoài | - |
 | Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu | Trùng số phiếu lĩnh: báo xe và ngày đã dùng, chặn lưu dòng đó |
