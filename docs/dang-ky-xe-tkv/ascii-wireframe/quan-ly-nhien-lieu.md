@@ -46,13 +46,14 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │ Thêm/sửa loại xe                                                 │
 ├──────────────────────────────────────────────────────────────────┤
-│ Tên loại xe *  [ Prado 2.7                ]                  [1] │
+│   Tên loại xe *  [ Prado 2.7                       ]         [1] │
 │                                                                  │
 │ Định mức nhiên liệu (mới)                                    [2] │
-│   Định mức mới   [ 17,0   ] lít/100km                            │
-│   Hiệu lực từ    [ 01/01/2026 ]                                  │
-│   Văn bản căn cứ [ < Tải tệp lên > ] QD_2026.pdf [x]             │
-│   Ghi chú        [                         ]                     │
+│   Định mức mới   [ 17,0                  lít/100km ]             │
+│   Hiệu lực từ    [ 01/01/2026                      ]             │
+│   Văn bản căn cứ [ Tải tệp lên hoặc kéo thả        ]             │
+│                    QD_2026.pdf [x]                               │
+│   Ghi chú        [                                 ]             │
 │                                                                  │
 │ Lịch sử định mức                                             [3] │
 │   Định mức | Hiệu lực              | Văn bản căn cứ              │
