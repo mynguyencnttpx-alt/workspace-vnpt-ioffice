@@ -253,7 +253,7 @@ flowchart TD
     n46["[46] Thêm/sửa loại xe<br/>(loai-xe-form)"]
     n47["[47] Cấu hình hệ số<br/>(he-so-config)"]
     n48["[48] Thêm/sửa hệ số<br/>(he-so-form)"]
-    n53["[53] Ngừng áp dụng hệ số<br/>(he-so-ngung)"]
+    n53["[53] Ngừng hoạt động hệ số<br/>(he-so-ngung)"]
     n33["[33] Lĩnh và tồn tháng<br/>(linh-ton-thang)"]
     n35["[35] Lĩnh và tồn đã chốt<br/>(linh-ton-thang-da-chot)"]
     n36["[36] Sổ theo dõi lĩnh theo xe<br/>(so-theo-doi-linh)"]
@@ -277,9 +277,10 @@ flowchart TD
     n45 -->|"Hệ số"| n47
     n47 -->|"+ Thêm hệ số / Sửa"| n48
     n48 -->|"lưu"| n47
-    n47 -->|"Ngừng áp dụng"| n53
+    n47 -->|"Ngừng hoạt động"| n53
     n53 -->|"xác nhận hợp lệ"| n47
     n53 -.->|"hở khoảng tuổi hoặc tháng đã chốt"| n53
+    n47 -->|"Kích hoạt lại (hệ số không hoạt động)"| n47
     n47 -.->|"quay lại"| n45
     n33 -->|"bấm số lít lĩnh tại cây xăng"| n36
     n36 -->|"lưu"| n33
@@ -370,7 +371,7 @@ flowchart TD
 | 46 | loai-xe-form | Thêm/sửa loại xe | Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức | quan-ly-nhien-lieu |
 | 47 | he-so-config | Cấu hình hệ số | Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05) | quan-ly-nhien-lieu |
 | 48 | he-so-form | Thêm/sửa hệ số | Thêm mới/sửa hệ số tuổi xe hoặc khai trường có hiệu lực từ ngày | quan-ly-nhien-lieu |
-| 53 | he-so-ngung | Ngừng áp dụng hệ số | Ngừng áp dụng một hệ số từ ngày chọn, bắt buộc lý do, không xóa cứng | quan-ly-nhien-lieu |
+| 53 | he-so-ngung | Ngừng hoạt động hệ số | Ngừng hoạt động một hệ số từ ngày chọn, bắt buộc lý do, không xóa cứng | quan-ly-nhien-lieu |
 | 49 | xuat-mau-02-linh-su-dung-ton | Xuất mẫu 2 - Lĩnh, sử dụng, tồn | Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
 | 50 | xuat-mau-03-theo-doi-linh-xe | Xuất mẫu 3 - Theo dõi lĩnh nhiên liệu | Bản xuất PDF/Excel biểu Theo dõi lĩnh nhiên liệu từng xe (in ký tay) | quan-ly-nhien-lieu |
 | 51 | xuat-mau-04-quyet-toan | Xuất mẫu 4 - Quyết toán tiêu hao | Bản xuất PDF/Excel biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
@@ -458,9 +459,10 @@ flowchart TD
 | Cấu hình hệ số [47] | Thêm/sửa hệ số [48] | + Thêm hệ số / Sửa | Người có quyền quản trị hệ số |
 | Thêm/sửa hệ số [48] | Cấu hình hệ số [47] | Lưu | Hiệu lực từ ngày hợp lệ, khoảng tuổi không chồng lấn/hở, không áp ngược tháng đã chốt |
 | Thêm/sửa hệ số [48] | (giữ nguyên) [48] | Lưu | Thiếu trường bắt buộc, trùng nhóm, khoảng tuổi chồng lấn/hở |
-| Cấu hình hệ số [47] | Ngừng áp dụng hệ số [53] | Ngừng áp dụng | Hệ số đang áp dụng hoặc chờ hiệu lực |
-| Ngừng áp dụng hệ số [53] | Cấu hình hệ số [47] | Xác nhận | Có lý do, không làm hở khoảng tuổi, ngày không rơi vào tháng đã chốt |
-| Ngừng áp dụng hệ số [53] | (giữ nguyên) [53] | Xác nhận | Hở khoảng tuổi hoặc tháng đã chốt: chặn |
+| Cấu hình hệ số [47] | Ngừng hoạt động hệ số [53] | Ngừng hoạt động | Hệ số đang hoạt động |
+| Ngừng hoạt động hệ số [53] | Cấu hình hệ số [47] | Xác nhận | Có lý do, không làm hở khoảng tuổi, ngày không rơi vào tháng đã chốt |
+| Ngừng hoạt động hệ số [53] | (giữ nguyên) [53] | Xác nhận | Hở khoảng tuổi hoặc tháng đã chốt: chặn |
+| Cấu hình hệ số [47] | (giữ nguyên) [47] | Kích hoạt lại | Hệ số Không hoạt động; khoảng tuổi không chồng lấn với nhóm đang hoạt động, hệ số về Hoạt động và ghi nhật ký |
 | Lĩnh và tồn tháng [33] | Sổ theo dõi lĩnh theo xe [36] | Bấm số lít lĩnh tại cây xăng | - |
 | Sổ theo dõi lĩnh theo xe [36] | Lĩnh và tồn tháng [33] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu | Trùng số phiếu lĩnh: báo xe và ngày đã dùng, chặn lưu dòng đó |

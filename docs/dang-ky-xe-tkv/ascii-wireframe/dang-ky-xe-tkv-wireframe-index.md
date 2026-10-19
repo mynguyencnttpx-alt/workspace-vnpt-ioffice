@@ -215,13 +215,13 @@ Danh mục loại xe và định mức gốc (lít/100km), lối vào cấu hìn
 Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức.
 
 ### he-so-config
-Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05): thêm hệ số mới, sửa, ngừng áp dụng; xem trạng thái Đang áp dụng / Chờ hiệu lực / Ngừng áp dụng.
+Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05): thêm hệ số mới, sửa, ngừng hoạt động; xem trạng thái Đang áp dụng / Chờ hiệu lực / Ngừng hoạt động.
 
 ### he-so-form
 Thêm mới/sửa hệ số tuổi xe hoặc hệ số xe phục vụ khai trường: nhóm, khoảng tuổi, hệ số, hiệu lực từ ngày, văn bản căn cứ; kiểm tra khoảng tuổi không chồng lấn/hở.
 
 ### he-so-ngung
-Ngừng áp dụng một hệ số từ ngày chọn, bắt buộc nhập lý do, chặn nếu làm hở khoảng tuổi hoặc rơi vào tháng đã chốt; không xóa cứng, ghi nhật ký.
+Ngừng hoạt động một hệ số từ ngày chọn, bắt buộc nhập lý do, chặn nếu làm hở khoảng tuổi hoặc rơi vào tháng đã chốt; không xóa cứng, ghi nhật ký.
 
 ### xuat-mau-02-linh-su-dung-ton
 Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay).
