@@ -499,11 +499,11 @@
 ├──────────────────────────────────────────────────────────────────┤
 │ Kỳ * [v Năm 2026]                                [ Xuất v ]  [1] │
 ├──────────────────────────────────────────────────────────────────┤
-│ Tháng  |  Km  |ĐM  |Theo ĐM|Thực tế|Tăng/Giảm|Đã chốt        [2] │
-│ 04/2026|1.402 |18,7|  262  |  262  |    -    | Rồi               │
-│ 05/2026|1.730 |18,7|  324  |  330  |  +6 (!) | Rồi               │
-│ 09/2026|  520 |18,7|   97  |   -   |    -    | Chưa              │
-│ Tổng (đã chốt)|7.945|    | 1.486 | 1.492 |   +6                  │
+│ Tháng   |   Km   |  ĐM  |Theo ĐM|Thực tế|Tăng/Giảm         [2]   │
+│ 04/2026 | 1.402  | 18,7  |  262  |  262  |    -                  │
+│ 05/2026 | 1.730  | 18,7  |  324  |  330  |  +6 (!)               │
+│ 09/2026 |  520   | 18,7  |   97  |   -   |    -                  │
+│ Tổng (đã chốt)| 7.945 |       | 1.486 | 1.492 |   +6             │
 │ [ Quay lại báo cáo ]                                             │
 └──────────────────────────────────────────────────────────────────┘
 ```
@@ -513,7 +513,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
 | 1 | Bộ lọc kỳ + nút Xuất | Dropdown + Button | Select + Click | • Mặc định Năm hiện tại; có kỳ Vòng đời (từ chuyến đầu tiên có km trong hệ thống). Ô Kỳ có nhãn phía trên, nút Xuất (menu Excel) căn phải cùng hàng, cùng khối với bộ lọc như hai báo cáo còn lại. |
-| 2 | Bảng theo tháng | Label (bảng) | ReadOnly | • Mỗi tháng một dòng: km, định mức, tiêu hao theo định mức, thực tế, tăng/giảm, trạng thái chốt.<br>• Tháng chưa chốt: có số lý thuyết, cột Thực tế để trống. Dòng Tổng chỉ cộng các tháng đã chốt. (!) khi vượt định mức. |
+| 2 | Bảng theo tháng | Label (bảng) | ReadOnly | • Mỗi tháng một dòng: km, định mức, tiêu hao theo định mức, thực tế, tăng/giảm. Không có cột trạng thái chốt (đã bỏ); tháng chưa chốt nhận biết qua cột Thực tế để trống.<br>• Căn lề: các cột số liệu (Km, Định mức, Theo định mức, Thực tế, Tăng/Giảm) căn giữa ô, cả tiêu đề, dòng dữ liệu và dòng Tổng; cột Tháng căn trái.<br>• Tháng chưa chốt: có số lý thuyết, cột Thực tế để trống. Dòng Tổng chỉ cộng các tháng đã chốt. (!) khi vượt định mức. |
 
 ---
 
