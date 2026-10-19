@@ -87,11 +87,12 @@
 │ B    | Trên 7 đến 14 năm | 1,05  | 01/01/2026  | Đang áp dụng| ✎ | ⊘     │
 │ C    | Trên 14 năm       | 1,10  | 01/01/2026  | Đang áp dụng| ✎ | ⊘     │
 │ D    | Trên 20 năm       | 1,15  | 01/01/2027  | Chờ hiệu lực| ✎ | ⊘     │
+│ B cũ | Trên 7 đến 14 năm | 1,03  | 2024-2025   | Không áp dụng           │
 ├──────────────────────────────────────────────────────────────────────────┤
 │ Hệ số xe phục vụ khai trường                [ + Thêm hệ số ]         [2] │
 │ STT | Áp dụng          | Hệ số | Hiệu lực từ | Trạng thái | Thao tác     │
 │ 1   | Xe khai trường   | 1,05  | 01/01/2026  | Đang áp dụng| ✎ | ⊘       │
-│ [x] Hiện cả hệ số đã ngừng áp dụng                                   [3] │
+│ [x] Hiện cả hệ số không áp dụng                                      [3] │
 │                                                                          │
 │ Định mức giao khoán = ĐM loại xe x hệ số tuổi                        [4] │
 │ x hệ số khai trường. Vd: 17,0 x 1,10 x 1,00 = 18,7                       │
@@ -103,9 +104,9 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Bảng hệ số tuổi xe + nút Thêm hệ số | Label (bảng) + Button + Icon Sửa (✎) / Ngừng áp dụng (⊘) | ReadOnly + Click | • Theo quy định hiện hành: nhóm A (đến 7 năm) 1,00; nhóm B (trên 7 đến 14 năm) 1,05; nhóm C (trên 14 năm) 1,10. Quy định có thể thay đổi nên được thêm nhóm/hệ số mới, sửa, ngừng áp dụng; KHÔNG xóa cứng (cần giữ lịch sử và đối chiếu tháng đã chốt).<br>• Tuổi xe tính từ Ngày sử dụng của xe, theo ngày về thực tế của từng chuyến [GIẢ ĐỊNH — mốc tính tuổi chờ chốt, OQ-13].<br>• Trạng thái: Đang áp dụng / Chờ hiệu lực (hiệu lực từ ngày tương lai) / Ngừng áp dụng. Dòng nhóm D trong wireframe chỉ là ví dụ minh họa trạng thái Chờ hiệu lực, không phải quy định.<br>• Thêm hệ số và icon Sửa (bút chì) mở `he-so-form`; icon Ngừng áp dụng (vòng cấm, màu đỏ) mở `he-so-ngung`. Hai icon có tooltip "Sửa" / "Ngừng áp dụng". Chỉ người có quyền quản trị loại xe và hệ số thấy các nút này (OQ-17); không đủ quyền chỉ xem. |
+| 1 | Bảng hệ số tuổi xe + nút Thêm hệ số | Label (bảng) + Button + Icon Sửa (✎) / Ngừng áp dụng (⊘) | ReadOnly + Click | • Theo quy định hiện hành: nhóm A (đến 7 năm) 1,00; nhóm B (trên 7 đến 14 năm) 1,05; nhóm C (trên 14 năm) 1,10. Quy định có thể thay đổi nên được thêm nhóm/hệ số mới, sửa, ngừng áp dụng; KHÔNG xóa cứng (cần giữ lịch sử và đối chiếu tháng đã chốt).<br>• Tuổi xe tính từ Ngày sử dụng của xe, theo ngày về thực tế của từng chuyến [GIẢ ĐỊNH — mốc tính tuổi chờ chốt, OQ-13].<br>• Trạng thái: Đang áp dụng / Chờ hiệu lực (hiệu lực từ ngày tương lai) / Không áp dụng (đã ngừng áp dụng từ một ngày nhất định). Dòng nhóm D (Chờ hiệu lực) và dòng B cũ (Không áp dụng) trong wireframe chỉ là ví dụ minh họa trạng thái, không phải quy định.<br>• Thêm hệ số và icon Sửa (bút chì) mở `he-so-form`; icon Ngừng áp dụng (vòng cấm, màu đỏ) mở `he-so-ngung`. Hai icon có tooltip "Sửa" / "Ngừng áp dụng". Chỉ người có quyền quản trị loại xe và hệ số thấy các nút này (OQ-17); không đủ quyền chỉ xem. |
 | 2 | Bảng hệ số xe phục vụ khai trường + nút Thêm hệ số | Label (bảng) + Button + Icon Sửa (✎) / Ngừng áp dụng (⊘) | ReadOnly + Click | • Hệ số 1,05 áp dụng cho xe bố trí phục vụ tại Trung tâm Điều hành sản xuất tại Quảng Ninh, thường xuyên vận hành trên đường khai trường. NHÂN THÊM ngoài hệ số nhóm tuổi.<br>• Xe được đánh dấu "Xe phục vụ khai trường" ở màn thêm/sửa xe (`danh-muc-xe-form`).<br>• Tại một thời điểm chỉ có 1 hệ số khai trường đang áp dụng: thêm hệ số mới khi đã có bản đang áp dụng thì bản mới có hiệu lực từ ngày chọn và bản cũ tự kết thúc trước đó 1 ngày [GIẢ ĐỊNH]. |
-| 3 | Hiện cả hệ số đã ngừng áp dụng | Checkbox | Boolean | • Mặc định ẩn các dòng đã ngừng áp dụng; bật lên để xem lịch sử, dòng đã ngừng hiển thị mờ, chỉ xem (không có icon Sửa/Ngừng). |
+| 3 | Hiện cả hệ số không áp dụng | Checkbox | Boolean | • Mặc định ẩn các dòng Không áp dụng; bật lên để xem lịch sử, dòng Không áp dụng hiển thị mờ, chỉ xem (không có icon Sửa/Ngừng). |
 | 4 | Công thức định mức giao khoán | Label | ReadOnly | • Định mức giao khoán (lít/100km) = định mức loại xe x hệ số tuổi x hệ số khai trường. Ví dụ Prado 2.7, xe trên 14 năm, không khai trường: 17,0 x 1,10 x 1,00 = 18,7.<br>• Xe đổi nhóm tuổi giữa tháng: cách tính định mức cho báo cáo tháng chờ chốt (OQ-14). |
 
 ---
@@ -170,7 +171,7 @@
 |---|-------|--------------|-----------|--------------|
 | 1 | Hệ số đang chọn | Label | ReadOnly | • Hiển thị loại, nhóm, khoảng tuổi và hệ số của dòng được chọn. |
 | 2 | Ngừng áp dụng từ ngày | Datepicker | Text | • Bắt buộc. Không được trước ngày hiệu lực của chính hệ số này. Không áp ngược vào tháng đã chốt: nếu ngày chọn rơi vào tháng đã chốt thì báo "Tháng X đã chốt, cần mở khóa tháng trước" và chặn xác nhận. |
-| 3 | Lý do | Textarea | Text | • Bắt buộc, ghi nhật ký cùng người thực hiện. |
+| 3 | Lý do | Textarea | Text | • Bắt buộc, ghi nhật ký cùng người thực hiện. Sau khi xác nhận, hệ số chuyển sang trạng thái Không áp dụng (từ ngày chọn) và không còn Sửa/Ngừng. |
 | 4 | Cảnh báo hở khoảng tuổi | Label (cảnh báo) | ReadOnly | • Với hệ số tuổi xe: nếu ngừng làm hở khoảng tuổi (xe có tuổi trong khoảng đó không còn hệ số) thì hiện cảnh báo và chặn xác nhận cho tới khi có nhóm thay thế cùng ngày hiệu lực [GIẢ ĐỊNH].<br>• Với hệ số khai trường: ngừng áp dụng thì xe có cờ khai trường tính hệ số 1,00 từ ngày ngừng; hiện thông báo số xe bị ảnh hưởng. |
 
 ---
