@@ -51,8 +51,7 @@
 │ Định mức nhiên liệu (mới)                                    [2] │
 │   Định mức mới   [ 17,0                  lít/100km ]             │
 │   Hiệu lực từ    [ 01/01/2026                      ]             │
-│   Văn bản căn cứ [ Tải tệp lên hoặc kéo thả        ]             │
-│                    QD_2026.pdf [x]                               │
+│   Văn bản căn cứ [ Tải tệp lên ]  QD_2026.pdf [x                 │
 │   Ghi chú        [                                 ]             │
 │                                                                  │
 │ Lịch sử định mức                                             [3] │
@@ -69,7 +68,7 @@
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
 | 1 | Tên loại xe | Textbox | Text | • Bắt buộc, không trùng tên loại xe đã có. |
-| 2 | Định mức mới + Hiệu lực + Văn bản + Ghi chú | Textbox (số) + Datepicker + Upload | Text | • Định mức bắt buộc, số dương (lít/100km). Hiệu lực từ ngày bắt buộc.<br>• Đổi định mức KHÔNG ghi đè: tạo bản ghi mới có hiệu lực từ ngày chỉ định, bản cũ giữ trong lịch sử. Báo cáo tháng dùng định mức hiệu lực theo ngày.<br>• Mỗi lần đổi ghi vào nhật ký (vd "Đổi định mức Prado 2.7: 17,0 sang 17,5"). |
+| 2 | Định mức mới + Hiệu lực + Văn bản + Ghi chú | Textbox (số) + Datepicker + Button Tải tệp lên | Text | • Định mức bắt buộc, số dương (lít/100km). Hiệu lực từ ngày bắt buộc.<br>• Đổi định mức KHÔNG ghi đè: tạo bản ghi mới có hiệu lực từ ngày chỉ định, bản cũ giữ trong lịch sử. Báo cáo tháng dùng định mức hiệu lực theo ngày.<br>• Mỗi lần đổi ghi vào nhật ký (vd "Đổi định mức Prado 2.7: 17,0 sang 17,5").<br>• Văn bản căn cứ: tùy chọn, chỉ chọn tệp bằng nút Tải tệp lên (mở hộp chọn tệp), KHÔNG hỗ trợ kéo thả; tệp đã chọn hiện tên tệp, dung lượng và nút xóa. Định dạng/dung lượng tối đa chờ chốt [GIẢ ĐỊNH]. |
 | 3 | Lịch sử định mức | Label (bảng) | ReadOnly | • Liệt kê các mốc định mức đã áp dụng, khoảng hiệu lực và văn bản căn cứ (mở xem được). |
 
 ---
@@ -125,7 +124,7 @@
 │ Tuổi xe từ (năm) [ 7           ] đến [ 14          ]          [4] │
 │ Hệ số *          [ 1,05                            ]         [5] │
 │ Hiệu lực từ *    [ 01/01/2026                      ]         [6] │
-│ Văn bản căn cứ   [ Tải lên  QD_dinh_muc_2026.pdf   ]         [7] │
+│ Văn bản căn cứ   [ Tải tệp lên ]  QD_dinh_muc_2026.pdf  [7       │
 │ Ghi chú          [                                 ]             │
 │                                                                  │
 │ [ Lưu ]  [ Đóng ]                                                │
@@ -142,7 +141,7 @@
 | 4 | Tuổi xe từ - đến | Textbox (số) | Text | • Chỉ hiện với loại Tuổi xe. Các nhóm đang áp dụng tại cùng thời điểm liền nhau, không chồng lấn, không để hở [GIẢ ĐỊNH]; "đến" để trống = không giới hạn trên (chỉ cho nhóm cao nhất).<br>• Lỗi: "Khoảng tuổi chồng lấn với nhóm X" / "Khoảng tuổi để hở so với nhóm X". |
 | 5 | Hệ số | Textbox (số) | Text | • Bắt buộc, số dương, tối đa 2 chữ số thập phân. |
 | 6 | Hiệu lực từ ngày | Datepicker | Text | • Bắt buộc. Hệ số mới/sửa chỉ áp dụng từ ngày hiệu lực; KHÔNG áp ngược vào tháng đã chốt (muốn sửa phải mở khóa tháng). Mỗi lần thêm, sửa ghi nhật ký (người, thời điểm, giá trị cũ/mới). |
-| 7 | Văn bản căn cứ | Upload | File | • Tùy chọn: quyết định/văn bản quy định hệ số (PDF/Word), hiển thị cùng lịch sử thay đổi [GIẢ ĐỊNH — theo cách làm của `loai-xe-form`]. |
+| 7 | Văn bản căn cứ | Button Tải tệp lên | File | • Tùy chọn: quyết định/văn bản quy định hệ số (PDF/Word). Chỉ chọn tệp bằng nút Tải tệp lên (mở hộp chọn tệp), KHÔNG hỗ trợ kéo thả; tệp đã chọn hiện tên tệp kèm nút xóa, hiển thị cùng lịch sử thay đổi [GIẢ ĐỊNH — theo cách làm của `loai-xe-form`]. |
 
 ---
 
