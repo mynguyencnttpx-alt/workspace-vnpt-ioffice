@@ -212,9 +212,10 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │ Sổ theo dõi lĩnh theo xe                                         │
 ├──────────────────────────────────────────────────────────────────┤
-│ Tháng [v 08/2026] Xe [v 30M-51470 Fortuner] NL: Xăng A95 (Chưa   │
-│ chốt)                                                        [1] │
-│ [Lưu] [Mua ngoài cây xăng] [Xuất PDF mẫu 3] [Xuất Excel]     [2] │
+│ Tháng *            Xe *                                          │
+│ [v 08/2026   ]     [v 30M-51470 · Fortuner 2.7        ]      [1]  │
+│ [Lưu][Mua ngoài cây xăng][Xem nhật ký chỉnh sửa]                 │
+│ [Xuất PDF mẫu 3][Xuất Excel]                                 [2] │
 ├──────────────────────────────────────────────────────────────────┤
 │ Tồn đầu 46 | Lĩnh 620 | Mua ngoài - | Tồn cuối 54 | Sử dụng 612  │
 │ (chỉ xem; Tồn đầu, Tồn cuối nhập ở báo cáo lĩnh tồn)         [3] │
@@ -237,8 +238,8 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Bộ lọc tháng, xe + nhiên liệu | Dropdown + Label | Select + ReadOnly | • Mỗi xe một sổ theo tháng. Loại nhiên liệu lấy từ khai báo của xe, không sửa tại đây. |
-| 2 | Nút Lưu / Mua ngoài cây xăng / Xuất PDF mẫu 3 / Xuất Excel | Button | Click | • Lưu: ghi các phiếu lĩnh vừa thêm/sửa/xóa.<br>• Xuất theo đúng khuôn biểu mẫu "Theo dõi lĩnh nhiên liệu" (`xuat-mau-03-theo-doi-linh-xe`). In ký tay, không ký số. |
+| 1 | Bộ lọc tháng, xe | Dropdown | Select | • Hai ô lọc xếp cùng hàng, nhãn phía trên, dấu * là bắt buộc. Mỗi xe một sổ theo tháng. Loại nhiên liệu lấy theo khai báo của xe, không hiển thị và không sửa tại đây. Không có nhãn trạng thái chốt trên màn này (trạng thái chốt xem ở `baocao-linh-ton`); tháng đã chốt thì chỉ xem. |
+| 2 | Nút Lưu / Mua ngoài cây xăng / Xem nhật ký chỉnh sửa / Xuất PDF mẫu 3 / Xuất Excel | Button | Click | • Lưu: ghi các phiếu lĩnh vừa thêm/sửa/xóa.<br>• Xem nhật ký chỉnh sửa: mở `linh-ton-log` lọc sẵn theo xe và tháng đang chọn (chỉ xem).<br>• Xuất theo đúng khuôn biểu mẫu "Theo dõi lĩnh nhiên liệu" (`xuat-mau-03-theo-doi-linh-xe`). In ký tay, không ký số. |
 | 3 | Tổng hợp tháng của xe (Tồn đầu, Lĩnh, Mua ngoài, Tồn cuối, Sử dụng) | Label | ReadOnly | • Chỉ xem, KHÔNG có ô nhập nào trong khối này. Tồn đầu và Tồn cuối lấy từ số đã nhập ở `baocao-linh-ton`. Lĩnh tại cây xăng: tự cộng từ cột Phiếu lĩnh của bảng bên dưới. Mua ngoài: tự cộng từ hóa đơn (nút Mua ngoài cây xăng mở `mua-ngoai-popup`).<br>• Sử dụng (tự tính) = Tồn đầu + Lĩnh tại cây xăng + Mua ngoài − Tồn cuối, không được âm. Vd 46 + 620 + 0 − 54 = 612. |
 | 4 | Khối Thêm phiếu lĩnh | Datepicker + Textbox + Button | Text | • MỌI ô nhập của màn này nằm ở khối này, mỗi ô có nhãn phía trên (dấu * là bắt buộc), không dùng placeholder thay nhãn. Ngày, Số phiếu lĩnh, Số lít bắt buộc; số lít là số dương; Ghi chú không bắt buộc (hiện ở cột Ghi chú của dòng và gộp vào cột Ghi chú của `baocao-linh-ton` [GIẢ ĐỊNH]).<br>• Quy tắc đã chốt: chỉ nhập số phiếu lĩnh và kiểm TRÙNG toàn hệ thống (không quản lý kho phiếu). Trùng thì báo ngay dưới ô Số phiếu lĩnh: "Đã ghi cho xe {biển số} ({ngày}), không thể trùng" và chặn thêm dòng đó.<br>• Bấm Thêm: dòng mới vào bảng; bấm Lưu để ghi. |
 | 5 | Bảng phiếu lĩnh và hóa đơn | Label (bảng) + Icon Sửa/Xóa | ReadOnly + Click | • Bảng chỉ xem, không có ô nhập trực tiếp. Mỗi dòng: ngày, số phiếu lĩnh, số lít, ghi chú. Sửa một dòng bằng icon Sửa (đưa dữ liệu lên khối Thêm phiếu lĩnh để chỉnh), xóa bằng icon Xóa. Tổng số = phiếu + hóa đơn.<br>• Dòng hóa đơn (mua ngoài) lấy từ `mua-ngoai-popup`, hiển thị cùng bảng theo thứ tự ngày, không sửa tại đây.<br>• Dòng Cộng cuối bảng: tổng cột Phiếu lĩnh chính là số "Lĩnh tại cây xăng chỉ định" ở `baocao-linh-ton` (vd 620).<br>• Tháng đã chốt: toàn màn chỉ xem, ẩn khối Thêm phiếu lĩnh và icon Sửa/Xóa. |
