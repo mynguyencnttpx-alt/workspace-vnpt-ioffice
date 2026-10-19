@@ -474,7 +474,6 @@ flowchart TD
 | Nhập phiếu lĩnh hàng loạt [54] | (giữ nguyên) [54] | Lưu | Trùng số phiếu hoặc xe chưa khai báo nhiên liệu: chặn lưu dòng đó |
 | Nhập lĩnh, tồn theo xe [36] | Báo cáo lĩnh, sử dụng, tồn [43] | Lưu | Không trùng số phiếu lĩnh; tồn cuối ≥ 0 và ≤ dung tích thùng |
 | Nhập lĩnh, tồn theo xe [36] | Mua ngoài cây xăng [37] | Mua ngoài | - |
-| REMOVE | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu | Trùng số phiếu lĩnh: báo xe và ngày đã dùng, chặn lưu dòng đó |
 | Báo cáo lĩnh, sử dụng, tồn [43] | Xác nhận chốt tháng [38] | Chốt tháng | Đủ tồn cuối; tồn không âm và không vượt thùng; Sử dụng không âm |
 | Báo cáo lĩnh, sử dụng, tồn [43] | (giữ nguyên) [43] | Chốt tháng | Thiếu tồn cuối hoặc vi phạm quy tắc tồn: báo xe còn thiếu/sai |
