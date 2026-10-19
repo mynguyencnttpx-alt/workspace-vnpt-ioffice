@@ -439,11 +439,11 @@
 │ Kỳ*[v Tháng] Tháng*[v 08/2026] Đơn vị [v ..] Xe [v ..] [Xem] [2] │
 │                                               [ Xuất v ]      [3]│
 ├──────────────────────────────────────────────────────────────────┤
-│ STT|Biển số   |Km tháng|ĐM giao khoán|Theo ĐM|Thực tế|+/-    [4] │
-│  1 |30M-51470 | 3.828  |    16,0     |  612  |  612  | -         │
-│  3 |30E-930.37| 1.615  |    18,7     |  302  |  302  | -         │
-│  9 |29X-9999  |   0    |Chưa có ĐM   |   -   |   -   | -         │
-│ Tổng             |19.508 |             | 3.249 | 3.249 | -       │
+│ STT|Biển số|Lái xe|Km tháng|ĐM|Theo ĐM|Thực tế|+/-            [4]│
+│  1 |30M-51470|Nguyễn Văn An| 3.828 |16,0| 612 | 612 | -          │
+│  3 |30E-930.37|Lê Văn Cường| 1.615 |18,7| 302 | 302 | -          │
+│  9 |29X-9999|Chưa gán lái xe|  0  |Chưa có ĐM| - | - | -         │
+│ Tổng                      |19.508|    | 3.249 | 3.249 | -        │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -454,7 +454,7 @@
 | 1 | Tab báo cáo | Tab | Click | • Chuyển giữa Quyết toán tiêu hao (màn này) và Lĩnh, sử dụng, tồn (`baocao-linh-ton`). |
 | 2 | Bộ lọc kỳ, tháng, đơn vị, xe | Dropdown | Select | • Kỳ mặc định Tháng. Đơn vị quản lý quyết định tiêu đề biểu mẫu khi xuất (OQ-15). |
 | 3 | Nút Xem / Xuất (menu) + trạng thái chốt | Button + Label | Click | • Nhãn trạng thái chốt (Đã chốt / Chưa chốt) nằm cùng hàng với tab, căn phải. Khối bộ lọc: các ô lọc có nhãn phía trên cùng hàng với nút Xem (bên trái); nút Xuất căn phải.<br>• Xuất (menu) gồm Excel và PDF. Xuất PDF theo đúng biểu mẫu "Biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô" (`xuat-mau-04-quyet-toan`), in ký tay.<br>• Tháng chưa chốt: cột Thực tế để trống, Tăng/Giảm không tính. |
-| 4 | Bảng quyết toán | Label (bảng) + Link biển số | ReadOnly + Click | • Km hoạt động trong tháng: tổng km các chuyến đã xác nhận đi về của xe trong tháng [GIẢ ĐỊNH — nguồn km chờ chốt, OQ-19].<br>• Định mức giao khoán = định mức loại xe x hệ số tuổi x hệ số khai trường (lít/100km).<br>• Tiêu hao theo định mức (cột 5 = 3 x 4) = Km x Định mức / 100, làm tròn lít. Tiêu hao thực tế (cột 6) = số Sử dụng của `baocao-linh-ton` (kết chuyển từ cột 8 biểu lĩnh-sử dụng-tồn). Tăng (+)/Giảm (-) (cột 7 = 6 − 5); (!) khi vượt định mức.<br>• Xe chưa có định mức: "Chưa có định mức", không tính tiêu hao. Bấm biển số mở `chi-tiet-xe-tieuhao`. |
+| 4 | Bảng quyết toán | Label (bảng) + Link biển số | ReadOnly + Click | • Lái xe phụ trách (cột mới, nằm cạnh Biển số): tên lái xe đang phụ trách xe (lái xe biên chế gán cho xe, lấy từ `danh-muc-xe-form`) [GIẢ ĐỊNH]; xe chưa gán lái xe hiển thị "Chưa gán lái xe" (màu cam). Chỉ để tra cứu/lọc, không thuộc cột của biểu mẫu mẫu 4 nên không in ra PDF mẫu 4.<br>• Km hoạt động trong tháng: tổng km các chuyến đã xác nhận đi về của xe trong tháng [GIẢ ĐỊNH — nguồn km chờ chốt, OQ-19].<br>• Định mức giao khoán = định mức loại xe x hệ số tuổi x hệ số khai trường (lít/100km).<br>• Tiêu hao theo định mức (cột 5 = 3 x 4) = Km x Định mức / 100, làm tròn lít. Tiêu hao thực tế (cột 6) = số Sử dụng của `baocao-linh-ton` (kết chuyển từ cột 8 biểu lĩnh-sử dụng-tồn). Tăng (+)/Giảm (-) (cột 7 = 6 − 5); (!) khi vượt định mức.<br>• Xe chưa có định mức: "Chưa có định mức", không tính tiêu hao. Bấm biển số mở `chi-tiet-xe-tieuhao`. |
 
 ---
 
