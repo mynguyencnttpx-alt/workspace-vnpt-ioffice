@@ -220,11 +220,11 @@
 │ (chỉ xem; Tồn đầu, Tồn cuối nhập ở báo cáo lĩnh tồn)         [2] │
 ├──────────────────────────────────────────────────────────────────┤
 │ STT|Ngày      |Số phiếu|Số HĐ|Phiếu(l)|HĐ(l)|Tổng|Ghi chú|TT [3] │
-│  1 |03/08/2026|359005  |     |  50    |  -  | 50 |       |✎ ✕    │
+│  1 |03/08/2026|359005  |     | 50 |  50    |  -  |       |✎ ✕    │
 │  2 |           |359006  |     |  50    |  -  | 50 |       |✎ ✕   │
-│  5 |08/08/2026|359029  |     |  50    |  -  | 50 |       |✎ ✕    │
+│  5 |08/08/2026|359029  |     | 50 |  50    |  -  |       |✎ ✕    │
 │ (scroll xuống xem thêm đến STT 13)                               │
-│ Cộng                       |  620   |  0  |620 |                 │
+│ Cộng                             | 620 |  620   |  0  |          │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -234,7 +234,7 @@
 |---|-------|--------------|-----------|--------------|
 | 1 | Bộ lọc tháng, xe + nút chức năng | Dropdown + Button | Select + Click | • Một hàng: bên trái hai ô lọc Tháng *, Xe * (nhãn phía trên); bên phải các nút. Mỗi xe một sổ theo tháng. Loại nhiên liệu lấy theo khai báo của xe, không hiển thị. Không có nhãn trạng thái chốt trên màn này (xem ở `baocao-linh-ton`).<br>• Thêm phiếu lĩnh: mở popup `them-phieu-linh-popup`; ẩn khi tháng đã chốt hoặc không có quyền.<br>• Mua ngoài: mở `mua-ngoai-popup`. Nhật ký chỉnh sửa: mở `linh-ton-log` lọc sẵn theo xe và tháng đang chọn (chỉ xem).<br>• Xuất (menu): Xuất PDF theo đúng khuôn "Theo dõi lĩnh nhiên liệu" (`xuat-mau-03-theo-doi-linh-xe`, in ký tay, không ký số) và Xuất Excel.<br>• Không có nút Lưu: phiếu được ghi ngay khi bấm Lưu trong popup. |
 | 2 | Tổng hợp tháng của xe (Tồn đầu, Lĩnh, Mua ngoài, Tồn cuối, Sử dụng) | Label | ReadOnly | • Chỉ xem, KHÔNG có ô nhập. Tồn đầu và Tồn cuối lấy từ số đã nhập ở `baocao-linh-ton`. Lĩnh tại cây xăng: tự cộng từ cột Phiếu lĩnh của bảng. Mua ngoài: tự cộng từ hóa đơn.<br>• Sử dụng (tự tính) = Tồn đầu + Lĩnh tại cây xăng + Mua ngoài − Tồn cuối, không được âm. Vd 46 + 620 + 0 − 54 = 612. |
-| 3 | Bảng phiếu lĩnh và hóa đơn | Label (bảng) + Icon Sửa/Xóa | ReadOnly + Click | • Bảng chỉ xem, không có ô nhập trực tiếp. Mỗi dòng: ngày, số phiếu lĩnh, số lít, ghi chú. Icon Sửa mở lại popup với dữ liệu dòng đó; icon Xóa có hộp xác nhận rồi ghi nhật ký. Tổng số = phiếu + hóa đơn.<br>• Dòng hóa đơn (mua ngoài) lấy từ `mua-ngoai-popup`, hiển thị cùng bảng theo thứ tự ngày, không sửa tại đây.<br>• Dòng Cộng cuối bảng: tổng cột Phiếu lĩnh chính là số "Lĩnh tại cây xăng chỉ định" ở `baocao-linh-ton` (vd 620).<br>• Tháng đã chốt: toàn màn chỉ xem, ẩn nút Thêm phiếu lĩnh và icon Sửa/Xóa. |
+| 3 | Bảng phiếu lĩnh và hóa đơn | Label (bảng) + Icon Sửa/Xóa | ReadOnly + Click | • Bảng chỉ xem, không có ô nhập trực tiếp. Cột theo đúng biểu mẫu mẫu 3: STT, Ngày tháng, Số hiệu chứng từ (Số phiếu lĩnh, Số hóa đơn), Số lượng lĩnh lít (Tổng số, Phiếu lĩnh, Hóa đơn), Ghi chú. Icon Sửa mở lại popup với dữ liệu dòng đó; icon Xóa có hộp xác nhận rồi ghi nhật ký. Tổng số = phiếu + hóa đơn.<br>• Hóa đơn (mua ngoài) nhập trong popup này hoặc lấy từ `mua-ngoai-popup`, hiển thị cùng bảng theo thứ tự ngày.<br>• Dòng Cộng cuối bảng: tổng cột Phiếu lĩnh chính là số "Lĩnh tại cây xăng chỉ định" ở `baocao-linh-ton` (vd 620).<br>• Tháng đã chốt: toàn màn chỉ xem, ẩn nút Thêm phiếu lĩnh và icon Sửa/Xóa. |
 
 ---
 
@@ -246,13 +246,17 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │ THÊM PHIẾU LĨNH                                          [x]     │
 ├──────────────────────────────────────────────────────────────────┤
-│ Xe / Tháng       [ 30M-51470 · Fortuner 2.7 · 08/2026 ] (khóa)   │
-│ Ngày *           [ dd/mm/yyyy                          ]     [1] │
-│ Số phiếu lĩnh *  [ 359009                              ]     [2] │
-│                  (!) Số phiếu 359009 đã ghi cho xe 30M-51952     │
-│                      (03/08/2026), không thể trùng               │
-│ Số lít *         [ lít                                 ]     [3] │
-│ Ghi chú          [ Ghi chú của phiếu                   ]     [4] │
+│ Xe / Tháng        [ 30M-51470 · Fortuner 2.7 · 08/2026 ] (khóa)  │
+│ Ngày *            [ dd/mm/yyyy                         ]     [1] │
+│ SỐ HIỆU CHỨNG TỪ (nhập ít nhất 1 trong 2)                    [2] │
+│ Số phiếu lĩnh     [ 359009                             ]         │
+│                   (!) Đã ghi cho xe 30M-51952, không thể trùng   │
+│ Số hóa đơn        [ Số hóa đơn (nếu có)                ]         │
+│ SỐ LƯỢNG LĨNH (LÍT)                                          [3] │
+│ Phiếu lĩnh (lít)  [ lít                                ]         │
+│ Hóa đơn (lít)     [ lít                                ]         │
+│ Tổng số (tự tính) [ 0                                  ] (khóa)  │
+│ Ghi chú           [ Ghi chú của phiếu                  ]     [4] │
 │                                                                  │
 │ [ Lưu ]  [ Đóng ]                                                │
 └──────────────────────────────────────────────────────────────────┘
@@ -260,13 +264,14 @@
 
 ### Screen description
 
+> Các nhóm thông tin theo đúng khuôn biểu mẫu "Theo dõi lĩnh nhiên liệu" (mẫu 3): STT, Ngày tháng, Số hiệu chứng từ (Phiếu lĩnh, Hóa đơn), Số lượng lĩnh (Lít) gồm Tổng số, Phiếu lĩnh, Hóa đơn, và Ghi chú. STT do hệ thống tự đánh theo thứ tự ngày.
+
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Ngày | Datepicker | Text | • Bắt buộc, thuộc tháng của sổ đang mở. Xe và tháng lấy từ màn `so-theo-doi-linh`, khóa không sửa. |
-| 2 | Số phiếu lĩnh | Textbox | Text | • Bắt buộc. Quy tắc đã chốt: chỉ nhập số phiếu và kiểm TRÙNG toàn hệ thống (không quản lý kho phiếu). Trùng thì báo ngay dưới ô: "Số phiếu {số} đã ghi cho xe {biển số} ({ngày}), không thể trùng" và chặn Lưu. |
-| 3 | Số lít | Textbox (số) | Text | • Bắt buộc, số dương (lít). |
-| 4 | Ghi chú | Textbox | Text | • Không bắt buộc; hiện ở cột Ghi chú của dòng và gộp vào cột Ghi chú của `baocao-linh-ton` [GIẢ ĐỊNH]. |
-| 5 | Lưu / Đóng | Button | Click | • Lưu hợp lệ: ghi phiếu, đóng popup, bảng và khối tổng hợp của `so-theo-doi-linh` cập nhật, ghi nhật ký. Sửa phiếu dùng cùng popup, tiêu đề "SỬA PHIẾU LĨNH". |
+| 1 | Xe / Tháng + Ngày tháng | Label + Datepicker | ReadOnly + Text | • Xe và tháng lấy từ màn `so-theo-doi-linh`, khóa không sửa. Ngày tháng bắt buộc, thuộc tháng của sổ đang mở; in ra biểu mẫu dạng "03-Thg8". |
+| 2 | Số hiệu chứng từ: Số phiếu lĩnh, Số hóa đơn | Textbox | Text | • Phải nhập ÍT NHẤT MỘT trong hai. Một dòng có thể chỉ có phiếu lĩnh (lĩnh tại cây xăng chỉ định), chỉ có hóa đơn (mua ngoài) hoặc cả hai.<br>• Số phiếu lĩnh: kiểm TRÙNG toàn hệ thống (quy tắc đã chốt, không quản lý kho phiếu). Trùng thì báo ngay dưới ô: "Số phiếu {số} đã ghi cho xe {biển số} ({ngày}), không thể trùng" và chặn Lưu.<br>• Số hóa đơn: kiểm trùng như `mua-ngoai-popup` ("Thiếu hoặc trùng số hóa đơn"). Mua ngoài vượt hạn mức chỉ cảnh báo, vẫn lưu được, ghi nhật ký [GIẢ ĐỊNH — dùng chung quy tắc của `mua-ngoai-popup`]. |
+| 3 | Số lượng lĩnh (lít): Phiếu lĩnh, Hóa đơn, Tổng số | Textbox (số) + Label | Text + ReadOnly | • Phiếu lĩnh (lít): bắt buộc khi đã nhập Số phiếu lĩnh; số dương. Hóa đơn (lít): bắt buộc khi đã nhập Số hóa đơn; số dương. Ô không có số chứng từ tương ứng thì để trống/khóa.<br>• Tổng số (tự tính, khóa) = Phiếu lĩnh (lít) + Hóa đơn (lít). Phiếu lĩnh (lít) cộng vào "Lĩnh tại cây xăng chỉ định", Hóa đơn (lít) cộng vào "Mua ngoài" của `baocao-linh-ton`. |
+| 4 | Ghi chú + Lưu / Đóng | Textbox + Button | Text + Click | • Ghi chú không bắt buộc, hiện ở cột Ghi chú của dòng và gộp vào cột Ghi chú của `baocao-linh-ton` [GIẢ ĐỊNH].<br>• Lưu hợp lệ: ghi dòng, đóng popup, bảng và khối tổng hợp của `so-theo-doi-linh` cập nhật, ghi nhật ký. Sửa phiếu dùng cùng popup, tiêu đề "SỬA PHIẾU LĨNH". |
 
 ---
 
