@@ -45,7 +45,6 @@ links:
 | 30 | [bieumau-list](bieu-mau-dong.md#screen-bieumau-list--danh-mục-biểu-mẫu-động) | bieu-mau-dong | draft | — | — | — | — | 2026-08-13 |
 | 31 | [bieumau-form](bieu-mau-dong.md#screen-bieumau-form--uploadcấu-hình-biểu-mẫu) | bieu-mau-dong | draft | — | — | — | — | 2026-08-13 |
 | 32 | [nhatky-xe-list](nghiep-vu-doc-lap.md#screen-nhatky-xe-list--nhật-ký-xe-ngoài-chuyến-đăng-ký) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
-| 33 | [linh-ton-thang](quan-ly-nhien-lieu.md#screen-linh-ton-thang--lĩnh-và-tồn-nhiên-liệu-theo-tháng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-18814) | — | — | 2026-10-16 |
 | 34 | [baocao-km](nghiep-vu-doc-lap.md#screen-baocao-km--báo-cáo-thống-kê-km) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
 | 35 | [linh-ton-thang-da-chot](quan-ly-nhien-lieu.md#screen-linh-ton-thang-da-chot--lĩnh-và-tồn---tháng-đã-chốt) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27423) | — | — | 2026-10-16 |
 | 36 | [so-theo-doi-linh](quan-ly-nhien-lieu.md#screen-so-theo-doi-linh--sổ-theo-dõi-lĩnh-nhiên-liệu-theo-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-18479) | — | — | 2026-10-16 |
@@ -173,9 +172,6 @@ Upload/cấu hình biểu mẫu, bắt buộc xem trước trước khi lưu act
 ### nhatky-xe-list
 Nhật ký xe ngoài chuyến đăng ký — thêm/sửa/xóa bản ghi của mình.
 
-### linh-ton-thang
-Nhập tồn cuối + ghi chú từng xe theo tháng, tự tính Sử dụng, tự cộng lĩnh/mua ngoài; nút Nhập phiếu lĩnh (hàng loạt) và icon nhập lĩnh từng xe; Chốt tháng; xuất mẫu 2.
-
 ### baocao-km
 Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
 
@@ -183,7 +179,7 @@ Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
 Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có quyền.
 
 ### so-theo-doi-linh
-Sổ theo dõi lĩnh theo xe/tháng: số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu); nguồn của mẫu 3.
+Nhập lĩnh, tồn theo xe/tháng (sổ theo dõi lĩnh): số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu), tồn cuối, ghi chú, Sử dụng tự tính; nguồn của mẫu 3.
 
 ### mua-ngoai-popup
 Nhập hóa đơn mua nhiên liệu ngoài cây xăng chỉ định gắn chuyến công tác; cảnh báo vượt hạn mức.
@@ -204,7 +200,7 @@ Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xe
 Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4.
 
 ### baocao-linh-ton
-Báo cáo lĩnh, sử dụng, tồn theo xe; xuất mẫu 2.
+Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký, icon nhập lĩnh, tồn theo xe; xuất mẫu 2.
 
 ### chi-tiet-xe-tieuhao
 Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời.
