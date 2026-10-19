@@ -284,7 +284,7 @@ flowchart TD
     n53 -.->|"hở khoảng tuổi hoặc tháng đã chốt"| n53
     n47 -->|"Kích hoạt lại (hệ số không hoạt động)"| n47
     n47 -.->|"quay lại"| n45
-    n43 -->|"bấm số lít/icon nhập phiếu lĩnh của 1 xe"| n36
+    n43 -->|"bấm số lít lĩnh của 1 xe"| n36
     n43 -->|"Nhập phiếu lĩnh (hàng loạt)"| n54
     n54 -->|"lưu"| n43
     n54 -.->|"trùng số phiếu lĩnh hoặc tháng đã chốt"| n54
@@ -468,7 +468,7 @@ flowchart TD
 | Ngừng hoạt động hệ số [53] | Cấu hình hệ số [47] | Xác nhận | Có lý do, không làm hở khoảng tuổi, ngày không rơi vào tháng đã chốt |
 | Ngừng hoạt động hệ số [53] | (giữ nguyên) [53] | Xác nhận | Hở khoảng tuổi hoặc tháng đã chốt: chặn |
 | Cấu hình hệ số [47] | (giữ nguyên) [47] | Kích hoạt lại | Hệ số Không hoạt động; khoảng tuổi không chồng lấn với nhóm đang hoạt động, hệ số về Hoạt động và ghi nhật ký |
-| Báo cáo lĩnh, sử dụng, tồn [43] | Sổ theo dõi lĩnh theo xe [36] | Bấm số lít hoặc icon nhập phiếu lĩnh của 1 xe | - |
+| Báo cáo lĩnh, sử dụng, tồn [43] | Sổ theo dõi lĩnh theo xe [36] | Bấm số lít lĩnh của 1 xe | - |
 | Báo cáo lĩnh, sử dụng, tồn [43] | Nhập phiếu lĩnh hàng loạt [54] | Nhập phiếu lĩnh | Tháng chưa chốt, có quyền nhập |
 | Nhập phiếu lĩnh hàng loạt [54] | Báo cáo lĩnh, sử dụng, tồn [43] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Nhập phiếu lĩnh hàng loạt [54] | (giữ nguyên) [54] | Lưu | Trùng số phiếu hoặc xe chưa khai báo nhiên liệu: chặn lưu dòng đó |
