@@ -191,7 +191,7 @@ Mở khóa tháng đã chốt, bắt buộc nhập lý do, ghi nhật ký.
 Xử lý tồn đầu các tháng sau bị lệch sau khi sửa tháng cũ: tính lại hoặc giữ nguyên đánh dấu lệch.
 
 ### linh-ton-log
-Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xem).
+Nhật ký chỉnh sửa lĩnh và tồn (chỉ xem): ghi mọi thao tác chỉnh sửa gồm lái xe cập nhật tồn đầu/tồn cuối, đặt lại theo định mức, thêm/sửa/xóa phiếu lĩnh, chốt/mở khóa tháng, đổi định mức; mỗi dòng có người, thời điểm, trường, giá trị cũ và mới.
 
 ### baocao-quyet-toan
 Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4.

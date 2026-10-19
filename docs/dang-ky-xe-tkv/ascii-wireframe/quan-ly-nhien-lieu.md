@@ -400,15 +400,19 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │ Nhật ký chỉnh sửa lĩnh và tồn                                    │
 ├──────────────────────────────────────────────────────────────────┤
-│ Xe [v Tất cả] Từ ngày [dd/mm/yyyy] Đến [dd/mm/yyyy] [Tìm]    [1] │
+│ Tháng [v 08/2026] Xe [v Tất cả] Thao tác [v Tất cả] Người [v ..] │
+│ Từ ngày [dd/mm/yyyy] Đến ngày [dd/mm/yyyy] [ Tìm kiếm ]      [1] │
 ├──────────────────────────────────────────────────────────────────┤
-│ Thời gian      |Người  |Hành động  |Nội dung / lý do         [2] │
-│ 08/10/26 09:25 |ql.xe01|Chốt       |Tháng 08/2026                │
-│ 08/10/26 09:20 |ql.xe01|Sửa số liệu|30E-930.37 cuối 60->62       │
-│ 08/10/26 09:15 |ql.xe01|Mở khóa    |08/2026, nhập sai tồn cuối   │
-│ 05/09/26 16:00 |ql.xe01|Chốt       |Tháng 08/2026                │
-│ 01/09/26 08:30 |qt.xe02|Đổi ĐM     |Prado 2.7: 17,0 -> 17,5      │
-│ Hiển thị [v 10] bản ghi                      [ Quay lại ]        │
+│ Thời gian|Người|Xe|Thao tác|Trường|Giá trị cũ|Giá trị mới|Nguồn[2│
+│ 31/08 17:20|lx.nguyenvana|30M-51470|Cập nhật tồn cuối|Tồn cuối|  │
+│           58 (ước tính) -> 54 | Lái xe | Số thực tế trên đồng hồ │
+│ 31/08 16:40|lx.tranthib|29Y-1731|Cập nhật tồn đầu|Tồn đầu|       │
+│            35 (ước tính) -> 36 | Lái xe                          │
+│ 01/09 08:05|lx.tranthib|30E-930.37|Đặt lại theo định mức|Tồn cuối│
+│            57 -> 60 (ước tính) | Lái xe                          │
+│ 05/09 16:00|ql.xe01|Tất cả xe|Chốt tháng|Tháng 08/2026|Quản lý   │
+│ 08/10 09:20|ql.xe01|30E-930.37|Sửa số liệu|Tồn cuối|60 -> 62     │
+│ Hiển thị [v 10] bản ghi                      [ Quay lại ]    [3] │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -416,8 +420,9 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Bộ lọc xe, khoảng ngày | Dropdown + Datepicker + Button | Select | • Không bắt buộc. Tìm theo xe và khoảng thời gian thao tác. |
-| 2 | Bảng nhật ký | Label (bảng) | ReadOnly | • Chỉ xem, không sửa/xóa. Ghi các hành động: Chốt, Mở khóa (kèm lý do), Sửa số liệu (giá trị cũ sang mới), Đổi định mức/hệ số, Mua ngoài vượt hạn mức, Tính lại/giữ nguyên tồn đầu lệch. |
+| 1 | Bộ lọc tháng, xe, thao tác, người thực hiện, khoảng ngày | Dropdown + Datepicker + Button | Select + Text | • Không bắt buộc. Mở từ nút Nhật ký chỉnh sửa của `so-theo-doi-linh` thì lọc sẵn theo xe và tháng đang chọn; mở từ `baocao-linh-ton` thì lọc sẵn theo tháng. Lái xe chỉ thấy nhật ký của xe mình phụ trách.<br>• Thao tác lọc theo nhóm: Cập nhật tồn đầu, Cập nhật tồn cuối, Đặt lại theo định mức, Thêm/Sửa/Xóa phiếu lĩnh, Chốt tháng, Mở khóa tháng, Sửa số liệu, Đổi định mức/hệ số, Tính lại/giữ nguyên tồn đầu lệch. |
+| 2 | Bảng nhật ký | Label (bảng) | ReadOnly | • Chỉ xem, không sửa/xóa. Mỗi dòng: Thời gian, Người thực hiện, Xe, Thao tác, Trường bị thay đổi, Giá trị cũ, Giá trị mới, Nguồn (Lái xe / Quản lý / Quản trị / Hệ thống), Lý do hoặc ghi chú.<br>• Nhập tồn đầu, tồn cuối (MỚI): mỗi lần lái xe bấm Lưu tồn ở `so-theo-doi-linh`, hệ thống ghi MỘT dòng cho từng trường thực sự thay đổi (Tồn đầu hoặc Tồn cuối), kèm giá trị cũ và mới. Giá trị cũ là số ước tính theo định mức thì ghi nhãn \"(ước tính)\"; số do lái xe nhập trước đó thì ghi số đó. Không ghi dòng nếu số không đổi.<br>• Đặt lại theo định mức: ghi dòng \"Đặt lại theo định mức\" với giá trị cũ là số lái xe đã nhập và giá trị mới là số ước tính.<br>• Số ước tính được hệ thống tính lại tự động (khi có thêm phiếu lĩnh hoặc km thay đổi) KHÔNG ghi nhật ký; chỉ ghi khi người dùng chủ động thay đổi.<br>• Thêm/Sửa/Xóa phiếu lĩnh và hóa đơn: ghi số phiếu, số lít cũ và mới (hoặc trống nếu thêm mới/xóa).<br>• Các thao tác quản lý giữ như cũ: Chốt tháng (ghi số xe còn số ước tính), Mở khóa tháng (kèm lý do), Sửa số liệu sau mở khóa (cũ sang mới), Đổi định mức/hệ số, Tính lại/giữ nguyên tồn đầu lệch. |
+| 3 | Phân trang | Dropdown + Button | Select | • Hiển thị 10/20/50 bản ghi; Quay lại về màn mở nhật ký. Nhật ký sắp xếp mới nhất trước và giữ vĩnh viễn, không xóa được. |
 
 ---
 
