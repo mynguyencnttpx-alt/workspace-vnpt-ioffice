@@ -197,7 +197,7 @@ Nhật ký chỉnh sửa lĩnh và tồn (chỉ xem): ghi mọi thao tác chỉn
 Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4.
 
 ### baocao-linh-ton
-Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): chỉ xem, tất cả cột tự tổng hợp (số ước tính theo định mức đánh dấu *); nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký, bấm số Lĩnh tại cây xăng mở sổ lĩnh từng xe; xuất mẫu 2.
+Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): chỉ xem, tất cả cột tự tổng hợp (số ước tính theo định mức đánh dấu *); cột Lái xe phụ trách thay cột Nhiên liệu, các cột số liệu căn giữa, chỉ còn nút Xem và Xuất; bấm số Lĩnh tại cây xăng mở sổ lĩnh từng xe; xuất mẫu 2.
 
 ### chi-tiet-xe-tieuhao
 Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời.

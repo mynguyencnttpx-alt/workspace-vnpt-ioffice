@@ -285,7 +285,6 @@ flowchart TD
     n47 -->|"Kích hoạt lại (hệ số không hoạt động)"| n47
     n47 -.->|"quay lại"| n45
     n43 -->|"bấm số lít lĩnh của 1 xe"| n36
-    n43 -->|"Nhập phiếu lĩnh (hàng loạt)"| n54
     n54 -->|"lưu"| n43
     n54 -.->|"trùng số phiếu lĩnh hoặc tháng đã chốt"| n54
     n36 -->|"lưu"| n43
@@ -293,7 +292,7 @@ flowchart TD
     n36 -->|"Thêm phiếu lĩnh / Sửa"| n55
     n55 -->|"lưu hợp lệ"| n36
     n55 -.->|"trùng số phiếu lĩnh"| n55
-    n43 -->|"Chốt tháng"| d1
+    n43 -->|"Chốt tháng (vị trí nút chờ xác định, OQ-22)"| d1
     d1 -->|"đủ"| n38
     d1 -.->|"thiếu hoặc sai"| n43
     n38 -->|"xác nhận chốt"| n35
@@ -304,9 +303,9 @@ flowchart TD
     d2 -->|"lệch"| n40
     d2 -->|"không lệch"| n43
     n40 -->|"tính lại, hoặc giữ nguyên và đánh dấu lệch"| n43
-    n43 -->|"Xem nhật ký"| n41
+    n36 -->|"Nhật ký chỉnh sửa"| n41
     n35 -->|"Xem nhật ký"| n41
-    n41 -.->|"quay lại"| n43
+    n41 -.->|"quay lại"| n36
     n43 -.->|"Xuất mẫu 2"| n49
     n35 -.->|"Xuất mẫu 2"| n49
     n36 -.->|"Xuất PDF mẫu 3"| n50
@@ -469,7 +468,6 @@ flowchart TD
 | Ngừng hoạt động hệ số [53] | (giữ nguyên) [53] | Xác nhận | Hở khoảng tuổi hoặc tháng đã chốt: chặn |
 | Cấu hình hệ số [47] | (giữ nguyên) [47] | Kích hoạt lại | Hệ số Không hoạt động; khoảng tuổi không chồng lấn với nhóm đang hoạt động, hệ số về Hoạt động và ghi nhật ký |
 | Báo cáo lĩnh, sử dụng, tồn [43] | Sổ theo dõi lĩnh theo xe [36] | Bấm số lít lĩnh của 1 xe | - |
-| Báo cáo lĩnh, sử dụng, tồn [43] | Nhập phiếu lĩnh hàng loạt [54] | Nhập phiếu lĩnh | Tháng chưa chốt, có quyền nhập |
 | Nhập phiếu lĩnh hàng loạt [54] | Báo cáo lĩnh, sử dụng, tồn [43] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Nhập phiếu lĩnh hàng loạt [54] | (giữ nguyên) [54] | Lưu | Trùng số phiếu hoặc xe chưa khai báo nhiên liệu: chặn lưu dòng đó |
 | Sổ theo dõi lĩnh theo xe [36] | Thêm/sửa phiếu lĩnh [55] | Thêm phiếu lĩnh / icon Sửa | Tháng chưa chốt, có quyền nhập |
@@ -487,8 +485,8 @@ flowchart TD
 | Mở khóa tháng [39] | Báo cáo lĩnh, sử dụng, tồn [43] | Mở khóa | Tồn đầu các tháng sau không lệch; bắt buộc nhập lý do (tối đa 500 ký tự) |
 | Mở khóa tháng [39] | Lĩnh và tồn đã chốt [35] | Hủy | - |
 | Tồn đầu các tháng sau bị lệch [40] | Báo cáo lĩnh, sử dụng, tồn [43] | Tính lại / Giữ nguyên, đánh dấu lệch | Tính lại chỉ cho tháng chưa chốt; ghi nhật ký |
-| Báo cáo lĩnh, sử dụng, tồn [43] / đã chốt [35] | Nhật ký chỉnh sửa [41] | Xem nhật ký | - |
-| Nhật ký chỉnh sửa [41] | Báo cáo lĩnh, sử dụng, tồn [43] | Quay lại | - |
+| Nhập lĩnh, tồn theo xe [36] | Nhật ký chỉnh sửa [41] | Nhật ký chỉnh sửa | Lọc sẵn theo xe và tháng đang chọn |
+| Nhật ký chỉnh sửa [41] | Nhập lĩnh, tồn theo xe [36] | Quay lại | - |
 | Báo cáo lĩnh, sử dụng, tồn [43] / đã chốt [35] | Xuất mẫu 2 [49] | Xuất mẫu 2 (PDF/Excel) | In ký tay, không ký số |
 | Sổ theo dõi lĩnh theo xe [36] | Xuất mẫu 3 [50] | Xuất PDF mẫu 3 | In ký tay, không ký số |
 | Báo cáo quyết toán tiêu hao [42] | Báo cáo lĩnh, sử dụng, tồn [43] | Chuyển tab | - |
@@ -516,5 +514,6 @@ flowchart TD
 - [ ] OQ-19: Nguồn "Số Km hoạt động trong tháng" của biểu quyết toán: chỉ km chuyến đã xác nhận đi về, hay cộng cả nhật ký xe ngoài chuyến? Hiện giả định chỉ chuyến đã xác nhận đi về.
 - [ ] OQ-20: Màn thêm/sửa xe theo Figma mới lệch bản trước ở 3 điểm cần xác nhận: (a) Lái xe biên chế có BẮT BUỘC không (Figma ghi bắt buộc, bản trước ghi không bắt buộc); (b) chu kỳ bảo dưỡng tính theo km (Figma chỉ có "Số Km bảo dưỡng") hay theo thời gian như 3 sổ định kỳ đang mô tả; (c) danh mục giá trị của ô "Tình trạng xe" (Figma mới có "Xe mới").
 - [ ] OQ-21: Định mức riêng của xe (nhập ở màn thêm/sửa xe) thay thế định mức gốc của loại xe, và có còn nhân thêm hệ số tuổi xe/khai trường không?
+- [ ] OQ-22: Báo cáo lĩnh, sử dụng, tồn [43] đã bỏ nút Chốt tháng, Nhập phiếu lĩnh và Nhật ký chỉnh sửa (2026-10-19). Nút Chốt tháng (mở [38] Xác nhận chốt tháng) và Mở khóa tháng đặt ở màn nào, ai có quyền chốt?
 
 (OQ-1, OQ-2, OQ-3 đã chốt ở đợt trước — bắt buộc tất cả ban xác nhận, ký qua SignServer, tính lại km khi hủy phiếu trong nhóm ghép. OQ-5 đã chốt thành business rule "cấu hình mượn xe chéo đơn vị" tại màn `phan-quyen-thamso` — Mục 2 dòng 18. OQ-6, OQ-7 đã được khách hàng quyết định bỏ qua ở đợt này.)
