@@ -435,7 +435,6 @@
 │ Báo cáo quyết toán tiêu hao                                      │
 │ [Quyết toán tiêu hao] | Lĩnh, sử dụng, tồn                   [1] │
 ├──────────────────────────────────────────────────────────────────┤
-│ (Tháng 08/2026: Đã chốt)                                     [1] │
 │ Kỳ*[v Tháng] Tháng*[v 08/2026] Đơn vị [v ..] Xe [v ..] [Xem] [2] │
 │                                               [ Xuất v ]      [3]│
 ├──────────────────────────────────────────────────────────────────┤
@@ -453,7 +452,7 @@
 |---|-------|--------------|-----------|--------------|
 | 1 | Tab báo cáo | Tab | Click | • Chuyển giữa Quyết toán tiêu hao (màn này) và Lĩnh, sử dụng, tồn (`baocao-linh-ton`). |
 | 2 | Bộ lọc kỳ, tháng, đơn vị, xe | Dropdown | Select | • Kỳ mặc định Tháng. Đơn vị quản lý quyết định tiêu đề biểu mẫu khi xuất (OQ-15). |
-| 3 | Nút Xem / Xuất (menu) + trạng thái chốt | Button + Label | Click | • Nhãn trạng thái chốt (Đã chốt / Chưa chốt) nằm cùng hàng với tab, căn phải. Khối bộ lọc: các ô lọc có nhãn phía trên cùng hàng với nút Xem (bên trái); nút Xuất căn phải.<br>• Xuất (menu) gồm Excel và PDF. Xuất PDF theo đúng biểu mẫu "Biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô" (`xuat-mau-04-quyet-toan`), in ký tay.<br>• Tháng chưa chốt: cột Thực tế để trống, Tăng/Giảm không tính. |
+| 3 | Nút Xem / Xuất (menu) | Button | Click | • Không có nhãn trạng thái chốt (Đã chốt / Chưa chốt) trên màn báo cáo. Khối bộ lọc: các ô lọc có nhãn phía trên cùng hàng với nút Xem (bên trái); nút Xuất căn phải.<br>• Xuất (menu) gồm Excel và PDF. Xuất PDF theo đúng biểu mẫu "Biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô" (`xuat-mau-04-quyet-toan`), in ký tay.<br>• Tháng chưa chốt: cột Thực tế để trống, Tăng/Giảm không tính. |
 | 4 | Bảng quyết toán | Label (bảng) + Link biển số | ReadOnly + Click | • Căn lề: các cột số liệu (Km, Định mức, Theo định mức, Thực tế, Tăng/Giảm) căn giữa ô, cả tiêu đề, dòng dữ liệu và dòng Tổng.<br>• Lái xe phụ trách (cột mới, nằm cạnh Biển số): tên lái xe đang phụ trách xe (lái xe biên chế gán cho xe, lấy từ `danh-muc-xe-form`) [GIẢ ĐỊNH]; xe chưa gán lái xe hiển thị "Chưa gán lái xe" (màu cam). Chỉ để tra cứu/lọc, không thuộc cột của biểu mẫu mẫu 4 nên không in ra PDF mẫu 4.<br>• Km hoạt động trong tháng: tổng km các chuyến đã xác nhận đi về của xe trong tháng [GIẢ ĐỊNH — nguồn km chờ chốt, OQ-19].<br>• Định mức giao khoán = định mức loại xe x hệ số tuổi x hệ số khai trường (lít/100km).<br>• Tiêu hao theo định mức (cột 5 = 3 x 4) = Km x Định mức / 100, làm tròn lít. Tiêu hao thực tế (cột 6) = số Sử dụng của `baocao-linh-ton` (kết chuyển từ cột 8 biểu lĩnh-sử dụng-tồn). Tăng (+)/Giảm (-) (cột 7 = 6 − 5); (!) khi vượt định mức.<br>• Xe chưa có định mức: "Chưa có định mức", không tính tiêu hao. Bấm biển số mở `chi-tiet-xe-tieuhao`. |
 
 ---
@@ -467,7 +466,6 @@
 │ Báo cáo lĩnh, sử dụng, tồn                                       │
 │ Quyết toán tiêu hao | [Lĩnh, sử dụng, tồn]                   [1] │
 ├──────────────────────────────────────────────────────────────────┤
-│ (Tháng 08/2026: Chưa chốt)                                   [1] │
 │ Kỳ* [v Tháng] Tháng* [v 08/2026] Đơn vị [v ..] Xe [v ..] [Xem]   │
 │                                                [ Xuất v ]    [2] │
 ├──────────────────────────────────────────────────────────────────┤
@@ -484,8 +482,8 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Tab báo cáo + nhãn trạng thái chốt + bộ lọc | Tab + Dropdown | Click + Select | • Như `baocao-quyet-toan`. |
-| 2 | Nút Xem / Xuất (menu) | Button | Click | • Bố cục như `baocao-quyet-toan`: nhãn trạng thái chốt cùng hàng với tab (căn phải); khối bộ lọc có nhãn phía trên, nút Xem cùng hàng; nút Xuất (menu Excel, PDF mẫu 2) căn phải. Báo cáo KHÔNG có nút Nhập phiếu lĩnh, Nhật ký chỉnh sửa, Chốt tháng (đã bỏ khỏi màn này; vị trí nút Chốt tháng chờ xác định, xem OQ bên dưới).<br>• Xuất PDF theo đúng biểu mẫu "Biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô" (`xuat-mau-02-linh-su-dung-ton`). |
+| 1 | Tab báo cáo + bộ lọc | Tab + Dropdown | Click + Select | • Như `baocao-quyet-toan`. |
+| 2 | Nút Xem / Xuất (menu) | Button | Click | • Bố cục như `baocao-quyet-toan` (không có nhãn trạng thái chốt): khối bộ lọc có nhãn phía trên, nút Xem cùng hàng; nút Xuất (menu Excel, PDF mẫu 2) căn phải. Báo cáo KHÔNG có nút Nhập phiếu lĩnh, Nhật ký chỉnh sửa, Chốt tháng (đã bỏ khỏi màn này; vị trí nút Chốt tháng chờ xác định, xem OQ bên dưới).<br>• Xuất PDF theo đúng biểu mẫu "Biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô" (`xuat-mau-02-linh-su-dung-ton`). |
 | 3 | Bảng lĩnh - sử dụng - tồn | Label (bảng) | ReadOnly | • Cột Lái xe phụ trách (thay cột Nhiên liệu): tên lái xe đang phụ trách xe (lái xe biên chế, lấy từ `danh-muc-xe-form`) [GIẢ ĐỊNH]; xe chưa gán lái xe hiển thị "Chưa gán lái xe". Loại nhiên liệu của xe vẫn dùng để gom Tổng xăng/Tổng dầu nhưng không hiển thị thành cột.<br>• Căn lề: các cột số liệu (Thùng, Tồn đầu, Lĩnh tại cây xăng, Mua ngoài, Tổng số lĩnh, Sử dụng, Tồn cuối) căn giữa ô.<br>• Số liệu tổng hợp theo tháng từ sổ lĩnh, tồn của từng xe (tháng chưa chốt hiển thị số đang nhập, nhãn "Chưa chốt"; tháng đã chốt: số liệu cố định); có STT, Tổng số lĩnh, Ghi chú, Tổng xăng/Tổng dầu/Tổng cộng như biểu mẫu giấy.<br>• Sử dụng = Tồn đầu + Lĩnh tại cây xăng + Mua ngoài − Tồn cuối. Xe chưa khai báo loại nhiên liệu không nằm trong tổng xăng, tổng dầu.<br>• Cột Lĩnh tại cây xăng là link: bấm vào số mở `so-theo-doi-linh` của xe đó để xem và nhập phiếu lĩnh, tồn đầu, tồn cuối, ghi chú (xe chưa có số lĩnh hiển thị "-" vẫn bấm được). Không có icon chỉnh sửa trên dòng. Báo cáo KHÔNG có ô nhập: Tồn đầu và Tồn cuối do hệ thống tự tính, điền sẵn theo định mức và được lái xe cập nhật theo số thực tế ở `so-theo-doi-linh`; dòng nào còn là số ước tính (lái xe chưa cập nhật) hiển thị dấu * màu cam sau số, có chú thích cuối trang. Mọi cột đều chỉ xem, tự tổng hợp từ sổ của từng xe (Ghi chú lấy từ sổ của xe). Chỉ có báo cáo, xuất mẫu 2 và các nút thao tác tháng (Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký). |
 
 ---
