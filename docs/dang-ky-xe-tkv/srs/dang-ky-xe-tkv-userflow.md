@@ -245,7 +245,7 @@ flowchart TD
 
 > Bổ sung 2026-10-16: phân hệ Quản lý nhiên liệu (B6) theo biểu mẫu đơn vị đang dùng + quy định định mức của Tập đoàn + thiết kế Figma. Thay màn khung tạm [33] cũ. 3 biểu mẫu xuất (mẫu 2, 3, 4) in ký tay, không ký số; số phiếu lĩnh chỉ nhập số + kiểm trùng; mua ngoài vượt hạn mức chỉ cảnh báo. Lĩnh tại cây xăng ở [33] tự cộng từ sổ theo dõi lĩnh [36]; Mua ngoài tự cộng từ hóa đơn [37].
 
-> Điều chỉnh 2026-10-19: bỏ màn [37] Mua ngoài cây xăng (hóa đơn mua ngoài nhập thẳng ở [55] Thêm/sửa phiếu lĩnh; số thứ tự [37] giữ trống). Bỏ màn [33] Lĩnh và tồn tháng vì trùng với [43] Báo cáo lĩnh, sử dụng, tồn. [43] là màn tổng hợp theo tháng (Chốt tháng, Xem nhật ký, Nhập phiếu lĩnh hàng loạt [54]); nhập phiếu lĩnh theo từng xe ở [36]; chỉ Tồn đầu và Tồn cuối được nhập tay trực tiếp trên [43]. Số thứ tự [33] giữ trống, không dùng lại.
+> Điều chỉnh 2026-10-19: bỏ màn [37] Mua ngoài cây xăng (hóa đơn mua ngoài nhập thẳng ở [55] Thêm/sửa phiếu lĩnh; số thứ tự [37] giữ trống). Bỏ màn [33] Lĩnh và tồn tháng vì trùng với [43] Báo cáo lĩnh, sử dụng, tồn. [43] là màn tổng hợp theo tháng (Chốt tháng, Xem nhật ký, Nhập phiếu lĩnh hàng loạt [54]); nhập phiếu lĩnh theo từng xe ở [36]; Tồn đầu và Tồn cuối do hệ thống tự tính, điền sẵn theo định mức và lái xe cập nhật theo số thực tế ở [36] cho xe mình phụ trách; [43] chỉ xem. Số thứ tự [33] giữ trống, không dùng lại.
 
 ### Flow: Quản lý nhiên liệu
 
@@ -368,7 +368,7 @@ flowchart TD
 | 40 | ton-dau-lech | Tồn đầu các tháng sau bị lệch | Xử lý tồn đầu các tháng sau bị lệch sau khi sửa tháng cũ: tính lại hoặc giữ nguyên đánh dấu lệch | quan-ly-nhien-lieu |
 | 41 | linh-ton-log | Nhật ký chỉnh sửa lĩnh và tồn | Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xem) | quan-ly-nhien-lieu |
 | 42 | baocao-quyet-toan | Báo cáo quyết toán tiêu hao | Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4 | quan-ly-nhien-lieu |
-| 43 | baocao-linh-ton | Báo cáo lĩnh, sử dụng, tồn | Tổng hợp lĩnh, sử dụng, tồn theo xe và theo tháng (thay màn Lĩnh và tồn [33] đã gỡ); chỉ Tồn đầu và Tồn cuối cho nhập tay, các cột khác tự tổng hợp; nút Lưu, Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký; xuất mẫu 2 | quan-ly-nhien-lieu |
+| 43 | baocao-linh-ton | Báo cáo lĩnh, sử dụng, tồn | Tổng hợp lĩnh, sử dụng, tồn theo xe và theo tháng (thay màn Lĩnh và tồn [33] đã gỡ); chỉ xem, mọi cột tự tổng hợp (số ước tính theo định mức đánh dấu *); nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký; xuất mẫu 2 | quan-ly-nhien-lieu |
 | 44 | chi-tiet-xe-tieuhao | Chi tiết tiêu hao theo xe | Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời | quan-ly-nhien-lieu |
 | 45 | loai-xe-list | Danh mục loại xe và định mức | Danh mục loại xe và định mức gốc (lít/100km), lối vào cấu hình hệ số | quan-ly-nhien-lieu |
 | 46 | loai-xe-form | Thêm/sửa loại xe | Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức | quan-ly-nhien-lieu |
@@ -475,7 +475,8 @@ flowchart TD
 | Sổ theo dõi lĩnh theo xe [36] | Thêm/sửa phiếu lĩnh [55] | Thêm phiếu lĩnh / icon Sửa | Tháng chưa chốt, có quyền nhập |
 | Thêm/sửa phiếu lĩnh [55] | Sổ theo dõi lĩnh theo xe [36] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Thêm/sửa phiếu lĩnh [55] | (giữ nguyên) [55] | Lưu | Trùng số phiếu: báo xe và ngày đã dùng, chặn lưu |
-| Báo cáo lĩnh, sử dụng, tồn [43] | (giữ nguyên) [43] | Lưu | Tồn đầu/Tồn cuối ≥ 0 và ≤ dung tích thùng; vi phạm: viền đỏ, chặn lưu |
+| Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu tồn | Tồn đầu/Tồn cuối ≥ 0 và ≤ dung tích thùng; vi phạm: viền đỏ, chặn lưu. Lái xe chỉ cập nhật xe mình phụ trách |
+| Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Đặt lại theo định mức | Xóa số lái xe đã nhập, quay về số ước tính |
 | Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu | Trùng số phiếu lĩnh: báo xe và ngày đã dùng, chặn lưu dòng đó |
 | Báo cáo lĩnh, sử dụng, tồn [43] | Xác nhận chốt tháng [38] | Chốt tháng | Đủ tồn cuối; tồn không âm và không vượt thùng; Sử dụng không âm |
 | Báo cáo lĩnh, sử dụng, tồn [43] | (giữ nguyên) [43] | Chốt tháng | Thiếu tồn cuối hoặc vi phạm quy tắc tồn: báo xe còn thiếu/sai |

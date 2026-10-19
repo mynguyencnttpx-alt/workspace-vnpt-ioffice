@@ -179,7 +179,7 @@ Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
 Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có quyền.
 
 ### so-theo-doi-linh
-Sổ theo dõi lĩnh theo xe/tháng (chỉ xem): bảng phiếu lĩnh, khối Tồn đầu/Lĩnh/Mua ngoài/Tồn cuối/Sử dụng; nút Thêm phiếu lĩnh mở popup nhập, nguồn của mẫu 3.
+Sổ theo dõi lĩnh theo xe/tháng: bảng phiếu lĩnh, khối Tồn đầu/Tồn cuối tự tính, điền sẵn theo định mức và lái xe cập nhật theo số thực tế (xe mình phụ trách), Sử dụng thực tế và theo định mức; nút Thêm phiếu lĩnh mở popup nhập, nguồn của mẫu 3.
 
 ### chot-thang-confirm
 Xác nhận chốt số liệu tháng (đủ tồn cuối, không sai quy tắc tồn).
@@ -197,7 +197,7 @@ Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xe
 Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4.
 
 ### baocao-linh-ton
-Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): chỉ Tồn đầu và Tồn cuối cho nhập tay (nút Lưu), các cột khác tự tổng hợp; nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký, icon mở sổ lĩnh từng xe; xuất mẫu 2.
+Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): chỉ xem, tất cả cột tự tổng hợp (số ước tính theo định mức đánh dấu *); nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký, icon mở sổ lĩnh từng xe; xuất mẫu 2.
 
 ### chi-tiet-xe-tieuhao
 Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời.
