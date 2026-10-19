@@ -179,7 +179,7 @@ Báo cáo thống kê km — khung tối thiểu, chờ TKV (OQ-12).
 Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có quyền.
 
 ### so-theo-doi-linh
-Nhập lĩnh, tồn theo xe/tháng (sổ theo dõi lĩnh): số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu), tồn cuối, ghi chú, Sử dụng tự tính; nguồn của mẫu 3.
+Nhập phiếu lĩnh theo xe/tháng (sổ theo dõi lĩnh): số phiếu lĩnh, ngày, số lít (kiểm trùng số phiếu), ghi chú; xem Tồn đầu, Tồn cuối, Sử dụng (tự tính); nguồn của mẫu 3.
 
 ### mua-ngoai-popup
 Nhập hóa đơn mua nhiên liệu ngoài cây xăng chỉ định gắn chuyến công tác; cảnh báo vượt hạn mức.
@@ -200,7 +200,7 @@ Nhật ký chốt, mở khóa, sửa số liệu, đổi định mức (chỉ xe
 Báo cáo quyết toán tiêu hao theo xe: km, định mức giao khoán, theo định mức, thực tế, tăng/giảm; xuất mẫu 4.
 
 ### baocao-linh-ton
-Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký, icon nhập lĩnh, tồn theo xe; xuất mẫu 2.
+Báo cáo lĩnh, sử dụng, tồn theo xe và theo tháng (màn tổng hợp thay màn Lĩnh và tồn đã gỡ): chỉ Tồn đầu và Tồn cuối cho nhập tay (nút Lưu), các cột khác tự tổng hợp; nút Nhập phiếu lĩnh, Chốt tháng, Xem nhật ký, icon mở sổ lĩnh từng xe; xuất mẫu 2.
 
 ### chi-tiet-xe-tieuhao
 Chi tiết tiêu hao từng xe theo tháng trong năm/vòng đời.
