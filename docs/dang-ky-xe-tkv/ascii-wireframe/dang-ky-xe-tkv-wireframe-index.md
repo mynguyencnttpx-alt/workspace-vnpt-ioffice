@@ -48,7 +48,6 @@ links:
 | 34 | [baocao-km](nghiep-vu-doc-lap.md#screen-baocao-km--báo-cáo-thống-kê-km) | nghiep-vu-doc-lap | draft | — | — | — | — | 2026-08-13 |
 | 35 | [linh-ton-thang-da-chot](quan-ly-nhien-lieu.md#screen-linh-ton-thang-da-chot--lĩnh-và-tồn---tháng-đã-chốt) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27423) | — | — | 2026-10-16 |
 | 36 | [so-theo-doi-linh](quan-ly-nhien-lieu.md#screen-so-theo-doi-linh--sổ-theo-dõi-lĩnh-nhiên-liệu-theo-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-18479) | — | — | 2026-10-16 |
-| 37 | [mua-ngoai-popup](quan-ly-nhien-lieu.md#screen-mua-ngoai-popup--mua-ngoài-cây-xăng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2715-19150) | — | — | 2026-10-16 |
 | 38 | [chot-thang-confirm](quan-ly-nhien-lieu.md#screen-chot-thang-confirm--xác-nhận-chốt-tháng) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27680) | — | — | 2026-10-16 |
 | 39 | [mo-khoa-thang](quan-ly-nhien-lieu.md#screen-mo-khoa-thang--mở-khóa-tháng-đã-chốt) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27700) | — | — | 2026-10-16 |
 | 40 | [ton-dau-lech](quan-ly-nhien-lieu.md#screen-ton-dau-lech--tồn-đầu-các-tháng-sau-bị-lệch) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-27723) | — | — | 2026-10-16 |
@@ -181,9 +180,6 @@ Xem số liệu tháng đã chốt (chỉ xem); nút Mở khóa cho người có
 
 ### so-theo-doi-linh
 Sổ theo dõi lĩnh theo xe/tháng (chỉ xem): bảng phiếu lĩnh, khối Tồn đầu/Lĩnh/Mua ngoài/Tồn cuối/Sử dụng; nút Thêm phiếu lĩnh mở popup nhập, nguồn của mẫu 3.
-
-### mua-ngoai-popup
-Nhập hóa đơn mua nhiên liệu ngoài cây xăng chỉ định gắn chuyến công tác; cảnh báo vượt hạn mức.
 
 ### chot-thang-confirm
 Xác nhận chốt số liệu tháng (đủ tồn cuối, không sai quy tắc tồn).
