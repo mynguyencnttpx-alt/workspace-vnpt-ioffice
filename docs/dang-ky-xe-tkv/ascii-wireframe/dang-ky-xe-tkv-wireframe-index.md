@@ -2,7 +2,7 @@
 type: screen-index
 feature: dang-ky-xe-tkv
 status: draft
-updated: 2026-10-16
+updated: 2026-10-19
 links:
   - docs/dang-ky-xe-tkv/srs/dang-ky-xe-tkv-userflow.md
 ---
@@ -59,11 +59,13 @@ links:
 | 44 | [chi-tiet-xe-tieuhao](quan-ly-nhien-lieu.md#screen-chi-tiet-xe-tieuhao--chi-tiết-tiêu-hao-theo-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-28398) | — | — | 2026-10-16 |
 | 45 | [loai-xe-list](quan-ly-nhien-lieu.md#screen-loai-xe-list--danh-mục-loại-xe-và-định-mức) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26367) | — | — | 2026-10-16 |
 | 46 | [loai-xe-form](quan-ly-nhien-lieu.md#screen-loai-xe-form--thêmsửa-loại-xe) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26487) | — | — | 2026-10-16 |
-| 47 | [he-so-config](quan-ly-nhien-lieu.md#screen-he-so-config--cấu-hình-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26570) | — | — | 2026-10-16 |
-| 48 | [he-so-form](quan-ly-nhien-lieu.md#screen-he-so-form--sửa-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26686) | — | — | 2026-10-16 |
+| 47 | [he-so-config](quan-ly-nhien-lieu.md#screen-he-so-config--cấu-hình-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26570) | — | — | 2026-10-19 |
+| 48 | [he-so-form](quan-ly-nhien-lieu.md#screen-he-so-form--thêmsửa-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2633-26686) | — | — | 2026-10-16 |
 | 49 | [xuat-mau-02-linh-su-dung-ton](quan-ly-nhien-lieu.md#screen-xuat-mau-02-linh-su-dung-ton--xuất-mẫu-2---lĩnh-sử-dụng-tồn) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2714-18772) | — | — | 2026-10-16 |
 | 50 | [xuat-mau-03-theo-doi-linh-xe](quan-ly-nhien-lieu.md#screen-xuat-mau-03-theo-doi-linh-xe--xuất-mẫu-3---theo-dõi-lĩnh-nhiên-liệu) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2714-19106) | — | — | 2026-10-16 |
 | 51 | [xuat-mau-04-quyet-toan](quan-ly-nhien-lieu.md#screen-xuat-mau-04-quyet-toan--xuất-mẫu-4---quyết-toán-tiêu-hao) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2714-19274) | — | — | 2026-10-16 |
+| 52 | lich-su-dinh-muc-xe-popup (chưa có section ASCII riêng — mô tả tại [danh-muc-xe-form](danh-muc-xe-laixe.md#screen-danh-muc-xe-form--thêmsửa-xe) mục 8 và [loai-xe-form](quan-ly-nhien-lieu.md#screen-loai-xe-form--thêmsửa-loại-xe) mục 3) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2727-18540) | — | — | 2026-10-19 |
+| 53 | [he-so-ngung](quan-ly-nhien-lieu.md#screen-he-so-ngung--ngừng-áp-dụng-hệ-số) | quan-ly-nhien-lieu | draft | — | [Figma](https://www.figma.com/design/DNSiSfrKfm7NPYxpO4Jll3/ioffice_v5?node-id=2764-14962) | — | — | 2026-10-19 |
 
 **Status values:** `draft` / `in-review` / `revisions` / `approved` / `shipped` / `archived` / `pending` (chưa vẽ).
 
@@ -213,10 +215,13 @@ Danh mục loại xe và định mức gốc (lít/100km), lối vào cấu hìn
 Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức.
 
 ### he-so-config
-Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05).
+Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05): thêm hệ số mới, sửa, ngừng áp dụng; xem trạng thái Đang áp dụng / Chờ hiệu lực / Ngừng áp dụng.
 
 ### he-so-form
-Sửa hệ số tuổi xe/khai trường có hiệu lực từ ngày.
+Thêm mới/sửa hệ số tuổi xe hoặc hệ số xe phục vụ khai trường: nhóm, khoảng tuổi, hệ số, hiệu lực từ ngày, văn bản căn cứ; kiểm tra khoảng tuổi không chồng lấn/hở.
+
+### he-so-ngung
+Ngừng áp dụng một hệ số từ ngày chọn, bắt buộc nhập lý do, chặn nếu làm hở khoảng tuổi hoặc rơi vào tháng đã chốt; không xóa cứng, ghi nhật ký.
 
 ### xuat-mau-02-linh-su-dung-ton
 Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay).
@@ -226,6 +231,9 @@ Bản xuất PDF/Excel biểu Theo dõi lĩnh nhiên liệu từng xe (in ký ta
 
 ### xuat-mau-04-quyet-toan
 Bản xuất PDF/Excel biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô (in ký tay).
+
+### lich-su-dinh-muc-xe-popup
+Popup xem lịch sử các mốc định mức đã áp dụng cho xe/loại xe (khoảng hiệu lực, văn bản căn cứ); mở từ nút "Xem lịch sử định mức" ở danh-muc-xe-form và loai-xe-form. Mới có thiết kế Figma, chưa có wireframe ASCII riêng.
 
 ## Links upstream
 

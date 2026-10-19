@@ -252,7 +252,8 @@ flowchart TD
     n45["[45] Danh mục loại xe<br/>(loai-xe-list)"]
     n46["[46] Thêm/sửa loại xe<br/>(loai-xe-form)"]
     n47["[47] Cấu hình hệ số<br/>(he-so-config)"]
-    n48["[48] Sửa hệ số<br/>(he-so-form)"]
+    n48["[48] Thêm/sửa hệ số<br/>(he-so-form)"]
+    n53["[53] Ngừng áp dụng hệ số<br/>(he-so-ngung)"]
     n33["[33] Lĩnh và tồn tháng<br/>(linh-ton-thang)"]
     n35["[35] Lĩnh và tồn đã chốt<br/>(linh-ton-thang-da-chot)"]
     n36["[36] Sổ theo dõi lĩnh theo xe<br/>(so-theo-doi-linh)"]
@@ -274,8 +275,11 @@ flowchart TD
     n46 -->|"lưu hợp lệ"| n45
     n46 -.->|"thiếu trường bắt buộc"| n46
     n45 -->|"Hệ số"| n47
-    n47 -->|"Sửa hệ số"| n48
+    n47 -->|"+ Thêm hệ số / Sửa"| n48
     n48 -->|"lưu"| n47
+    n47 -->|"Ngừng áp dụng"| n53
+    n53 -->|"xác nhận hợp lệ"| n47
+    n53 -.->|"hở khoảng tuổi hoặc tháng đã chốt"| n53
     n47 -.->|"quay lại"| n45
     n33 -->|"bấm số lít lĩnh tại cây xăng"| n36
     n36 -->|"lưu"| n33
@@ -365,7 +369,8 @@ flowchart TD
 | 45 | loai-xe-list | Danh mục loại xe và định mức | Danh mục loại xe và định mức gốc (lít/100km), lối vào cấu hình hệ số | quan-ly-nhien-lieu |
 | 46 | loai-xe-form | Thêm/sửa loại xe | Thêm/sửa loại xe, đổi định mức có hiệu lực từ ngày, văn bản căn cứ, lịch sử định mức | quan-ly-nhien-lieu |
 | 47 | he-so-config | Cấu hình hệ số | Cấu hình hệ số tuổi xe (A 1,00; B 1,05; C 1,10) và hệ số xe phục vụ khai trường (1,05) | quan-ly-nhien-lieu |
-| 48 | he-so-form | Sửa hệ số | Sửa hệ số tuổi xe/khai trường có hiệu lực từ ngày | quan-ly-nhien-lieu |
+| 48 | he-so-form | Thêm/sửa hệ số | Thêm mới/sửa hệ số tuổi xe hoặc khai trường có hiệu lực từ ngày | quan-ly-nhien-lieu |
+| 53 | he-so-ngung | Ngừng áp dụng hệ số | Ngừng áp dụng một hệ số từ ngày chọn, bắt buộc lý do, không xóa cứng | quan-ly-nhien-lieu |
 | 49 | xuat-mau-02-linh-su-dung-ton | Xuất mẫu 2 - Lĩnh, sử dụng, tồn | Bản xuất PDF/Excel biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
 | 50 | xuat-mau-03-theo-doi-linh-xe | Xuất mẫu 3 - Theo dõi lĩnh nhiên liệu | Bản xuất PDF/Excel biểu Theo dõi lĩnh nhiên liệu từng xe (in ký tay) | quan-ly-nhien-lieu |
 | 51 | xuat-mau-04-quyet-toan | Xuất mẫu 4 - Quyết toán tiêu hao | Bản xuất PDF/Excel biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô (in ký tay) | quan-ly-nhien-lieu |
@@ -384,7 +389,7 @@ flowchart TD
 | thong-bao | Thông báo | thong-bao-list → thong-bao-cauhinh | happy (xem/đánh dấu đã đọc, cấu hình kênh, điều hướng theo sự kiện); edge (chưa cấu hình kênh nào → mặc định app; danh sách rỗng) |
 | bieu-mau-dong | Biểu mẫu động | bieumau-list → bieumau-form → xem trước → lưu bản active | happy (upload/cấu hình/xem trước thành công); error (thiếu vị trí người ký) |
 | nghiep-vu-doc-lap | Nghiệp vụ độc lập | nhatky-xe-list, baocao-km (2 màn độc lập, không có luồng chuyển tiếp cho nhau) | happy (thêm/sửa/xóa nhật ký, xem báo cáo); edge (khung generic B7 chờ TKV cung cấp biểu mẫu) |
-| quan-ly-nhien-lieu | Quản lý nhiên liệu | loai-xe-list → loai-xe-form, loai-xe-list → he-so-config → he-so-form; linh-ton-thang ↔ linh-ton-thang-da-chot (chốt/mở khóa), linh-ton-thang → so-theo-doi-linh, mua-ngoai-popup, chot-thang-confirm, mo-khoa-thang, ton-dau-lech, linh-ton-log; baocao-quyet-toan ↔ baocao-linh-ton → chi-tiet-xe-tieuhao; xuat-mau-02, xuat-mau-03, xuat-mau-04 | happy (nhập lĩnh/tồn, chốt tháng, xem báo cáo, xuất 3 biểu mẫu); error (trùng số phiếu lĩnh, tồn âm hoặc vượt thùng, thiếu lý do mở khóa); edge (mua ngoài vượt hạn mức chỉ cảnh báo, tồn đầu các tháng sau bị lệch, xe chưa có định mức/chưa khai báo nhiên liệu) |
+| quan-ly-nhien-lieu | Quản lý nhiên liệu | loai-xe-list → loai-xe-form, loai-xe-list → he-so-config → he-so-form / he-so-ngung; linh-ton-thang ↔ linh-ton-thang-da-chot (chốt/mở khóa), linh-ton-thang → so-theo-doi-linh, mua-ngoai-popup, chot-thang-confirm, mo-khoa-thang, ton-dau-lech, linh-ton-log; baocao-quyet-toan ↔ baocao-linh-ton → chi-tiet-xe-tieuhao; xuat-mau-02, xuat-mau-03, xuat-mau-04 | happy (nhập lĩnh/tồn, chốt tháng, xem báo cáo, xuất 3 biểu mẫu); error (trùng số phiếu lĩnh, tồn âm hoặc vượt thùng, thiếu lý do mở khóa); edge (mua ngoài vượt hạn mức chỉ cảnh báo, tồn đầu các tháng sau bị lệch, xe chưa có định mức/chưa khai báo nhiên liệu) |
 
 ## 3.5. Chuyển màn (transitions)
 
@@ -450,8 +455,12 @@ flowchart TD
 | Thêm/sửa loại xe [46] | Danh mục loại xe [45] | Lưu | Có định mức mới thì phải có hiệu lực từ ngày |
 | Thêm/sửa loại xe [46] | (giữ nguyên) [46] | Lưu | Thiếu tên loại xe/định mức, hoặc trùng tên loại xe |
 | Danh mục loại xe [45] | Cấu hình hệ số [47] | Hệ số | - |
-| Cấu hình hệ số [47] | Sửa hệ số [48] | Sửa hệ số | - |
-| Sửa hệ số [48] | Cấu hình hệ số [47] | Lưu | Hiệu lực từ ngày hợp lệ, không áp ngược tháng đã chốt |
+| Cấu hình hệ số [47] | Thêm/sửa hệ số [48] | + Thêm hệ số / Sửa | Người có quyền quản trị hệ số |
+| Thêm/sửa hệ số [48] | Cấu hình hệ số [47] | Lưu | Hiệu lực từ ngày hợp lệ, khoảng tuổi không chồng lấn/hở, không áp ngược tháng đã chốt |
+| Thêm/sửa hệ số [48] | (giữ nguyên) [48] | Lưu | Thiếu trường bắt buộc, trùng nhóm, khoảng tuổi chồng lấn/hở |
+| Cấu hình hệ số [47] | Ngừng áp dụng hệ số [53] | Ngừng áp dụng | Hệ số đang áp dụng hoặc chờ hiệu lực |
+| Ngừng áp dụng hệ số [53] | Cấu hình hệ số [47] | Xác nhận | Có lý do, không làm hở khoảng tuổi, ngày không rơi vào tháng đã chốt |
+| Ngừng áp dụng hệ số [53] | (giữ nguyên) [53] | Xác nhận | Hở khoảng tuổi hoặc tháng đã chốt: chặn |
 | Lĩnh và tồn tháng [33] | Sổ theo dõi lĩnh theo xe [36] | Bấm số lít lĩnh tại cây xăng | - |
 | Sổ theo dõi lĩnh theo xe [36] | Lĩnh và tồn tháng [33] | Lưu | Không trùng số phiếu lĩnh trong toàn hệ thống |
 | Sổ theo dõi lĩnh theo xe [36] | (giữ nguyên) [36] | Lưu | Trùng số phiếu lĩnh: báo xe và ngày đã dùng, chặn lưu dòng đó |
