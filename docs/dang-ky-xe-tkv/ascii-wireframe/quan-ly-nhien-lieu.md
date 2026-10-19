@@ -118,7 +118,7 @@
 ┌──────────────────────────────────────────────────────────────────┐
 │ Thêm hệ số   (Sửa hệ số khi mở từ dòng có sẵn)                   │
 ├──────────────────────────────────────────────────────────────────┤
-│ Loại hệ số *  (o) Tuổi xe   ( ) Xe phục vụ khai trường       [1] │
+│ Loại hệ số *  [ Tuổi xe                      v ]             [1] │
 │ Nhóm *        [ B                      ]                     [2] │
 │ Mô tả áp dụng [ Trên 7 đến 14 năm      ]                     [3] │
 │ Tuổi xe từ    [ 7 ] đến [ 14 ] năm                           [4] │
@@ -135,7 +135,7 @@
 
 | # | Items | Control type | Data type | Description |
 |---|-------|--------------|-----------|--------------|
-| 1 | Loại hệ số | Radio | Text | • Bắt buộc khi thêm mới: Tuổi xe hoặc Xe phục vụ khai trường. Khi sửa thì khóa, không đổi loại. |
+| 1 | Loại hệ số | Combobox | Text | • Bắt buộc khi thêm mới, chọn 1 trong 2 giá trị: Tuổi xe / Xe phục vụ khai trường. Mặc định theo bảng mà người dùng bấm Thêm hệ số (bảng hệ số tuổi xe thì Tuổi xe, bảng hệ số khai trường thì Xe phục vụ khai trường) [GIẢ ĐỊNH].<br>• Đổi giá trị thì các ô phụ thuộc đổi theo: chọn Tuổi xe hiện ô Tuổi xe từ - đến; chọn Xe phục vụ khai trường ẩn ô này, Mô tả áp dụng thành bắt buộc.<br>• Khi sửa thì khóa (disabled), không đổi loại. |
 | 2 | Nhóm | Textbox | Text | • Bắt buộc, duy nhất trong cùng loại hệ số (đang hoạt động). Lỗi trùng: "Nhóm đã tồn tại".<br>• Khi sửa: cho đổi tên nhóm; không ảnh hưởng số liệu đã chốt vì tháng đã chốt giữ nguyên hệ số tại thời điểm chốt. |
 | 3 | Mô tả áp dụng | Textbox | Text | • Tùy chọn với loại Tuổi xe (hệ thống tự gợi ý từ khoảng tuổi). Bắt buộc với loại Xe phục vụ khai trường (mô tả đối tượng xe áp dụng). |
 | 4 | Tuổi xe từ - đến | Textbox (số) | Text | • Chỉ hiện với loại Tuổi xe. Các nhóm đang áp dụng tại cùng thời điểm liền nhau, không chồng lấn, không để hở [GIẢ ĐỊNH]; "đến" để trống = không giới hạn trên (chỉ cho nhóm cao nhất).<br>• Lỗi: "Khoảng tuổi chồng lấn với nhóm X" / "Khoảng tuổi để hở so với nhóm X". |
