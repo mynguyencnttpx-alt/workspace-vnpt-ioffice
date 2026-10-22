@@ -26,7 +26,7 @@
 | **Mục tiêu hệ thống mới** | Mỗi xe có một sổ lĩnh theo tháng; hệ thống tự cộng, tự điền sẵn tồn đầu/cuối theo định mức, chặn trùng số phiếu và sai quy tắc tồn, cho phép chốt tháng và giữ nhật ký mọi thay đổi. |
 | **Phạm vi phiên này** | Sổ theo dõi lĩnh theo xe/tháng · Thêm/sửa phiếu lĩnh và hóa đơn mua ngoài · Tồn đầu, tồn cuối do lái xe cập nhật · Nhật ký chỉnh sửa · Chốt tháng, mở khóa, tồn đầu lệch |
 | **Số màn hình chính** | 3 màn có thiết kế + 4 màn/hộp thoại chưa có thiết kế Figma |
-| **Số yêu cầu cần chốt** | 8 yêu cầu (UR09–UR16, đánh số tiếp sau Phiên 1) |
+| **Số yêu cầu cần chốt** | 10 yêu cầu (UR09–UR16, UR25–UR26 bổ sung sau rà soát) |
 | **Đối tượng sử dụng** | Lái xe, Quản lý xe/Đội trưởng, Người có quyền mở khóa |
 
 🖼️ *[Chèn ảnh màn "Sổ theo dõi lĩnh theo xe" — màn lái xe dùng nhiều nhất]*
@@ -211,7 +211,7 @@ Quản lý cần tra lại ai đã thêm/sửa/xóa phiếu, cập nhật tồn,
 
 #### UR14 — Chốt tháng
 
-Quản lý cần chốt số liệu lĩnh/tồn của tháng để khóa số trước khi lập báo cáo chính thức. Hệ thống chỉ cho chốt khi mọi xe đã có tồn cuối đúng quy tắc.
+Quản lý cần chốt số liệu lĩnh/tồn của tháng để khóa số trước khi lập báo cáo chính thức. Hệ thống chỉ cho chốt khi mọi xe đã có tồn cuối đúng quy tắc (thế nào là "đã có tồn cuối", kể cả số ước tính, xem UR26).
 
 - **Lưu ý đặc biệt:** Chưa đủ (ví dụ 7/8 xe) thì hệ thống báo xe còn thiếu hoặc sai và không cho chốt. Sau khi chốt, toàn bộ sổ của tháng chỉ xem (ẩn nút Thêm, Sửa, Xóa); vẫn xuất mẫu và Excel được. Giao diện nút Chốt tháng chưa có thiết kế **[Giả thiết — chờ chốt vị trí]**.
 - **Màn hình liên quan:** Xác nhận chốt tháng (chưa có Figma)
@@ -232,6 +232,30 @@ Khi tồn cuối tháng đã sửa làm tồn đầu các tháng sau không còn
 - **Lưu ý đặc biệt:** Tính lại chỉ áp cho tháng **chưa chốt**; tháng đã chốt phải mở khóa theo thứ tự trước. Cả hai lựa chọn đều ghi nhật ký.
 - **Màn hình liên quan:** Tồn đầu các tháng sau bị lệch (chưa có Figma)
 - **Mức độ ưu tiên:** Trung bình
+
+### Module: Quy tắc cần chốt (bổ sung sau rà soát — điểm chặn)
+
+> UR25–UR26 được đánh số cuối để không đổi mã các yêu cầu đã nêu ở trên. Phương án ghi **[Giả thiết]** là đề xuất của BA, **chờ khách hàng chốt**. Quy tắc nguồn km (ảnh hưởng "Sử dụng theo định mức" ở Màn 1) xem **UR27** ở Phiên 3.
+
+#### UR25 — Nhập số dư ban đầu khi bắt đầu sử dụng hệ thống
+
+Quản lý cần nhập tồn đầu ban đầu của từng xe tại tháng bắt đầu dùng hệ thống, vì trước đó chưa có tồn cuối tháng trước để điền sẵn; thiếu bước này thì tháng đầu tiên không có số để chạy.
+
+- **Các phương án:** (a) chỉ nhập **tồn đầu của tháng bắt đầu dùng**; (b) nhập thêm số liệu tổng hợp các tháng trước (không chi tiết từng phiếu); (c) nhập đầy đủ phiếu lĩnh các tháng trước.
+- **Đề xuất:** phương án (a) **[Giả thiết]**. Quản lý chọn tháng bắt đầu dùng; mỗi xe nhập một lần tồn đầu, nhãn "Số dư ban đầu", ghi nhật ký. Các tháng trước đó không có số liệu và không in biểu. Muốn sửa số dư ban đầu sau khi đã có tháng phát sinh phải mở khóa theo UR15.
+- **Lưu ý đặc biệt:** Xe mới đưa vào đội giữa chừng cũng nhập tồn đầu theo cách này **[Giả thiết]**. Tồn đầu vẫn phải ≥ 0 và ≤ dung tích thùng. Kỳ "Vòng đời" ở chi tiết theo xe (Phiên 3) bắt đầu từ tháng bắt đầu dùng.
+- **Màn hình liên quan:** Màn 1 (chưa có thiết kế riêng cho nhập số dư ban đầu)
+- **Mức độ ưu tiên:** Cao
+
+#### UR26 — Chốt tháng khi còn xe dùng số ước tính
+
+Quản lý cần biết rõ có được chốt tháng khi một số xe lái xe chưa cập nhật tồn (còn số ước tính theo định mức) hay không, và ai chịu trách nhiệm với các số đó, để số chốt có giá trị quyết toán.
+
+- **Các phương án:** (1) **Không cho chốt** khi còn số ước tính; (2) **Cho chốt**, số ước tính coi như chính thức, chỉ ghi nhật ký số xe còn ước tính; (3) **Cho chốt sau khi quản lý xác nhận dùng số ước tính** cho từng xe còn lại, kèm lý do.
+- **Đề xuất:** phương án (3) **[Giả thiết]**. Biểu in mẫu 2 ghi chú rõ xe nào dùng số ước tính; nhật ký ghi người xác nhận và lý do.
+- **Lưu ý đặc biệt:** Quy tắc tồn ≥ 0 và ≤ dung tích thùng vẫn bắt buộc với cả số ước tính; vi phạm thì không chốt được dù chọn phương án nào.
+- **Màn hình liên quan:** Xác nhận chốt tháng (chưa có Figma)
+- **Mức độ ưu tiên:** Cao
 
 ---
 
@@ -261,6 +285,8 @@ Khi tồn cuối tháng đã sửa làm tồn đầu các tháng sau không còn
 | 10 | **Khi** mở khóa tháng mà không nhập lý do, **thì** hệ thống không cho mở khóa. |
 | 11 | **Khi** sửa tháng cũ làm tồn đầu tháng sau lệch, **thì** hệ thống hiện danh sách xe lệch và cho chọn Tính lại hoặc Giữ nguyên đánh dấu lệch. |
 | 12 | **Khi** có bất kỳ thao tác thêm/sửa/xóa/chốt/mở khóa, **thì** nhật ký ghi người, thời điểm, giá trị cũ và mới, và không ai xóa được dòng nhật ký. |
+| 13 | **Khi** quản lý nhập số dư ban đầu của xe cho tháng bắt đầu dùng, **thì** tồn đầu tháng đó bằng số nhập, có nhãn "Số dư ban đầu" và nhật ký ghi người nhập (UR25). |
+| 14 | **Khi** chốt tháng còn xe dùng số ước tính, **thì** hệ thống xử lý đúng phương án đã chốt ở UR26 (ví dụ: yêu cầu xác nhận kèm lý do) và nhật ký ghi lại. |
 
 ---
 
@@ -289,9 +315,11 @@ Khi tồn cuối tháng đã sửa làm tồn đầu các tháng sau không còn
 | 1 | Vị trí nút **Chốt tháng** trên giao diện (báo cáo hay màn riêng)? | Chưa xác định |
 | 2 | Ai được cấp quyền mở khóa tháng? | Người có quyền riêng, tách với quyền thông thường **[Giả thiết]** |
 | 3 | Lái xe nào được xem là "phụ trách" xe? | Lái xe biên chế gán cho xe trong danh mục xe **[Giả thiết]** |
-| 4 | Nguồn km hoạt động trong tháng dùng để tính sử dụng theo định mức | Các chuyến đã xác nhận đi về **[Giả thiết]** |
+| 4 | Nguồn km hoạt động trong tháng dùng để tính sử dụng theo định mức (xem UR27, Phiên 3) | Các chuyến đã xác nhận đi về **[Giả thiết]** |
 | 5 | Có cần nhập phiếu lĩnh hàng loạt cho nhiều xe? | Không làm đợt này **[Giả thiết]** |
-| 6 | Xe đổi nhóm tuổi giữa tháng tính định mức thế nào (Q5 của Phiên 1)? | Chưa có |
+| 6 | Xe đổi nhóm tuổi giữa tháng tính định mức thế nào (Q5 của Phiên 1, UR29)? | Phương án (1) tách theo ngày đổi **[Giả thiết]** |
+| 7 | Cách đưa số dư ban đầu vào hệ thống: chỉ tồn đầu tháng bắt đầu, thêm tổng hợp các tháng trước, hay nhập đủ phiếu cũ (UR25)? | Chỉ tồn đầu tháng bắt đầu dùng **[Giả thiết]** |
+| 8 | Có được chốt tháng khi còn số ước tính không; nếu được thì ai xác nhận (UR26)? | Cho chốt sau khi quản lý xác nhận từng xe **[Giả thiết]** |
 
 ### C. Điều đã chốt với khách hàng (ghi chú review 14/10/2026)
 - Số phiếu lĩnh chỉ nhập số và kiểm trùng toàn hệ thống, không quản lý kho phiếu.

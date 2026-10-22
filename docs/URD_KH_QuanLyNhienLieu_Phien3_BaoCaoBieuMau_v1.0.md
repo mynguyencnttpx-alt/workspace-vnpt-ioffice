@@ -24,7 +24,7 @@
 | **Mục tiêu hệ thống mới** | Số liệu từ sổ lĩnh và định mức (Phiên 1, 2) tự tổng hợp thành báo cáo trên màn hình và xuất đúng khuôn 3 biểu mẫu giấy (PDF/Excel), số khớp nhau giữa các biểu. |
 | **Phạm vi phiên này** | Báo cáo quyết toán tiêu hao · Báo cáo lĩnh–sử dụng–tồn · Chi tiết tiêu hao theo xe · Xuất 3 biểu mẫu (mẫu 2, 3, 4) |
 | **Số màn hình chính** | 6 màn hình |
-| **Số yêu cầu cần chốt** | 8 yêu cầu (UR17–UR24, đánh số tiếp sau Phiên 2) |
+| **Số yêu cầu cần chốt** | 10 yêu cầu (UR17–UR24, UR27–UR28 bổ sung sau rà soát) |
 | **Đối tượng sử dụng** | Quản lý xe/Đội trưởng, Lãnh đạo đơn vị, Kế toán/người lập quyết toán, Lái xe (xem sổ xe mình) |
 
 🖼️ *[Chèn ảnh màn "Báo cáo quyết toán tiêu hao" — báo cáo được dùng nhiều nhất]*
@@ -247,6 +247,31 @@ Kế toán và quản lý cần xuất báo cáo quyết toán đúng khuôn bi�
 - **Màn hình liên quan:** Màn 1, Màn 6
 - **Mức độ ưu tiên:** Cao
 
+### Module: Quy tắc cần chốt (bổ sung sau rà soát — điểm chặn)
+
+> UR27–UR28 được đánh số cuối để không đổi mã các yêu cầu đã nêu ở trên (UR25–UR26 nằm ở Phiên 2). Phương án ghi **[Giả thiết]** là đề xuất của BA, **chờ khách hàng chốt**.
+
+#### UR27 — Nguồn km dùng để tính tiêu hao theo định mức
+
+Quản lý và kế toán cần một nguồn km duy nhất, rõ ràng, để tính "Tiêu hao theo định mức" ở báo cáo quyết toán (UR19) và "Sử dụng theo định mức" ở sổ lĩnh (Phiên 2); nếu nguồn km không thống nhất thì con số tăng/giảm không đáng tin.
+
+- **Các phương án:** (1) **Km các chuyến đã xác nhận đi về** của xe trong tháng; (2) **Km công tơ thực tế** (chênh lệch đầu/cuối tháng); (3) Km chuyến làm nguồn tính, **km công tơ để đối chiếu** và cảnh báo khi chênh quá ngưỡng.
+- **Đề xuất:** phương án (1) làm nguồn tính; hiển thị thêm km công tơ để đối chiếu nếu có **[Giả thiết]**. Ngưỡng cảnh báo chênh lệch chờ khách cho số.
+- **Xe có tiêu hao nhưng không có km:** báo cáo hiện "Không có km", không tính Tăng/Giảm và đánh dấu để quản lý rà soát, không tự hiểu là 0 km **[Giả thiết]**.
+- **Lưu ý đặc biệt:** Km của tháng đã chốt không đổi khi chuyến bị điều chỉnh sau đó, trừ khi mở khóa tháng.
+- **Màn hình liên quan:** Màn 1, Màn 3, Màn 6; sổ lĩnh (Phiên 2)
+- **Mức độ ưu tiên:** Cao
+
+#### UR28 — Ngưỡng vượt định mức và giải trình
+
+Quản lý và lãnh đạo cần phân biệt chênh lệch nhỏ chấp nhận được với vượt định mức đáng kể, và có chỗ ghi giải trình cho xe vượt, để biểu quyết toán không chỉ báo "vượt" mà còn có lời giải thích đi kèm.
+
+- **Nội dung cần có:** (a) **Ngưỡng sai số cho phép** (phần trăm so với tiêu hao theo định mức), cấu hình được theo đơn vị; (b) báo cáo phân biệt "trong ngưỡng" và "vượt ngưỡng (!)"; (c) với xe vượt ngưỡng, người có quyền ghi **giải trình** (nội dung, người ghi, thời điểm) hiển thị trên báo cáo và Chi tiết theo xe.
+- **Đề xuất:** ngưỡng mặc định 0% (mọi chênh vượt đều hiện (!), đúng như hiện tại) cho tới khi khách cung cấp số; giải trình chỉ lưu và hiển thị, **không chặn** chốt hoặc xuất biểu; việc xử lý trách nhiệm hoặc tài chính nằm ngoài hệ thống **[Giả thiết]**.
+- **Lưu ý đặc biệt:** Nếu khách chưa cần ở đợt này thì chuyển sang "Ngoài phạm vi" và giữ nguyên dấu (!) như hiện tại.
+- **Màn hình liên quan:** Màn 1, Màn 3
+- **Mức độ ưu tiên:** Trung bình
+
 ---
 
 ## 6. Ngoài phạm vi (phiên này)
@@ -275,6 +300,8 @@ Kế toán và quản lý cần xuất báo cáo quyết toán đúng khuôn bi�
 | 10 | **Khi** xuất mẫu 4, **thì** không có cột "Lái xe phụ trách". |
 | 11 | **Khi** xuất cho đơn vị quản lý khác, **thì** dòng tiêu đề thứ hai đổi theo tên đơn vị đó. |
 | 12 | **Khi** số liệu ở ba biểu cùng tháng và cùng đơn vị, **thì** tổng các số liên quan (lĩnh, sử dụng, tồn) khớp nhau giữa các biểu. |
+| 13 | **Khi** xe có tiêu hao nhưng không có km trong tháng, **thì** báo cáo hiện "Không có km", không tính Tăng/Giảm và đánh dấu xe cần rà soát (UR27). |
+| 14 | **Khi** chênh lệch của xe vượt ngưỡng đã cấu hình, **thì** báo cáo hiện (!) vượt ngưỡng và cho ghi giải trình; giải trình hiển thị ở báo cáo và Chi tiết theo xe, kèm người ghi và thời điểm (UR28). |
 
 ---
 
@@ -301,9 +328,10 @@ Kế toán và quản lý cần xuất báo cáo quyết toán đúng khuôn bi�
 | # | Câu hỏi | Hiện đang giả định |
 |---|---|---|
 | Q6 | Đơn vị nào ngoài Đội xe văn phòng dùng chung biểu mẫu? Tiêu đề biểu lấy theo Đơn vị quản lý? | Tiêu đề theo đơn vị quản lý **[Giả thiết]** |
-| 1 | Nguồn km hoạt động trong tháng | Các chuyến đã xác nhận đi về **[Giả thiết]** |
+| 1 (UR27) | Nguồn km hoạt động trong tháng: km chuyến, km công tơ, hay chuyến làm chính + công tơ để đối chiếu? Ngưỡng cảnh báo chênh giữa hai nguồn? | Km chuyến đã xác nhận đi về, công tơ để đối chiếu **[Giả thiết]** |
+| 5 (UR28) | Ngưỡng sai số cho phép so với định mức là bao nhiêu phần trăm; có cần ghi giải trình cho xe vượt không? | Ngưỡng 0%, giải trình chỉ lưu và hiển thị **[Giả thiết]** |
 | 2 | Danh mục loại nhiên liệu cụ thể (Xăng A95, Xăng 95, Dầu DO…) nhóm lên Xăng/Dầu thế nào để cộng tổng? | Chờ khách hàng cung cấp danh mục |
-| 3 | Xe đổi nhóm tuổi giữa tháng thì báo cáo quyết toán tách dòng hay lấy định mức bình quân (Q5 Phiên 1)? | Chưa có |
+| 3 | Xe đổi nhóm tuổi giữa tháng thì báo cáo quyết toán tách dòng hay lấy định mức bình quân (Q5 Phiên 1, UR29)? | Phương án (1) tách theo ngày đổi **[Giả thiết]** |
 | 4 | Chữ ký, ghi chú và tiêu đề cố định của mẫu 2, 3, 4 có cần thay đổi theo từng đơn vị? | Giữ đúng biểu giấy hiện hành |
 
 ### C. Điều đã chốt với khách hàng (ghi chú review 14/10/2026)

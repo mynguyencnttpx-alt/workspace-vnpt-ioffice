@@ -24,7 +24,7 @@
 | **Mục tiêu hệ thống mới** | Lưu sẵn định mức + hệ số theo từng thời kỳ, hệ thống tự tính **định mức giao khoán** cho từng xe và giữ nguyên số của các tháng đã chốt khi quy định thay đổi. |
 | **Phạm vi phiên này** | Danh mục loại xe và định mức · Cấu hình hệ số tuổi xe · Hệ số xe phục vụ khai trường · Khai báo nhiên liệu/định mức trên từng xe |
 | **Số màn hình chính** | 6 màn hình |
-| **Số yêu cầu cần chốt** | 8 yêu cầu (UR01–UR08) |
+| **Số yêu cầu cần chốt** | 10 yêu cầu (UR01–UR08, UR29–UR30 bổ sung sau rà soát) |
 | **Đối tượng sử dụng** | Quản trị danh mục loại xe/hệ số, Quản lý xe (Đội trưởng), Lái xe (chỉ xem kết quả) |
 
 🖼️ *[Chèn ảnh màn "Danh mục loại xe và định mức" — màn người dùng thấy đầu tiên]*
@@ -256,6 +256,29 @@ Quản lý xe cần thấy ngay định mức giao khoán đang áp dụng cho x
 - **Màn hình liên quan:** Màn 6, Màn 3 (công thức)
 - **Mức độ ưu tiên:** Cao
 
+### Module: Quy tắc cần chốt (bổ sung sau rà soát — điểm chặn)
+
+> UR29–UR30 được đánh số cuối để không đổi mã các yêu cầu đã nêu ở trên. Mỗi yêu cầu nêu các phương án; phương án ghi **[Giả thiết]** là đề xuất của BA, **chờ khách hàng chốt**.
+
+#### UR29 — Quy tắc tính định mức khi xe đổi nhóm tuổi giữa tháng
+
+Hệ thống cần có một quy tắc rõ ràng để tính định mức giao khoán trong tháng xe chuyển nhóm tuổi (A sang B, B sang C), vì hệ số khác nhau làm thay đổi con số quyết toán của tháng đó.
+
+- **Các phương án:** (1) **Tách theo ngày đổi nhóm**: km của các chuyến trước ngày đổi tính theo hệ số cũ, từ ngày đổi tính theo hệ số mới; (2) **Áp hệ số đầu tháng** cho cả tháng; (3) **Áp hệ số cuối tháng** cho cả tháng; (4) **Bình quân gia quyền theo km** của từng nhóm.
+- **Đề xuất:** phương án (1) vì sát thực tế nhất **[Giả thiết]**; phương án (2) nếu khách muốn đơn giản. Với (1), báo cáo quyết toán và chi tiết theo xe hiện một dòng tổng của tháng, định mức ghi là mức bình quân của tháng và có ghi chú "đổi nhóm ngày …".
+- **Lưu ý đặc biệt:** Tháng đã chốt không bị tính lại khi quy tắc hoặc ngày đổi nhóm thay đổi. Tuổi xe tính theo mốc đã chốt ở Q4.
+- **Màn hình liên quan:** Màn 3, Màn 6; báo cáo quyết toán (Phiên 3)
+- **Mức độ ưu tiên:** Cao
+
+#### UR30 — Phạm vi đơn vị sử dụng và tiêu đề biểu mẫu
+
+Khách hàng cần xác định hệ thống dùng cho những đơn vị nào, mỗi xe thuộc đơn vị quản lý nào, và định mức/hệ số dùng chung hay riêng từng đơn vị, để dữ liệu, phân quyền và tiêu đề ba biểu mẫu luôn đúng đơn vị.
+
+- **Đề xuất:** mỗi xe thuộc **một** đơn vị quản lý; danh mục loại xe, định mức và hệ số **dùng chung** toàn Tập đoàn **[Giả thiết]**; lái xe và quản lý chỉ xem dữ liệu của đơn vị mình; tiêu đề biểu gồm hai dòng "Tập đoàn CN Than - Khoáng sản Việt Nam" và tên đơn vị quản lý **[Giả thiết]**.
+- **Cần khách cung cấp:** danh sách đơn vị ngoài Đội xe văn phòng sẽ dùng, và tên chính thức hiển thị trên tiêu đề biểu từng đơn vị.
+- **Màn hình liên quan:** Màn 1, Màn 6; ba biểu mẫu in (Phiên 3)
+- **Mức độ ưu tiên:** Cao
+
 > Lưu ý phân quyền áp dụng cho UR01–UR06: chỉ người có quyền quản trị loại xe và hệ số mới thấy nút Thêm/Sửa/Ngừng/Kích hoạt lại; người khác chỉ xem. Mọi thao tác thêm, sửa, ngừng, kích hoạt đều ghi nhật ký (người, thời điểm, giá trị cũ/mới).
 
 ---
@@ -281,6 +304,8 @@ Quản lý xe cần thấy ngay định mức giao khoán đang áp dụng cho x
 | 6 | **Khi** khai báo xe Prado 2.7 thuộc nhóm trên 14 năm, không khai trường, **thì** định mức giao khoán hiển thị 18,7 lít/100km kèm diễn giải. |
 | 7 | **Khi** người dùng không có quyền quản trị, **thì** không thấy nút Thêm/Sửa/Ngừng/Kích hoạt lại ở danh mục loại xe và hệ số. |
 | 8 | **Khi** thêm, sửa, ngừng, kích hoạt lại bất kỳ định mức/hệ số nào, **thì** nhật ký ghi người, thời điểm, giá trị cũ và mới. |
+| 9 | **Khi** một xe đổi nhóm tuổi giữa tháng, **thì** hệ thống tính định mức tháng đó đúng theo phương án khách đã chốt ở UR29 và kết quả khớp ví dụ do khách duyệt. |
+| 10 | **Khi** người dùng thuộc đơn vị A đăng nhập, **thì** chỉ thấy xe, báo cáo và biểu mẫu của đơn vị A; tiêu đề biểu mang đúng tên đơn vị quản lý (UR30). |
 
 ---
 
@@ -306,10 +331,11 @@ Quản lý xe cần thấy ngay định mức giao khoán đang áp dụng cho x
 | # | Câu hỏi | Hiện đang giả định |
 |---|---|---|
 | Q4 | Tuổi xe tính từ ngày sử dụng, năm sản xuất hay ngày đăng ký lần đầu? | Ngày sử dụng **[Giả thiết]** |
-| Q5 | Xe đổi nhóm tuổi (A→B, B→C) giữa tháng: tách dòng theo chuyến hay lấy định mức bình quân gia quyền? | Chưa có |
-| Q6 | Đơn vị nào ngoài Đội xe văn phòng dùng chung biểu mẫu? Tiêu đề biểu lấy theo Đơn vị quản lý? | Chưa có (ảnh hưởng Phiên 3) |
+| Q5 (UR29) | Xe đổi nhóm tuổi (A→B, B→C) giữa tháng: (1) tách theo ngày đổi, (2) áp hệ số đầu tháng, (3) áp hệ số cuối tháng, hay (4) bình quân gia quyền theo km? | Phương án (1) **[Giả thiết]** |
+| Q6 (UR30) | Đơn vị nào ngoài Đội xe văn phòng dùng chung? Tên chính thức trên tiêu đề biểu? Định mức/hệ số dùng chung toàn Tập đoàn hay riêng từng đơn vị? | Dùng chung; mỗi xe thuộc một đơn vị quản lý **[Giả thiết]** |
 | — | Định dạng và dung lượng tối đa của tệp văn bản căn cứ | PDF/Word **[Giả thiết]** |
 | — | Quy tắc xóa loại xe khi đã có xe thuộc loại đó | Chặn xóa **[Giả thiết]** |
+| Q7 | Mốc tính tuổi xe có áp dụng cho xe thay đổi đơn vị quản lý giữa chừng không? | Giữ nguyên Ngày sử dụng ban đầu **[Giả thiết]** |
 
 ### C. Điều đã chốt với khách hàng (ghi chú review 14/10/2026)
 - Số phiếu lĩnh chỉ nhập số và kiểm trùng toàn hệ thống (Phiên 2).

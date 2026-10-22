@@ -159,7 +159,7 @@ Hỏi (hoặc đọc từ input) các thông tin sau:
 - **Tên dự án / phiên bản** (dùng cho tên file output)
 - **Danh sách task** kèm nhóm, số ngày, số nhân sự
 - **Đơn vị thực hiện** (mặc định: `DAS`, điền cho **mọi** dòng kể cả nhóm/sub-group)
-- **Đơn giá Manday** (mặc định: `1,181,800 VNĐ`)
+- **Đơn giá Manday** (mặc định: `1,597,162 VNĐ`)
 
 > Nếu user chỉ cung cấp danh sách task thô (không có nhóm), tự động phân nhóm
 > theo 5 nhóm chuẩn. Số nhân sự mặc định = 1 nếu không có.
@@ -186,7 +186,7 @@ Câu hỏi mẫu khi thiếu:
 
 Chỉ áp dụng gate này cho **Nhóm 3 (Lập trình)** — effort của Nhóm 1+2 (BA)
 và Nhóm 4 (Test) có thể tự suy ra theo tỷ lệ chuẩn khi thiếu (xem mục "Tỷ
-lệ căn chỉnh effort BA / Test theo Dev" bên dưới), không cần hỏi lại riêng
+lệ căn chỉnh effort BA / Test theo Dev" bên trên), không cần hỏi lại riêng
 cho 2 nhóm này. Nhóm 5 (Deploy) thiếu số liệu → ước lượng nhỏ hợp lý và
 đánh dấu `[GIẢ ĐỊNH]`, cũng không cần dừng lại hỏi.
 
@@ -327,7 +327,7 @@ def apply_row(ws, excel_row, row_type, tt, noi_dung,
 
 # ── Summary rows ──────────────────────────────────────────────────────────────
 
-def apply_summary_rows(ws, next_row, don_gia=1181800):
+def apply_summary_rows(ws, next_row, don_gia=1597162):
     """Thêm 3 dòng tổng kết ngay sau dòng data cuối cùng."""
     last_data = next_row - 1
     tong_row  = next_row
@@ -368,11 +368,11 @@ def apply_summary_rows(ws, next_row, don_gia=1181800):
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
-def build_baogia(rows_data, output_path, don_gia=1181800):
+def build_baogia(rows_data, output_path, don_gia=1597162):
     """
     rows_data : list[dict] – xem cấu trúc ở Bước 2
     output_path : đường dẫn file .xlsx đầu ra
-    don_gia : đơn giá VNĐ/manday (mặc định 1,181,800)
+    don_gia : đơn giá VNĐ/manday (mặc định 1,597,162)
     """
     wb = Workbook()
     ws = wb.active
@@ -510,7 +510,7 @@ wb.save(output_path)
 
 1. **Không hardcode manday** – luôn dùng `=D{row}*E{row}` để file còn chỉnh sửa được.
 2. **Không hardcode tổng chi phí** – dùng `=F_tong*F_dongia`.
-3. Đơn giá mặc định: **1,181,800 VNĐ/manday** (override nếu user chỉ định).
+3. Đơn giá mặc định: **1,597,162 VNĐ/manday** (override nếu user chỉ định).
 4. Đơn vị mặc định: **DAS** (override nếu user chỉ định đơn vị khác) —
    điền cho **mọi** loại dòng (group, subgroup, task), không để trống cột C
    ở dòng nhóm/sub-group.
