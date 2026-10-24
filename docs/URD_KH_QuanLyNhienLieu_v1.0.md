@@ -4,15 +4,15 @@
 | Thông tin | Nội dung |
 |---|---|
 | Khách hàng | Tập đoàn CN Than - Khoáng sản Việt Nam (Đội xe văn phòng) |
-| Phiên bản | v1.0 |
-| Ngày | 21/10/2026 |
+| Phiên bản | v1.1 |
+| Ngày | 24/10/2026 |
 | Người soạn | mynguyen.cntt.px (BA VNPT-IT) |
 | Trạng thái | Dự thảo — chờ chốt |
-| Cấu trúc | Gộp từ 3 phiên chốt: **Phần A** — Định mức và hệ số (UR01–UR08, UR29–UR30) · **Phần B** — Nhập lĩnh/tồn theo xe (UR09–UR13; UR14–UR16, UR25, UR26 đã bỏ: không còn chốt tháng, số dư ban đầu gộp vào UR12) · **Phần C** — Báo cáo và biểu mẫu in (UR17–UR24, UR27–UR28) |
+| Cấu trúc | **Phần A** — Định mức và hệ số · **Phần B** — Nhập lĩnh/tồn theo xe · **Phần C** — Báo cáo và biểu mẫu in |
 
 > **Ghi chú cho người đọc:** Tài liệu này mô tả **hệ thống sẽ hỗ trợ những công việc gì** và **giao diện thể hiện ở mức tổng quan**, để quý khách hàng cùng rà soát và xác nhận trước khi đội ngũ kỹ thuật xây dựng chi tiết. Tài liệu **không** đi vào chi tiết kỹ thuật; những nội dung đó sẽ được đặc tả riêng ở giai đoạn sau.
 >
-> **Ký hiệu:** 🖥️ = một màn hình · **[Giả thiết]** = nội dung do bên VNPT-IT đề xuất, **chưa được quý khách xác nhận** · mã màn hình có chữ cái đầu chỉ phần chứa nó (A1 = Màn hình 1 của Phần A) · mã yêu cầu giữ nguyên như các bản soạn trước nên dãy mã có khoảng trống (UR14, UR15, UR16, UR25, UR26 đã bỏ: không còn chức năng chốt tháng, mở khóa tháng; số dư ban đầu gộp vào UR12).
+> **Ký hiệu:** 🖥️ = một màn hình · **[Giả thiết]** = nội dung do bên VNPT-IT đề xuất, **chưa được quý khách xác nhận** · mã màn hình có chữ cái đầu chỉ phần chứa nó (A1 = Màn hình 1 của Phần A) · các mã yêu cầu UR không liên tục (xem ghi chú ở Mục 5).
 >
 > **Hình thiết kế:** hầu hết màn hình đã có hình từ bản thiết kế. Một vài hộp thoại nhỏ (xác nhận kích hoạt lại hệ số, nhập số dư ban đầu) chưa có hình riêng và được mô tả bằng chữ.
 
@@ -263,11 +263,11 @@ flowchart LR
 
 ![Màn hình A1 — Danh mục loại xe và định mức](URD_KH_QuanLyNhienLieu_images/A1-danh-muc-loai-xe.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Nút **Hệ số** và **+ Thêm mới** | Hệ số: sang màn cấu hình hệ số (Màn hình A3). Thêm mới: mở form thêm loại xe (Màn hình A2). |
-| ② | Bảng loại xe | Liệt kê loại xe, định mức (lít/100km), ngày hiệu lực, thao tác Sửa/Xóa. Hiện 6 loại theo quy định: Camry 2.4 = 15,0; Fortuner 2.7 = 16,0; Prado 2.7 = 17,0; Hilux 3.0 = 17,0; Pajero 3.0 = 17,1; Solati 2.5 = 17,5. Loại xe chưa có định mức hiện cảnh báo **"Chưa có (!)"**. |
-| ③ | Chọn số dòng mỗi trang | Mặc định 10 dòng. |
+| Khu vực | Diễn giải |
+|---|---|
+| Nút **Hệ số** và **+ Thêm mới** | Hệ số: sang màn cấu hình hệ số (Màn hình A3). Thêm mới: mở form thêm loại xe (Màn hình A2). |
+| Bảng loại xe | Liệt kê loại xe, định mức (lít/100km), ngày hiệu lực, thao tác Sửa/Xóa. Hiện 6 loại theo quy định: Camry 2.4 = 15,0; Fortuner 2.7 = 16,0; Prado 2.7 = 17,0; Hilux 3.0 = 17,0; Pajero 3.0 = 17,1; Solati 2.5 = 17,5. Loại xe chưa có định mức hiện cảnh báo **"Chưa có (!)"**. |
+| Chọn số dòng mỗi trang | Mặc định 10 dòng. |
 
 Lưu ý: định mức ở đây là định mức **gốc**, chưa nhân hệ số. Chỉ xóa được loại xe khi chưa xe nào thuộc loại đó **[Giả thiết]**.
 
@@ -276,23 +276,23 @@ Lưu ý: định mức ở đây là định mức **gốc**, chưa nhân hệ s
 
 ![Màn hình A2 — Thêm/sửa loại xe](URD_KH_QuanLyNhienLieu_images/A2-form-loai-xe.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Tên loại xe | Bắt buộc, không trùng loại đã có. |
-| ② | Định mức mới, Hiệu lực từ, Văn bản căn cứ, Ghi chú | Nhập mức mới và ngày bắt đầu áp dụng. **Đổi định mức không ghi đè**: hệ thống tạo mức mới từ ngày chỉ định, mức cũ giữ lại. Văn bản căn cứ (tùy chọn) đính kèm bằng nút Tải tệp lên. |
-| ③ | Lịch sử định mức | Bảng các mốc đã áp dụng: định mức, khoảng hiệu lực, văn bản căn cứ (mở xem được). |
+| Khu vực | Diễn giải |
+|---|---|
+| Tên loại xe | Bắt buộc, không trùng loại đã có. |
+| Định mức mới, Hiệu lực từ, Văn bản căn cứ, Ghi chú | Nhập mức mới và ngày bắt đầu áp dụng. **Đổi định mức không ghi đè**: hệ thống tạo mức mới từ ngày chỉ định, mức cũ giữ lại. Văn bản căn cứ (tùy chọn) đính kèm bằng nút Tải tệp lên. |
+| Lịch sử định mức | Bảng các mốc đã áp dụng: định mức, khoảng hiệu lực, văn bản căn cứ (mở xem được). |
 
 #### 🖥️ Màn hình A3 — Cấu hình hệ số
 **Ai dùng:** Quản trị danh mục · **Dùng để:** quản lý hệ số tuổi xe và hệ số xe phục vụ khai trường.
 
 ![Màn hình A3 — Cấu hình hệ số](URD_KH_QuanLyNhienLieu_images/A3-cau-hinh-he-so.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Bảng **hệ số tuổi xe** | Nhóm A (đến 7 năm) 1,00; nhóm B (trên 7 đến 14 năm) 1,05; nhóm C (trên 14 năm) 1,10. Mỗi dòng có trạng thái Hoạt động/Không hoạt động và các biểu tượng Sửa (bút chì), Ngừng hoạt động (vòng cấm đỏ), Kích hoạt lại (mũi tên xanh). |
-| ② | Bảng **hệ số xe phục vụ khai trường** | Hệ số 1,05 cho xe phục vụ Trung tâm Điều hành sản xuất tại Quảng Ninh, vận hành thường xuyên trên đường khai trường. Hệ số này **nhân thêm** ngoài hệ số tuổi. |
-| ③ | Ô "Hiện cả hệ số không hoạt động" | Mặc định ẩn các dòng đã ngừng; bật lên để xem lịch sử. |
-| ④ | Công thức định mức giao khoán | Hiển thị công thức và ví dụ: 17,0 × 1,10 × 1,00 = 18,7. |
+| Khu vực | Diễn giải |
+|---|---|
+| Bảng **hệ số tuổi xe** | Nhóm A (đến 7 năm) 1,00; nhóm B (trên 7 đến 14 năm) 1,05; nhóm C (trên 14 năm) 1,10. Mỗi dòng có trạng thái Hoạt động/Không hoạt động và các biểu tượng Sửa (bút chì), Ngừng hoạt động (vòng cấm đỏ), Kích hoạt lại (mũi tên xanh). |
+| Bảng **hệ số xe phục vụ khai trường** | Hệ số 1,05 cho xe phục vụ Trung tâm Điều hành sản xuất tại Quảng Ninh, vận hành thường xuyên trên đường khai trường. Hệ số này **nhân thêm** ngoài hệ số tuổi. |
+| Ô "Hiện cả hệ số không hoạt động" | Mặc định ẩn các dòng đã ngừng; bật lên để xem lịch sử. |
+| Công thức định mức giao khoán | Hiển thị công thức và ví dụ: 17,0 × 1,10 × 1,00 = 18,7. |
 
 Hệ số **không xóa cứng**, chỉ ngừng hoạt động, để giữ lịch sử và đối chiếu các tháng trước.
 
@@ -301,36 +301,36 @@ Hệ số **không xóa cứng**, chỉ ngừng hoạt động, để giữ lị
 
 ![Màn hình A4 — Thêm/sửa hệ số](URD_KH_QuanLyNhienLieu_images/A4-form-he-so.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Loại hệ số | Chọn Tuổi xe hoặc Xe phục vụ khai trường (khóa khi sửa). |
-| ② | Nhóm, Mô tả áp dụng | Tên nhóm không trùng trong cùng loại. Với hệ số khai trường, mô tả đối tượng xe là bắt buộc. |
-| ③ | Tuổi xe từ – đến | Chỉ hiện với loại Tuổi xe. Các nhóm phải liền nhau, **không chồng lấn, không để hở**; để trống ô "đến" nghĩa là không giới hạn trên (nhóm cao nhất). |
-| ④ | Hệ số, Hiệu lực từ | Hệ số dương, tối đa 2 chữ số thập phân. Chỉ áp dụng từ ngày hiệu lực, **không áp ngược** vào các tháng đã qua (ngày hiệu lực chỉ chọn từ hôm nay trở đi **[Giả thiết — Q5]**). |
-| ⑤ | Văn bản căn cứ, Ghi chú | Đính kèm quyết định quy định hệ số (tùy chọn). |
+| Khu vực | Diễn giải |
+|---|---|
+| Loại hệ số | Chọn Tuổi xe hoặc Xe phục vụ khai trường (khóa khi sửa). |
+| Nhóm, Mô tả áp dụng | Tên nhóm không trùng trong cùng loại. Với hệ số khai trường, mô tả đối tượng xe là bắt buộc. |
+| Tuổi xe từ – đến | Chỉ hiện với loại Tuổi xe. Các nhóm phải liền nhau, **không chồng lấn, không để hở**; để trống ô "đến" nghĩa là không giới hạn trên (nhóm cao nhất). |
+| Hệ số, Hiệu lực từ | Hệ số dương, tối đa 2 chữ số thập phân. Chỉ áp dụng từ ngày hiệu lực, **không áp ngược** vào các tháng đã qua (ngày hiệu lực chỉ chọn từ hôm nay trở đi **[Giả thiết — Q5]**). |
+| Văn bản căn cứ, Ghi chú | Đính kèm quyết định quy định hệ số (tùy chọn). |
 
 #### 🖥️ Màn hình A5 — Ngừng hoạt động hệ số
 **Ai dùng:** Quản trị danh mục · **Dùng để:** ngừng áp dụng một hệ số khi quy định thay đổi.
 
 ![Màn hình A5 — Ngừng hoạt động hệ số](URD_KH_QuanLyNhienLieu_images/A5-ngung-he-so.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Hệ số đang chọn | Hiển thị loại, nhóm, khoảng tuổi, hệ số của dòng được chọn. |
-| ② | Ngừng từ ngày, Lý do | Cả hai bắt buộc. Ngày ngừng chỉ chọn được từ hôm nay trở đi **[Giả thiết — Q5]**. |
-| ③ | Cảnh báo | Với hệ số tuổi: nếu ngừng làm **hở khoảng tuổi** (có xe không còn hệ số) thì chặn cho tới khi có nhóm thay thế cùng ngày hiệu lực. Với hệ số khai trường: xe khai trường sẽ tính hệ số 1,00 từ ngày ngừng, hệ thống báo số xe bị ảnh hưởng. |
+| Khu vực | Diễn giải |
+|---|---|
+| Hệ số đang chọn | Hiển thị loại, nhóm, khoảng tuổi, hệ số của dòng được chọn. |
+| Ngừng từ ngày, Lý do | Cả hai bắt buộc. Ngày ngừng chỉ chọn được từ hôm nay trở đi **[Giả thiết — Q5]**. |
+| Cảnh báo | Với hệ số tuổi: nếu ngừng làm **hở khoảng tuổi** (có xe không còn hệ số) thì chặn cho tới khi có nhóm thay thế cùng ngày hiệu lực. Với hệ số khai trường: xe khai trường sẽ tính hệ số 1,00 từ ngày ngừng, hệ thống báo số xe bị ảnh hưởng. |
 
 #### 🖥️ Màn hình A6 — Thêm/sửa xe (phần Định mức nhiên liệu)
 **Ai dùng:** Quản lý xe · **Dùng để:** khai báo nhiên liệu của xe và xem định mức đang áp dụng.
 
 ![Màn hình A6 — Thêm/sửa xe (phần Định mức nhiên liệu)](URD_KH_QuanLyNhienLieu_images/A6-form-xe.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Loại xe | Chọn từ danh mục loại xe; loại xe quyết định định mức gốc. |
-| ② | Loại nhiên liệu, Dung tích thùng | Chọn Xăng hoặc Dầu và nhập dung tích thùng (lít). Loại nhiên liệu dùng để gom Tổng xăng/Tổng dầu ở báo cáo. |
-| ③ | Ô "Xe phục vụ khai trường" | Tích chọn nếu xe thuộc diện hưởng hệ số khai trường. |
-| ④ | Định mức đang áp dụng (tự tính) | Chỉ xem, hiển thị kết quả và diễn giải, ví dụ: 18,7 = 17,0 (loại xe) × 1,10 (nhóm C) × 1,00 (khai trường). Kèm liên kết "Xem lịch sử định mức". Khi sửa loại xe, ô khai trường hoặc ngày sử dụng, hệ thống hỏi "Áp dụng từ ngày" (Q14). |
+| Khu vực | Diễn giải |
+|---|---|
+| Loại xe | Chọn từ danh mục loại xe; loại xe quyết định định mức gốc. |
+| Loại nhiên liệu, Dung tích thùng | Chọn Xăng hoặc Dầu và nhập dung tích thùng (lít). Loại nhiên liệu dùng để gom Tổng xăng/Tổng dầu ở báo cáo. |
+| Ô "Xe phục vụ khai trường" | Tích chọn nếu xe thuộc diện hưởng hệ số khai trường. |
+| Định mức đang áp dụng (tự tính) | Chỉ xem, hiển thị kết quả và diễn giải, ví dụ: 18,7 = 17,0 (loại xe) × 1,10 (nhóm C) × 1,00 (khai trường). Kèm liên kết "Xem lịch sử định mức". Khi sửa loại xe, ô khai trường hoặc ngày sử dụng, hệ thống hỏi "Áp dụng từ ngày" (Q14). |
 
 #### Luồng chuyển giữa các màn hình
 
@@ -356,34 +356,34 @@ flowchart LR
 
 ![Màn hình B1 — Nhập lĩnh, tồn theo xe](URD_KH_QuanLyNhienLieu_images/B1-so-theo-doi-linh.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Bộ lọc **Tháng**, **Xe** và các nút | Chọn tháng và xe (lái xe chỉ thấy xe mình phụ trách). Nút **+ Thêm phiếu lĩnh**, **Nhật ký chỉnh sửa**, **Xuất** (PDF mẫu "Theo dõi lĩnh nhiên liệu" hoặc Excel). Lái xe chỉ thêm/sửa được cho xe mình phụ trách. |
-| ② | Khối **Tồn đầu / Lĩnh / Mua ngoài / Tồn cuối** | Tồn đầu (gợi ý: tồn cuối tháng trước) và tồn cuối **điền sẵn**; lái xe sửa theo số thực tế rồi bấm **Lưu tồn**, hoặc **Đặt lại theo định mức** để về số ước tính. Có nhãn "Ước tính theo định mức" hoặc "Lái xe đã cập nhật" kèm thời điểm. Bên dưới hiện **Sử dụng thực tế** và **Sử dụng theo định mức** (ví dụ 3.828 km × 16,0 / 100 = 612 lít). Nếu tồn đầu khác tồn cuối tháng trước thì hiện cảnh báo "Tồn đầu khác tồn cuối tháng trước X lít"; số ước tính âm hoặc vượt thùng thì đánh dấu "Cần rà soát" (chỉ cảnh báo, không chặn). |
-| ③ | Bảng **phiếu lĩnh và hóa đơn** | Mỗi dòng: ngày, số phiếu, số hóa đơn, số lít phiếu, số lít hóa đơn, tổng, ghi chú; biểu tượng Sửa và Xóa. Cuối bảng có dòng **Cộng**. Bảng chỉ xem, thêm/sửa qua popup. |
+| Khu vực | Diễn giải |
+|---|---|
+| Bộ lọc **Tháng**, **Xe** và các nút | Chọn tháng và xe (lái xe chỉ thấy xe mình phụ trách). Nút **+ Thêm phiếu lĩnh**, **Nhật ký chỉnh sửa**, **Xuất** (PDF mẫu "Theo dõi lĩnh nhiên liệu" hoặc Excel). Lái xe chỉ thêm/sửa được cho xe mình phụ trách. |
+| Khối **Tồn đầu / Lĩnh / Mua ngoài / Tồn cuối** | Tồn đầu (gợi ý: tồn cuối tháng trước) và tồn cuối **điền sẵn**; lái xe sửa theo số thực tế rồi bấm **Lưu tồn**, hoặc **Đặt lại theo định mức** để về số ước tính. Có nhãn "Ước tính theo định mức" hoặc "Lái xe đã cập nhật" kèm thời điểm. Bên dưới hiện **Sử dụng thực tế** và **Sử dụng theo định mức** (ví dụ 3.828 km × 16,0 / 100 = 612 lít). Nếu tồn đầu khác tồn cuối tháng trước thì hiện cảnh báo "Tồn đầu khác tồn cuối tháng trước X lít"; số ước tính âm hoặc vượt thùng thì đánh dấu "Cần rà soát" (chỉ cảnh báo, không chặn). |
+| Bảng **phiếu lĩnh và hóa đơn** | Mỗi dòng: ngày, số phiếu, số hóa đơn, số lít phiếu, số lít hóa đơn, tổng, ghi chú; biểu tượng Sửa và Xóa. Cuối bảng có dòng **Cộng**. Bảng chỉ xem, thêm/sửa qua popup. |
 
 #### 🖥️ Màn hình B2 — Thêm/sửa phiếu lĩnh (popup)
 **Ai dùng:** Lái xe · **Dùng để:** ghi một dòng phiếu lĩnh và/hoặc hóa đơn mua ngoài.
 
 ![Màn hình B2 — Thêm/sửa phiếu lĩnh](URD_KH_QuanLyNhienLieu_images/B2-popup-phieu-linh.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Xe/Tháng, **Ngày** | Xe và tháng lấy từ màn nhập lĩnh/tồn đang mở (khóa). Ngày bắt buộc, thuộc tháng đang chọn. |
-| ② | **Số phiếu lĩnh**, **Số hóa đơn** | Nhập **ít nhất một** trong hai. Số phiếu lĩnh bị kiểm trùng toàn hệ thống: trùng thì báo ngay dưới ô "Số phiếu … đã ghi cho xe … (ngày), không thể trùng" và chặn Lưu. |
-| ③ | **Số lít**: phiếu lĩnh, hóa đơn, tổng | Số lít bắt buộc khi đã nhập số chứng từ tương ứng. **Tổng số** tự tính, không sửa. |
-| ④ | Ghi chú, nút **Lưu** / **Đóng** | Ghi chú tùy chọn. Lưu hợp lệ thì đóng popup, bảng và khối tổng hợp cập nhật, ghi nhật ký. Sửa phiếu dùng cùng popup (tiêu đề "Sửa phiếu lĩnh"). |
+| Khu vực | Diễn giải |
+|---|---|
+| Xe/Tháng, **Ngày** | Xe và tháng lấy từ màn nhập lĩnh/tồn đang mở (khóa). Ngày bắt buộc, thuộc tháng đang chọn. |
+| **Số phiếu lĩnh**, **Số hóa đơn** | Nhập **ít nhất một** trong hai. Số phiếu lĩnh bị kiểm trùng toàn hệ thống: trùng thì báo ngay dưới ô "Số phiếu … đã ghi cho xe … (ngày), không thể trùng" và chặn Lưu. |
+| **Số lít**: phiếu lĩnh, hóa đơn, tổng | Số lít bắt buộc khi đã nhập số chứng từ tương ứng. **Tổng số** tự tính, không sửa. |
+| Ghi chú, nút **Lưu** / **Đóng** | Ghi chú tùy chọn. Lưu hợp lệ thì đóng popup, bảng và khối tổng hợp cập nhật, ghi nhật ký. Sửa phiếu dùng cùng popup (tiêu đề "Sửa phiếu lĩnh"). |
 
 #### 🖥️ Màn hình B3 — Nhật ký chỉnh sửa lĩnh và tồn
 **Ai dùng:** Quản lý xe, Lái xe (chỉ xe mình) · **Dùng để:** tra lại ai đã sửa gì.
 
 ![Màn hình B3 — Nhật ký chỉnh sửa lĩnh và tồn](URD_KH_QuanLyNhienLieu_images/B3-nhat-ky.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Bộ lọc | Tháng, xe, thao tác, người thực hiện, khoảng ngày. Mở từ màn nhập lĩnh/tồn của xe thì lọc sẵn theo xe và tháng. |
-| ② | Bảng nhật ký | Mỗi dòng: thời gian, người, xe, thao tác, trường thay đổi, giá trị cũ → mới, nguồn (Lái xe / Quản lý / Quản trị / Hệ thống), lý do. Chỉ xem, không sửa/xóa, giữ vĩnh viễn, mới nhất xếp trước. |
-| ③ | Phân trang | 10/20/50 dòng mỗi trang; nút Quay lại. |
+| Khu vực | Diễn giải |
+|---|---|
+| Bộ lọc | Tháng, xe, thao tác, người thực hiện, khoảng ngày. Mở từ màn nhập lĩnh/tồn của xe thì lọc sẵn theo xe và tháng. |
+| Bảng nhật ký | Mỗi dòng: thời gian, người, xe, thao tác, trường thay đổi, giá trị cũ → mới, nguồn (Lái xe / Quản lý / Quản trị / Hệ thống), lý do. Chỉ xem, không sửa/xóa, giữ vĩnh viễn, mới nhất xếp trước. |
+| Phân trang | 10/20/50 dòng mỗi trang; nút Quay lại. |
 
 #### Luồng chuyển giữa các màn hình
 
@@ -408,64 +408,64 @@ flowchart LR
 
 ![Màn hình C1 — Báo cáo quyết toán tiêu hao](URD_KH_QuanLyNhienLieu_images/C1-bao-cao-quyet-toan.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Hai tab **Quyết toán tiêu hao** / **Lĩnh, sử dụng, tồn** | Chuyển giữa hai báo cáo cùng bộ lọc. |
-| ② | Bộ lọc **Kỳ, Tháng, Đơn vị, Xe** + nút **Xem** | Kỳ hiện chỉ có Tháng; các kỳ khác (quý, năm) chờ chốt **[Giả thiết — Q18]**. Đơn vị quản lý quyết định tiêu đề biểu khi xuất. |
-| ③ | Nút **Xuất** (menu) | Excel hoặc PDF theo đúng biểu mẫu 4 "Biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô". |
-| ④ | Bảng quyết toán | Mỗi xe một dòng: biển số (bấm vào xem chi tiết), **lái xe phụ trách**, km tháng, định mức giao khoán (lít/100km), tiêu hao theo định mức, tiêu hao thực tế, tăng/giảm; dòng Tổng cuối bảng. Xe chưa có định mức hiện "Chưa có định mức"; xe chưa gán lái xe hiện "Chưa gán lái xe" (màu cam). Xe mà lái xe chưa cập nhật tồn: cột thực tế hiện "Chưa cập nhật" (màu cam), không tính Tăng/Giảm. |
+| Khu vực | Diễn giải |
+|---|---|
+| Hai tab **Quyết toán tiêu hao** / **Lĩnh, sử dụng, tồn** | Chuyển giữa hai báo cáo cùng bộ lọc. |
+| Bộ lọc **Kỳ, Tháng, Đơn vị, Xe** + nút **Xem** | Kỳ hiện chỉ có Tháng; các kỳ khác (quý, năm) chờ chốt **[Giả thiết — Q18]**. Đơn vị quản lý quyết định tiêu đề biểu khi xuất. |
+| Nút **Xuất** (menu) | Excel hoặc PDF theo đúng biểu mẫu 4 "Biểu tổng hợp quyết toán tiêu hao nhiên liệu từng xe ô tô". |
+| Bảng quyết toán | Mỗi xe một dòng: biển số (bấm vào xem chi tiết), **lái xe phụ trách**, km tháng, định mức giao khoán (lít/100km), tiêu hao theo định mức, tiêu hao thực tế, tăng/giảm; dòng Tổng cuối bảng. Xe chưa có định mức hiện "Chưa có định mức"; xe chưa gán lái xe hiện "Chưa gán lái xe" (màu cam). Xe mà lái xe chưa cập nhật tồn: cột thực tế hiện "Chưa cập nhật" (màu cam), không tính Tăng/Giảm. |
 
 #### 🖥️ Màn hình C2 — Báo cáo lĩnh, sử dụng, tồn
 **Ai dùng:** Quản lý xe, Lãnh đạo · **Dùng để:** xem tổng lĩnh và tồn nhiên liệu của cả đội xe trong tháng.
 
 ![Màn hình C2 — Báo cáo lĩnh, sử dụng, tồn](URD_KH_QuanLyNhienLieu_images/C2-bao-cao-linh-su-dung-ton.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Tab và bộ lọc | Như Màn hình C1. |
-| ② | Nút **Xem**, **Xuất** | Xuất PDF theo đúng biểu mẫu 2 "Biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô" hoặc Excel. |
-| ③ | Bảng lĩnh–sử dụng–tồn | Mỗi xe: biển số, lái xe phụ trách, thùng, tồn đầu, **lĩnh tại cây xăng** (bấm vào số để mở màn nhập lĩnh/tồn của xe), mua ngoài, tổng lĩnh, sử dụng, tồn cuối, ghi chú; có Tổng xăng, Tổng dầu, Tổng cộng. Dòng nào còn là số ước tính (lái xe chưa cập nhật) có dấu **\*** màu cam, chú thích cuối trang. Báo cáo chỉ xem, không có ô nhập. Dòng có tồn đầu lệch so với tồn cuối tháng trước hoặc số ước tính bất thường cũng được đánh dấu để rà soát. |
+| Khu vực | Diễn giải |
+|---|---|
+| Tab và bộ lọc | Như Màn hình C1. |
+| Nút **Xem**, **Xuất** | Xuất PDF theo đúng biểu mẫu 2 "Biểu tổng hợp lĩnh, sử dụng, tồn nhiên liệu từng xe ô tô" hoặc Excel. |
+| Bảng lĩnh–sử dụng–tồn | Mỗi xe: biển số, lái xe phụ trách, thùng, tồn đầu, **lĩnh tại cây xăng** (bấm vào số để mở màn nhập lĩnh/tồn của xe), mua ngoài, tổng lĩnh, sử dụng, tồn cuối, ghi chú; có Tổng xăng, Tổng dầu, Tổng cộng. Dòng nào còn là số ước tính (lái xe chưa cập nhật) có dấu **\*** màu cam, chú thích cuối trang. Báo cáo chỉ xem, không có ô nhập. Dòng có tồn đầu lệch so với tồn cuối tháng trước hoặc số ước tính bất thường cũng được đánh dấu để rà soát. |
 
 #### 🖥️ Màn hình C3 — Chi tiết tiêu hao theo xe
 **Ai dùng:** Quản lý xe · **Dùng để:** theo dõi từng tháng của một xe để tìm tháng bị vượt.
 
 ![Màn hình C3 — Chi tiết tiêu hao theo xe](URD_KH_QuanLyNhienLieu_images/C3-chi-tiet-xe.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Đầu trang xe | Biển số, loại xe, loại nhiên liệu, dung tích thùng, công thức định mức giao khoán (17,0 × 1,10 × 1,00 = 18,7). |
-| ② | Bộ lọc **Kỳ** + nút **Xuất** | Mặc định Năm hiện tại; có kỳ **Vòng đời** (từ chuyến đầu tiên có km). Xuất Excel. |
-| ③ | Bảng theo tháng | Mỗi tháng: km, định mức, theo định mức, thực tế, tăng/giảm; dấu (!) khi vượt. Tháng mà lái xe chưa cập nhật tồn: cột Thực tế ghi "Chưa cập nhật", không tính Tăng/Giảm; dòng Tổng chỉ cộng các tháng đã cập nhật. |
+| Khu vực | Diễn giải |
+|---|---|
+| Đầu trang xe | Biển số, loại xe, loại nhiên liệu, dung tích thùng, công thức định mức giao khoán (17,0 × 1,10 × 1,00 = 18,7). |
+| Bộ lọc **Kỳ** + nút **Xuất** | Mặc định Năm hiện tại; có kỳ **Vòng đời** (từ chuyến đầu tiên có km). Xuất Excel. |
+| Bảng theo tháng | Mỗi tháng: km, định mức, theo định mức, thực tế, tăng/giảm; dấu (!) khi vượt. Tháng mà lái xe chưa cập nhật tồn: cột Thực tế ghi "Chưa cập nhật", không tính Tăng/Giảm; dòng Tổng chỉ cộng các tháng đã cập nhật. |
 
 #### 🖥️ Màn hình C4 — Xuất mẫu 2: Lĩnh, sử dụng, tồn
 **Ai dùng:** Quản lý xe, Lãnh đạo · **Dùng để:** in biểu tổng hợp lĩnh–sử dụng–tồn của cả đội.
 
 ![Màn hình C4 — Xuất mẫu 2: Lĩnh, sử dụng, tồn](URD_KH_QuanLyNhienLieu_images/C4-mau-2.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Tiêu đề và bảng 10 cột | Tiêu đề hai dòng: "Tập đoàn CN Than - Khoáng sản Việt Nam" và tên đơn vị quản lý. Cột: STT, Số xe, Dung tích thùng, Tồn đầu tháng, Lĩnh trong tháng (Tổng = cây xăng + mua ngoài), Sử dụng, Tồn cuối, Ghi chú; có hàng đánh số cột và công thức. Dòng Tổng xăng, Tổng dầu, Tổng cộng. |
-| ② | Ghi chú và chữ ký | 3 ghi chú theo biểu giấy; khối chữ ký "ĐỘI XE VĂN PHÒNG". |
+| Khu vực | Diễn giải |
+|---|---|
+| Tiêu đề và bảng 10 cột | Tiêu đề hai dòng: "Tập đoàn CN Than - Khoáng sản Việt Nam" và tên đơn vị quản lý. Cột: STT, Số xe, Dung tích thùng, Tồn đầu tháng, Lĩnh trong tháng (Tổng = cây xăng + mua ngoài), Sử dụng, Tồn cuối, Ghi chú; có hàng đánh số cột và công thức. Dòng Tổng xăng, Tổng dầu, Tổng cộng. |
+| Ghi chú và chữ ký | 3 ghi chú theo biểu giấy; khối chữ ký "ĐỘI XE VĂN PHÒNG". |
 
 #### 🖥️ Màn hình C5 — Xuất mẫu 3: Theo dõi lĩnh nhiên liệu
 **Ai dùng:** Lái xe, Quản lý xe · **Dùng để:** in biểu theo dõi lĩnh của từng xe.
 
 ![Màn hình C5 — Xuất mẫu 3: Theo dõi lĩnh nhiên liệu](URD_KH_QuanLyNhienLieu_images/C5-mau-3.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Bảng theo dõi lĩnh | STT, Ngày tháng (dạng 03-Thg8, chỉ ghi ở dòng đầu của ngày), Số hiệu chứng từ (phiếu lĩnh, hóa đơn), Số lượng lĩnh theo lít (tổng, phiếu, hóa đơn), Ghi chú. Bảng có dòng trống đến STT 18 như biểu giấy và dòng Cộng. |
-| ② | Thông tin xe và chữ ký | Tên, chủng loại xe/Biển kiểm soát, loại nhiên liệu sử dụng; chữ ký "ĐỘI XE VĂN PHÒNG" và "LÁI XE". |
+| Khu vực | Diễn giải |
+|---|---|
+| Bảng theo dõi lĩnh | STT, Ngày tháng (dạng 03-Thg8, chỉ ghi ở dòng đầu của ngày), Số hiệu chứng từ (phiếu lĩnh, hóa đơn), Số lượng lĩnh theo lít (tổng, phiếu, hóa đơn), Ghi chú. Bảng có dòng trống đến STT 18 như biểu giấy và dòng Cộng. |
+| Thông tin xe và chữ ký | Tên, chủng loại xe/Biển kiểm soát, loại nhiên liệu sử dụng; chữ ký "ĐỘI XE VĂN PHÒNG" và "LÁI XE". |
 
 #### 🖥️ Màn hình C6 — Xuất mẫu 4: Quyết toán tiêu hao
 **Ai dùng:** Quản lý xe, Lãnh đạo, Kế toán · **Dùng để:** in biểu quyết toán tiêu hao.
 
 ![Màn hình C6 — Xuất mẫu 4: Quyết toán tiêu hao](URD_KH_QuanLyNhienLieu_images/C6-mau-4.png)
 
-| # | Khu vực | Diễn giải |
-|---|---|---|
-| ① | Bảng quyết toán 7 cột | STT, Số xe, Số km hoạt động trong tháng, Định mức giao khoán (lít/100km), Tiêu hao theo định mức (5 = 3 × 4), Tiêu hao thực tế (6), Tăng (+)/Giảm (−) (7 = 6 − 5); có hàng đánh số cột và công thức. |
-| ② | Chữ ký | Khối "ĐỘI XE VĂN PHÒNG"; tiêu đề lấy theo đơn vị quản lý. |
+| Khu vực | Diễn giải |
+|---|---|
+| Bảng quyết toán 7 cột | STT, Số xe, Số km hoạt động trong tháng, Định mức giao khoán (lít/100km), Tiêu hao theo định mức (5 = 3 × 4), Tiêu hao thực tế (6), Tăng (+)/Giảm (−) (7 = 6 − 5); có hàng đánh số cột và công thức. |
+| Chữ ký | Khối "ĐỘI XE VĂN PHÒNG"; tiêu đề lấy theo đơn vị quản lý. |
 
 > Cả 3 biểu mẫu **in ký tay, không ký số**. Cột "Lái xe phụ trách" chỉ có trên màn hình để tra cứu/lọc, **không in** ra mẫu 4 vì mẫu giấy không có cột này.
 
@@ -640,7 +640,7 @@ Quản lý cần tra lại ai đã thêm/sửa/xóa phiếu, cập nhật hoặc
 - **Màn hình liên quan:** Màn B3
 - **Mức độ ưu tiên:** Cao
 
-> **Đã bỏ khỏi phạm vi:** UR14 (chốt tháng), UR15 (mở khóa tháng), UR16 (xử lý tồn đầu bị lệch), UR25 (nhập số dư ban đầu, đã gộp vào UR12) và UR26 (chốt tháng khi còn số ước tính). Hệ thống không còn bước chốt tháng: số liệu lĩnh/tồn luôn sửa được trực tiếp trên màn B1 và mọi thay đổi đều ghi nhật ký.
+> **Về các mã yêu cầu không dùng:** UR14 (chốt tháng), UR15 (mở khóa tháng), UR16 (xử lý tồn đầu bị lệch), UR25 (nhập số dư ban đầu, đã gộp vào UR12) và UR26 (chốt tháng khi còn số ước tính). Hệ thống không còn bước chốt tháng: số liệu lĩnh/tồn luôn sửa được trực tiếp trên màn B1 và mọi thay đổi đều ghi nhật ký.
 
 ### Phần C — Báo cáo và biểu mẫu in
 
