@@ -125,5 +125,29 @@
     "last_updated": "2026-10-17",
     "jira_ticket": null,
     "jira_url": null
+  },
+  "Bộ API chuẩn cung cấp dữ liệu văn bản cho hệ thống tích hợp": {
+    "current_approved": "api-tich-hop-van-ban/SRS.md",
+    "status": "dev-ready",
+    "function_ids": [
+      "FC-001",
+      "FC-002",
+      "FC-003",
+      "FC-004",
+      "FC-005",
+      "FC-006",
+      "FC-007",
+      "FC-008",
+      "FC-009",
+      "FC-010",
+      "FC-011",
+      "FC-012"
+    ],
+    "lineage": [
+      "api-tich-hop-van-ban"
+    ],
+    "last_updated": "2026-10-26",
+    "jira_ticket": null,
+    "jira_url": null
   }
 }
