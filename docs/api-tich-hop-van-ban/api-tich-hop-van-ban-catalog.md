@@ -2,14 +2,14 @@
 type: api-catalog
 feature: api-tich-hop-van-ban
 status: draft
-version: 0.4.0
+version: 0.6.0
 updated: 2026-10-26
 links: []
 ---
 
 # CATALOG NGHIỆP VỤ — BỘ API CHUẨN CUNG CẤP DỮ LIỆU VĂN BẢN CHO HỆ THỐNG TÍCH HỢP
 
-> Phiên bản 0.4.0 (bản nháp) · Cập nhật 26/10/2026 · Người lập: @mynguyen.cntt.px
+> Phiên bản 0.6.0 (bản nháp) · Cập nhật 26/10/2026 · Người lập: @mynguyen.cntt.px
 
 ## 0. Thông tin chung
 
@@ -57,10 +57,13 @@ Catalog gồm 5 thành phần:
 | D11 | Vai trò xử lý | 4 mã: `CHI_DAO`, `XU_LY_CHINH` (xử lý chính / chủ trì), `PHOI_HOP`, `XEM_DE_BIET` |
 | D12 | Đồng bộ gia tăng văn bản | Không cung cấp — văn bản không có thời điểm cập nhật cuối. Hệ thống ngoài đồng bộ văn bản theo khoảng ngày (F12). Hạn chế: không phát hiện được văn bản cũ vừa thay đổi (thêm file, đổi trạng thái) nếu ngày của văn bản nằm ngoài khoảng đang quét. Danh mục đơn vị, chức vụ, người dùng vẫn đồng bộ gia tăng được (F13) |
 | D13 | Tên văn bản | Tên văn bản chính là trích yếu, không có trường riêng |
-| D14 | Định danh schema | Mọi API nhận schema qua `ma_schema`. DM-01 trả thêm `agent_id` (mã agent của schema trên iOffice) chỉ để đối chiếu, không API nào nhận mã này |
+| D14 | Định danh agent | Mọi API nhận agent bằng 1 trong 2 mã: `agent_id` (id agent, dạng số) hoặc `ma_schema` (tên schema, vd `qlvb_hni_schema`). Hai mã tương đương nhau |
 | D15 | Yêu cầu trường / tiêu chí lọc ngoài hồ sơ | Từ chối cả yêu cầu: lỗi `FIELD_NOT_ALLOWED` / `FILTER_NOT_ALLOWED` kèm tên trường bị từ chối. Khi thu hẹp hồ sơ của đơn vị đang chạy, phải báo trước cho đơn vị đó |
 | D16 | Giới hạn số lượt gọi | Có giới hạn, cấu hình theo từng hồ sơ, vượt thì trả `RATE_LIMITED`. Con số mặc định do dev đề xuất sau khi đo tải |
 | D17 | Thời hạn token | Mặc định 30 phút (`expires_in` = 1800), chỉnh được theo hồ sơ |
+| D18 | Chọn phạm vi trong chế độ `DON_VI` | **Toàn agent:** chỉ truyền định danh agent (F01), không truyền `id_don_vi`. **1 đơn vị con:** truyền thêm `id_don_vi`, kèm `bao_gom_cap_duoi` nếu lấy cả các đơn vị cấp dưới (F08). Áp chung cho mọi API có lọc theo đơn vị (Mục 1.3) |
+| D19 | Văn bản đi của 1 đơn vị con | Đơn vị độc lập: theo sổ văn bản đi riêng của đơn vị đó. Phòng ban (độc lập phụ thuộc hoặc phụ thuộc): 2 cách tính, chọn qua `cach_tinh_van_ban_di` (F19) — theo đơn vị soạn thảo (mặc định) hoặc theo người tạo thuộc đơn vị |
+| D20 | Văn bản đến chuyển xuống đơn vị độc lập | Mỗi sổ văn bản là 1 bản ghi riêng. Lấy toàn agent trả cả bản ghi ở sổ agent và bản ghi ở sổ đơn vị độc lập; mỗi bản ghi có `id_don_vi_so_huu` / `ten_don_vi_so_huu` để hệ thống ngoài phân biệt và gộp |
 
 ### 0.4. Quy ước đánh dấu
 
@@ -76,7 +79,7 @@ Mọi nhu cầu lấy dữ liệu văn bản đều là tổ hợp của 2 trụ
 
 | Phạm vi | Ý nghĩa nghiệp vụ | Xác thực tương ứng | Ví dụ sử dụng |
 |---|---|---|---|
-| `DON_VI` | Lấy dữ liệu ở mức toàn đơn vị / schema, không gắn với 1 người dùng | Tài khoản hệ thống cấp cố định cho đơn vị tích hợp | Đồng bộ văn bản sang hệ thống khác, báo cáo, lưu trữ, cổng thông tin |
+| `DON_VI` | Lấy dữ liệu ở mức toàn agent hoặc 1 đơn vị con trong agent (Mục 1.3), không gắn với 1 người dùng | Tài khoản hệ thống cấp cố định cho đơn vị tích hợp | Đồng bộ văn bản sang hệ thống khác, báo cáo, lưu trữ, cổng thông tin |
 | `CA_NHAN` | Lấy đúng phần dữ liệu **1 người dùng được phép thấy** hoặc **đang phải xử lý**, theo phân quyền sẵn có trên iOffice | Tài khoản người dùng đang có trên iOffice | Không gian làm việc số, ứng dụng của lãnh đạo, chuyên viên, văn thư |
 
 Phạm vi được xác định từ **loại token**; đơn vị tích hợp không tự chọn được phạm vi rộng hơn token cho phép.
@@ -89,6 +92,30 @@ Phạm vi được xác định từ **loại token**; đơn vị tích hợp kh
 | Hàng đợi của tôi | Lấy văn bản đang chờ 1 người dùng xử lý, đúng như các menu xử lý trên iOffice | Văn bản đến cần xử lý; văn bản đi cần xử lý; văn bản đến cần vào sổ |
 
 Hàng đợi dùng trạng thái cá nhân (Mục 6.3) nên chỉ áp ở phạm vi `CA_NHAN`. Riêng văn bản đến chờ vào sổ còn lấy được ở phạm vi `DON_VI` qua trạng thái tầng đơn vị `CHO_VAO_SO` (Mục 6.2).
+
+### 1.3. Hai trường hợp trong phạm vi `DON_VI` — toàn agent hoặc 1 đơn vị con
+
+| Trường hợp | Truyền vào | Kết quả |
+|---|---|---|
+| Toàn agent | Chỉ định danh agent: `agent_id` (vd `10`) hoặc `ma_schema` (vd `qlvb_hni_schema`) — F01 | Dữ liệu của mọi đơn vị, phòng ban trong agent |
+| 1 đơn vị con, chỉ riêng đơn vị đó | Định danh agent + `id_don_vi` — F08 | Dữ liệu của riêng đơn vị / phòng ban đó |
+| 1 đơn vị con, gồm cả cấp dưới | Định danh agent + `id_don_vi` + `bao_gom_cap_duoi=true` — F08 | Dữ liệu của đơn vị đó và mọi đơn vị con cháu |
+
+**Quy tắc chung (D18):**
+- Áp cho mọi API có lọc theo đơn vị: VB-01, VB-06, DM-02, DM-04.
+- `id_don_vi` phải thuộc agent đã chọn; đơn vị không thuộc agent → `INVALID_PARAM`.
+- Hồ sơ quyết định đơn vị tích hợp được dùng trường hợp nào:
+  - Hồ sơ cấp **toàn agent**: dùng được cả 3 trường hợp.
+  - Hồ sơ chỉ cấp **1 nhánh đơn vị**: chỉ truyền định danh agent thì chỉ nhận dữ liệu của nhánh được cấp, không phải toàn agent. Truyền `id_don_vi` ngoài nhánh được cấp → `FORBIDDEN_SCOPE`.
+
+**Loại đơn vị con và cách xác định văn bản của đơn vị X** (loại đơn vị lấy từ trường `loai_don_vi` của DM-02 — Mục 6.10):
+
+| Loại đơn vị con | Đặc điểm | Văn bản đến của X | Văn bản đi của X |
+|---|---|---|---|
+| Đơn vị độc lập | Có văn thư và sổ văn bản riêng | Văn bản trong sổ văn bản đến của X | Văn bản trong sổ văn bản đi của X (D19) |
+| Phòng ban — độc lập phụ thuộc hoặc phụ thuộc | Không có sổ văn bản riêng, dùng sổ của đơn vị cấp trên | Văn bản được chuyển tới X hoặc tới người dùng thuộc X | Tính theo `cach_tinh_van_ban_di` (F19): `DON_VI_SOAN_THAO` (mặc định) — X là phòng ban soạn thảo; `NGUOI_TAO` — người tạo văn bản thuộc X (D19) |
+
+**Văn bản đến chuyển xuống đơn vị độc lập (D20):** văn bản đến của agent được chuyển xuống 1 đơn vị độc lập và vào sổ riêng ở đơn vị đó thì thành 2 bản ghi: 1 ở sổ của agent, 1 ở sổ của đơn vị độc lập (ID và số đến khác nhau). Lấy toàn agent sẽ trả **cả 2 bản ghi**; trường `id_don_vi_so_huu` / `ten_don_vi_so_huu` cho biết mỗi bản ghi thuộc sổ của đơn vị nào. Hệ thống ngoài muốn gộp thì dựa vào số ký hiệu, ngày văn bản và đơn vị ban hành.
 
 ---
 
@@ -208,8 +235,8 @@ Mẫu đầu ra:
 
 | Trường | Tên nghiệp vụ | Kiểu | Quy tắc lấy dữ liệu |
 |---|---|---|---|
-| `ma_schema` | Mã schema | Chuỗi | Mã duy nhất mọi API nhận ở tiêu chí F01 |
-| `agent_id` | Mã agent | Số | Mã agent của schema trên iOffice, trả kèm để đối chiếu; không API nào nhận mã này (D14) |
+| `agent_id` | ID agent | Số | ID agent trên iOffice; dùng được ở tiêu chí F01 (D14) |
+| `ma_schema` | Tên schema | Chuỗi | Vd `qlvb_hni_schema`; dùng được ở tiêu chí F01, tương đương `agent_id` (D14) |
 | `ten_schema` | Tên cơ quan / đơn vị dùng schema | Chuỗi | |
 | `id_don_vi_goc` | ID đơn vị gốc của schema | Chuỗi | Điểm bắt đầu khi gọi DM-02 lấy cây đơn vị |
 | `trang_thai` | Trạng thái | Mã (Mục 6.9) | |
@@ -222,8 +249,8 @@ Mẫu đầu ra:
 
 | Tham số | Kiểu | Bắt buộc | Mô tả |
 |---|---|---|---|
-| `ma_schema` | Chuỗi | Không | Mặc định lấy từ token (F01) |
-| `id_don_vi` | Chuỗi | Không | Chỉ trả các đơn vị con cháu của đơn vị này. Không truyền = trả từ đơn vị gốc của hồ sơ |
+| `agent_id` hoặc `ma_schema` | Số / Chuỗi | Theo F01 | Agent cần lấy (F01) |
+| `id_don_vi` | Chuỗi | Không | Chỉ trả các đơn vị con cháu của đơn vị này. Không truyền = cả cây của agent (hoặc của nhánh hồ sơ được cấp) |
 | `cap_nhat_tu` | Ngày giờ | Không | Chỉ trả đơn vị thay đổi từ thời điểm này — đồng bộ gia tăng (F13) |
 | `page`, `page_size` | Số | Không | Phân trang |
 
@@ -238,7 +265,7 @@ Mẫu đầu ra:
 
 **Nghiệp vụ:** trả danh mục chức vụ, chức danh, vị trí công tác của schema, dùng để ánh xạ với thông tin người dùng.
 
-**Đầu vào:** `ma_schema` (không bắt buộc, mặc định từ token), `cap_nhat_tu` (F13), `page`, `page_size`.
+**Đầu vào:** `agent_id` hoặc `ma_schema` (F01), `cap_nhat_tu` (F13), `page`, `page_size`.
 
 **Đầu ra:** trường ở Mục 4.9.
 
@@ -252,8 +279,8 @@ Mẫu đầu ra:
 
 | Tham số | Kiểu | Bắt buộc | Mô tả |
 |---|---|---|---|
-| `ma_schema` | Chuỗi | Không | Mặc định lấy từ token (F01) |
-| `id_don_vi` | Chuỗi | Không | Chỉ trả người dùng trực thuộc trực tiếp đơn vị / phòng ban này |
+| `agent_id` hoặc `ma_schema` | Số / Chuỗi | Theo F01 | Agent cần lấy (F01) |
+| `id_don_vi` | Chuỗi | Không | Chỉ trả người dùng trực thuộc trực tiếp đơn vị / phòng ban này. Không truyền = toàn bộ người dùng của agent (hoặc của nhánh hồ sơ được cấp) |
 | `bao_gom_cap_duoi` | Đúng/sai | Không | Lấy cả người dùng của đơn vị con cháu. Mặc định: không |
 | `cap_nhat_tu` | Ngày giờ | Không | Đồng bộ gia tăng (F13) |
 | `page`, `page_size` | Số | Không | Phân trang |
@@ -266,7 +293,7 @@ Mẫu đầu ra:
 
 **Nghiệp vụ:** trả danh mục để đơn vị tích hợp lấy đúng mã truyền vào tiêu chí lọc F10, F11, F18.
 
-**Đầu vào:** `loai_danh_muc` (đường dẫn) nhận 1 trong `LINH_VUC`, `HINH_THUC_VAN_BAN`, `DO_KHAN`; `ma_schema` (không bắt buộc).
+**Đầu vào:** `loai_danh_muc` (đường dẫn) nhận 1 trong `LINH_VUC`, `HINH_THUC_VAN_BAN`, `DO_KHAN`; `agent_id` hoặc `ma_schema` (F01).
 
 **Đầu ra (mỗi phần tử trong `data`):** `ma`, `ten`, `trang_thai` (Mục 6.9).
 
@@ -287,6 +314,7 @@ Mẫu đầu ra:
 **Đầu ra:** danh sách văn bản (Mục 4) + `pagination`.
 
 **Quy tắc:**
+- Phạm vi `DON_VI`: chỉ truyền định danh agent (F01) = văn bản của toàn agent; truyền thêm `id_don_vi` (F08) = văn bản của 1 đơn vị con (Mục 1.3, D18).
 - Trường / khối / tiêu chí nằm ngoài hồ sơ → từ chối cả yêu cầu với mã `FIELD_NOT_ALLOWED` / `FILTER_NOT_ALLOWED`, liệt kê tên trường bị từ chối (D15). Không trả kết quả một phần.
 - Khối `log_xu_ly` **không** lấy kèm ở danh sách vì nặng; dùng VB-02 hoặc VB-03.
 - Danh sách chỉ trả thông tin file, không trả nội dung file, kể cả khi hồ sơ bật trả nội dung (D6).
@@ -393,15 +421,20 @@ Mẫu đầu ra (`kem_theo=files,van_ban_lien_quan`):
 
 ### 3.12. VB-06 — Thống kê số lượng văn bản
 
-**Nghiệp vụ:** đếm số văn bản của 1 đơn vị.
-- Văn bản đi: đếm văn bản có đơn vị ban hành là đơn vị cần thống kê, theo ngày ban hành.
-- Văn bản đến: đếm văn bản được giao cho đơn vị, theo ngày đến; tách được theo vai trò nhận và theo trạng thái xử lý, khớp số liệu **Báo cáo văn bản đến** trên iOffice.
+**Nghiệp vụ:** đếm số văn bản của toàn agent hoặc của 1 đơn vị con trong agent (Mục 1.3).
+- Văn bản của đơn vị xác định theo loại đơn vị con, giống VB-01 (Mục 1.3, D19).
+- Văn bản đi: đếm theo ngày ban hành. Đơn vị là phòng ban thì tính theo `cach_tinh_van_ban_di` (F19).
+- Văn bản đến: đếm theo ngày đến; tách được theo vai trò nhận và theo trạng thái xử lý, khớp số liệu **Báo cáo văn bản đến** trên iOffice.
+- Thống kê toàn agent, hoặc 1 đơn vị kèm cấp dưới có đơn vị độc lập: 1 văn bản đến chuyển xuống đơn vị độc lập được đếm ở cả sổ agent và sổ đơn vị độc lập (D20). Dùng `nhom_theo=DON_VI` để tách số theo từng sổ.
 
 **Đầu vào:**
 
 | Tham số | Kiểu | Bắt buộc | Mô tả |
 |---|---|---|---|
-| `id_don_vi` | Chuỗi | Có | Đơn vị cần thống kê, phải thuộc phạm vi hồ sơ |
+| `agent_id` hoặc `ma_schema` | Số / Chuỗi | Theo F01 | Agent cần thống kê (F01) |
+| `id_don_vi` | Chuỗi | Không | Đơn vị con cần thống kê, phải thuộc agent và phạm vi hồ sơ. Không truyền = thống kê toàn agent |
+| `bao_gom_cap_duoi` | Đúng/sai | Không | Cộng dồn cả các đơn vị con cháu của `id_don_vi`. Mặc định: không |
+| `cach_tinh_van_ban_di` | Mã | Không | Chỉ áp khi `id_don_vi` là phòng ban (F19). Mặc định `DON_VI_SOAN_THAO` |
 | `loai_van_ban` | Danh sách mã | Không | `DEN` / `DI` (Mục 6.1). Không truyền = cả hai |
 | `id_linh_vuc` | Danh sách mã | Không | Lĩnh vực |
 | `ma_hinh_thuc_van_ban` | Danh sách mã | Không | Hình thức |
@@ -447,6 +480,8 @@ Mẫu đầu ra (`kem_theo=files,van_ban_lien_quan`):
 | `id_don_vi_ban_hanh` | ID đơn vị ban hành | Chuỗi | CB | Có giá trị khi đơn vị ban hành nằm trong hệ thống; rỗng khi văn bản đến từ trục liên thông hoặc nhập tay từ văn bản giấy |
 | `ten_don_vi_ban_hanh` | Tên đơn vị / cơ quan ban hành | Chuỗi | CB | |
 | `trang_thai_van_ban` | Trạng thái văn bản (tầng đơn vị) | Mã (Mục 6.2) | CB | |
+| `id_don_vi_so_huu` | ID đơn vị sở hữu bản ghi | Chuỗi | CB | Đơn vị có sổ văn bản chứa bản ghi này — agent hoặc 1 đơn vị độc lập (D20) |
+| `ten_don_vi_so_huu` | Tên đơn vị sở hữu bản ghi | Chuỗi | CB | |
 | `ngay_tao` | Ngày tạo trên hệ thống | Ngày giờ | MR | Dùng làm sắp xếp mặc định |
 
 ### 4.2. Văn bản — chỉ có ở văn bản đến
@@ -464,6 +499,7 @@ Mẫu đầu ra (`kem_theo=files,van_ban_lien_quan`):
 |---|---|---|---|---|
 | `ngay_ban_hanh` | Ngày ban hành | Ngày | CB | Ngày văn bản đi được ban hành / phát hành (D9) |
 | `nguoi_soan` | Người soạn thảo | Chuỗi | MR | |
+| `id_nguoi_tao`, `ten_nguoi_tao` | Người tạo văn bản trên hệ thống | Chuỗi | MR | Căn cứ của cách tính `NGUOI_TAO` (F19) |
 | `id_don_vi_soan_thao` | ID phòng ban soạn thảo | Chuỗi | MR | |
 | `ten_don_vi_soan_thao` | Tên phòng ban / đơn vị soạn thảo | Chuỗi | MR | |
 | `ngay_soan_thao` | Ngày soạn thảo | Ngày | MR | |
@@ -528,6 +564,7 @@ Phục vụ theo dõi 1 văn bản đã ban hành có bao nhiêu đơn vị (vd 
 | `ten_don_vi` | Tên đầy đủ | Chuỗi | |
 | `ten_viet_tat` | Ký hiệu đơn vị | Chuỗi | |
 | `id_don_vi_cha` | ID đơn vị cha | Chuỗi | Rỗng = cấp gốc |
+| `loai_don_vi` | Loại đơn vị | Mã (Mục 6.10) | Độc lập / độc lập phụ thuộc / phụ thuộc — quyết định cách xác định văn bản của đơn vị (Mục 1.3) |
 | `cap_don_vi` | Cấp trong cây | Số | Gốc là cấp 1, tăng dần theo cây |
 | `thu_tu_hien_thi` | Thứ tự | Số | Theo cây đơn vị trong quản trị |
 | `trang_thai` | Trạng thái | Mã (Mục 6.9) | |
@@ -573,14 +610,14 @@ Chức vụ trên iOffice không gắn riêng cho đơn vị hay phòng ban nào
 
 | Mã | Tham số | Ý nghĩa | So khớp | Ràng buộc |
 |---|---|---|---|---|
-| F01 | `ma_schema` | Schema cần lấy | BANG | Mặc định lấy từ token; chỉ truyền khi token được cấp nhiều schema, và phải thuộc hồ sơ. Chỉ nhận `ma_schema`, không nhận `agent_id` (D14) |
+| F01 | `agent_id` hoặc `ma_schema` | Agent cần lấy — truyền 1 trong 2 mã (D14) | BANG | Token được cấp 1 agent: không bắt buộc, mặc định là agent đó. Token được cấp nhiều agent: bắt buộc. Truyền cả 2 mã mà không cùng 1 agent → `INVALID_PARAM`. Agent ngoài hồ sơ → `FORBIDDEN_SCOPE`. Chỉ truyền F01, không truyền F08 = lấy toàn agent (D18) |
 | F02 | `loai_van_ban` | Đến / đi | TRONG | Không truyền = cả hai (nếu hồ sơ cho phép) |
 | F03 | `tu_khoa` | Tìm tự do trên trích yếu và số ký hiệu | CHUA | |
 | F04 | `trich_yeu` | Trích yếu | CHUA | |
 | F05 | `so_ky_hieu` | Số, ký hiệu | CHUA | |
 | F06 | `so_den_di` | Số đến / đi | CHUA | |
 | F07 | `id_don_vi_ban_hanh` | Đơn vị ban hành | TRONG | |
-| F08 | `id_don_vi` + `bao_gom_cap_duoi` | Đơn vị / phòng ban sở hữu hoặc được giao văn bản; có lấy cả đơn vị con cháu không | TRONG | Phải nằm trong phạm vi đơn vị của hồ sơ. `bao_gom_cap_duoi` mặc định: không |
+| F08 | `id_don_vi` + `bao_gom_cap_duoi` | Lấy văn bản của 1 (hoặc vài) đơn vị con trong agent; có lấy cả đơn vị con cháu không. Cách xác định văn bản của đơn vị theo loại đơn vị con: Mục 1.3 | TRONG | Không truyền = toàn agent (D18). Phải thuộc agent đã chọn và thuộc phạm vi hồ sơ (Mục 1.3). `bao_gom_cap_duoi` mặc định: không |
 | F09 | `nguoi_ky` | Người ký ban hành | BANG | Truyền tên đăng nhập của người ký |
 | F10 | `id_linh_vuc` | Lĩnh vực | TRONG | Mã lấy từ DM-05 |
 | F11 | `ma_hinh_thuc_van_ban` | Hình thức | TRONG | Mã lấy từ DM-05 |
@@ -591,6 +628,7 @@ Chức vụ trên iOffice không gắn riêng cho đơn vị hay phòng ban nào
 | F16 | `ten_dang_nhap` | Người dùng | BANG | Chỉ áp ở phạm vi `CA_NHAN`; khác người dùng trong token → `USER_MISMATCH` |
 | F17 | `vai_tro_xu_ly` | Vai trò xử lý | TRONG | Mục 6.4 |
 | F18 | `do_khan` | Độ khẩn | TRONG | Mã lấy từ DM-05 |
+| F19 | `cach_tinh_van_ban_di` | Cách xác định văn bản đi của 1 phòng ban | BANG | Chỉ có tác dụng khi lọc văn bản đi theo F08 mà đơn vị là phòng ban (độc lập phụ thuộc hoặc phụ thuộc). Nhận `DON_VI_SOAN_THAO` (mặc định) hoặc `NGUOI_TAO` (D19). Đơn vị độc lập luôn tính theo sổ riêng, bỏ qua tham số này |
 
 `loai_ngay` nhận: `NGAY_VAN_BAN` (cả hai loại), `NGAY_BAN_HANH` (chỉ văn bản đi), `NGAY_DEN` (chỉ văn bản đến), `NGAY_TAO`. Mặc định: văn bản đi lọc theo ngày ban hành, văn bản đến lọc theo ngày đến. Tìm cả đến và đi cùng lúc mà không truyền `loai_ngay` thì mỗi loại áp ngày mặc định của mình (D9).
 
@@ -670,6 +708,21 @@ Trạng thái tầng đơn vị (6.2) và tầng người dùng (6.3) là 2 khá
 | Đơn vị | `HOAT_DONG`, `NGUNG_HOAT_DONG` (đã khóa), `DA_XOA` (không còn trên cây đơn vị) |
 | Tài khoản người dùng | `HOAT_DONG` (được phép sử dụng), `KHOA` (không được phép sử dụng) |
 | Chức vụ, danh mục nghiệp vụ | `HOAT_DONG`, `NGUNG_HOAT_DONG` |
+
+### 6.10. `loai_don_vi`
+
+| Mã | Ý nghĩa | Sổ văn bản |
+|---|---|---|
+| `DOC_LAP` | Đơn vị độc lập | Có văn thư, sổ văn bản riêng |
+| `DOC_LAP_PHU_THUOC` | Đơn vị độc lập phụ thuộc | Dùng sổ của đơn vị cấp trên |
+| `PHU_THUOC` | Đơn vị phụ thuộc (phòng ban) | Dùng sổ của đơn vị cấp trên |
+
+### 6.11. `cach_tinh_van_ban_di`
+
+| Mã | Ý nghĩa |
+|---|---|
+| `DON_VI_SOAN_THAO` | Văn bản đi có phòng ban soạn thảo là đơn vị được lọc (mặc định) |
+| `NGUOI_TAO` | Văn bản đi có người tạo thuộc đơn vị được lọc |
 
 ---
 
@@ -771,7 +824,7 @@ Mỗi đơn vị tích hợp có 1 hồ sơ. Đây là nơi **duy nhất** chứ
 |---|---|---|
 | Định danh | Mã hồ sơ, tên đơn vị tích hợp, đầu mối liên hệ, văn bản đề nghị (số, ngày) | HS-001, Sở X, Công văn số …/SX-VP |
 | Xác thực | `client_id`, chế độ được dùng (`DON_VI` / `CA_NHAN` / cả hai), danh sách IP được phép | `DON_VI` |
-| Phạm vi dữ liệu | Schema được cấp, đơn vị gốc + có lấy đơn vị con, loại văn bản (đến / đi), trạng thái bắt buộc | Chỉ văn bản đi `DA_PHAT_HANH` |
+| Phạm vi dữ liệu | Agent được cấp; cấp toàn agent hay chỉ 1 nhánh đơn vị (đơn vị gốc của nhánh) — Mục 1.3; loại văn bản (đến / đi); trạng thái bắt buộc | Toàn agent `qlvb_hni_schema`, chỉ văn bản đi `DA_PHAT_HANH` |
 | API được dùng | Danh sách mã API Mục 3 | VB-01, VB-02, VB-05 |
 | Trường được lấy | Danh sách trường + khối con | Nhóm CB + `files` + `van_ban_lien_quan` |
 | Tiêu chí được lọc | Danh sách mã F Mục 5 + giá trị lọc cố định (nếu có) | F04, F05, F07, F10, F11, F12 |
@@ -787,7 +840,7 @@ Mỗi đơn vị tích hợp có 1 hồ sơ. Đây là nơi **duy nhất** chứ
 | 2 | Đồng bộ văn bản đến của 1 phòng ban | VB-01 | `DON_VI`, loại `DEN`, F08 (`id_don_vi` = phòng ban), F12 |
 | 3 | Theo dõi phản hồi của các đơn vị cho 1 văn bản đã ban hành | VB-02 | `kem_theo=van_ban_lien_quan` |
 | 4 | Theo dõi tiến độ, giám sát chỉ đạo điều hành 1 văn bản | VB-03 | Lọc `vai_tro_xu_ly` khi cần |
-| 5 | Thống kê số lượng văn bản đến / đi của đơn vị theo trạng thái | VB-06 | F08, F02, F10, F11, F14, F12 |
+| 5 | Thống kê số lượng văn bản đến / đi theo trạng thái — toàn agent hoặc 1 đơn vị con | VB-06 | Định danh agent; thêm `id_don_vi` (+ `bao_gom_cap_duoi`) khi thống kê 1 đơn vị con; lọc `loai_van_ban`, `id_linh_vuc`, `ma_hinh_thuc_van_ban`, `trang_thai_van_ban`, `tu_ngay` / `den_ngay` |
 | 6 | Lãnh đạo / chuyên viên — văn bản đến cần xử lý | VB-01 + VB-03 | Token `CA_NHAN`, loại `DEN`, F15 `CHO_XU_LY`, F12; trường thêm `han_xu_ly`, `do_khan`; luồng xử lý qua VB-03 |
 | 7 | Lãnh đạo / chuyên viên — văn bản đi cần xử lý | VB-01 | Token `CA_NHAN`, loại `DI`, F15 `CHO_XU_LY`; trường thêm `nguoi_soan`, `ten_don_vi_soan_thao`, `ngay_trinh`, `ngay_soan_thao` |
 | 8 | Văn thư — văn bản đến cần vào sổ | VB-01 | `DON_VI` (tài khoản văn thư), loại `DEN`, F14 `CHO_VAO_SO` |
@@ -836,7 +889,6 @@ Mỗi đơn vị tích hợp có 1 hồ sơ. Đây là nơi **duy nhất** chứ
 |---|---|---|
 | Q1 | Con số mặc định của ngưỡng số lượt gọi (NFR-06) | Dev đề xuất sau khi đo tải |
 | Q2 | Bộ mã độ khẩn đầy đủ trên iOffice (Mục 6.6) — có mức "Thượng khẩn" không | Lấy từ danh mục độ khẩn của hệ thống |
-
 ---
 
 ## Phụ lục A. Đối tượng mở rộng (dự kiến bản 1.1 — D7)
