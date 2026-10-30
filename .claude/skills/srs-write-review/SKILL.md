@@ -3,7 +3,7 @@ name: srs-write-review
 description: >
   Write, structure, refine, and review SRS documents following the VNPT iOffice standard.
   Activate whenever the user mentions: viết SRS, viết đặc tả, đặc tả chức năng, review SRS,
-  kiểm tra tài liệu, business rule, thiết kế luồng, thiết kế màn hình, mô tả giao diện,
+  kiểm tra tài liệu, đánh giá luồng nghiệp vụ, tối ưu quy trình, bố cục tài liệu, business rule, thiết kế luồng, thiết kế màn hình, mô tả giao diện,
   phân quyền theo role, trạng thái đối tượng, chuyển trạng thái, luồng duyệt, audit log,
   đặc tả tích hợp, tích hợp API, gọi API, cung cấp API, mapping dữ liệu, webhook,
   hoặc bất kỳ yêu cầu mô tả chức năng phần mềm có cấu trúc.
@@ -27,7 +27,7 @@ Sau khi SRS được phê duyệt và xuất file (WRITE mode), có thể hỗ t
 | Dấu hiệu nhận biết | Mode | File rule cần đọc | Output |
 |--------------------|------|------------------|--------|
 | "viết SRS", "đặc tả", "viết chức năng", cung cấp mô tả nghiệp vụ | **WRITE** | `references/writing-rules.md` | File `.md` (mặc định) — chỉ xuất `.docx` khi user nói "xuất file Word", "file .doc", "file docx" |
-| "review SRS", "kiểm tra tài liệu", đính kèm SRS có sẵn để đánh giá | **REVIEW** | `references/review-rules.md` | Bảng tổng hợp + phân tích chi tiết + điểm chất lượng X/10, hiển thị trực tiếp trên chat |
+| "review SRS", "kiểm tra tài liệu", đính kèm SRS có sẵn để đánh giá | **REVIEW** | `references/review-rules.md` | Bài toán nghiệp vụ + bảng tổng hợp + phân tích chi tiết + đề xuất tối ưu luồng & bố cục + điểm chất lượng X/10, hiển thị trực tiếp trên chat |
 | "soạn nội dung Jira", "tạo phiếu Jira cho SRS/module X", user từng từ chối ở Bước 5 và giờ quay lại yêu cầu riêng | **JIRA-CONTENT** (gọi thẳng Bước 5, không cần lặp lại Bước 1–4) | `references/writing-rules.md` mục "Gọi độc lập" trong Bước 5 | `<module-slug>/jira-ready.md` (hoặc `<cr_id>/jira-ready.md`) |
 | Không rõ | Hỏi: "Bạn muốn viết SRS mới hay review SRS đã có?" | — | — |
 

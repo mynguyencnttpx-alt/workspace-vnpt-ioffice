@@ -806,12 +806,14 @@ Ngay sau khi viết xong toàn bộ SRS ở Bước 3 — **KHÔNG xuất file n
 ### Khác biệt so với khi chạy REVIEW mode độc lập
 - KHÔNG hỏi lại context BRD/hệ thống liên quan (Bước 0 — Context Loading của `review-rules.md`) — vì đang cùng phiên viết, context đã có sẵn từ Bước 1–3.
 - KHÔNG cần áp dụng "Quy tắc xử lý input" của `review-rules.md` (tài liệu trống, dưới 200 từ, thiếu section...) — SRS vừa viết chắc chắn hợp lệ về mặt cấu trúc.
-- Áp dụng đầy đủ phần còn lại: 3 góc nhìn BA/Dev/QA, định nghĩa mức độ nghiêm trọng, Quality Gate có trọng số, Trạng thái phê duyệt — theo đúng `references/review-rules.md`.
+- Áp dụng đầy đủ phần còn lại: Bước 0.5 (dựng lại bài toán), 3 góc nhìn BA/Dev/QA, các góc nhìn thiết kế (🟣 Luồng nghiệp vụ, 🟤 Bố cục, 🔁 Trùng lặp mô tả, ✍️ Văn phong & tính thực tế), định nghĩa mức độ nghiêm trọng, Quality Gate có trọng số, Trạng thái phê duyệt — theo đúng `references/review-rules.md`.
+- Khi tự review luồng do chính mình vừa viết, chủ động tìm phương án tốt hơn thay vì bảo vệ luồng đã viết — đặc biệt là luồng chép nguyên từ mô tả của user/KH mà chưa được cân nhắc lại.
 
 ### Output bắt buộc hiển thị trên chat trước khi sang Bước 3.6
 1. Bảng tổng hợp vấn đề (tối đa 10, ưu tiên 🔴 Critical / 🟠 Major — để trống nếu không phát hiện vấn đề gì)
-2. Quality Gate — thang điểm có trọng số (Completeness 50% / Clarity 20% / Consistency 20% / Formatting 10%)
-3. Trạng thái phê duyệt: ✅ Approved | ⚠️ Conditional Approval | ❌ Needs Revision
+2. Đề xuất tối ưu luồng, bố cục, trùng lặp, văn phong (mục 3a–3d output template của `review-rules.md`) — chỉ khi có đề xuất thực chất
+3. Quality Gate — thang điểm có trọng số (Completeness 40% / Clarity 15% / Consistency 15% / Flow Design 15% / Structure 10% / Formatting 5%)
+4. Trạng thái phê duyệt: ✅ Approved | ⚠️ Conditional Approval | ❌ Needs Revision
 
 ### Xử lý theo trạng thái
 

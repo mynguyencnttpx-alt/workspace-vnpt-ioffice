@@ -111,9 +111,17 @@ Loại API quyết định cách viết bảng Response ở mục 3 — xác đ�
 | Mục đích | ✅ | "Cho phép hệ thống đối tác tra cứu trạng thái xử lý văn bản theo mã văn bản" |
 | Cơ chế xác thực | ✅ | API Key / OAuth2 / Token theo header `Authorization: Bearer <token>` |
 | Hệ thống/đối tác được phép gọi | ✅ nếu xác định được | "Hệ thống Kế toán VNPT-IT" |
-| Rate limit (nếu có) | ⚪ | "Tối đa 100 request/phút/đối tác" |
+| Giới hạn tần suất gọi (Rate limit) | ✅ nếu API cho đối tác/hệ thống bên ngoài gọi vào | "Tối đa 100 request/phút/đối tác" |
+| Giới hạn khối lượng mỗi lần gọi (nếu API List/Report) | ⚪ | "Tối đa 500 bản ghi/lần, vượt quá phải phân trang" |
 
 Nếu thiếu thông tin xác thực hoặc đối tác cụ thể → đánh dấu `[CẦN XÁC NHẬN]`, không tự giả định.
+
+**Giới hạn hiệu năng — bắt buộc cân nhắc với mọi API cung cấp ra ngoài.** Actor gọi API là hệ thống/đối tác bên ngoài nên tần suất và khối lượng gọi nằm ngoài kiểm soát của mình → phải đặc tả rõ để tránh đối tác gọi dồn dập làm ảnh hưởng hiệu năng chung của hệ thống. Tối thiểu trả lời các câu hỏi sau; nếu chưa quyết được thì đánh dấu `[CẦN XÁC NHẬN]`, không tự bỏ qua:
+
+- Rate limit áp dụng theo đối tác/API key hay theo endpoint? Con số cụ thể (request/giây hoặc /phút)?
+- Vượt rate limit thì hệ thống trả gì? → luôn thêm response lỗi `429 Too Many Requests` vào bảng Response lỗi ở mục 3, kèm header gợi ý thời gian chờ (`Retry-After`) nếu có
+- Với API List/Report: có giới hạn kích thước trang tối đa (`maxPageSize`) để chặn request kéo toàn bộ dữ liệu trong 1 lần gọi không?
+- Cơ chế throttling/circuit breaker do tầng hạ tầng (API Gateway) đảm nhiệm hay phải xử lý trong logic chức năng? Nếu do hạ tầng đảm nhiệm thì chỉ cần ghi rõ tham chiếu, không lặp lại logic ở tầng ứng dụng.
 
 #### 2. Bảng Request
 
@@ -140,6 +148,7 @@ Nếu thiếu thông tin xác thực hoặc đối tác cụ thể → đánh d�
 | 400 | `INVALID_PARAM` | Thiếu hoặc sai kiểu dữ liệu field bắt buộc | `{"error": "INVALID_PARAM", "message": "..."}` |
 | 401 | `UNAUTHORIZED` | Token không hợp lệ hoặc hết hạn | `{"error": "UNAUTHORIZED"}` |
 | 404 | `NOT_FOUND` | Không tìm thấy bản ghi theo `documentId` | `{"error": "NOT_FOUND"}` |
+| 429 | `RATE_LIMIT_EXCEEDED` | Đối tác gọi vượt quá số lượng request cho phép trong khoảng thời gian quy định | `{"error": "RATE_LIMIT_EXCEEDED", "message": "..."}`, kèm header `Retry-After` (số giây chờ) nếu có |
 
 > Bảng response lỗi này phục vụ phần **② Luồng xử lý ngoại lệ** ngay bên dưới — mỗi dòng ở đây nên có 1 EX-XX tương ứng mô tả hành vi hệ thống xử lý (log, không đổi state, v.v.), không lặp lại nguyên bảng.
 
@@ -253,6 +262,8 @@ Bước 2: Văn thư nhấn nút "Tra cứu", hệ thống thực hiện:
 - [ ] Bảng Request ghi rõ vị trí field (Path/Query/Body/Header) và mapping với hệ thống
 - [ ] Bảng Response có cả response thành công và response lỗi theo HTTP status
 - [ ] Mỗi response lỗi có 1 EX-XX tương ứng ở Luồng ngoại lệ
+- [ ] Đã đặc tả rate limit (số request/khoảng thời gian, áp dụng theo đối tác hay endpoint) và có response `429 Too Many Requests` khi vượt ngưỡng — tránh đối tác gọi quá tải ảnh hưởng hiệu năng hệ thống
+- [ ] API List/Report có giới hạn kích thước trang/khối lượng dữ liệu tối đa mỗi lần gọi (`maxPageSize` hoặc tương đương), tránh request kéo toàn bộ dữ liệu 1 lần
 
 **Hướng B (Consume)**
 - [ ] Có bảng Mapping Request: field gửi đi ↔ field/nguồn dữ liệu trong hệ thống mình
